@@ -2,11 +2,25 @@ export interface TopicData {
   slug: string;
   title: string;
   subtitle: string;
-  accent: string; // tailwind color name: "orange", "blue", "cyan", etc.
+  /**
+   * @deprecated The legacy per-topic accent colour is no longer read by UI.
+   * Visual accents are derived from `category` via `lib/categoryAccents.ts`.
+   * The field is kept for backward compatibility with existing data files.
+   */
+  accent: string;
+  /**
+   * @deprecated Emoji decoration has been removed from the UI in favour of
+   * lucide-react icons. The field is kept for backward compatibility.
+   */
   emoji: string;
   category: string;
   description: string;
   keyPoints: string[]; // bullet points shown on homepage card
+  /**
+   * Optional editorial-style metadata tags shown on the homepage list. If
+   * omitted, the UI auto-derives a small set from `keyPoints[0..n]`.
+   */
+  tags?: string[];
   sections: Section[];
   quiz: QuizQuestion[];
 }
