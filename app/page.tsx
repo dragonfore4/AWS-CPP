@@ -1,51 +1,61 @@
-import { topics } from "@/data/index";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import HomepageCards, { TopicCardData } from "@/components/HomepageCards";
+import HomepageTopicList from "@/components/HomepageTopicList";
+import { topics } from "@/data/index";
 
 export default function Home() {
-  // Serialize only what the client component needs (exclude sections and quiz for performance)
-  const topicCards: TopicCardData[] = topics.map((t) => ({
-    slug: t.slug,
-    title: t.title,
-    subtitle: t.subtitle,
-    emoji: t.emoji,
-    accent: t.accent,
-    keyPoints: t.keyPoints,
-  }));
+  const totalQuestions = topics.reduce((sum, t) => sum + t.quiz.length, 0);
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col">
+    <>
       <Navbar />
 
       <main className="flex-1">
-        {/* Hero Section */}
-        <section className="max-w-5xl mx-auto px-4 pt-20 pb-14 text-center">
-          <div className="inline-flex items-center gap-2 bg-indigo-500/10 border border-indigo-500/30 rounded-full px-4 py-1.5 mb-6">
-            <span className="text-indigo-300 text-sm font-semibold tracking-wide">
-              CLF-C02
-            </span>
+        <section className="mx-auto max-w-3xl px-4 pt-16 pb-10 sm:px-6 sm:pt-20 sm:pb-12">
+          <div className="text-[10px] uppercase tracking-[0.18em] text-[var(--ink-faint)]">
+            AWS Certification · CLF-C02
           </div>
-
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-5 tracking-tight">
+          <h1 className="mt-3 font-serif text-3xl leading-[1.15] text-[var(--ink)] sm:text-[2.5rem]">
             AWS Cloud Practitioner
+            <span className="block text-[var(--ink-muted)]">— บันทึกย่อทบทวนสอบ</span>
           </h1>
+          <p className="mt-5 max-w-[60ch] text-[var(--ink-muted)]">
+            บันทึกย่อระหว่างเตรียมสอบ AWS Certified Cloud Practitioner (CLF-C02)
+            อิงโครงสร้างคอร์ส{" "}
+            <a
+              href="https://www.udemy.com/course/aws-certified-cloud-practitioner-new/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-[var(--ink)] underline decoration-[var(--rule-strong)] underline-offset-4 hover:decoration-[var(--ink)]"
+            >
+              Ultimate AWS Cloud Practitioner&apos;s Exam
+            </a>{" "}
+            ของ Stephane Maarek บน Udemy แบ่งเป็น {topics.length} หัวข้อตามลำดับในคอร์ส
+            แต่ละหัวข้อมีคำถามท้ายบทสำหรับทดสอบความเข้าใจ
+          </p>
 
-          <p className="text-lg md:text-xl text-slate-200 max-w-2xl mx-auto mb-2 leading-relaxed">
-            สรุปเนื้อหาสำหรับสอบ AWS Certified Cloud Practitioner
-          </p>
-          <p className="text-base text-slate-400 max-w-2xl mx-auto">
-            แบ่งตามหัวข้อตาม Stephane Maarek course — เข้าใจง่าย ทบทวนเร็ว พร้อม Quiz ท้ายบท
-          </p>
+          <dl className="mt-7 flex flex-wrap items-baseline gap-x-7 gap-y-2 text-sm text-[var(--ink-muted)]">
+            <div className="flex items-baseline gap-1.5">
+              <dt className="text-[var(--ink-faint)]">หัวข้อ</dt>
+              <dd className="tabular-nums text-[var(--ink)]">{topics.length}</dd>
+            </div>
+            <div className="flex items-baseline gap-1.5">
+              <dt className="text-[var(--ink-faint)]">คำถามฝึก</dt>
+              <dd className="tabular-nums text-[var(--ink)]">{totalQuestions}</dd>
+            </div>
+            <div className="flex items-baseline gap-1.5">
+              <dt className="text-[var(--ink-faint)]">ภาษา</dt>
+              <dd className="text-[var(--ink)]">ไทย / อังกฤษ</dd>
+            </div>
+          </dl>
         </section>
 
-        {/* Topic Cards Grid */}
-        <section className="max-w-6xl mx-auto px-4 pb-20">
-          <HomepageCards topics={topicCards} />
+        <section className="mx-auto max-w-3xl px-4 pb-20 sm:px-6">
+          <HomepageTopicList />
         </section>
       </main>
 
       <Footer />
-    </div>
+    </>
   );
 }

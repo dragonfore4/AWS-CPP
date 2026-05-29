@@ -1,10 +1,17 @@
 import type { Metadata } from "next";
-import { Inter, Noto_Sans_Thai } from "next/font/google";
+import {
+  Inter,
+  Noto_Sans_Thai,
+  IBM_Plex_Serif,
+  Noto_Serif_Thai,
+  Geist_Mono,
+} from "next/font/google";
 import "./globals.css";
+import { themeScript, fontSizeScript, navLayoutScript } from "@/lib/themeScript";
 
 const inter = Inter({
   variable: "--font-inter",
-  subsets: ["latin"],
+  subsets: ["latin", "latin-ext"],
   display: "swap",
 });
 
@@ -14,10 +21,30 @@ const notoSansThai = Noto_Sans_Thai({
   display: "swap",
 });
 
+const plexSerif = IBM_Plex_Serif({
+  variable: "--font-plex-serif",
+  subsets: ["latin", "latin-ext"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const notoSerifThai = Noto_Serif_Thai({
+  variable: "--font-noto-serif-thai",
+  subsets: ["thai"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
+  display: "swap",
+});
+
 export const metadata: Metadata = {
-  title: "AWS Cloud Practitioner - CLF-C02 สรุปย่อ",
+  title: "AWS Cloud Practitioner — บันทึกย่อ CLF-C02",
   description:
-    "สรุปเนื้อหาสำหรับสอบ AWS Certified Cloud Practitioner (CLF-C02) แบ่งตามหัวข้อ เข้าใจง่าย ทบทวนได้เร็ว",
+    "บันทึกย่อระหว่างเตรียมสอบ AWS Cloud Practitioner (CLF-C02) อิงโครงคอร์สของ Stephane Maarek บน Udemy",
 };
 
 export default function RootLayout({
@@ -28,9 +55,21 @@ export default function RootLayout({
   return (
     <html
       lang="th"
-      className={`${inter.variable} ${notoSansThai.variable} h-full antialiased`}
+      suppressHydrationWarning
+      className={`${inter.variable} ${notoSansThai.variable} ${plexSerif.variable} ${notoSerifThai.variable} ${geistMono.variable} h-full`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <head>
+        {/* Theme + nav layout must be applied before paint to prevent FOUC. */}
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
+        <script dangerouslySetInnerHTML={{ __html: navLayoutScript }} />
+      </head>
+      <body
+        suppressHydrationWarning
+        className="min-h-full flex flex-col bg-[var(--bg)] text-[var(--ink)] font-md"
+      >
+        <script dangerouslySetInnerHTML={{ __html: fontSizeScript }} />
+        {children}
+      </body>
     </html>
   );
 }
