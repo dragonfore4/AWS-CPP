@@ -1,0 +1,455 @@
+import { TopicData } from "@/types/topic";
+
+export const iam: TopicData = {
+  slug: "iam",
+  title: "IAM",
+  subtitle: "Identity and Access Management",
+  accent: "orange",
+  emoji: "\ud83d\udd10",
+  category: "Security, Identity & Compliance",
+  description:
+    "IAM \u0e04\u0e37\u0e2d\u0e1a\u0e23\u0e34\u0e01\u0e32\u0e23\u0e02\u0e2d\u0e07 AWS \u0e17\u0e35\u0e48\u0e43\u0e0a\u0e49\u0e04\u0e27\u0e1a\u0e04\u0e38\u0e21\u0e27\u0e48\u0e32\u0e43\u0e04\u0e23\u0e08\u0e30\u0e40\u0e02\u0e49\u0e32\u0e16\u0e36\u0e07\u0e2d\u0e30\u0e44\u0e23\u0e44\u0e14\u0e49\u0e1a\u0e49\u0e32\u0e07\u0e43\u0e19\u0e1a\u0e31\u0e0d\u0e0a\u0e35 AWS \u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13 \u0e40\u0e1b\u0e47\u0e19 Global service \u0e44\u0e21\u0e48\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a Region \u0e43\u0e14 region \u0e2b\u0e19\u0e36\u0e48\u0e07 \u0e41\u0e25\u0e30\u0e44\u0e21\u0e48\u0e21\u0e35\u0e04\u0e48\u0e32\u0e43\u0e0a\u0e49\u0e08\u0e48\u0e32\u0e22",
+  keyPoints: [
+    "\u0e04\u0e27\u0e1a\u0e04\u0e38\u0e21\u0e01\u0e32\u0e23\u0e40\u0e02\u0e49\u0e32\u0e16\u0e36\u0e07 AWS \u0e14\u0e49\u0e27\u0e22 Users, Groups, Roles \u0e41\u0e25\u0e30 Policies",
+    "\u0e43\u0e0a\u0e49\u0e2b\u0e25\u0e31\u0e01 Least Privilege \u2014 \u0e43\u0e2b\u0e49 permission \u0e40\u0e17\u0e48\u0e32\u0e17\u0e35\u0e48\u0e08\u0e33\u0e40\u0e1b\u0e47\u0e19\u0e40\u0e17\u0e48\u0e32\u0e19\u0e31\u0e49\u0e19",
+    "\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a MFA, Password Policy \u0e41\u0e25\u0e30 Access Keys \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a Console / CLI / SDK",
+    "Security Tools: Credentials Report (account) \u0e41\u0e25\u0e30 Access Advisor (user)",
+  ],
+  sections: [
+    {
+      id: "users-groups",
+      title: "Users & Groups",
+      content: [
+        {
+          type: "paragraph",
+          text: "<strong>IAM User</strong> \u0e04\u0e37\u0e2d\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e17\u0e35\u0e48\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e02\u0e36\u0e49\u0e19\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a <em>\u0e04\u0e19\u0e2b\u0e23\u0e37\u0e2d service</em> \u0e17\u0e35\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23\u0e40\u0e02\u0e49\u0e32\u0e16\u0e36\u0e07 AWS \u2014 \u0e2a\u0e48\u0e27\u0e19 <strong>IAM Group</strong> \u0e04\u0e37\u0e2d\u0e01\u0e25\u0e38\u0e48\u0e21\u0e02\u0e2d\u0e07 Users \u0e17\u0e35\u0e48\u0e23\u0e27\u0e21\u0e01\u0e31\u0e19\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e01\u0e33\u0e2b\u0e19\u0e14 permission \u0e44\u0e14\u0e49\u0e17\u0e35\u0e40\u0e14\u0e35\u0e22\u0e27",
+        },
+        {
+          type: "list",
+          items: [
+            "1 User \u0e15\u0e48\u0e2d 1 \u0e04\u0e19 (\u0e44\u0e21\u0e48\u0e04\u0e27\u0e23 share)",
+            "User \u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e40\u0e02\u0e49\u0e32\u0e16\u0e36\u0e07 AWS \u0e44\u0e14\u0e49 2 \u0e27\u0e34\u0e18\u0e35: Management Console (password) \u0e41\u0e25\u0e30 CLI / SDK (Access Key)",
+            "User \u0e17\u0e35\u0e48\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e43\u0e2b\u0e21\u0e48\u0e08\u0e30\u0e44\u0e21\u0e48\u0e21\u0e35 permission \u0e43\u0e14\u0e46 \u0e40\u0e25\u0e22\u0e42\u0e14\u0e22 default",
+            "Root user \u0e21\u0e35\u0e2a\u0e34\u0e17\u0e18\u0e34\u0e4c\u0e17\u0e38\u0e01\u0e2d\u0e22\u0e48\u0e32\u0e07 \u2014 \u0e04\u0e27\u0e23\u0e40\u0e1b\u0e34\u0e14\u0e43\u0e0a\u0e49\u0e41\u0e04\u0e48\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e08\u0e33\u0e40\u0e1b\u0e47\u0e19 \u0e41\u0e25\u0e30 enable MFA \u0e17\u0e31\u0e19\u0e17\u0e35",
+            "Group \u0e21\u0e35\u0e44\u0e14\u0e49\u0e41\u0e04\u0e48 Users \u2014 \u0e44\u0e21\u0e48\u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e43\u0e2a\u0e48 Group \u0e0b\u0e49\u0e2d\u0e19 Group \u0e44\u0e14\u0e49 (no nested groups)",
+            "User 1 \u0e04\u0e19 \u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e2d\u0e22\u0e39\u0e48\u0e44\u0e14\u0e49\u0e2b\u0e25\u0e32\u0e22 Group \u0e2b\u0e23\u0e37\u0e2d\u0e44\u0e21\u0e48\u0e2d\u0e22\u0e39\u0e48 Group \u0e40\u0e25\u0e22\u0e01\u0e47\u0e44\u0e14\u0e49",
+            "\u0e15\u0e31\u0e27\u0e2d\u0e22\u0e48\u0e32\u0e07: \u0e01\u0e25\u0e38\u0e48\u0e21 Developers, \u0e01\u0e25\u0e38\u0e48\u0e21 Admins, \u0e01\u0e25\u0e38\u0e48\u0e21 Finance",
+          ],
+        },
+        {
+          type: "code",
+          language: "text",
+          caption: "\u0e15\u0e31\u0e27\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e42\u0e04\u0e23\u0e07\u0e2a\u0e23\u0e49\u0e32\u0e07",
+          code: "Group: Developers \u2192 Alice, Bob\nGroup: Admins \u2192 Carol\nUser: Dave \u2192 \u0e44\u0e21\u0e48\u0e2d\u0e22\u0e39\u0e48 group \u0e44\u0e2b\u0e19 (\u0e44\u0e14\u0e49 permission \u0e40\u0e09\u0e1e\u0e32\u0e30\u0e17\u0e35\u0e48 assign \u0e42\u0e14\u0e22\u0e15\u0e23\u0e07)",
+        },
+      ],
+    },
+    {
+      id: "roles",
+      title: "Roles",
+      content: [
+        {
+          type: "paragraph",
+          text: "<strong>IAM Role</strong> \u0e04\u0e37\u0e2d\u0e0a\u0e38\u0e14 permission \u0e17\u0e35\u0e48 <em>\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a\u0e04\u0e19</em> \u0e41\u0e15\u0e48\u0e1c\u0e39\u0e01\u0e01\u0e31\u0e1a entity \u0e17\u0e35\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19 \u0e40\u0e2b\u0e21\u0e37\u0e2d\u0e19 \"\u0e1a\u0e17\u0e1a\u0e32\u0e17\" \u0e17\u0e35\u0e48\u0e43\u0e04\u0e23\u0e01\u0e47\u0e44\u0e14\u0e49\u0e21\u0e32\u0e2a\u0e27\u0e21\u0e0a\u0e31\u0e48\u0e27\u0e04\u0e23\u0e32\u0e27",
+        },
+        {
+          type: "list",
+          items: [
+            "\u0e43\u0e0a\u0e49\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a <strong>AWS Services</strong> \u0e40\u0e0a\u0e48\u0e19 EC2 \u0e17\u0e35\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23 access S3",
+            "\u0e43\u0e0a\u0e49\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a <strong>Cross-account access</strong> \u2014 \u0e43\u0e2b\u0e49\u0e1a\u0e31\u0e0d\u0e0a\u0e35 AWS \u0e2d\u0e37\u0e48\u0e19\u0e40\u0e02\u0e49\u0e32\u0e16\u0e36\u0e07\u0e44\u0e14\u0e49",
+            "\u0e43\u0e0a\u0e49\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a <strong>Federated users</strong> \u0e40\u0e0a\u0e48\u0e19 login \u0e14\u0e49\u0e27\u0e22 Google / Active Directory",
+            "Role \u0e43\u0e0a\u0e49\u0e44\u0e21\u0e48\u0e21\u0e35 long-term credentials \u2014 \u0e44\u0e14\u0e49 temporary security credentials \u0e41\u0e17\u0e19",
+          ],
+        },
+        {
+          type: "grid",
+          items: [
+            {
+              title: "Use Case: EC2 \u2192 S3",
+              description:
+                "\u0e2a\u0e23\u0e49\u0e32\u0e07 Role \u0e0a\u0e37\u0e48\u0e2d EC2-S3-Access \u0e41\u0e25\u0e49\u0e27 attach \u0e01\u0e31\u0e1a EC2 instance \u0e41\u0e17\u0e19\u0e01\u0e32\u0e23\u0e43\u0e2a\u0e48 Access Key \u0e25\u0e07\u0e43\u0e19 code",
+            },
+            {
+              title: "Use Case: Lambda \u2192 DynamoDB",
+              description:
+                "Lambda function \u0e23\u0e31\u0e1a Role \u0e17\u0e35\u0e48\u0e21\u0e35 permission \u0e2d\u0e48\u0e32\u0e19/\u0e40\u0e02\u0e35\u0e22\u0e19 DynamoDB \u0e42\u0e14\u0e22\u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e43\u0e0a\u0e49 user",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "policies",
+      title: "Policies",
+      content: [
+        {
+          type: "paragraph",
+          text: "<strong>Policy</strong> \u0e04\u0e37\u0e2d JSON document \u0e17\u0e35\u0e48\u0e01\u0e33\u0e2b\u0e19\u0e14\u0e27\u0e48\u0e32 <em>\u0e2d\u0e19\u0e38\u0e0d\u0e32\u0e15\u0e2b\u0e23\u0e37\u0e2d\u0e2b\u0e49\u0e32\u0e21</em> \u0e17\u0e33\u0e2d\u0e30\u0e44\u0e23\u0e01\u0e31\u0e1a resource \u0e43\u0e14\u0e1a\u0e49\u0e32\u0e07 \u2014 attach \u0e01\u0e31\u0e1a User, Group \u0e2b\u0e23\u0e37\u0e2d Role \u0e44\u0e14\u0e49",
+        },
+        {
+          type: "grid",
+          items: [
+            {
+              title: "Identity-based Policy",
+              description:
+                "Attach \u0e01\u0e31\u0e1a User, Group, \u0e2b\u0e23\u0e37\u0e2d Role \u2014 \u0e01\u0e33\u0e2b\u0e19\u0e14\u0e27\u0e48\u0e32 identity \u0e19\u0e31\u0e49\u0e19\u0e17\u0e33\u0e2d\u0e30\u0e44\u0e23\u0e44\u0e14\u0e49",
+            },
+            {
+              title: "Resource-based Policy",
+              description:
+                "Attach \u0e01\u0e31\u0e1a resource \u0e40\u0e0a\u0e48\u0e19 S3 bucket \u2014 \u0e01\u0e33\u0e2b\u0e19\u0e14\u0e27\u0e48\u0e32\u0e43\u0e04\u0e23\u0e40\u0e02\u0e49\u0e32 resource \u0e19\u0e35\u0e49\u0e44\u0e14\u0e49",
+            },
+            {
+              title: "AWS Managed Policy",
+              description:
+                "AWS \u0e2a\u0e23\u0e49\u0e32\u0e07\u0e43\u0e2b\u0e49\u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08\u0e23\u0e39\u0e1b \u0e40\u0e0a\u0e48\u0e19 AdministratorAccess, ReadOnlyAccess",
+            },
+            {
+              title: "Customer Managed Policy",
+              description:
+                "\u0e40\u0e23\u0e32\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e40\u0e2d\u0e07\u0e15\u0e32\u0e21\u0e04\u0e27\u0e32\u0e21\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23, reusable \u0e02\u0e49\u0e32\u0e21 User/Role",
+            },
+          ],
+        },
+        {
+          type: "paragraph",
+          text: "\u0e42\u0e04\u0e23\u0e07\u0e2a\u0e23\u0e49\u0e32\u0e07 Policy JSON \u0e1b\u0e23\u0e30\u0e01\u0e2d\u0e1a\u0e14\u0e49\u0e27\u0e22: <strong>Version</strong> (\u0e40\u0e27\u0e2d\u0e23\u0e4c\u0e0a\u0e31\u0e48\u0e19 policy language), <strong>Id</strong> (\u0e23\u0e30\u0e1a\u0e38 policy \u2014 optional), \u0e41\u0e25\u0e30 <strong>Statement</strong> (1 \u0e2b\u0e23\u0e37\u0e2d\u0e2b\u0e25\u0e32\u0e22 statement)",
+        },
+        {
+          type: "grid",
+          items: [
+            {
+              title: "Sid",
+              description:
+                "Statement ID \u2014 \u0e15\u0e31\u0e27\u0e23\u0e30\u0e1a\u0e38 statement (optional) \u0e0a\u0e48\u0e27\u0e22\u0e43\u0e2b\u0e49\u0e2d\u0e48\u0e32\u0e19\u0e07\u0e48\u0e32\u0e22\u0e02\u0e36\u0e49\u0e19",
+            },
+            {
+              title: "Effect",
+              description:
+                "<strong>Allow</strong> \u0e2b\u0e23\u0e37\u0e2d <strong>Deny</strong> \u2014 statement \u0e19\u0e35\u0e49\u0e2d\u0e19\u0e38\u0e0d\u0e32\u0e15\u0e2b\u0e23\u0e37\u0e2d\u0e1b\u0e0f\u0e34\u0e40\u0e2a\u0e18 access",
+            },
+            {
+              title: "Principal",
+              description:
+                "\u0e1a\u0e31\u0e0d\u0e0a\u0e35/User/Role \u0e17\u0e35\u0e48 policy \u0e1a\u0e31\u0e07\u0e04\u0e31\u0e1a\u0e43\u0e0a\u0e49 (\u0e2a\u0e48\u0e27\u0e19\u0e21\u0e32\u0e01\u0e43\u0e0a\u0e49\u0e43\u0e19 resource-based policy)",
+            },
+            {
+              title: "Action",
+              description:
+                "\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23ของ API call \u0e17\u0e35\u0e48 allow/deny \u0e40\u0e0a\u0e48\u0e19 s3:GetObject, ec2:StartInstances",
+            },
+            {
+              title: "Resource",
+              description:
+                "\u0e23\u0e32\u0e22\u0e01\u0e32\u0e23 resource \u0e17\u0e35\u0e48 action \u0e21\u0e35\u0e1c\u0e25 (\u0e40\u0e02\u0e35\u0e22\u0e19\u0e40\u0e1b\u0e47\u0e19 ARN)",
+            },
+            {
+              title: "Condition",
+              description:
+                "\u0e40\u0e07\u0e37\u0e48\u0e2d\u0e19\u0e44\u0e02\u0e40\u0e1e\u0e34\u0e48\u0e21\u0e40\u0e15\u0e34\u0e21 (optional) \u2014 \u0e40\u0e0a\u0e48\u0e19\u0e08\u0e33\u0e01\u0e31\u0e14 IP, \u0e40\u0e27\u0e25\u0e32, MFA",
+            },
+          ],
+        },
+        {
+          type: "code",
+          language: "json",
+          caption: "\u0e15\u0e31\u0e27\u0e2d\u0e22\u0e48\u0e32\u0e07 Policy JSON \u0e41\u0e1a\u0e1a\u0e40\u0e15\u0e47\u0e21\u0e23\u0e39\u0e1b",
+          code: `{
+  "Version": "2012-10-17",
+  "Id": "S3-Account-Permissions",
+  "Statement": [
+    {
+      "Sid": "AllowReadObjects",
+      "Effect": "Allow",
+      "Principal": {
+        "AWS": ["arn:aws:iam::123456789012:root"]
+      },
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket"
+      ],
+      "Resource": "arn:aws:s3:::my-bucket/*"
+    }
+  ]
+}`,
+        },
+        {
+          type: "callout",
+          variant: "warning",
+          title: "\u0e2b\u0e25\u0e31\u0e01\u0e2a\u0e33\u0e04\u0e31\u0e0d: Least Privilege",
+          text: "\u0e43\u0e2b\u0e49 permission \u0e40\u0e17\u0e48\u0e32\u0e17\u0e35\u0e48\u0e08\u0e33\u0e40\u0e1b\u0e47\u0e19\u0e40\u0e17\u0e48\u0e32\u0e19\u0e31\u0e49\u0e19 \u2014 \u0e2d\u0e22\u0e48\u0e32\u0e43\u0e2b\u0e49\u0e21\u0e32\u0e01\u0e40\u0e01\u0e34\u0e19 \u0e25\u0e14 risk \u0e02\u0e2d\u0e07 security breach",
+        },
+      ],
+    },
+    {
+      id: "mfa",
+      title: "MFA (Multi-Factor Authentication)",
+      content: [
+        {
+          type: "paragraph",
+          text: "<strong>MFA</strong> = Password \u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e23\u0e39\u0e49 + Security Device \u0e17\u0e35\u0e48\u0e04\u0e38\u0e13\u0e21\u0e35 \u2014 \u0e16\u0e36\u0e07\u0e41\u0e21\u0e49 password \u0e16\u0e39\u0e01\u0e02\u0e42\u0e21\u0e22\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e01\u0e47\u0e22\u0e31\u0e07\u0e1b\u0e25\u0e2d\u0e14\u0e20\u0e31\u0e22 \u0e40\u0e1e\u0e23\u0e32\u0e30\u0e15\u0e49\u0e2d\u0e07\u0e21\u0e35 device \u0e14\u0e49\u0e27\u0e22",
+        },
+        {
+          type: "callout",
+          variant: "warning",
+          title: "\u0e17\u0e33\u0e44\u0e21\u0e15\u0e49\u0e2d\u0e07\u0e43\u0e0a\u0e49 MFA?",
+          text: "\u0e40\u0e1e\u0e23\u0e32\u0e30 root account \u0e41\u0e25\u0e30 IAM users \u0e21\u0e35\u0e1c\u0e25\u0e01\u0e23\u0e30\u0e17\u0e1a\u0e2a\u0e39\u0e07\u0e2b\u0e32\u0e01\u0e16\u0e39\u0e01\u0e02\u0e42\u0e21\u0e22 \u2014 MFA \u0e0a\u0e48\u0e27\u0e22\u0e25\u0e14\u0e04\u0e27\u0e32\u0e21\u0e40\u0e2a\u0e35\u0e48\u0e22\u0e07\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e21\u0e32\u0e01\u0e41\u0e21\u0e49 password \u0e23\u0e31\u0e48\u0e27",
+        },
+        {
+          type: "grid",
+          items: [
+            {
+              title: "Virtual MFA Device",
+              description:
+                "\u0e41\u0e2d\u0e1b\u0e1a\u0e19\u0e21\u0e37\u0e2d\u0e16\u0e37\u0e2d \u0e40\u0e0a\u0e48\u0e19 <strong>Google Authenticator</strong> (\u0e15\u0e48\u0e2d 1 device) \u0e2b\u0e23\u0e37\u0e2d <strong>Authy</strong> (\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a multi-device)",
+            },
+            {
+              title: "U2F Security Key",
+              description:
+                "\u0e2d\u0e38\u0e1b\u0e01\u0e23\u0e13\u0e4c USB \u0e17\u0e32\u0e07\u0e01\u0e32\u0e22\u0e20\u0e32\u0e1e \u0e40\u0e0a\u0e48\u0e19 <strong>YubiKey</strong> by Yubico (3rd party) \u2014 \u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a root \u0e41\u0e25\u0e30 IAM users \u0e2b\u0e25\u0e32\u0e22\u0e04\u0e19\u0e1a\u0e19 device \u0e40\u0e14\u0e35\u0e22\u0e27",
+            },
+            {
+              title: "Hardware Key Fob MFA Device",
+              description:
+                "\u0e2d\u0e38\u0e1b\u0e01\u0e23\u0e13\u0e4c\u0e1e\u0e27\u0e07\u0e01\u0e38\u0e0d\u0e41\u0e08 \u0e08\u0e32\u0e01 <strong>Gemalto</strong> \u2014 \u0e41\u0e2a\u0e14\u0e07 OTP \u0e1a\u0e19\u0e2b\u0e19\u0e49\u0e32\u0e08\u0e2d\u0e40\u0e25\u0e47\u0e01\u0e46",
+            },
+            {
+              title: "Hardware Key Fob (AWS GovCloud)",
+              description:
+                "\u0e23\u0e38\u0e48\u0e19\u0e40\u0e09\u0e1e\u0e32\u0e30\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a AWS GovCloud (US) \u2014 \u0e08\u0e32\u0e01 SurePassID",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "password-policy",
+      title: "Password Policy",
+      content: [
+        {
+          type: "paragraph",
+          text: "Password \u0e17\u0e35\u0e48\u0e41\u0e02\u0e47\u0e07\u0e41\u0e23\u0e07 = \u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e1b\u0e25\u0e2d\u0e14\u0e20\u0e31\u0e22\u0e21\u0e32\u0e01\u0e02\u0e36\u0e49\u0e19 \u2014 IAM \u0e43\u0e2b\u0e49\u0e15\u0e31\u0e49\u0e07 <strong>Password Policy</strong> \u0e23\u0e30\u0e14\u0e31\u0e1a account \u0e44\u0e14\u0e49",
+        },
+        {
+          type: "list",
+          items: [
+            "\u0e15\u0e31\u0e49\u0e07 <strong>minimum password length</strong> (\u0e04\u0e27\u0e32\u0e21\u0e22\u0e32\u0e27\u0e02\u0e31\u0e49\u0e19\u0e15\u0e48\u0e33)",
+            "\u0e1a\u0e31\u0e07\u0e04\u0e31\u0e1a\u0e1b\u0e23\u0e30\u0e40\u0e20\u0e17\u0e15\u0e31\u0e27\u0e2d\u0e31\u0e01\u0e29\u0e23: <strong>uppercase</strong>, <strong>lowercase</strong>, <strong>number</strong>, <strong>non-alphanumeric</strong> (special character)",
+            "\u0e2d\u0e19\u0e38\u0e0d\u0e32\u0e15\u0e2b\u0e23\u0e37\u0e2d\u0e1a\u0e31\u0e07\u0e04\u0e31\u0e1a\u0e43\u0e2b\u0e49\u0e1c\u0e39\u0e49\u0e43\u0e0a\u0e49\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19 password \u0e02\u0e2d\u0e07\u0e15\u0e31\u0e27\u0e40\u0e2d\u0e07\u0e44\u0e14\u0e49 (allow users to change own password)",
+            "\u0e15\u0e31\u0e49\u0e07 <strong>password expiration</strong> \u2014 \u0e1a\u0e31\u0e07\u0e04\u0e31\u0e1a\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19 password \u0e17\u0e38\u0e01\u0e46 \u0e01\u0e35\u0e48\u0e27\u0e31\u0e19",
+            "\u0e2b\u0e49\u0e32\u0e21\u0e43\u0e0a\u0e49 password \u0e0b\u0e49\u0e33\u0e02\u0e2d\u0e07\u0e40\u0e01\u0e48\u0e32 (prevent password re-use)",
+          ],
+        },
+      ],
+    },
+    {
+      id: "access-keys-cli-sdk",
+      title: "Access Keys, CLI & SDK",
+      content: [
+        {
+          type: "paragraph",
+          text: "\u0e21\u0e35 <strong>3 \u0e27\u0e34\u0e18\u0e35</strong>\u0e43\u0e19\u0e01\u0e32\u0e23\u0e40\u0e02\u0e49\u0e32\u0e16\u0e36\u0e07 AWS:",
+        },
+        {
+          type: "grid",
+          items: [
+            {
+              title: "1. AWS Management Console",
+              description:
+                "\u0e40\u0e02\u0e49\u0e32\u0e1c\u0e48\u0e32\u0e19 web browser \u2014 \u0e1b\u0e49\u0e2d\u0e07\u0e01\u0e31\u0e19\u0e14\u0e49\u0e27\u0e22 password + MFA",
+            },
+            {
+              title: "2. AWS CLI",
+              description:
+                "Command Line Interface \u2014 \u0e1b\u0e49\u0e2d\u0e07\u0e01\u0e31\u0e19\u0e14\u0e49\u0e27\u0e22 <strong>Access Keys</strong>",
+            },
+            {
+              title: "3. AWS SDK",
+              description:
+                "Software Development Kit (\u0e40\u0e23\u0e35\u0e22\u0e01\u0e08\u0e32\u0e01\u0e42\u0e04\u0e49\u0e14) \u2014 \u0e1b\u0e49\u0e2d\u0e07\u0e01\u0e31\u0e19\u0e14\u0e49\u0e27\u0e22 <strong>Access Keys</strong>",
+            },
+          ],
+        },
+        {
+          type: "callout",
+          variant: "info",
+          title: "Access Keys = credentials \u0e2a\u0e48\u0e27\u0e19\u0e15\u0e31\u0e27",
+          text: "Users \u0e08\u0e31\u0e14\u0e01\u0e32\u0e23 Access Keys \u0e15\u0e31\u0e27\u0e40\u0e2d\u0e07\u0e1c\u0e48\u0e32\u0e19 IAM Console \u2014 <strong>Access Key ID</strong> \u0e40\u0e2b\u0e21\u0e37\u0e2d\u0e19 username, <strong>Secret Access Key</strong> \u0e40\u0e2b\u0e21\u0e37\u0e2d\u0e19 password \u2014 \u0e2b\u0e49\u0e32\u0e21 share \u0e40\u0e14\u0e47\u0e14\u0e02\u0e32\u0e14",
+        },
+        {
+          type: "grid",
+          items: [
+            {
+              title: "AWS CLI \u0e04\u0e37\u0e2d\u0e2d\u0e30\u0e44\u0e23?",
+              description:
+                "\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e21\u0e37\u0e2d command-line \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e2a\u0e31\u0e48\u0e07\u0e07\u0e32\u0e19 AWS services \u0e1c\u0e48\u0e32\u0e19 terminal/shell \u2014 \u0e40\u0e02\u0e35\u0e22\u0e19 script \u0e17\u0e33 automation \u0e44\u0e14\u0e49 \u0e40\u0e1b\u0e47\u0e19 open-source (github.com/aws/aws-cli)",
+            },
+            {
+              title: "AWS SDK \u0e04\u0e37\u0e2d\u0e2d\u0e30\u0e44\u0e23?",
+              description:
+                "\u0e0a\u0e38\u0e14 library \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e20\u0e32\u0e29\u0e32 programming (JavaScript, Python, Java, .NET, ...) \u2014 \u0e40\u0e23\u0e35\u0e22\u0e01 AWS API \u0e44\u0e14\u0e49\u0e08\u0e32\u0e01 application code \u0e08\u0e23\u0e34\u0e07\u0e46\u0e41\u0e25\u0e49\u0e27 AWS CLI \u0e01\u0e47\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e1a\u0e19 Python SDK (boto3)",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      id: "security-tools",
+      title: "Security Tools",
+      content: [
+        {
+          type: "paragraph",
+          text: "IAM \u0e21\u0e35\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e21\u0e37\u0e2d\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e15\u0e23\u0e27\u0e08\u0e2a\u0e2d\u0e1a\u0e04\u0e27\u0e32\u0e21\u0e1b\u0e25\u0e2d\u0e14\u0e20\u0e31\u0e22 2 \u0e15\u0e31\u0e27\u0e2b\u0e25\u0e31\u0e01:",
+        },
+        {
+          type: "grid",
+          items: [
+            {
+              title: "IAM Credentials Report (Account-level)",
+              description:
+                "\u0e23\u0e32\u0e22\u0e07\u0e32\u0e19 CSV \u0e17\u0e35\u0e48\u0e41\u0e2a\u0e14\u0e07\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25 credential \u0e02\u0e2d\u0e07\u0e17\u0e38\u0e01 user \u0e43\u0e19\u0e1a\u0e31\u0e0d\u0e0a\u0e35 \u2014 \u0e1a\u0e2d\u0e01\u0e27\u0e48\u0e32 user \u0e44\u0e2b\u0e19\u0e40\u0e1b\u0e34\u0e14 MFA, password/access key \u0e16\u0e39\u0e01\u0e43\u0e0a\u0e49\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e44\u0e23 \u0e43\u0e0a\u0e49\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a audit security compliance",
+            },
+            {
+              title: "IAM Access Advisor (User-level)",
+              description:
+                "\u0e41\u0e2a\u0e14\u0e07\u0e27\u0e48\u0e32 service \u0e17\u0e35\u0e48 user \u0e21\u0e35 permission \u0e16\u0e39\u0e01\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e08\u0e23\u0e34\u0e07\u0e04\u0e23\u0e31\u0e49\u0e07\u0e25\u0e48\u0e32\u0e2a\u0e38\u0e14\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e44\u0e23 \u2014 \u0e43\u0e0a\u0e49\u0e23\u0e30\u0e1a\u0e38 permission \u0e17\u0e35\u0e48\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e41\u0e25\u0e49\u0e27\u0e25\u0e1a\u0e2d\u0e2d\u0e01\u0e15\u0e32\u0e21 Least Privilege",
+            },
+          ],
+        },
+        {
+          type: "callout",
+          variant: "tip",
+          title: "\u0e08\u0e33\u0e41\u0e22\u0e01\u0e43\u0e2b\u0e49\u0e0a\u0e31\u0e14",
+          text: "Credentials Report = \u0e14\u0e39\u0e20\u0e32\u0e1e\u0e23\u0e27\u0e21\u0e17\u0e31\u0e49\u0e07\u0e1a\u0e31\u0e0d\u0e0a\u0e35 (account-level) | Access Advisor = \u0e14\u0e39\u0e23\u0e32\u0e22\u0e04\u0e19 (user-level) \u0e27\u0e48\u0e32\u0e43\u0e0a\u0e49 service \u0e44\u0e2b\u0e19\u0e08\u0e23\u0e34\u0e07\u0e1a\u0e49\u0e32\u0e07",
+        },
+      ],
+    },
+    {
+      id: "best-practices",
+      title: "Best Practices",
+      content: [
+        {
+          type: "list",
+          items: [
+            "\u0e2d\u0e22\u0e48\u0e32\u0e43\u0e0a\u0e49 root account \u0e22\u0e01\u0e40\u0e27\u0e49\u0e19\u0e15\u0e2d\u0e19 setup \u0e1a\u0e31\u0e0d\u0e0a\u0e35 AWS \u0e04\u0e23\u0e31\u0e49\u0e07\u0e41\u0e23\u0e01\u0e40\u0e17\u0e48\u0e32\u0e19\u0e31\u0e49\u0e19",
+            "\u0e2b\u0e49\u0e32\u0e21 share root account \u2014 \u0e2a\u0e23\u0e49\u0e32\u0e07 IAM user \u0e41\u0e22\u0e01\u0e15\u0e48\u0e32\u0e07\u0e2b\u0e32\u0e01 1 \u0e04\u0e19\u0e15\u0e48\u0e2d\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e08\u0e23\u0e34\u0e07",
+            "\u0e40\u0e1b\u0e34\u0e14 <strong>MFA</strong> \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a root account \u0e41\u0e25\u0e30 user \u0e17\u0e38\u0e01\u0e04\u0e19\u0e17\u0e35\u0e48\u0e2a\u0e33\u0e04\u0e31\u0e0d",
+            "Assign permission \u0e1c\u0e48\u0e32\u0e19 <strong>Group</strong> \u0e41\u0e17\u0e19\u0e01\u0e32\u0e23 assign \u0e43\u0e2b\u0e49 User \u0e42\u0e14\u0e22\u0e15\u0e23\u0e07",
+            "\u0e43\u0e0a\u0e49 <strong>Role</strong> \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a AWS services \u0e41\u0e17\u0e19\u0e01\u0e32\u0e23\u0e40\u0e01\u0e47\u0e1a Access Key \u0e43\u0e19 code",
+            "\u0e15\u0e31\u0e49\u0e07 <strong>strong password policy</strong> \u0e41\u0e25\u0e30\u0e1a\u0e31\u0e07\u0e04\u0e31\u0e1a\u0e01\u0e32\u0e23\u0e40\u0e1b\u0e25\u0e35\u0e48\u0e22\u0e19 password \u0e15\u0e32\u0e21\u0e23\u0e2d\u0e1a (rotation)",
+            "Review permission \u0e40\u0e1b\u0e47\u0e19\u0e1b\u0e23\u0e30\u0e08\u0e33\u0e14\u0e49\u0e27\u0e22 Credentials Report & Access Advisor",
+            "\u0e2b\u0e49\u0e32\u0e21 embed Access Key \u0e25\u0e07\u0e43\u0e19 application code \u0e42\u0e14\u0e22\u0e40\u0e14\u0e47\u0e14\u0e02\u0e32\u0e14",
+            "Rotate Access Keys \u0e2d\u0e22\u0e48\u0e32\u0e07\u0e2a\u0e21\u0e48\u0e33\u0e40\u0e2a\u0e21\u0e2d",
+          ],
+        },
+      ],
+    },
+    {
+      id: "shared-responsibility",
+      title: "Shared Responsibility for IAM",
+      content: [
+        {
+          type: "paragraph",
+          text: "AWS \u0e43\u0e0a\u0e49\u0e42\u0e21\u0e40\u0e14\u0e25 <strong>Shared Responsibility</strong> \u2014 AWS \u0e23\u0e31\u0e1a\u0e1c\u0e34\u0e14\u0e0a\u0e2d\u0e1a\u0e2a\u0e48\u0e27\u0e19\u0e2b\u0e19\u0e36\u0e48\u0e07 \u0e25\u0e39\u0e01\u0e04\u0e49\u0e32\u0e23\u0e31\u0e1a\u0e1c\u0e34\u0e14\u0e0a\u0e2d\u0e1a\u0e2d\u0e35\u0e01\u0e2a\u0e48\u0e27\u0e19\u0e2b\u0e19\u0e36\u0e48\u0e07",
+        },
+        {
+          type: "grid",
+          items: [
+            {
+              title: "AWS Responsibility (Security OF the Cloud)",
+              description:
+                "\u0e14\u0e39\u0e41\u0e25 infrastructure \u0e02\u0e2d\u0e07 IAM service \u2014 \u0e23\u0e31\u0e1a\u0e1c\u0e34\u0e14\u0e0a\u0e2d\u0e1a availability, global infrastructure, compliance validation \u0e41\u0e25\u0e30 protection \u0e02\u0e2d\u0e07 IAM service \u0e40\u0e2d\u0e07",
+            },
+            {
+              title: "Your Responsibility (Security IN the Cloud)",
+              description:
+                "\u0e2a\u0e23\u0e49\u0e32\u0e07/\u0e08\u0e31\u0e14\u0e01\u0e32\u0e23 Users, Groups, Roles, Policies \u2014 enable MFA, monitor user activity, rotate keys, \u0e25\u0e1a user \u0e17\u0e35\u0e48\u0e44\u0e21\u0e48\u0e43\u0e0a\u0e49\u0e41\u0e25\u0e49\u0e27 \u0e41\u0e25\u0e30\u0e15\u0e34\u0e14\u0e15\u0e32\u0e21\u0e08\u0e32\u0e01 CloudTrail",
+            },
+          ],
+        },
+        {
+          type: "list",
+          items: [
+            "<strong>AWS:</strong> infrastructure, IAM service availability, global compliance",
+            "<strong>You:</strong> manage Users / Groups / Roles / Policies",
+            "<strong>You:</strong> enable MFA \u0e1a\u0e19\u0e17\u0e38\u0e01 account",
+            "<strong>You:</strong> assign permission \u0e15\u0e32\u0e21 Least Privilege",
+            "<strong>You:</strong> monitor user activity (CloudTrail) \u0e41\u0e25\u0e30 review credentials \u0e1b\u0e23\u0e30\u0e08\u0e33",
+            "<strong>You:</strong> rotate access keys \u0e41\u0e25\u0e30\u0e15\u0e31\u0e49\u0e07 password policy",
+          ],
+        },
+      ],
+    },
+  ],
+  quiz: [
+    {
+      id: "iam-q1",
+      question:
+        "Root user \u0e02\u0e2d\u0e07 AWS account \u0e04\u0e27\u0e23\u0e08\u0e31\u0e14\u0e01\u0e32\u0e23\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23\u0e15\u0e32\u0e21 best practice?",
+      options: [
+        "\u0e43\u0e0a\u0e49 root user \u0e43\u0e19\u0e01\u0e32\u0e23\u0e17\u0e33\u0e07\u0e32\u0e19\u0e1b\u0e23\u0e30\u0e08\u0e33\u0e27\u0e31\u0e19\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e2a\u0e30\u0e14\u0e27\u0e01",
+        "\u0e40\u0e1b\u0e34\u0e14 MFA \u0e41\u0e25\u0e30\u0e44\u0e21\u0e48\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e1b\u0e23\u0e30\u0e08\u0e33\u0e27\u0e31\u0e19 \u0e2a\u0e23\u0e49\u0e32\u0e07 IAM user \u0e41\u0e22\u0e01\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e01\u0e32\u0e23\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e17\u0e31\u0e48\u0e27\u0e44\u0e1b",
+        "Share root credentials \u0e01\u0e31\u0e1a\u0e17\u0e35\u0e21\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e43\u0e2b\u0e49\u0e17\u0e38\u0e01\u0e04\u0e19\u0e21\u0e35 full access",
+        "\u0e25\u0e1a root user \u0e17\u0e34\u0e49\u0e07\u0e41\u0e25\u0e30\u0e2a\u0e23\u0e49\u0e32\u0e07 IAM user \u0e43\u0e2b\u0e21\u0e48\u0e17\u0e35\u0e48\u0e21\u0e35 AdministratorAccess",
+      ],
+      correct: 1,
+      explanation:
+        "Best practice \u0e04\u0e37\u0e2d\u0e40\u0e1b\u0e34\u0e14 MFA \u0e1a\u0e19 root account \u0e41\u0e25\u0e30\u0e44\u0e21\u0e48\u0e43\u0e0a\u0e49 root user \u0e43\u0e19\u0e01\u0e32\u0e23\u0e17\u0e33\u0e07\u0e32\u0e19\u0e1b\u0e01\u0e15\u0e34 \u0e43\u0e2b\u0e49\u0e2a\u0e23\u0e49\u0e32\u0e07 IAM user \u0e41\u0e22\u0e01\u0e15\u0e48\u0e32\u0e07\u0e2b\u0e32\u0e01\u0e41\u0e17\u0e19 (root \u0e25\u0e1a\u0e44\u0e21\u0e48\u0e44\u0e14\u0e49) Root user \u0e21\u0e35\u0e2a\u0e34\u0e17\u0e18\u0e34\u0e4c\u0e17\u0e38\u0e01\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e08\u0e36\u0e07\u0e04\u0e27\u0e23\u0e43\u0e0a\u0e49\u0e40\u0e09\u0e1e\u0e32\u0e30\u0e07\u0e32\u0e19\u0e17\u0e35\u0e48\u0e08\u0e33\u0e40\u0e1b\u0e47\u0e19\u0e08\u0e23\u0e34\u0e07\u0e46 \u0e40\u0e17\u0e48\u0e32\u0e19\u0e31\u0e49\u0e19",
+    },
+    {
+      id: "iam-q2",
+      question: "\u0e02\u0e49\u0e2d\u0e43\u0e14\u0e16\u0e39\u0e01\u0e15\u0e49\u0e2d\u0e07\u0e40\u0e01\u0e35\u0e48\u0e22\u0e27\u0e01\u0e31\u0e1a IAM Groups?",
+      options: [
+        "Group \u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e21\u0e35 Group \u0e0b\u0e49\u0e2d\u0e19\u0e2d\u0e22\u0e39\u0e48\u0e20\u0e32\u0e22\u0e43\u0e19\u0e44\u0e14\u0e49 (nested groups)",
+        "User \u0e2b\u0e19\u0e36\u0e48\u0e07\u0e04\u0e19\u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e2d\u0e22\u0e39\u0e48\u0e44\u0e14\u0e49\u0e2b\u0e25\u0e32\u0e22 Group \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e01\u0e31\u0e19 \u0e41\u0e15\u0e48 Group \u0e0b\u0e49\u0e2d\u0e19 Group \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49",
+        "Group \u0e21\u0e35\u0e44\u0e14\u0e49\u0e17\u0e31\u0e49\u0e07 Users \u0e41\u0e25\u0e30 Roles \u0e40\u0e1b\u0e47\u0e19\u0e2a\u0e21\u0e32\u0e0a\u0e34\u0e01",
+        "Group \u0e15\u0e49\u0e2d\u0e07\u0e21\u0e35\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e19\u0e49\u0e2d\u0e22 1 User \u0e40\u0e2a\u0e21\u0e2d \u0e44\u0e21\u0e48\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e19\u0e31\u0e49\u0e19\u0e08\u0e30\u0e15\u0e49\u0e2d\u0e07\u0e25\u0e1a\u0e17\u0e34\u0e49\u0e07",
+      ],
+      correct: 1,
+      explanation:
+        "IAM Group \u0e21\u0e35\u0e44\u0e14\u0e49\u0e41\u0e04\u0e48 Users \u0e40\u0e17\u0e48\u0e32\u0e19\u0e31\u0e49\u0e19 (\u0e44\u0e21\u0e48\u0e21\u0e35 nested group) \u0e41\u0e25\u0e30 User 1 \u0e04\u0e19\u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e2d\u0e22\u0e39\u0e48\u0e44\u0e14\u0e49\u0e2b\u0e25\u0e32\u0e22 Group \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e01\u0e31\u0e19 Group \u0e44\u0e21\u0e48\u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e21\u0e35 Roles \u0e40\u0e1b\u0e47\u0e19\u0e2a\u0e21\u0e32\u0e0a\u0e34\u0e01 \u0e41\u0e25\u0e30 Group \u0e2a\u0e32\u0e21\u0e32\u0e23\u0e16\u0e27\u0e48\u0e32\u0e07\u0e44\u0e27\u0e49\u0e44\u0e14\u0e49 (\u0e44\u0e21\u0e48\u0e08\u0e33\u0e40\u0e1b\u0e47\u0e19\u0e15\u0e49\u0e2d\u0e07\u0e21\u0e35 user)",
+    },
+    {
+      id: "iam-q3",
+      question:
+        "\u0e04\u0e38\u0e13\u0e21\u0e35 EC2 instance \u0e17\u0e35\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23\u0e2d\u0e48\u0e32\u0e19\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e08\u0e32\u0e01 S3 bucket \u0e04\u0e27\u0e23\u0e43\u0e0a\u0e49\u0e27\u0e34\u0e18\u0e35\u0e43\u0e14\u0e15\u0e32\u0e21 best practice?",
+      options: [
+        "\u0e2a\u0e23\u0e49\u0e32\u0e07 IAM User \u0e41\u0e25\u0e30\u0e40\u0e01\u0e47\u0e1a Access Key \u0e44\u0e27\u0e49\u0e43\u0e19 EC2",
+        "\u0e43\u0e0a\u0e49 root account credentials \u0e43\u0e19 EC2",
+        "\u0e2a\u0e23\u0e49\u0e32\u0e07 IAM Role \u0e41\u0e25\u0e30 attach \u0e01\u0e31\u0e1a EC2 instance",
+        "Hard-code Access Key \u0e25\u0e07\u0e43\u0e19 application code",
+      ],
+      correct: 2,
+      explanation:
+        "Best practice \u0e04\u0e37\u0e2d\u0e43\u0e0a\u0e49 IAM Role attach \u0e01\u0e31\u0e1a EC2 instance \u2014 Role \u0e43\u0e0a\u0e49 temporary credentials \u0e17\u0e35\u0e48\u0e2b\u0e21\u0e38\u0e19\u0e40\u0e27\u0e35\u0e22\u0e19\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34 \u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e40\u0e01\u0e47\u0e1a Access Key \u0e43\u0e19 code \u0e0b\u0e36\u0e48\u0e07\u0e40\u0e2a\u0e35\u0e48\u0e22\u0e07\u0e15\u0e48\u0e2d\u0e01\u0e32\u0e23\u0e23\u0e31\u0e48\u0e27\u0e44\u0e2b\u0e25 \u0e2a\u0e48\u0e27\u0e19\u0e01\u0e32\u0e23 hard-code Access Key \u0e2b\u0e23\u0e37\u0e2d\u0e43\u0e0a\u0e49 root \u0e16\u0e37\u0e2d\u0e40\u0e1b\u0e47\u0e19 anti-pattern",
+    },
+    {
+      id: "iam-q4",
+      question:
+        "\u0e2b\u0e25\u0e31\u0e01\u0e01\u0e32\u0e23 \"Least Privilege\" \u0e43\u0e19 IAM \u0e2b\u0e21\u0e32\u0e22\u0e04\u0e27\u0e32\u0e21\u0e27\u0e48\u0e32\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23 \u0e41\u0e25\u0e30 Policy JSON \u0e21\u0e35\u0e2a\u0e48\u0e27\u0e19\u0e1b\u0e23\u0e30\u0e01\u0e2d\u0e1a\u0e2d\u0e30\u0e44\u0e23\u0e1a\u0e49\u0e32\u0e07?",
+      options: [
+        "\u0e43\u0e2b\u0e49 AdministratorAccess \u0e01\u0e31\u0e1a\u0e17\u0e38\u0e01 user \u2014 Policy \u0e21\u0e35\u0e41\u0e04\u0e48 Action \u0e40\u0e17\u0e48\u0e32\u0e19\u0e31\u0e49\u0e19",
+        "\u0e43\u0e2b\u0e49 permission \u0e40\u0e09\u0e1e\u0e32\u0e30\u0e17\u0e35\u0e48\u0e08\u0e33\u0e40\u0e1b\u0e47\u0e19 \u2014 Policy \u0e21\u0e35 Effect, Action, Resource \u0e41\u0e25\u0e30\u0e2d\u0e32\u0e08\u0e21\u0e35 Principal/Condition",
+        "\u0e43\u0e2b\u0e49 permission \u0e40\u0e09\u0e1e\u0e32\u0e30 root user \u2014 Policy \u0e21\u0e35\u0e41\u0e04\u0e48 Resource",
+        "\u0e44\u0e21\u0e48\u0e43\u0e2b\u0e49 permission \u0e40\u0e25\u0e22 \u2014 Policy \u0e21\u0e35\u0e41\u0e04\u0e48 Version",
+      ],
+      correct: 1,
+      explanation:
+        "Least Privilege = \u0e43\u0e2b\u0e49 permission \u0e40\u0e17\u0e48\u0e32\u0e17\u0e35\u0e48\u0e08\u0e33\u0e40\u0e1b\u0e47\u0e19\u0e43\u0e19\u0e01\u0e32\u0e23\u0e17\u0e33\u0e07\u0e32\u0e19\u0e40\u0e17\u0e48\u0e32\u0e19\u0e31\u0e49\u0e19 \u0e44\u0e21\u0e48\u0e43\u0e2b\u0e49\u0e21\u0e32\u0e01\u0e40\u0e01\u0e34\u0e19\u0e44\u0e1b Policy JSON \u0e1b\u0e23\u0e30\u0e01\u0e2d\u0e1a\u0e14\u0e49\u0e27\u0e22 Version, Id (optional), \u0e41\u0e25\u0e30 Statement \u0e0b\u0e36\u0e48\u0e07\u0e21\u0e35 Sid, Effect (Allow/Deny), Principal, Action, Resource \u0e41\u0e25\u0e30 Condition (optional)",
+    },
+    {
+      id: "iam-q5",
+      question:
+        "\u0e02\u0e49\u0e2d\u0e43\u0e14\u0e2d\u0e18\u0e34\u0e1a\u0e32\u0e22\u0e40\u0e01\u0e35\u0e48\u0e22\u0e27\u0e01\u0e31\u0e1a MFA (Multi-Factor Authentication) \u0e44\u0e14\u0e49\u0e16\u0e39\u0e01\u0e15\u0e49\u0e2d\u0e07?",
+      options: [
+        "MFA \u0e21\u0e35\u0e40\u0e09\u0e1e\u0e32\u0e30 hardware key fob \u0e40\u0e17\u0e48\u0e32\u0e19\u0e31\u0e49\u0e19 \u0e44\u0e21\u0e48\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a virtual app",
+        "MFA \u0e1a\u0e31\u0e07\u0e04\u0e31\u0e1a\u0e43\u0e0a\u0e49\u0e44\u0e14\u0e49\u0e40\u0e09\u0e1e\u0e32\u0e30 root user \u0e44\u0e21\u0e48\u0e23\u0e27\u0e21 IAM users",
+        "MFA \u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a virtual device (Google Authenticator, Authy), U2F security key (YubiKey), \u0e41\u0e25\u0e30 hardware key fob \u2014 \u0e0a\u0e48\u0e27\u0e22\u0e1b\u0e49\u0e2d\u0e07\u0e01\u0e31\u0e19\u0e1a\u0e31\u0e0d\u0e0a\u0e35\u0e41\u0e21\u0e49 password \u0e08\u0e30\u0e23\u0e31\u0e48\u0e27",
+        "MFA \u0e43\u0e0a\u0e49\u0e41\u0e17\u0e19 password \u0e44\u0e14\u0e49 \u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e15\u0e31\u0e49\u0e07 password \u0e2d\u0e35\u0e01",
+      ],
+      correct: 2,
+      explanation:
+        "MFA \u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a\u0e2b\u0e25\u0e32\u0e22\u0e23\u0e39\u0e1b\u0e41\u0e1a\u0e1a: Virtual MFA (Google Authenticator \u2014 1 device, Authy \u2014 multi-device), U2F Security Key \u0e40\u0e0a\u0e48\u0e19 YubiKey \u0e02\u0e2d\u0e07 Yubico, \u0e41\u0e25\u0e30 Hardware Key Fob \u0e02\u0e2d\u0e07 Gemalto MFA = password (\u0e2a\u0e34\u0e48\u0e07\u0e17\u0e35\u0e48\u0e23\u0e39\u0e49) + device (\u0e2a\u0e34\u0e48\u0e07\u0e17\u0e35\u0e48\u0e21\u0e35) \u0e16\u0e36\u0e07\u0e41\u0e21\u0e49 password \u0e23\u0e31\u0e48\u0e27\u0e01\u0e47\u0e22\u0e31\u0e07\u0e1b\u0e25\u0e2d\u0e14\u0e20\u0e31\u0e22\u0e2d\u0e22\u0e39\u0e48 \u0e43\u0e0a\u0e49\u0e44\u0e14\u0e49\u0e17\u0e31\u0e49\u0e07 root \u0e41\u0e25\u0e30 IAM users",
+    },
+  ],
+};
