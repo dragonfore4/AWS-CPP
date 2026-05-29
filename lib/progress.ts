@@ -18,6 +18,8 @@ export function saveQuizProgress(slug: string, progress: QuizProgress): void {
   if (typeof window === "undefined") return;
   try {
     localStorage.setItem(`${STORAGE_KEY_PREFIX}${slug}`, JSON.stringify(progress));
+    // Notify same-tab subscribers (cross-tab updates already fire `storage`).
+    window.dispatchEvent(new Event("quiz-progress-change"));
   } catch {
     // localStorage might be full or unavailable
   }
@@ -64,6 +66,9 @@ export function setFontSize(size: FontSize): void {
       .replace(/font-(sm|md|lg)/g, "")
       .trim();
     document.body.classList.add(`font-${size}`);
+    // Notify same-tab `useSyncExternalStore` subscribers, which only listen
+    // to `storage` by default. Cross-tab updates already get `storage`.
+    window.dispatchEvent(new Event("font-size-change"));
   } catch {
     // ignore
   }
