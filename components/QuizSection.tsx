@@ -3,16 +3,19 @@
 import { useState } from "react";
 import { QuizQuestion, QuizProgress } from "@/types/topic";
 import { getQuizProgress, saveQuizProgress } from "@/lib/progress";
-import { getAccent } from "@/lib/accentClasses";
+import type { CategoryAccent } from "@/lib/categoryAccents";
 
 interface QuizSectionProps {
   questions: QuizQuestion[];
   slug: string;
-  accent: string;
+  accent: CategoryAccent;
 }
 
-export default function QuizSection({ questions, slug, accent }: QuizSectionProps) {
-  const a = getAccent(accent);
+export default function QuizSection({
+  questions,
+  slug,
+  accent,
+}: QuizSectionProps) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
@@ -22,17 +25,18 @@ export default function QuizSection({ questions, slug, accent }: QuizSectionProp
     if (typeof window === "undefined") return false;
     return getQuizProgress(slug) !== null;
   });
-  const [previousProgress, setPreviousProgress] = useState<QuizProgress | null>(() => {
-    if (typeof window === "undefined") return null;
-    return getQuizProgress(slug);
-  });
+  const [previousProgress, setPreviousProgress] =
+    useState<QuizProgress | null>(() => {
+      if (typeof window === "undefined") return null;
+      return getQuizProgress(slug);
+    });
 
   const currentQuestion = questions[currentIndex];
   const isLastQuestion = currentIndex === questions.length - 1;
   const labels = ["A", "B", "C", "D"];
 
   function handleSelect(optionIndex: number) {
-    if (selectedAnswer !== null) return; // already answered
+    if (selectedAnswer !== null) return;
     setSelectedAnswer(optionIndex);
     setShowResult(true);
 
@@ -46,7 +50,6 @@ export default function QuizSection({ questions, slug, accent }: QuizSectionProp
 
   function handleNext() {
     if (isLastQuestion) {
-      // Finish quiz - score was already updated in handleSelect
       const progress: QuizProgress = {
         score,
         total: questions.length,
@@ -73,28 +76,51 @@ export default function QuizSection({ questions, slug, accent }: QuizSectionProp
     setPreviousProgress(null);
   }
 
+  // ----- Result state -------------------------------------------------------
   if (completed && previousProgress) {
+    const ratio = previousProgress.score / previousProgress.total;
+    const verdict =
+      ratio === 1
+        ? "ทำได้ครบทุกข้อ"
+        : ratio >= 0.7
+          ? "ผ่านเกณฑ์ ทบทวนเพิ่มในจุดที่พลาด"
+          : "ทำต่ำกว่าเกณฑ์ แนะนำอ่านบทอีกรอบก่อนทำใหม่";
+
     return (
-      <div className="bg-slate-900 border border-slate-700 rounded-xl p-8 text-center space-y-4">
-        <h3 className={`text-2xl font-bold ${a.text400}`}>Quiz เสร็จแล้ว!</h3>
-        <div className="text-5xl font-bold text-white">
-          {previousProgress.score}/{previousProgress.total}
+      <div className="rounded-md border border-[var(--rule)] bg-[var(--bg-elev)] p-6">
+        <div className="text-[10px] uppercase tracking-[0.16em] text-[var(--ink-faint)]">
+          ผลคะแนน
         </div>
-        <p className="text-slate-200 text-base">
-          {previousProgress.score === previousProgress.total
-            ? "Perfect score! เยี่ยมมาก!"
-            : previousProgress.score >= previousProgress.total * 0.7
-              ? "ทำได้ดี! เข้าใจเนื้อหาแล้ว"
-              : "อ่านทบทวนอีกหน่อยนะ — สู้ๆ!"}
-        </p>
-        <p className="text-slate-400 text-sm">
-          ทำเสร็จเมื่อ: {new Date(previousProgress.completedAt).toLocaleDateString("th-TH")}
+        <div className="mt-2 flex items-baseline gap-2">
+          <span
+            className={"font-serif text-4xl text-[var(--ink)] tabular-nums " + accent.text}
+          >
+            {previousProgress.score}
+          </span>
+          <span className="text-[var(--ink-muted)] tabular-nums">
+            / {previousProgress.total}
+          </span>
+        </div>
+        <p className="mt-2 text-sm text-[var(--ink-muted)]">{verdict}</p>
+        <p className="mt-1 text-xs text-[var(--ink-faint)]">
+          ทำเสร็จเมื่อ{" "}
+          {new Date(previousProgress.completedAt).toLocaleDateString("th-TH", {
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+          })}
         </p>
         <button
+          type="button"
           onClick={handleRetry}
-          className={`mt-4 px-6 py-2.5 rounded-lg ${a.bg500} text-white font-semibold transition-opacity hover:opacity-90`}
+          className={
+            "mt-5 inline-flex h-9 items-center rounded-md px-4 text-sm font-medium text-white transition-colors " +
+            accent.buttonBg +
+            " " +
+            accent.buttonBgHover
+          }
         >
-          ทำใหม่อีกครั้ง
+          ทำใหม่
         </button>
       </div>
     );
@@ -102,68 +128,84 @@ export default function QuizSection({ questions, slug, accent }: QuizSectionProp
 
   if (!currentQuestion) return null;
 
+  // ----- Active state -------------------------------------------------------
   return (
-    <div className="bg-slate-900 border border-slate-700 rounded-xl p-6 md:p-8 space-y-6">
-      {/* Progress indicator */}
-      <div className="flex items-center justify-between text-sm text-slate-300">
-        <span>
+    <div className="rounded-md border border-[var(--rule)] bg-[var(--bg-elev)] p-5 sm:p-6">
+      {/* Progress meta */}
+      <div className="flex items-baseline justify-between text-xs text-[var(--ink-muted)]">
+        <span className="tabular-nums">
           ข้อ {currentIndex + 1} / {questions.length}
         </span>
-        <span>คะแนน: {score}</span>
+        <span className="tabular-nums">คะแนน {score}</span>
       </div>
 
       {/* Progress bar */}
-      <div className="h-1.5 bg-slate-800 rounded-full overflow-hidden">
+      <div className="mt-2 h-px bg-[var(--rule)]">
         <div
-          className={`h-full ${a.bg500} transition-[width] duration-300`}
-          style={{ width: `${((currentIndex + 1) / questions.length) * 100}%` }}
+          className={"h-full transition-[width] duration-300 " + accent.fill}
+          style={{
+            width: `${((currentIndex + 1) / questions.length) * 100}%`,
+          }}
         />
       </div>
 
       {/* Question */}
       <p
-        className="text-xl md:text-2xl text-white font-medium leading-relaxed"
+        className="quiz-question mt-5 text-lg leading-relaxed text-[var(--ink)]"
         dangerouslySetInnerHTML={{ __html: currentQuestion.question }}
       />
 
       {/* Options */}
-      <div className="space-y-3">
+      <div className="mt-4 space-y-2">
         {currentQuestion.options.map((option, i) => {
-          let optionStyle = "bg-slate-800 border-slate-700 hover:border-slate-500 cursor-pointer";
+          const isCorrect = i === currentQuestion.correct;
+          const isPicked = i === selectedAnswer;
 
+          let cls =
+            "border-[var(--rule)] bg-[var(--bg)] hover:border-[var(--ink-faint)] cursor-pointer";
           if (showResult) {
-            if (i === currentQuestion.correct) {
-              optionStyle = "bg-emerald-500/15 border-emerald-500/60";
-            } else if (i === selectedAnswer && i !== currentQuestion.correct) {
-              optionStyle = "bg-red-500/15 border-red-500/60";
+            if (isCorrect) {
+              cls =
+                "border-emerald-600 dark:border-emerald-400 bg-emerald-50/70 dark:bg-emerald-950/30";
+            } else if (isPicked && !isCorrect) {
+              cls =
+                "border-rose-600 dark:border-rose-400 bg-rose-50/70 dark:bg-rose-950/30";
             } else {
-              optionStyle = "bg-slate-800/50 border-slate-700 opacity-60";
+              cls = "border-[var(--rule)] bg-[var(--bg)] opacity-70";
             }
-          } else if (selectedAnswer === i) {
-            optionStyle = `${a.bg500_10} ${a.border500_50}`;
+          } else if (isPicked) {
+            cls = `${accent.border} ${accent.tint}`;
+          }
+
+          let badgeCls = "bg-[var(--bg-soft)] text-[var(--ink)]";
+          if (showResult && isCorrect) {
+            badgeCls = "bg-emerald-600 text-white dark:bg-emerald-500";
+          } else if (showResult && isPicked && !isCorrect) {
+            badgeCls = "bg-rose-600 text-white dark:bg-rose-500";
           }
 
           return (
             <button
               key={i}
+              type="button"
               onClick={() => handleSelect(i)}
               disabled={selectedAnswer !== null}
-              className={`w-full text-left p-5 rounded-lg border transition-colors ${optionStyle}`}
+              className={
+                "block w-full rounded-md border p-4 text-left transition-colors " +
+                cls
+              }
             >
               <span className="flex items-start gap-3">
                 <span
-                  className={`shrink-0 w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold ${
-                    showResult && i === currentQuestion.correct
-                      ? "bg-emerald-500 text-white"
-                      : showResult && i === selectedAnswer
-                        ? "bg-red-500 text-white"
-                        : "bg-slate-700 text-slate-100"
-                  }`}
+                  className={
+                    "mt-0.5 inline-flex h-6 w-6 shrink-0 items-center justify-center rounded text-xs font-semibold " +
+                    badgeCls
+                  }
                 >
                   {labels[i]}
                 </span>
                 <span
-                  className="text-slate-100 text-base md:text-lg leading-relaxed pt-1"
+                  className="text-[var(--ink)] leading-relaxed"
                   dangerouslySetInnerHTML={{ __html: option }}
                 />
               </span>
@@ -174,12 +216,12 @@ export default function QuizSection({ questions, slug, accent }: QuizSectionProp
 
       {/* Explanation */}
       {showResult && (
-        <div className="bg-slate-800/70 border border-slate-700 rounded-lg p-5">
-          <p className="text-base font-semibold text-slate-100 mb-2">
-            คำอธิบาย:
-          </p>
+        <div className="mt-4 border-l-2 border-[var(--rule-strong)] bg-[var(--bg-soft)] px-4 py-3">
+          <div className="text-[10px] uppercase tracking-[0.16em] text-[var(--ink-faint)]">
+            คำอธิบาย
+          </div>
           <p
-            className="text-base text-slate-200 leading-relaxed"
+            className="mt-1 text-sm text-[var(--ink)] leading-relaxed"
             dangerouslySetInnerHTML={{ __html: currentQuestion.explanation }}
           />
         </div>
@@ -187,10 +229,16 @@ export default function QuizSection({ questions, slug, accent }: QuizSectionProp
 
       {/* Next button */}
       {showResult && (
-        <div className="flex justify-end">
+        <div className="mt-5 flex justify-end">
           <button
+            type="button"
             onClick={handleNext}
-            className={`px-6 py-3 rounded-lg ${a.bg500} text-white font-semibold transition-opacity hover:opacity-90`}
+            className={
+              "inline-flex h-9 items-center rounded-md px-4 text-sm font-medium text-white transition-colors " +
+              accent.buttonBg +
+              " " +
+              accent.buttonBgHover
+            }
           >
             {isLastQuestion ? "ดูผลลัพธ์" : "ข้อถัดไป"}
           </button>
