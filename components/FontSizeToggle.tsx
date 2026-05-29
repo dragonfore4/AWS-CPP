@@ -19,7 +19,11 @@ function getServerSnapshot(): FontSize {
 
 function subscribe(callback: () => void): () => void {
   window.addEventListener("storage", callback);
-  return () => window.removeEventListener("storage", callback);
+  window.addEventListener("font-size-change", callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener("font-size-change", callback);
+  };
 }
 
 export default function FontSizeToggle() {
@@ -32,26 +36,35 @@ export default function FontSizeToggle() {
 
   const handleClick = useCallback((size: FontSize) => {
     setFontSize(size);
-    document.body.classList.remove("font-sm", "font-md", "font-lg");
-    document.body.classList.add(`font-${size}`);
   }, []);
 
   return (
-    <div className="flex items-center gap-1">
-      {sizes.map(({ label, value }) => (
-        <button
-          key={value}
-          onClick={() => handleClick(value)}
-          className={`px-2.5 py-1 rounded text-xs font-medium transition-colors ${
-            active === value
-              ? "bg-indigo-500 text-white"
-              : "bg-slate-700 text-slate-300 hover:bg-slate-600"
-          }`}
-          aria-label={`Font size ${label}`}
-        >
-          {label}
-        </button>
-      ))}
+    <div
+      role="radiogroup"
+      aria-label="Font size"
+      className="inline-flex items-center gap-0.5 rounded-md border border-[var(--rule)] bg-[var(--bg-elev)] p-0.5"
+    >
+      {sizes.map(({ label, value }) => {
+        const isActive = active === value;
+        return (
+          <button
+            key={value}
+            type="button"
+            role="radio"
+            aria-checked={isActive}
+            onClick={() => handleClick(value)}
+            aria-label={`Font size ${label}`}
+            className={
+              "inline-flex h-7 min-w-7 items-center justify-center rounded px-1.5 text-xs font-medium transition-colors " +
+              (isActive
+                ? "bg-[var(--bg-soft)] text-[var(--ink)]"
+                : "text-[var(--ink-muted)] hover:text-[var(--ink)] hover:bg-[var(--bg-soft)]")
+            }
+          >
+            {label}
+          </button>
+        );
+      })}
     </div>
   );
 }
