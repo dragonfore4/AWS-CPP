@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState, useSyncExternalStore } from "react";
 import { QuizQuestion, QuizProgress } from "@/types/topic";
 import { getQuizProgress, saveQuizProgress } from "@/lib/progress";
 import type { CategoryAccent } from "@/lib/categoryAccents";
@@ -11,28 +11,130 @@ interface QuizSectionProps {
   accent: CategoryAccent;
 }
 
+/**
+ * Number of questions drawn per quiz session. If the topic's pool is smaller
+ * than this, every question in the pool is used.
+ */
+const QUESTIONS_PER_SESSION = 10;
+
+/**
+ * Pick the first `n` questions from the pool — deterministic, used during
+ * SSR and the very first client render so server and client HTML match.
+ */
+function deterministicSample(
+  pool: QuizQuestion[],
+  n: number,
+): QuizQuestion[] {
+  return pool.slice(0, Math.min(n, pool.length));
+}
+
+/**
+ * Fisher–Yates shuffle, then take the first `n` items. Returns a new array.
+ * Only invoked on the client so the non-deterministic Math.random() output
+ * never reaches the server-rendered HTML.
+ */
+function sampleQuestions(pool: QuizQuestion[], n: number): QuizQuestion[] {
+  const arr = [...pool];
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr.slice(0, Math.min(n, arr.length));
+}
+
+// ----- "Are we on the client?" external store ------------------------------
+// `useSyncExternalStore` returns `getServerSnapshot()` during SSR and
+// `getSnapshot()` after hydration. We use this to flip a boolean without
+// triggering a hydration mismatch and without calling setState in an effect.
+
+function subscribeNoop(): () => void {
+  return () => {};
+}
+function getMountedSnapshot(): boolean {
+  return true;
+}
+function getMountedServerSnapshot(): boolean {
+  return false;
+}
+
+// ----- Saved progress external store ---------------------------------------
+// Mirrors the pattern in HomepageProgress.tsx: cached snapshot, invalidated
+// when localStorage changes, with an empty server snapshot.
+
+let progressCache: Record<string, QuizProgress | null> = {};
+
+function readProgress(slug: string): QuizProgress | null {
+  if (slug in progressCache) return progressCache[slug];
+  const value = getQuizProgress(slug);
+  progressCache[slug] = value;
+  return value;
+}
+
+function subscribeProgress(callback: () => void): () => void {
+  const invalidate = () => {
+    progressCache = {};
+    callback();
+  };
+  window.addEventListener("storage", invalidate);
+  window.addEventListener("quiz-progress-change", invalidate);
+  return () => {
+    window.removeEventListener("storage", invalidate);
+    window.removeEventListener("quiz-progress-change", invalidate);
+  };
+}
+
 export default function QuizSection({
   questions,
   slug,
   accent,
 }: QuizSectionProps) {
+  // True after the component has mounted on the client. The first render
+  // (SSR + first client paint) gets `false`, matching the server snapshot.
+  const isMounted = useSyncExternalStore(
+    subscribeNoop,
+    getMountedSnapshot,
+    getMountedServerSnapshot,
+  );
+
+  // Saved quiz progress for this slug. `null` on the server / before mount,
+  // populated from localStorage once mounted.
+  const previousProgress = useSyncExternalStore<QuizProgress | null>(
+    subscribeProgress,
+    () => readProgress(slug),
+    () => null,
+  );
+
+  // Refs that hold our mount-time random subset and the retry counter so we
+  // can re-shuffle without any setState-in-effect dance.
+  const [retryToken, setRetryToken] = useState(0);
+
+  // Deterministic on SSR / first paint; freshly shuffled subset after mount.
+  // Re-runs when the retry button bumps `retryToken`.
+  const activeQuestions: QuizQuestion[] = useMemo(() => {
+    if (!isMounted) {
+      return deterministicSample(questions, QUESTIONS_PER_SESSION);
+    }
+    return sampleQuestions(questions, QUESTIONS_PER_SESSION);
+    // `retryToken` is intentionally part of the dep array: changing it forces
+    // a fresh shuffle even though `questions` and `isMounted` are stable.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMounted, questions, retryToken]);
+
+  // ----- In-progress quiz state --------------------------------------------
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<number | null>(null);
   const [showResult, setShowResult] = useState(false);
   const [answers, setAnswers] = useState<number[]>([]);
   const [score, setScore] = useState(0);
-  const [completed, setCompleted] = useState(() => {
-    if (typeof window === "undefined") return false;
-    return getQuizProgress(slug) !== null;
-  });
-  const [previousProgress, setPreviousProgress] =
-    useState<QuizProgress | null>(() => {
-      if (typeof window === "undefined") return null;
-      return getQuizProgress(slug);
-    });
+  // `retried` lets us hide the previous-result screen after a retry, even
+  // though `previousProgress` is still loaded from localStorage. It's reset
+  // to false when a new quiz session is completed and saved.
+  const [retried, setRetried] = useState(false);
 
-  const currentQuestion = questions[currentIndex];
-  const isLastQuestion = currentIndex === questions.length - 1;
+  const completed = !retried && previousProgress !== null;
+
+  const currentQuestion = activeQuestions[currentIndex];
+  const isLastQuestion = currentIndex === activeQuestions.length - 1;
   const labels = ["A", "B", "C", "D"];
 
   function handleSelect(optionIndex: number) {
@@ -52,13 +154,14 @@ export default function QuizSection({
     if (isLastQuestion) {
       const progress: QuizProgress = {
         score,
-        total: questions.length,
+        total: activeQuestions.length,
         completedAt: new Date().toISOString(),
         answers,
       };
+      // saveQuizProgress dispatches `quiz-progress-change`, which invalidates
+      // our progress store and triggers a re-render with the new value.
       saveQuizProgress(slug, progress);
-      setPreviousProgress(progress);
-      setCompleted(true);
+      setRetried(false);
     } else {
       setCurrentIndex((prev) => prev + 1);
       setSelectedAnswer(null);
@@ -67,13 +170,17 @@ export default function QuizSection({
   }
 
   function handleRetry() {
+    // Bumping the retry token invalidates the cached random subset above so a
+    // fresh shuffle runs on the next render.
+    setRetryToken((prev) => prev + 1);
     setCurrentIndex(0);
     setSelectedAnswer(null);
     setShowResult(false);
     setAnswers([]);
     setScore(0);
-    setCompleted(false);
-    setPreviousProgress(null);
+    // Hide the previous-result panel even though localStorage still has the
+    // old score. It will be overwritten when this new session completes.
+    setRetried(true);
   }
 
   // ----- Result state -------------------------------------------------------
@@ -134,7 +241,7 @@ export default function QuizSection({
       {/* Progress meta */}
       <div className="flex items-baseline justify-between text-xs text-[var(--ink-muted)]">
         <span className="tabular-nums">
-          ข้อ {currentIndex + 1} / {questions.length}
+          ข้อ {currentIndex + 1} / {activeQuestions.length}
         </span>
         <span className="tabular-nums">คะแนน {score}</span>
       </div>
@@ -144,7 +251,7 @@ export default function QuizSection({
         <div
           className={"h-full transition-[width] duration-300 " + accent.fill}
           style={{
-            width: `${((currentIndex + 1) / questions.length) * 100}%`,
+            width: `${((currentIndex + 1) / activeQuestions.length) * 100}%`,
           }}
         />
       </div>
