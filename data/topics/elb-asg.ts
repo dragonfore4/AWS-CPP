@@ -328,74 +328,334 @@ export const elbAsg: TopicData = {
   ],
   quiz: [
     {
-      id: "elb-asg-q1",
+      id: "elb-q1",
       question:
-        "ระบบสามารถเพิ่ม/ลดจำนวน EC2 instances อัตโนมัติตาม traffic จริง — แนวคิดนี้เรียกว่าอะไร?",
+        "A system can automatically add or remove EC2 instances based on real-time traffic. What is this concept called?",
+      options: ["High Availability", "Elasticity (Auto Scaling)", "Fault Tolerance", "Replication"],
+      correct: 1,
+      explanation:
+        "Elasticity is the ability to automatically scale resources (out and in) to match real-time demand. AWS Auto Scaling Groups (ASG) implement elasticity for EC2.",
+    },
+    {
+      id: "elb-q2",
+      question:
+        "Which AWS load balancer operates at Layer 7 (HTTP/HTTPS) and supports path-based / host-based routing?",
       options: [
-        "High Availability — ระบบยังทำงานได้แม้ AZ ล่ม",
-        "Agility — สร้าง resource ใหม่ได้เร็วเพราะอยู่บน Cloud",
-        "Elasticity — Horizontal Scaling แบบ auto ตาม load จริง จ่ายตามใช้งาน",
-        "Vertical Scaling — เพิ่ม spec ของเครื่องเดิม",
+        "Classic Load Balancer (CLB)",
+        "Application Load Balancer (ALB)",
+        "Network Load Balancer (NLB)",
+        "Gateway Load Balancer (GWLB)",
+      ],
+      correct: 1,
+      explanation:
+        "Application Load Balancer (ALB) operates at Layer 7 — supports HTTP/HTTPS, WebSocket, host-based routing, path-based routing, and routing to multiple target groups (ECS, Lambda, IPs, instances).",
+    },
+    {
+      id: "elb-q3",
+      question:
+        "Which AWS load balancer is BEST for ultra-low-latency, high-throughput TCP/UDP traffic (e.g., gaming, IoT)?",
+      options: [
+        "Application Load Balancer",
+        "Network Load Balancer",
+        "Classic Load Balancer",
+        "Gateway Load Balancer",
+      ],
+      correct: 1,
+      explanation:
+        "Network Load Balancer (NLB) operates at Layer 4 (TCP/UDP/TLS), provides ultra-low latency and millions of requests per second, and gives a static IP per AZ. Best for non-HTTP, performance-critical workloads.",
+    },
+    {
+      id: "elb-q4",
+      question:
+        "Which AWS load balancer is used to insert third-party network virtual appliances (firewalls, IDS/IPS, deep packet inspection) into the traffic path?",
+      options: [
+        "Application Load Balancer",
+        "Network Load Balancer",
+        "Gateway Load Balancer",
+        "Classic Load Balancer",
       ],
       correct: 2,
       explanation:
-        "Elasticity = ความสามารถ scale อัตโนมัติตาม load จริง (เพิ่มเมื่อ traffic สูง ลดเมื่อ traffic ต่ำ) จ่ายตามใช้งาน | HA = ทนต่อการล่ม (กระจายหลาย AZ) | Agility = สร้าง resource ได้เร็ว (ตัวหลอกในข้อสอบ ไม่เกี่ยว scaling) | Vertical Scaling = เปลี่ยน spec เครื่องเดิม ไม่ใช่ auto",
+        "Gateway Load Balancer (GWLB) operates at Layer 3, sending traffic transparently to fleets of third-party security appliances (firewalls, intrusion detection, deep packet inspection) using the GENEVE protocol.",
     },
     {
-      id: "elb-asg-q2",
+      id: "elb-q5",
       question:
-        "ALB ทำงานที่ Layer ใด และ NLB ทำงานที่ Layer ใดของ OSI Model?",
-      options: [
-        "ALB = Layer 4, NLB = Layer 7",
-        "ALB = Layer 7, NLB = Layer 4",
-        "ALB = Layer 3, NLB = Layer 4",
-        "ALB = Layer 7, NLB = Layer 3",
-      ],
-      correct: 1,
+        "An Auto Scaling Group has min=2, desired=4, max=10. What is the maximum number of instances the ASG can run?",
+      options: ["2", "4", "10", "Unlimited"],
+      correct: 2,
       explanation:
-        "ALB (Application Load Balancer) ทำงานที่ Layer 7 (HTTP/HTTPS) สามารถ routing ตาม URL path, header, query string ได้ ส่วน NLB (Network Load Balancer) ทำงานที่ Layer 4 (TCP/UDP) ให้ ultra-low latency และ Static IP",
+        "ASG settings: min (lower bound), desired (current target), max (upper bound). Even at peak load, the ASG cannot exceed max=10.",
     },
     {
-      id: "elb-asg-q3",
+      id: "elb-q6",
       question:
-        "ใน Auto Scaling Group ค่า Min, Desired, Max capacity หมายความว่าอย่างไร?",
+        "Which Auto Scaling policy adjusts capacity to maintain a target metric value (e.g., 50% average CPU)?",
       options: [
-        "Min = CPU ขั้นต่ำ, Desired = CPU ที่ต้องการ, Max = CPU สูงสุด",
-        "Min = จำนวน instance ขั้นต่ำที่ห้ามต่ำกว่า, Desired = จำนวนที่ ASG พยายามรักษา, Max = จำนวนสูงสุดที่ห้ามเกิน",
-        "Min = ราคาขั้นต่ำ, Desired = งบประมาณ, Max = ราคาสูงสุด",
-        "Min = AZ ขั้นต่ำ, Desired = AZ ที่ต้องการ, Max = AZ สูงสุด",
-      ],
-      correct: 1,
-      explanation:
-        "Min capacity คือจำนวน instance ขั้นต่ำที่ ASG จะไม่ลดต่ำกว่านี้ Desired capacity คือจำนวนที่ ASG พยายามรักษาไว้ตลอดเวลา และ Max capacity คือจำนวนสูงสุดที่ ASG จะไม่สร้างเกินนี้แม้ load จะสูงมาก",
-    },
-    {
-      id: "elb-asg-q4",
-      question:
-        "Target Tracking Scaling ทำงานอย่างไร และทำไมถึงแนะนำเป็นอันดับแรก?",
-      options: [
-        "ต้องกำหนด CloudWatch alarm rule หลายข้อ ซึ่งยืดหยุ่นที่สุด",
-        "ใช้ ML คาดการณ์ traffic ล่วงหน้าแล้ว pre-scale ให้",
-        "แค่ระบุ metric target (เช่น CPU 40%) แล้ว ASG จัดการ scale out/in เองอัตโนมัติ — ง่ายที่สุดไม่ต้องกำหนด rule",
-        "ตั้งเวลา scale ล่วงหน้าตาม pattern ที่รู้แล้ว",
+        "Simple Scaling",
+        "Step Scaling",
+        "Target Tracking Scaling",
+        "Manual Scaling",
       ],
       correct: 2,
       explanation:
-        "Target Tracking Scaling ง่ายที่สุด — แค่ระบุ metric target เช่น 'รักษา Average CPU ไว้ที่ 40%' แล้ว ASG จะจัดการ scale out/in เองอัตโนมัติเพื่อให้ metric ใกล้เคียง target ไม่ต้องกำหนด alarm rule ซับซ้อน",
+        "Target Tracking Scaling automatically adjusts capacity to keep a metric (e.g., CPUUtilization, ALBRequestCountPerTarget) at a target value. AWS handles the math — you just specify the target.",
     },
     {
-      id: "elb-asg-q5",
+      id: "elb-q7",
       question:
-        "ELB Health Check ทำงานอย่างไรเมื่อตรวจพบว่า instance ไม่ healthy?",
+        "What is the main advantage of using an Auto Scaling Group with multiple Availability Zones?",
       options: [
-        "ELB จะ terminate instance นั้นทันทีและสร้างใหม่",
-        "ELB หยุดส่ง traffic ไปยัง instance นั้น แต่ไม่ terminate — ASG เป็นคนที่ terminate และ replace instance",
-        "ELB จะ restart instance นั้นอัตโนมัติ",
-        "ELB จะส่ง notification ไปยัง admin แต่ยังส่ง traffic ต่อ",
+        "Lower cost than a single AZ.",
+        "High availability — if one AZ fails, instances in other AZs continue serving traffic.",
+        "Faster instance launches.",
+        "Required for Lambda integration.",
       ],
       correct: 1,
       explanation:
-        "ELB ทำหน้าที่แค่หยุดส่ง traffic ไปยัง instance ที่ unhealthy (ไม่ตอบ HTTP 200) จนกว่าจะ healthy อีกครั้ง ELB ไม่มีสิทธิ์ terminate instance — หน้าที่ terminate instance ที่ unhealthy และสร้างใหม่แทนเป็นของ ASG",
+        "Spanning an ASG across multiple AZs is a fundamental high-availability practice — the ASG can launch replacement instances in healthy AZs if one AZ becomes unavailable.",
+    },
+    {
+      id: "elb-q8",
+      question:
+        "What does \"sticky sessions\" (session affinity) mean in an Application Load Balancer?",
+      options: [
+        "All requests from a single client are routed to the same target for the session duration.",
+        "The load balancer drops slow connections.",
+        "Requests are randomized across all targets equally.",
+        "The load balancer caches all responses.",
+      ],
+      correct: 0,
+      explanation:
+        "Sticky sessions ensure that a client's requests go to the same backend target (using a cookie). This is useful for stateful applications, but stateless designs are preferred for scalability.",
+    },
+    {
+      id: "elb-q9",
+      question:
+        "Which feature ensures a load balancer ONLY routes traffic to healthy instances?",
+      options: [
+        "Sticky sessions",
+        "Health checks",
+        "Cross-zone load balancing",
+        "Listener rules",
+      ],
+      correct: 1,
+      explanation:
+        "Load balancer health checks periodically test each target. Unhealthy targets are removed from the rotation; healthy targets continue receiving traffic.",
+    },
+    {
+      id: "elb-q10",
+      question:
+        "Which load balancer feature distributes traffic evenly across targets in ALL AZs, not just within the same AZ?",
+      options: [
+        "Cross-Zone Load Balancing",
+        "Health Checks",
+        "Sticky Sessions",
+        "WebSocket",
+      ],
+      correct: 0,
+      explanation:
+        "Cross-Zone Load Balancing distributes incoming traffic evenly across all registered targets in all enabled AZs, regardless of which AZ the request originally hit.",
+    },
+    {
+      id: "elb-q11",
+      question:
+        "What is the difference between scaling out and scaling up?",
+      options: [
+        "There is no difference.",
+        "Scaling out adds more instances (horizontal); scaling up uses a larger instance (vertical).",
+        "Scaling up adds more instances; scaling out resizes an instance.",
+        "Both terms refer to scaling down.",
+      ],
+      correct: 1,
+      explanation:
+        "Horizontal scaling (scale out) = add more instances. Vertical scaling (scale up) = use a larger instance type. ASGs implement horizontal scaling.",
+    },
+    {
+      id: "elb-q12",
+      question:
+        "Which ELB type is being deprecated and only recommended for legacy workloads using EC2-Classic?",
+      options: [
+        "Application Load Balancer",
+        "Network Load Balancer",
+        "Classic Load Balancer (CLB)",
+        "Gateway Load Balancer",
+      ],
+      correct: 2,
+      explanation:
+        "Classic Load Balancer is the legacy v1 ELB and is being deprecated. AWS recommends ALB or NLB for new workloads.",
+    },
+    {
+      id: "elb-q13",
+      question:
+        "An ASG should add an instance when CPU > 80% for 5 minutes and remove an instance when CPU < 20% for 10 minutes. Which kind of scaling policy would BEST express this?",
+      options: ["Target Tracking", "Step Scaling", "Scheduled Scaling", "Predictive Scaling"],
+      correct: 1,
+      explanation:
+        "Step Scaling lets you define multiple steps based on metric thresholds (e.g., +1 if CPU 60-80%, +2 if 80-100%) — more granular than simple/target tracking.",
+    },
+    {
+      id: "elb-q14",
+      question:
+        "Which scaling type uses ML to forecast traffic and pre-scale capacity?",
+      options: [
+        "Simple Scaling",
+        "Step Scaling",
+        "Target Tracking",
+        "Predictive Scaling",
+      ],
+      correct: 3,
+      explanation:
+        "Predictive Scaling uses machine learning to analyze historical traffic patterns and pre-launch capacity in anticipation of forecast load — useful for predictable cyclical workloads.",
+    },
+    {
+      id: "elb-q15",
+      question:
+        "What is the role of an ELB in front of an Auto Scaling Group?",
+      options: [
+        "To reduce the number of instances.",
+        "To distribute incoming traffic evenly across the EC2 instances managed by the ASG.",
+        "To replace the ASG.",
+        "To encrypt data on EBS volumes.",
+      ],
+      correct: 1,
+      explanation:
+        "An ELB in front of an ASG distributes incoming traffic across healthy instances managed by the ASG. The ASG ensures correct capacity; the ELB ensures fair distribution.",
+    },
+    {
+      id: "elb-q16",
+      question:
+        "Which features can route different URL paths to different backend services on an ALB?",
+      options: [
+        "Path-based routing",
+        "Host-based routing",
+        "HTTP header routing",
+        "All of the above",
+      ],
+      correct: 3,
+      explanation:
+        "ALB supports advanced Layer-7 routing: path-based (e.g., /api/* vs /static/*), host-based (e.g., api.example.com vs www.example.com), and HTTP header- or query-based routing — all via listener rules.",
+    },
+    {
+      id: "elb-q17",
+      question:
+        "Which is true about NLB IP addresses?",
+      options: [
+        "NLB only has dynamic public IPs.",
+        "NLB provides one static IP per AZ — and supports Elastic IPs.",
+        "NLB does not have an IP address.",
+        "NLB only supports private IPs.",
+      ],
+      correct: 1,
+      explanation:
+        "NLB provides one static IP per AZ (and supports Elastic IPs). This is a key NLB feature — useful for whitelisting or scenarios where stable IPs matter.",
+    },
+    {
+      id: "elb-q18",
+      question:
+        "What is a Launch Template (vs. legacy Launch Configuration)?",
+      options: [
+        "A launch template is the legacy way to configure ASG instances.",
+        "A launch template is the modern, recommended way to define instance launch parameters (AMI, type, security groups, user data, etc.) — supports versioning.",
+        "Launch templates are only for Lambda.",
+        "Launch templates can only be used in us-east-1.",
+      ],
+      correct: 1,
+      explanation:
+        "Launch Templates are the modern replacement for Launch Configurations. They support versioning, multiple instance types, multiple purchase options (Spot + On-Demand mix), and many newer features.",
+    },
+    {
+      id: "elb-q19",
+      question:
+        "When does an ASG scale-IN cooldown matter?",
+      options: [
+        "Before terminating instances after a scale-in event, the ASG waits a specified period before evaluating again — to avoid flapping.",
+        "It dictates how often health checks run.",
+        "It controls the AZ failover.",
+        "It limits the number of new instances per minute.",
+      ],
+      correct: 0,
+      explanation:
+        "Cooldown periods prevent the ASG from rapidly scaling in/out repeatedly (flapping). After a scaling activity, the ASG waits the cooldown period before considering another scaling action.",
+    },
+    {
+      id: "elb-q20",
+      question:
+        "Which protocol does ALB support that allows real-time bidirectional communication between client and server?",
+      options: [
+        "FTP",
+        "WebSocket",
+        "SMTP",
+        "ICMP",
+      ],
+      correct: 1,
+      explanation:
+        "ALB supports HTTP, HTTPS, HTTP/2, and WebSocket — enabling real-time, bidirectional communication for chat apps, multiplayer games, and live dashboards.",
+    },
+    {
+      id: "elb-q21",
+      question:
+        "Which AWS feature allows ELB to handle SSL/TLS encryption so backend servers don't have to?",
+      options: ["WAF", "SSL/TLS termination at the load balancer", "Sticky Sessions", "WebSocket"],
+      correct: 1,
+      explanation:
+        "SSL/TLS termination at the load balancer means the ELB decrypts incoming HTTPS traffic and forwards plain HTTP (or re-encrypted) to backends. Certificates can be managed via AWS Certificate Manager (ACM).",
+    },
+    {
+      id: "elb-q22",
+      question:
+        "Which target type does an ALB NOT support?",
+      options: [
+        "EC2 instances",
+        "IP addresses (IPv4)",
+        "AWS Lambda functions",
+        "S3 buckets",
+      ],
+      correct: 3,
+      explanation:
+        "ALB targets can be EC2 instances, IP addresses, Lambda functions, or even another ALB. S3 buckets are not ALB targets — S3 is accessed directly.",
+    },
+    {
+      id: "elb-q23",
+      question:
+        "What is the difference between an ALB target group and a listener?",
+      options: [
+        "They are the same thing.",
+        "A listener checks for incoming traffic on a specific port/protocol; a target group is a set of backend targets that receive routed traffic.",
+        "Listeners are only for NLBs.",
+        "Target groups are only for HTTPS.",
+      ],
+      correct: 1,
+      explanation:
+        "A listener is the entry point: it accepts traffic on a port/protocol and applies routing rules. A target group is the destination: a logical group of backend resources (instances, IPs, Lambda).",
+    },
+    {
+      id: "elb-q24",
+      question:
+        "In an ASG, when an unhealthy instance is detected, what happens?",
+      options: [
+        "The instance is rebooted automatically.",
+        "The ASG terminates the unhealthy instance and launches a replacement.",
+        "The instance stays in the group with errors.",
+        "The user is alerted but no action is taken.",
+      ],
+      correct: 1,
+      explanation:
+        "ASG continuously monitors instances using EC2 status checks (and optionally ELB health checks). Unhealthy instances are terminated and replaced to maintain the desired capacity.",
+    },
+    {
+      id: "elb-q25",
+      question:
+        "Which AWS Auto Scaling type is set to scale at specific times (e.g., scale up at 9 AM weekdays, scale down at 6 PM)?",
+      options: [
+        "Predictive Scaling",
+        "Scheduled Scaling",
+        "Target Tracking",
+        "Step Scaling",
+      ],
+      correct: 1,
+      explanation:
+        "Scheduled Scaling lets you define scaling actions at specific dates and times — useful for predictable patterns like business hours, batch jobs, or nightly maintenance.",
     },
   ],
 };

@@ -545,144 +545,339 @@ export const databases: TopicData = {
   ],
   quiz: [
     {
-      id: "databases-q1",
+      id: "db-q1",
       question:
-        "Application ต้องการเก็บ user profiles ที่มี schema ยืดหยุ่นและ scale ระดับ millions of requests/second ด้วย single-digit ms latency ควรใช้ service ใด?",
+        "An application needs to store user profiles with flexible schema and scale to millions of requests/second with single-digit ms latency. Which service is BEST?",
+      options: ["Amazon RDS", "Amazon Aurora", "Amazon DynamoDB", "Amazon Redshift"],
+      correct: 2,
+      explanation:
+        "DynamoDB is a fully managed NoSQL key-value/document database designed for massive scale and consistent single-digit millisecond latency. RDS/Aurora are relational; Redshift is for analytics.",
+    },
+    {
+      id: "db-q2",
+      question:
+        "Which database service is AWS's MySQL/PostgreSQL-compatible cloud-native database, claiming up to 5x MySQL performance?",
+      options: ["Amazon RDS", "Amazon Aurora", "Amazon DynamoDB", "Amazon DocumentDB"],
+      correct: 1,
+      explanation:
+        "Amazon Aurora is AWS's cloud-native relational database, MySQL- and PostgreSQL-compatible, with up to 5x MySQL / 3x PostgreSQL performance and built-in storage that auto-scales to 128 TiB.",
+    },
+    {
+      id: "db-q3",
+      question:
+        "Which AWS service is a fully managed, petabyte-scale data warehouse for OLAP / business intelligence queries?",
+      options: ["Amazon RDS", "Amazon Redshift", "Amazon DynamoDB", "Amazon EMR"],
+      correct: 1,
+      explanation:
+        "Amazon Redshift is a managed, columnar data warehouse optimized for analytical (OLAP) queries on massive datasets — used for BI, reporting, and complex aggregations.",
+    },
+    {
+      id: "db-q4",
+      question:
+        "Which AWS service provides an in-memory cache for sub-millisecond data access, supporting Redis or Memcached engines?",
       options: [
-        "Amazon RDS (PostgreSQL)",
+        "Amazon ElastiCache",
+        "Amazon DynamoDB DAX",
+        "Amazon RDS",
+        "Amazon MemoryDB",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon ElastiCache is a managed in-memory caching service supporting Redis and Memcached. It dramatically improves application performance for read-heavy workloads.",
+    },
+    {
+      id: "db-q5",
+      question:
+        "Which service is a managed graph database for relationships (social networks, fraud detection, knowledge graphs)?",
+      options: [
+        "Amazon Neptune",
+        "Amazon DocumentDB",
+        "Amazon Keyspaces",
+        "Amazon Quantum Ledger Database",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Neptune is a managed graph database supporting Property Graph (Gremlin) and RDF (SPARQL) — ideal for highly connected data like social networks and recommendation engines.",
+    },
+    {
+      id: "db-q6",
+      question:
+        "Which service is a fully-managed, immutable, cryptographically verifiable ledger database?",
+      options: [
         "Amazon DynamoDB",
+        "Amazon Quantum Ledger Database (QLDB)",
+        "Amazon Managed Blockchain",
+        "Amazon Aurora",
+      ],
+      correct: 1,
+      explanation:
+        "Amazon QLDB provides a transparent, immutable, cryptographically verifiable transaction log — used for audit trails, financial transactions, and supply chain.",
+    },
+    {
+      id: "db-q7",
+      question:
+        "Which AWS database is a MongoDB-compatible document database?",
+      options: [
+        "Amazon DocumentDB (with MongoDB compatibility)",
+        "Amazon DynamoDB",
+        "Amazon Neptune",
+        "Amazon Keyspaces",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon DocumentDB is a managed JSON document database with MongoDB API compatibility — designed to run MongoDB workloads at AWS scale without managing the infrastructure.",
+    },
+    {
+      id: "db-q8",
+      question:
+        "Which AWS database is a managed Apache Cassandra-compatible service?",
+      options: [
+        "Amazon Neptune",
+        "Amazon Keyspaces (for Apache Cassandra)",
+        "Amazon DynamoDB",
+        "Amazon DocumentDB",
+      ],
+      correct: 1,
+      explanation:
+        "Amazon Keyspaces is a fully managed Cassandra-compatible service — serverless, pay-per-use, scales automatically.",
+    },
+    {
+      id: "db-q9",
+      question:
+        "Which AWS service is BEST for serverless interactive SQL queries directly against data in S3?",
+      options: [
+        "Amazon Athena",
         "Amazon Redshift",
+        "Amazon EMR",
+        "Amazon RDS",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Athena is a serverless query service that runs SQL directly against S3 (CSV, JSON, Parquet, ORC). Pay only per query (per TB scanned). Great for ad-hoc analytics.",
+    },
+    {
+      id: "db-q10",
+      question:
+        "Which AWS service provides serverless ETL / data preparation for analytics, with a Data Catalog?",
+      options: [
+        "AWS Glue",
+        "AWS Data Pipeline",
+        "AWS DMS",
+        "Amazon EMR",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Glue is a serverless ETL service. Glue Data Catalog acts as a central metadata store. Glue can crawl sources to discover schemas and run Spark/Python ETL jobs.",
+    },
+    {
+      id: "db-q11",
+      question:
+        "Which DynamoDB feature provides in-memory caching with microsecond-level read latency?",
+      options: [
+        "DAX (DynamoDB Accelerator)",
+        "DynamoDB Streams",
+        "ElastiCache",
+        "Global Tables",
+      ],
+      correct: 0,
+      explanation:
+        "DynamoDB Accelerator (DAX) is a fully managed, write-through cache delivering microsecond-level read performance for DynamoDB tables.",
+    },
+    {
+      id: "db-q12",
+      question:
+        "Which DynamoDB feature replicates a table across multiple AWS regions for active-active access?",
+      options: [
+        "DynamoDB Streams",
+        "Global Tables",
+        "Cross-Region Replication",
+        "DAX",
+      ],
+      correct: 1,
+      explanation:
+        "DynamoDB Global Tables provide multi-region, multi-active replication — every region can read AND write, with all changes propagated automatically.",
+    },
+    {
+      id: "db-q13",
+      question:
+        "Which AWS service is a managed Apache Hadoop / Spark / Hive / Presto cluster service for big data processing?",
+      options: [
+        "Amazon EMR",
+        "AWS Glue",
+        "Amazon Athena",
+        "Amazon Kinesis",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon EMR (Elastic MapReduce) is a managed cluster platform for big data frameworks like Hadoop, Spark, Hive, HBase, Flink, Presto. Used for large-scale data processing and ML.",
+    },
+    {
+      id: "db-q14",
+      question:
+        "Which RDS feature provides synchronous replication to a standby database in a different AZ for high availability?",
+      options: [
+        "Read Replica",
+        "Multi-AZ Deployment",
+        "Cross-Region Replication",
+        "Aurora Global Database",
+      ],
+      correct: 1,
+      explanation:
+        "RDS Multi-AZ deployments maintain a synchronous standby in a different AZ. On primary failure, RDS automatically fails over (typically <60 sec) — used for HA, not for read scaling.",
+    },
+    {
+      id: "db-q15",
+      question:
+        "Which RDS feature is used to scale READ workloads by creating one or more asynchronously replicated copies?",
+      options: [
+        "Multi-AZ",
+        "Read Replicas",
+        "Global Database",
+        "Snapshots",
+      ],
+      correct: 1,
+      explanation:
+        "RDS Read Replicas use asynchronous replication. Up to 5 (15 for Aurora) replicas can offload read traffic from the primary. Read Replicas can also be promoted to standalone DBs.",
+    },
+    {
+      id: "db-q16",
+      question:
+        "Which AWS service simplifies data migration between on-premises and AWS databases (homogeneous and heterogeneous)?",
+      options: [
+        "AWS Database Migration Service (DMS)",
+        "AWS Snowball",
+        "AWS Direct Connect",
+        "AWS DataSync",
+      ],
+      correct: 0,
+      explanation:
+        "AWS DMS migrates data between databases (e.g., Oracle → Aurora, SQL Server → RDS). Combined with the Schema Conversion Tool (SCT), it supports heterogeneous migrations.",
+    },
+    {
+      id: "db-q17",
+      question:
+        "Which database service is fully serverless — pay only for the requests and storage you use, with no instance to manage?",
+      options: [
+        "Amazon RDS",
+        "Amazon DynamoDB (on-demand mode)",
+        "Amazon Aurora Provisioned",
+        "Amazon Redshift Provisioned",
+      ],
+      correct: 1,
+      explanation:
+        "DynamoDB On-Demand and Aurora Serverless are both serverless. DynamoDB on-demand charges per read/write request; Aurora Serverless scales capacity up/down automatically and pauses when idle.",
+    },
+    {
+      id: "db-q18",
+      question:
+        "Which AWS service is a real-time streaming data platform for ingestion and analytics (e.g., clickstreams, IoT)?",
+      options: [
+        "Amazon Kinesis",
+        "Amazon SQS",
+        "Amazon SNS",
         "Amazon Athena",
       ],
-      correct: 1,
+      correct: 0,
       explanation:
-        "DynamoDB เป็น serverless NoSQL key-value database ที่รองรับ flexible schema, millions of requests/second และ single-digit ms latency — เหมาะกับ workload แบบนี้ ส่วน RDS เป็น relational (fixed schema, vertical scaling), Redshift เป็น data warehouse (OLAP), Athena เป็น query service",
+        "Amazon Kinesis is a family of real-time streaming services: Data Streams, Data Firehose, Managed Service for Apache Flink, and Video Streams.",
     },
     {
-      id: "databases-q2",
+      id: "db-q19",
       question:
-        "Application อ่าน database หนักมากจน main DB เริ่มช้า ควรใช้ feature ใดของ RDS เพื่อ scale READ workload?",
+        "Which Kinesis service is BEST to stream data into S3, Redshift, OpenSearch, or Splunk WITHOUT writing custom code?",
       options: [
-        "Multi-AZ Deployment",
-        "Read Replicas",
-        "Automated Backups",
-        "Storage Auto Scaling",
+        "Kinesis Data Streams",
+        "Kinesis Data Firehose",
+        "Kinesis Video Streams",
+        "Kinesis Data Analytics",
       ],
       correct: 1,
       explanation:
-        "Read Replicas ใช้ scale READ workload — สร้างได้สูงสุด 5 ตัว (RDS) หรือ 15 ตัว (Aurora) ส่วน Multi-AZ ใช้สำหรับ high availability/failover (standby ไม่รับ traffic) ไม่ใช่สำหรับ scale read",
+        "Kinesis Data Firehose is a fully managed delivery service for streaming data into S3, Redshift, OpenSearch, Splunk, etc. — no code needed, with optional buffering and transformation.",
     },
     {
-      id: "databases-q3",
+      id: "db-q20",
       question:
-        "Amazon Aurora มี performance benefit เหนือ RDS อย่างไร?",
+        "Which is the BEST description of OLTP vs. OLAP?",
       options: [
-        "เร็วกว่า MySQL บน RDS 2x และ PostgreSQL 1.5x",
-        "เร็วกว่า MySQL บน RDS 5x และ PostgreSQL 3x",
-        "เร็วกว่า DynamoDB 10x",
-        "เร็วกว่า Redshift 100x สำหรับ analytics",
+        "OLTP = analytical; OLAP = transactional.",
+        "OLTP = transactional (e.g., orders, inventory updates); OLAP = analytical (e.g., aggregating millions of rows for BI).",
+        "OLTP and OLAP are the same.",
+        "OLTP only works on NoSQL.",
       ],
       correct: 1,
       explanation:
-        "Aurora claim ว่าเร็วกว่า MySQL บน RDS ถึง 5x และเร็วกว่า PostgreSQL บน RDS ถึง 3x — เป็น cloud-native database ที่ออกแบบมาเฉพาะ AWS storage auto-grow ถึง 64TB ราคาแพงกว่า RDS ~20% แต่ efficient กว่า",
+        "OLTP (Online Transaction Processing) handles many small transactions — RDS/Aurora/DynamoDB. OLAP (Online Analytical Processing) handles complex analytical queries on large datasets — Redshift.",
     },
     {
-      id: "databases-q4",
+      id: "db-q21",
       question:
-        "Amazon ElastiCache รองรับ in-memory engine อะไรบ้าง?",
+        "Which AWS service provides a centralized data lake catalog and lets you search, manage, and secure data across S3, RDS, Redshift?",
       options: [
-        "Redis และ MongoDB",
-        "Redis และ Memcached",
-        "Memcached และ Cassandra",
-        "Redis และ DynamoDB",
+        "AWS Lake Formation",
+        "AWS Glue Data Catalog",
+        "Amazon Athena",
+        "AWS Data Exchange",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Lake Formation simplifies setting up a secure data lake on S3 — centralized access controls, fine-grained permissions, and integration with Glue/Athena/Redshift.",
+    },
+    {
+      id: "db-q22",
+      question:
+        "Which database engines does Amazon RDS support? (Choose the BEST answer.)",
+      options: [
+        "Only MySQL.",
+        "MySQL, PostgreSQL, MariaDB, Oracle, SQL Server, and Amazon Aurora.",
+        "Only NoSQL engines.",
+        "Only proprietary engines.",
       ],
       correct: 1,
       explanation:
-        "ElastiCache รองรับ 2 engines: Redis (HA, persistence, advanced data types) และ Memcached (simple, multi-threaded, no persistence) — MongoDB ใช้ DocumentDB, Cassandra ใช้ Keyspaces, DynamoDB ไม่ใช่ in-memory engine แต่ใช้ DAX สำหรับ caching",
+        "Amazon RDS supports MySQL, PostgreSQL, MariaDB, Oracle, Microsoft SQL Server, IBM Db2, and Amazon Aurora.",
     },
     {
-      id: "databases-q5",
+      id: "db-q23",
       question:
-        "ข้อใดคือความแตกต่างหลักระหว่าง DAX กับ ElastiCache?",
+        "Which is the recommended way to back up an RDS database for point-in-time recovery?",
       options: [
-        "DAX เป็น disk cache, ElastiCache เป็น in-memory cache",
-        "DAX ใช้ได้เฉพาะ DynamoDB เท่านั้น ส่วน ElastiCache ใช้ได้กับ database ใดก็ได้",
-        "ElastiCache เร็วกว่า DAX 10x",
-        "DAX รองรับเฉพาะ Redis ส่วน ElastiCache รองรับ Memcached ด้วย",
+        "Manually export to S3 every hour.",
+        "Use automated backups (transaction logs + daily snapshots) — enabled by default.",
+        "Use EBS snapshots.",
+        "Use S3 versioning.",
       ],
       correct: 1,
       explanation:
-        "DAX เป็น in-memory cache ที่ออกแบบมา <em>เฉพาะ DynamoDB</em> เท่านั้น (compatible กับ DynamoDB API) ส่วน ElastiCache เป็น general-purpose cache (Redis/Memcached) ที่ใช้ได้กับ database ใด ๆ ทั้งคู่เป็น in-memory",
+        "RDS automated backups capture daily snapshots and continuously stream transaction logs, enabling point-in-time recovery to any second within the retention window (up to 35 days).",
     },
     {
-      id: "databases-q6",
+      id: "db-q24",
       question:
-        "Amazon Redshift ออกแบบมาสำหรับ workload ประเภทใด?",
+        "Which service helps visualize data via interactive dashboards from many sources (Athena, Redshift, RDS, S3, etc.)?",
       options: [
-        "OLTP (Online Transaction Processing)",
-        "OLAP (Online Analytical Processing) / Data Warehousing",
-        "Real-time key-value lookups",
-        "Graph traversal queries",
+        "Amazon QuickSight",
+        "Amazon Redshift",
+        "AWS Glue",
+        "Amazon Kinesis",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon QuickSight is a serverless BI service for interactive dashboards and visualizations — connects to many AWS data sources and supports ML insights.",
+    },
+    {
+      id: "db-q25",
+      question:
+        "Which is a benefit of Aurora compared to standard RDS MySQL/PostgreSQL?",
+      options: [
+        "Aurora is cheaper for all workloads.",
+        "Aurora offers higher performance, auto-scaling storage up to 128 TiB, 6 copies across 3 AZs, faster failover, and Aurora Serverless option.",
+        "Aurora supports more engines.",
+        "Aurora has worse fault tolerance.",
       ],
       correct: 1,
       explanation:
-        "Redshift เป็น data warehouse ที่ออกแบบสำหรับ OLAP (analytics, reporting, large queries) ใช้ columnar storage และ MPP — ไม่เหมาะกับ OLTP (transaction-heavy, real-time CRUD) ที่ควรใช้ RDS/Aurora แทน",
-    },
-    {
-      id: "databases-q7",
-      question:
-        "Amazon Athena ใช้ query ข้อมูลที่ไหน?",
-      options: [
-        "EBS volumes",
-        "RDS databases",
-        "Amazon S3",
-        "DynamoDB tables",
-      ],
-      correct: 2,
-      explanation:
-        "Athena เป็น serverless query service ที่ใช้ SQL query ข้อมูลใน <strong>S3 โดยตรง</strong> ไม่ต้องโหลดข้อมูลเข้า database ก่อน — pay per query (ตาม data ที่ scan) เหมาะกับ ad-hoc analysis และ log analytics",
-    },
-    {
-      id: "databases-q8",
-      question:
-        "Amazon Aurora รองรับ database engines อะไรบ้าง?",
-      options: [
-        "MySQL และ MariaDB",
-        "PostgreSQL และ MySQL",
-        "Oracle และ SQL Server",
-        "PostgreSQL และ MongoDB",
-      ],
-      correct: 1,
-      explanation:
-        "Aurora เป็น proprietary database ของ AWS ที่ <strong>compatible กับ PostgreSQL และ MySQL</strong> เท่านั้น ไม่รองรับ Oracle, SQL Server, MariaDB, หรือ MongoDB (MongoDB ใช้ DocumentDB)",
-    },
-    {
-      id: "databases-q9",
-      question:
-        "ข้อใดถูกต้องเกี่ยวกับ access RDS instance?",
-      options: [
-        "สามารถ SSH เข้า RDS instance เพื่อปรับแต่ง OS ได้",
-        "สามารถ SSH ได้เฉพาะ Aurora",
-        "ไม่สามารถ SSH เข้า RDS instance ได้ (managed service)",
-        "ต้องใช้ AWS Systems Manager Session Manager เพื่อ SSH",
-      ],
-      correct: 2,
-      explanation:
-        "RDS เป็น managed service ที่ AWS จัดการ underlying OS ให้ — <strong>ไม่สามารถ SSH</strong> เข้า instance ได้ ถ้าต้องการ control เต็มรูปแบบต้องติดตั้ง database บน EC2 เอง (แต่จะไม่ได้ managed features เช่น automated backup, Multi-AZ)",
-    },
-    {
-      id: "databases-q10",
-      question:
-        "Amazon EMR (Elastic MapReduce) ใช้สำหรับงานประเภทใด?",
-      options: [
-        "สร้าง relational database clusters",
-        "สร้าง Hadoop clusters สำหรับ big data processing (Spark, HBase, Presto, Flink)",
-        "Cache ข้อมูลใน memory เพื่อลด DB load",
-        "Migrate database จาก on-premise มา AWS",
-      ],
-      correct: 1,
-      explanation:
-        "EMR (Elastic MapReduce) ใช้สร้าง <strong>Hadoop clusters</strong> สำหรับ big data processing บน EC2 instances หลายร้อยตัว รองรับ Apache Spark, HBase, Presto, Flink และอื่น ๆ — ใช้สำหรับ data processing, machine learning, web indexing, big data analytics ส่วน migration ใช้ DMS, caching ใช้ ElastiCache/DAX",
+        "Aurora provides up to 5x MySQL / 3x PostgreSQL performance, storage auto-scaling to 128 TiB, 6 copies across 3 AZs, sub-second failover, and Aurora Serverless for variable workloads.",
     },
   ],
 };

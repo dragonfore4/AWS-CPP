@@ -489,98 +489,354 @@ export const deployment: TopicData = {
   ],
   quiz: [
     {
-      id: "deployment-q1",
-      question: "AWS CloudFormation \u0e04\u0e37\u0e2d\u0e1a\u0e23\u0e34\u0e01\u0e32\u0e23\u0e25\u0e31\u0e01\u0e29\u0e13\u0e30\u0e43\u0e14?",
+      id: "dep-q1",
+      question:
+        "What is AWS CloudFormation?",
       options: [
-        "\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e21\u0e37\u0e2d imperative scripting \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a deploy application code \u0e25\u0e07 EC2",
-        "Declarative Infrastructure as Code \u2014 \u0e40\u0e02\u0e35\u0e22\u0e19 template \u0e1a\u0e2d\u0e01\u0e27\u0e48\u0e32\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23 AWS resource \u0e2d\u0e30\u0e44\u0e23 \u0e41\u0e25\u0e49\u0e27 AWS \u0e08\u0e31\u0e14\u0e01\u0e32\u0e23\u0e2a\u0e23\u0e49\u0e32\u0e07\u0e43\u0e2b\u0e49",
-        "Cloud IDE \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e40\u0e02\u0e35\u0e22\u0e19 code \u0e1a\u0e19 browser",
-        "Managed Chef / Puppet \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a configuration management",
+        "A managed CI/CD service.",
+        "An Infrastructure as Code (IaC) service that lets you describe AWS resources in JSON/YAML templates and provision them automatically.",
+        "A monitoring service.",
+        "A code repository service.",
       ],
       correct: 1,
       explanation:
-        "CloudFormation \u0e04\u0e37\u0e2d\u0e1a\u0e23\u0e34\u0e01\u0e32\u0e23 Infrastructure as Code \u0e41\u0e1a\u0e1a declarative \u2014 \u0e40\u0e02\u0e35\u0e22\u0e19 template (JSON/YAML) \u0e1a\u0e2d\u0e01 <em>what</em> \u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23 (resource, property, dependency) \u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e1a\u0e2d\u0e01 <em>how</em> \u0e41\u0e25\u0e49\u0e27 AWS \u0e2a\u0e23\u0e49\u0e32\u0e07/\u0e25\u0e1a/\u0e41\u0e01\u0e49 resource \u0e43\u0e2b\u0e49\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34 \u2014 \u0e0a\u0e49\u0e2d\u0e22\u0e2d\u0e37\u0e48\u0e19 \u0e04\u0e37\u0e2d Cloud9 (cloud IDE), CodeDeploy / OpsWorks (configuration / deployment)",
+        "AWS CloudFormation is AWS's native Infrastructure as Code service. You define resources in a template (JSON/YAML), and CloudFormation provisions and manages them as a stack.",
     },
     {
-      id: "deployment-q2",
+      id: "dep-q2",
       question:
-        "AWS Elastic Beanstalk \u0e08\u0e31\u0e14\u0e2d\u0e22\u0e39\u0e48\u0e43\u0e19\u0e23\u0e30\u0e14\u0e31\u0e1a service \u0e1b\u0e23\u0e30\u0e40\u0e20\u0e17\u0e43\u0e14?",
-      options: [
-        "Infrastructure as a Service (IaaS)",
-        "Software as a Service (SaaS)",
-        "Platform as a Service (PaaS) \u2014 developer \u0e2a\u0e48\u0e07\u0e41\u0e04\u0e48 application code \u0e41\u0e25\u0e49\u0e27 AWS \u0e14\u0e39\u0e41\u0e25 EC2 / ASG / ELB / RDS \u0e43\u0e2b\u0e49",
-        "Function as a Service (FaaS)",
-      ],
-      correct: 2,
-      explanation:
-        "Elastic Beanstalk \u0e04\u0e37\u0e2d <strong>PaaS (Platform as a Service)</strong> \u2014 developer \u0e2a\u0e48\u0e07\u0e41\u0e04\u0e48\u0e42\u0e04\u0e49\u0e14\u0e02\u0e36\u0e49\u0e19\u0e44\u0e1b \u0e41\u0e25\u0e49\u0e27 Beanstalk \u0e08\u0e31\u0e14\u0e01\u0e32\u0e23 EC2, ASG, ELB, RDS, capacity, deployment, health monitoring \u0e43\u0e2b\u0e49\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14 \u2014 \u0e15\u0e31\u0e27 service \u0e1f\u0e23\u0e35 \u0e08\u0e48\u0e32\u0e22\u0e40\u0e09\u0e1e\u0e32\u0e30 underlying resource \u0e17\u0e35\u0e48 Beanstalk \u0e2a\u0e23\u0e49\u0e32\u0e07",
-    },
-    {
-      id: "deployment-q3",
-      question: "AWS CodePipeline \u0e21\u0e35\u0e2b\u0e19\u0e49\u0e32\u0e17\u0e35\u0e48\u0e2b\u0e25\u0e31\u0e01\u0e2d\u0e30\u0e44\u0e23?",
-      options: [
-        "Compile \u0e41\u0e25\u0e30 build code \u0e08\u0e32\u0e01 source",
-        "\u0e40\u0e01\u0e47\u0e1a Git repository \u0e1a\u0e19 AWS",
-        "Orchestrate CI/CD pipeline \u2014 \u0e15\u0e48\u0e2d\u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19\u0e08\u0e32\u0e01 source \u2192 build \u2192 test \u2192 deploy \u0e44\u0e27\u0e49\u0e14\u0e49\u0e27\u0e22\u0e01\u0e31\u0e19",
-        "\u0e08\u0e31\u0e14\u0e01\u0e32\u0e23 EC2 fleet \u0e41\u0e25\u0e30 patch OS",
-      ],
-      correct: 2,
-      explanation:
-        "CodePipeline \u0e04\u0e37\u0e2d\u0e15\u0e31\u0e27 orchestrate CI/CD pipeline \u2014 \u0e15\u0e48\u0e2d\u0e02\u0e31\u0e49\u0e19\u0e15\u0e2d\u0e19 Code (CodeCommit/GitHub) \u2192 Build (CodeBuild) \u2192 Test \u2192 Deploy (CodeDeploy/Beanstalk/CloudFormation) \u0e40\u0e02\u0e49\u0e32\u0e14\u0e49\u0e27\u0e22\u0e01\u0e31\u0e19\u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34 \u2014 build code \u0e04\u0e37\u0e2d CodeBuild, Git repo \u0e04\u0e37\u0e2d CodeCommit, fleet management \u0e04\u0e37\u0e2d SSM",
-    },
-    {
-      id: "deployment-q4",
-      question: "CodeCommit \u0e01\u0e31\u0e1a CodeBuild \u0e15\u0e48\u0e32\u0e07\u0e01\u0e31\u0e19\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e23?",
-      options: [
-        "CodeCommit deploy code \u2014 CodeBuild orchestrate pipeline",
-        "CodeCommit \u0e04\u0e37\u0e2d Git source control (\u0e40\u0e01\u0e47\u0e1a code) \u2014 CodeBuild \u0e04\u0e37\u0e2d build/test service (compile \u0e41\u0e25\u0e30\u0e2a\u0e23\u0e49\u0e32\u0e07 artifact)",
-        "CodeCommit build code \u2014 CodeBuild \u0e40\u0e01\u0e47\u0e1a Git",
-        "\u0e17\u0e31\u0e49\u0e07\u0e04\u0e39\u0e48\u0e40\u0e1b\u0e47\u0e19 service \u0e15\u0e31\u0e27\u0e40\u0e14\u0e35\u0e22\u0e27\u0e01\u0e31\u0e19 \u0e44\u0e21\u0e48\u0e15\u0e48\u0e32\u0e07\u0e01\u0e31\u0e19",
-      ],
-      correct: 1,
-      explanation:
-        "<strong>CodeCommit</strong> = Git-based source control hosting (\u0e40\u0e01\u0e47\u0e1a code repository \u0e1a\u0e19 AWS \u2014 \u0e17\u0e32\u0e07\u0e40\u0e25\u0e37\u0e2d\u0e01\u0e41\u0e17\u0e19 GitHub) \u2014 <strong>CodeBuild</strong> = build/test service (compile, run tests, \u0e2a\u0e23\u0e49\u0e32\u0e07 package/artifact) \u2014 \u0e17\u0e31\u0e49\u0e07\u0e2a\u0e2d\u0e07\u0e15\u0e31\u0e27\u0e21\u0e31\u0e01\u0e43\u0e0a\u0e49\u0e23\u0e48\u0e27\u0e21\u0e01\u0e31\u0e19\u0e1c\u0e48\u0e32\u0e19 CodePipeline",
-    },
-    {
-      id: "deployment-q5",
-      question:
-        "\u0e2d\u0e07\u0e04\u0e4c\u0e01\u0e23\u0e21\u0e35 EC2 instance \u0e1a\u0e19 AWS \u0e41\u0e25\u0e30\u0e21\u0e35 server on-premises \u0e2d\u0e22\u0e48\u0e32\u0e07\u0e25\u0e30\u0e2b\u0e25\u0e32\u0e22\u0e23\u0e49\u0e2d\u0e22\u0e15\u0e31\u0e27 \u2014 \u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23\u0e1a\u0e23\u0e34\u0e2b\u0e32\u0e23\u0e23\u0e27\u0e21\u0e0a\u0e38\u0e14\u0e40\u0e14\u0e35\u0e22\u0e27 (patch OS, \u0e23\u0e31\u0e19 command, \u0e40\u0e01\u0e47\u0e1a parameter, \u0e40\u0e02\u0e49\u0e32 server \u0e44\u0e21\u0e48\u0e1c\u0e48\u0e32\u0e19 SSH) \u0e04\u0e27\u0e23\u0e43\u0e0a\u0e49\u0e1a\u0e23\u0e34\u0e01\u0e32\u0e23\u0e43\u0e14?",
+        "Which AWS deployment service is BEST for developers to upload code (Java, .NET, PHP, Node.js, Python, Ruby, Go, Docker) without managing the underlying infrastructure?",
       options: [
         "AWS Elastic Beanstalk",
+        "AWS CloudFormation",
+        "Amazon ECS",
+        "AWS Lambda",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Elastic Beanstalk is a Platform-as-a-Service (PaaS) that handles capacity provisioning, load balancing, scaling, and monitoring automatically — you just upload your code.",
+    },
+    {
+      id: "dep-q3",
+      question:
+        "Which AWS service is a managed Git repository?",
+      options: [
+        "AWS CodeBuild",
+        "AWS CodeCommit",
         "AWS CodeDeploy",
-        "AWS Systems Manager (SSM) \u2014 \u0e1a\u0e23\u0e34\u0e2b\u0e32\u0e23 EC2 + on-prem fleet \u0e41\u0e1a\u0e1a hybrid",
+        "AWS CodePipeline",
+      ],
+      correct: 1,
+      explanation:
+        "AWS CodeCommit is a managed Git service for hosting private repositories (note: CodeCommit is no longer accepting new customers as of July 2024 — Stephane updates AGENTS.md but the exam still tests it).",
+    },
+    {
+      id: "dep-q4",
+      question:
+        "Which AWS service builds source code and runs unit tests?",
+      options: [
+        "AWS CodeBuild",
+        "AWS CodeCommit",
+        "AWS CodeDeploy",
+        "AWS CodeStar",
+      ],
+      correct: 0,
+      explanation:
+        "AWS CodeBuild is a fully managed continuous integration service — compiles source code, runs tests, and produces deployable artifacts. Pay per build minute.",
+    },
+    {
+      id: "dep-q5",
+      question:
+        "Which AWS service automates code deployment to EC2, on-premises, Lambda, or ECS?",
+      options: [
+        "AWS CodeBuild",
+        "AWS CodeDeploy",
+        "AWS CodePipeline",
+        "AWS Elastic Beanstalk",
+      ],
+      correct: 1,
+      explanation:
+        "AWS CodeDeploy automates application deployments to EC2 (in-place or blue/green), on-premises servers, Lambda, and ECS. Supports rolling deployments and automatic rollbacks.",
+    },
+    {
+      id: "dep-q6",
+      question:
+        "Which AWS service is a CI/CD pipeline orchestration tool that can integrate CodeCommit/CodeBuild/CodeDeploy/third-party tools?",
+      options: [
+        "AWS CodePipeline",
+        "AWS CodeBuild",
+        "AWS Elastic Beanstalk",
         "AWS CloudFormation",
       ],
-      correct: 2,
+      correct: 0,
       explanation:
-        "<strong>AWS Systems Manager (SSM)</strong> \u0e04\u0e37\u0e2d hybrid service \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e08\u0e31\u0e14\u0e01\u0e32\u0e23 EC2 + on-premises servers \u0e02\u0e19\u0e32\u0e14 fleet \u2014 \u0e23\u0e27\u0e21 Patch Manager, Run Command, Parameter Store, Session Manager (\u0e40\u0e02\u0e49\u0e32 server \u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e43\u0e0a\u0e49 SSH \u0e2b\u0e23\u0e37\u0e2d port 22), State Manager, Inventory \u2014 server \u0e15\u0e49\u0e2d\u0e07\u0e15\u0e34\u0e14 SSM Agent \u0e08\u0e36\u0e07\u0e08\u0e30\u0e08\u0e31\u0e14\u0e01\u0e32\u0e23\u0e44\u0e14\u0e49",
+        "AWS CodePipeline is a continuous delivery service that orchestrates build, test, and deploy phases — integrates with CodeCommit, GitHub, Jenkins, CodeBuild, CodeDeploy, ECS, Lambda, etc.",
     },
     {
-      id: "deployment-q6",
+      id: "dep-q7",
       question:
-        "\u0e02\u0e49\u0e2d\u0e2a\u0e2d\u0e1a\u0e16\u0e32\u0e21\u0e16\u0e36\u0e07 managed <strong>Chef</strong> / <strong>Puppet</strong> \u2014 AWS service \u0e15\u0e31\u0e27\u0e44\u0e2b\u0e19\u0e15\u0e23\u0e07\u0e01\u0e31\u0e1a\u0e04\u0e33\u0e2d\u0e18\u0e34\u0e1a\u0e32\u0e22\u0e19\u0e35\u0e49?",
+        "Which AWS service provides managed Jenkins-like build/test pipelines as a fully managed alternative?",
       options: [
-        "AWS Systems Manager",
-        "AWS CodeDeploy",
-        "AWS OpsWorks \u2014 managed Chef + Puppet \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a configuration management",
+        "AWS CodeBuild",
+        "AWS CodeStar",
         "AWS Elastic Beanstalk",
+        "AWS Cloud9",
       ],
-      correct: 2,
+      correct: 0,
       explanation:
-        "<strong>AWS OpsWorks</strong> = managed Chef + Puppet \u2014 \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a configuration management automation \u2014 \u0e16\u0e49\u0e32\u0e02\u0e49\u0e2d\u0e2a\u0e2d\u0e1a\u0e21\u0e35\u0e04\u0e33\u0e27\u0e48\u0e32 \"Chef\" \u0e2b\u0e23\u0e37\u0e2d \"Puppet\" \u0e15\u0e2d\u0e1a OpsWorks \u0e17\u0e31\u0e19\u0e17\u0e35 \u2014 SSM \u0e40\u0e1b\u0e47\u0e19 alternative \u0e02\u0e2d\u0e07 OpsWorks (\u0e44\u0e21\u0e48\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a Chef/Puppet)",
+        "AWS CodeBuild is the managed CI service. While CodeStar / Cloud9 are dev environments, CodeBuild specifically handles build/test workflows — replacing self-managed Jenkins.",
     },
     {
-      id: "deployment-q7",
-      question: "AWS CDK (Cloud Development Kit) \u0e04\u0e37\u0e2d\u0e2d\u0e30\u0e44\u0e23?",
+      id: "dep-q8",
+      question:
+        "What is AWS Cloud Development Kit (CDK)?",
       options: [
-        "Cloud IDE \u0e1a\u0e19 browser \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e40\u0e02\u0e35\u0e22\u0e19 / debug code",
-        "\u0e40\u0e04\u0e23\u0e37\u0e48\u0e2d\u0e07\u0e21\u0e37\u0e2d\u0e40\u0e02\u0e35\u0e22\u0e19 IaC \u0e14\u0e49\u0e27\u0e22 programming language (TypeScript, Python, Java, .NET) \u0e41\u0e25\u0e49\u0e27 compile \u0e40\u0e1b\u0e47\u0e19 CloudFormation template",
-        "\u0e1a\u0e23\u0e34\u0e01\u0e32\u0e23 deploy code \u0e25\u0e07 EC2 / on-premises",
-        "Managed Kubernetes service",
+        "A YAML template editor.",
+        "A framework that lets you define AWS infrastructure in familiar programming languages (TypeScript, Python, Java, Go, etc.) and synthesizes CloudFormation templates.",
+        "A serverless function service.",
+        "A monitoring service.",
       ],
       correct: 1,
       explanation:
-        "<strong>AWS CDK</strong> \u0e04\u0e37\u0e2d\u0e01\u0e32\u0e23\u0e40\u0e02\u0e35\u0e22\u0e19 cloud infrastructure \u0e14\u0e49\u0e27\u0e22\u0e20\u0e32\u0e29\u0e32 programming \u0e17\u0e35\u0e48\u0e04\u0e38\u0e49\u0e19\u0e40\u0e04\u0e22 (JavaScript/TypeScript, Python, Java, .NET) \u2014 code \u0e08\u0e30\u0e16\u0e39\u0e01 \"compile\" \u0e40\u0e1b\u0e47\u0e19 CloudFormation template \u0e41\u0e25\u0e49\u0e27 deploy \u0e15\u0e48\u0e2d \u2014 \u0e15\u0e48\u0e32\u0e07\u0e01\u0e31\u0e1a Cloud9 (IDE), CodeDeploy (deploy), EKS (Kubernetes)",
+        "AWS CDK (Cloud Development Kit) is an IaC framework that uses TypeScript, Python, Java, C#, Go, etc. to define infrastructure. It synthesizes CloudFormation templates under the hood.",
+    },
+    {
+      id: "dep-q9",
+      question:
+        "Which AWS service is a no-code, fully managed development tool for issue tracking, source control, and CI/CD?",
+      options: [
+        "AWS CodeStar",
+        "AWS CodeBuild",
+        "AWS CodeArtifact",
+        "AWS CodeGuru",
+      ],
+      correct: 0,
+      explanation:
+        "AWS CodeStar is an integrated development tool that provides a unified UI for managing software projects (combining CodeCommit, CodeBuild, CodeDeploy, CodePipeline, JIRA, etc.).",
+    },
+    {
+      id: "dep-q10",
+      question:
+        "Which is the difference between CloudFormation and Elastic Beanstalk?",
+      options: [
+        "They are the same.",
+        "CloudFormation is general-purpose IaC for ANY AWS resource; Elastic Beanstalk is specifically for deploying applications, abstracting infrastructure.",
+        "Beanstalk is for databases, CloudFormation is for compute.",
+        "Beanstalk is more expensive.",
+      ],
+      correct: 1,
+      explanation:
+        "CloudFormation: define ANY AWS resource declaratively. Elastic Beanstalk: high-level PaaS — upload code, Beanstalk creates EC2, ELB, ASG, RDS automatically. Beanstalk uses CloudFormation under the hood.",
+    },
+    {
+      id: "dep-q11",
+      question:
+        "What is a CloudFormation StackSet?",
+      options: [
+        "A set of CloudFormation templates in a folder.",
+        "A feature that deploys CloudFormation stacks across multiple accounts and regions from a single template.",
+        "A type of EC2 instance.",
+        "A deployment to Lambda only.",
+      ],
+      correct: 1,
+      explanation:
+        "CloudFormation StackSets let you deploy stacks to multiple AWS accounts and regions in a single operation — useful for AWS Organizations-wide governance and standard deployments.",
+    },
+    {
+      id: "dep-q12",
+      question:
+        "Which AWS service is a managed package repository for software packages (npm, Maven, Python pip, NuGet)?",
+      options: [
+        "AWS CodeArtifact",
+        "AWS CodeCommit",
+        "AWS CodeStar",
+        "Amazon ECR",
+      ],
+      correct: 0,
+      explanation:
+        "AWS CodeArtifact is a managed artifact repository for application dependencies — supports npm, Maven, PyPI, NuGet, RubyGems, etc. Integrates with public repositories.",
+    },
+    {
+      id: "dep-q13",
+      question:
+        "Which AWS service uses ML to detect security/code-quality issues during code reviews?",
+      options: [
+        "AWS CodeGuru",
+        "AWS CodeBuild",
+        "AWS CodePipeline",
+        "Amazon Inspector",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon CodeGuru uses ML for automated code reviews (CodeGuru Reviewer) and application performance optimization (CodeGuru Profiler).",
+    },
+    {
+      id: "dep-q14",
+      question:
+        "Which AWS service is a managed cloud-based IDE accessible via web browser?",
+      options: [
+        "AWS Cloud9",
+        "AWS CodeBuild",
+        "AWS CodeStar",
+        "AWS CloudShell",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Cloud9 is a cloud-based IDE that supports Python, JavaScript, PHP, Ruby, Go, C++, etc. Provides a code editor + terminal + debugger directly in the browser.",
+    },
+    {
+      id: "dep-q15",
+      question:
+        "Which AWS service is a serverless framework specifically for deploying serverless applications (Lambda + API Gateway + DynamoDB)?",
+      options: [
+        "AWS Serverless Application Model (SAM)",
+        "AWS CloudFormation",
+        "AWS CDK",
+        "AWS Elastic Beanstalk",
+      ],
+      correct: 0,
+      explanation:
+        "AWS SAM (Serverless Application Model) is an open-source framework for building serverless applications — extends CloudFormation with simpler syntax for Lambda, API Gateway, DynamoDB, etc.",
+    },
+    {
+      id: "dep-q16",
+      question:
+        "What is AWS CloudShell?",
+      options: [
+        "A web-based terminal pre-authenticated with your AWS credentials, accessible from the AWS Management Console.",
+        "A serverless function service.",
+        "A managed CI/CD service.",
+        "A container service.",
+      ],
+      correct: 0,
+      explanation:
+        "AWS CloudShell is a browser-based shell with the AWS CLI/SDK and developer tools pre-installed and pre-authenticated using your console credentials. Free, persistent home directory.",
+    },
+    {
+      id: "dep-q17",
+      question:
+        "What is the AWS CLI?",
+      options: [
+        "A web-based GUI.",
+        "A command-line tool to interact with AWS services from a terminal.",
+        "A type of EC2 instance.",
+        "A managed database.",
+      ],
+      correct: 1,
+      explanation:
+        "The AWS Command Line Interface (CLI) is a unified tool to interact with AWS services from your terminal. Open-source. Configure credentials with `aws configure`.",
+    },
+    {
+      id: "dep-q18",
+      question:
+        "Which is the AWS-recommended deployment strategy that creates a parallel new environment, switches traffic, and allows fast rollback?",
+      options: [
+        "In-place upgrade",
+        "Blue/Green deployment",
+        "Single instance redeployment",
+        "Rolling restart",
+      ],
+      correct: 1,
+      explanation:
+        "Blue/Green deployments stand up a brand-new (green) environment alongside the existing (blue), test it, then switch traffic via DNS or ELB. Easy rollback by reverting traffic. Supported in CodeDeploy, Beanstalk, Lambda aliases.",
+    },
+    {
+      id: "dep-q19",
+      question:
+        "Which AWS service is BEST for running infrastructure changes in a controlled, reviewable manner using IaC?",
+      options: [
+        "AWS CloudFormation",
+        "AWS CLI manual commands",
+        "AWS Console click-ops",
+        "AWS Backup",
+      ],
+      correct: 0,
+      explanation:
+        "CloudFormation (or CDK / Terraform) provides reviewable, version-controlled, repeatable infrastructure changes — far superior to manual CLI commands or console click-ops.",
+    },
+    {
+      id: "dep-q20",
+      question:
+        "What is the recommended way to manage Elastic Beanstalk application versions?",
+      options: [
+        "Manually edit production servers.",
+        "Upload application source bundles to S3, deploy as Beanstalk application versions, and use environments for dev/staging/prod.",
+        "Run all changes from your laptop.",
+        "Send code via email.",
+      ],
+      correct: 1,
+      explanation:
+        "Best practice: store source bundles in S3, register them as Beanstalk application versions, deploy to environments via the console or CLI, and use environment cloning for dev/staging/prod.",
+    },
+    {
+      id: "dep-q21",
+      question:
+        "What is the role of a CloudFormation Change Set?",
+      options: [
+        "It deletes all stacks.",
+        "It previews the changes that would be applied to a stack BEFORE executing them.",
+        "It backs up the stack.",
+        "It encrypts resources.",
+      ],
+      correct: 1,
+      explanation:
+        "Change Sets show what would change (add/modify/delete) when a stack update is executed. This lets you review and approve changes before they happen.",
+    },
+    {
+      id: "dep-q22",
+      question:
+        "Which is the BEST description of \"Drift Detection\" in CloudFormation?",
+      options: [
+        "Detects when stack resources have been modified outside of CloudFormation (e.g., manually in the console).",
+        "Detects when costs are increasing.",
+        "Detects when EC2 traffic is unusual.",
+        "Detects when an instance changes region.",
+      ],
+      correct: 0,
+      explanation:
+        "CloudFormation Drift Detection identifies stack resources that have been modified outside the template (manual console changes, API calls, etc.). Helps re-align infrastructure with IaC.",
+    },
+    {
+      id: "dep-q23",
+      question:
+        "Which is true about AWS Elastic Beanstalk pricing?",
+      options: [
+        "It costs $99/month flat.",
+        "Beanstalk itself is free; you only pay for the underlying AWS resources (EC2, ELB, RDS, etc.) it provisions.",
+        "Beanstalk costs more than running EC2 directly.",
+        "Beanstalk is only available with Enterprise Support.",
+      ],
+      correct: 1,
+      explanation:
+        "Beanstalk has no additional charge — you only pay for the resources it creates (EC2 instances, EBS volumes, ELBs, RDS, etc.). Same for CloudFormation.",
+    },
+    {
+      id: "dep-q24",
+      question:
+        "Which deployment strategy ensures zero downtime by gradually shifting traffic to a new version?",
+      options: [
+        "Blue/Green",
+        "Canary deployment",
+        "Rolling deployment",
+        "All of the above offer zero / minimal downtime",
+      ],
+      correct: 3,
+      explanation:
+        "All three strategies enable minimal/zero downtime: blue/green (full new env), canary (small percentage at first, then full), and rolling (gradually replace instances).",
+    },
+    {
+      id: "dep-q25",
+      question:
+        "Which AWS service provides distributed tracing to debug and analyze microservices applications?",
+      options: [
+        "AWS X-Ray",
+        "Amazon CloudWatch",
+        "AWS CloudTrail",
+        "AWS Config",
+      ],
+      correct: 0,
+      explanation:
+        "AWS X-Ray provides distributed tracing — visualizes request flows through microservices, identifying bottlenecks and errors in Lambda, ECS, EC2, API Gateway, and more.",
     },
   ],
 };

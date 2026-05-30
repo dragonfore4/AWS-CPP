@@ -519,73 +519,293 @@ echo "<h1>Hello from EC2</h1>" > /var/www/html/index.html`,
   quiz: [
     {
       id: "ec2-q1",
-      question:
-        "EC2 User Data script จะถูกรันเมื่อใด?",
+      question: "When does the EC2 User Data script run?",
       options: [
-        "ทุกครั้งที่ instance ถูก start",
-        "เฉพาะครั้งแรกที่ instance เริ่มต้น (first boot)",
-        "เมื่อ instance ถูก stop แล้ว start ใหม่",
-        "เมื่อมีการ SSH เข้า instance ครั้งแรก",
+        "Every time the instance boots.",
+        "Only at the very first boot of the instance.",
+        "When the instance is stopped.",
+        "When the instance is terminated.",
       ],
       correct: 1,
       explanation:
-        "EC2 User Data จะรันเพียงครั้งเดียวเมื่อ instance เริ่มต้นครั้งแรก (first boot/bootstrap) เท่านั้น ไม่ได้รันซ้ำเมื่อ stop/start instance — ใช้สำหรับติดตั้ง software, อัปเดต OS, หรือตั้งค่าเริ่มต้นโดยอัตโนมัติ",
+        "By default, EC2 User Data runs only once — on the first boot of the instance — to bootstrap the OS (install software, apply updates, configure services). It runs as the root user.",
     },
     {
       id: "ec2-q2",
       question:
-        "บริษัทต้องการรัน workload ที่ต้องการ RAM สูงมากสำหรับ in-memory database เช่น Redis ควรเลือก EC2 Instance Type family ใด?",
-      options: [
-        "General Purpose (t, m)",
-        "Compute Optimized (c)",
-        "Memory Optimized (r, x, z)",
-        "Storage Optimized (i, d, h)",
-      ],
+        "Which EC2 purchasing option offers the LARGEST discount in exchange for accepting that AWS may interrupt the instance with 2 minutes notice?",
+      options: ["On-Demand", "Reserved Instances (RI)", "Spot Instances", "Dedicated Hosts"],
       correct: 2,
       explanation:
-        "Memory Optimized instances (r, x, z family) ถูกออกแบบมาสำหรับ workload ที่ต้องการ RAM สูงมาก เหมาะกับ in-memory database เช่น Redis, real-time big data analytics, high-performance databases",
+        "Spot Instances offer up to 90% off on-demand prices but AWS may reclaim them with a 2-minute warning. They are ideal for fault-tolerant, flexible workloads (batch jobs, big data, CI).",
     },
     {
       id: "ec2-q3",
       question:
-        "ผู้ใช้พยายาม SSH เข้า EC2 instance แล้วเจอ error 'Connection timeout' ปัญหานี้น่าจะเกิดจากอะไร?",
+        "Which EC2 purchasing option is BEST for predictable, steady-state workloads running 24/7 for 1 or 3 years?",
       options: [
-        "Application บน instance ไม่ตอบสนอง",
-        "Security Group block traffic ขาเข้า port 22",
-        "ใส่ password ผิด",
-        "Instance ถูก terminate ไปแล้ว",
+        "On-Demand",
+        "Spot Instances",
+        "Reserved Instances or Savings Plans",
+        "Dedicated Hosts",
       ],
-      correct: 1,
+      correct: 2,
       explanation:
-        "Connection Timeout บ่งชี้ว่า traffic ไม่สามารถถึง instance ได้เลย ซึ่งเป็นปัญหาที่ Security Group (เช่น ไม่ได้เปิด port 22 จาก IP ของผู้ใช้) — ส่วน Connection Refused คือ traffic ถึงแล้วแต่ application ไม่ตอบ ซึ่งเป็นปัญหาที่ app",
+        "Reserved Instances (or Savings Plans) provide up to ~72% discount for 1- or 3-year commitments — the right choice for steady-state workloads with predictable usage.",
     },
     {
       id: "ec2-q4",
       question:
-        "บริษัทมี batch processing job ที่รันได้ไม่ต่อเนื่อง สามารถ resume ได้ และต้องการลดค่าใช้จ่ายให้มากที่สุด ควรเลือก purchase option ใด?",
-      options: [
-        "On-Demand Instances",
-        "Reserved Instances 3 ปี All Upfront",
-        "Spot Instances",
-        "Dedicated Host",
-      ],
-      correct: 2,
+        "Which Security Group rule type controls traffic LEAVING an EC2 instance?",
+      options: ["Ingress (Inbound)", "Egress (Outbound)", "Stateless rules", "NACL rules"],
+      correct: 1,
       explanation:
-        "Spot Instances ให้ส่วนลดสูงสุด 90% จาก On-Demand เหมาะกับ batch job, ML training, data analysis ที่ interrupt ได้ — Reserved Instance ลดได้แค่ 72% และต้อง commit ระยะยาว ส่วน On-Demand แพงสุด เหมาะกับงานสั้นๆ ที่คาดเดาไม่ได้",
+        "Security Groups have inbound (ingress) and outbound (egress) rules. Egress controls what the instance can connect TO. Security Groups are stateful — return traffic is automatically allowed.",
     },
     {
       id: "ec2-q5",
       question:
-        "บริษัทต้องการนำ Windows Server license เดิมที่ผูกกับ physical core มาใช้บน AWS (BYOL) ควรเลือก purchase option ใด?",
+        "A Security Group does NOT have a rule allowing inbound traffic on port 22 (SSH). What happens when a user tries to SSH in?",
       options: [
-        "Dedicated Instance",
-        "Dedicated Host",
-        "Reserved Instance",
-        "Spot Instance",
+        "The connection succeeds — Security Groups allow all by default.",
+        "The connection is denied — Security Groups deny inbound by default.",
+        "The connection is logged but allowed.",
+        "The user is prompted for a password.",
       ],
       correct: 1,
       explanation:
-        "Dedicated Host รองรับ BYOL (Bring Your Own License) เพราะให้ visibility ของ physical server (host ID, socket, core) ที่จำเป็นสำหรับ license แบบผูก core/socket — ส่วน Dedicated Instance แค่รับประกันว่า hardware ไม่แชร์กับ account อื่น แต่ไม่เห็น physical server และไม่รองรับ BYOL",
+        "Security Groups deny all inbound traffic by default. Without an explicit allow rule for port 22, the SSH connection will be blocked.",
+    },
+    {
+      id: "ec2-q6",
+      question: "Which of the following is true about EC2 Security Groups?",
+      options: [
+        "They are stateless and require explicit return rules.",
+        "They are stateful — return traffic is automatically allowed.",
+        "They only support deny rules.",
+        "They operate at the subnet level.",
+      ],
+      correct: 1,
+      explanation:
+        "Security Groups are stateful: if outbound traffic is allowed, the response is automatically allowed inbound (and vice versa). NACLs, in contrast, are stateless.",
+    },
+    {
+      id: "ec2-q7",
+      question: "Which EC2 instance family is optimized for compute-intensive workloads?",
+      options: ["T (Burstable)", "C (Compute Optimized)", "R (Memory Optimized)", "I (Storage Optimized)"],
+      correct: 1,
+      explanation:
+        "C-family instances (e.g., c5, c6i) are compute optimized — high-performance processors for batch processing, media transcoding, scientific modeling, gaming servers.",
+    },
+    {
+      id: "ec2-q8",
+      question:
+        "Which EC2 instance family is BEST for in-memory databases or real-time big data analytics?",
+      options: ["T", "C", "R (Memory Optimized)", "M (General Purpose)"],
+      correct: 2,
+      explanation:
+        "R-family (and X-family) are memory optimized for memory-intensive workloads like in-memory caches, real-time analytics, SAP HANA, and large database hosts.",
+    },
+    {
+      id: "ec2-q9",
+      question:
+        "What is the difference between stopping and terminating an EC2 instance?",
+      options: [
+        "There is no difference.",
+        "Stopping shuts the instance down but keeps the EBS volume; terminating deletes the instance and (by default) the root EBS volume.",
+        "Terminating only pauses the instance; stopping deletes it.",
+        "Both keep the instance running but disable networking.",
+      ],
+      correct: 1,
+      explanation:
+        "Stop = shutdown the OS, keep the root EBS volume; can be started again. Terminate = delete the instance; root EBS volume is deleted by default (unless DeleteOnTermination=false).",
+    },
+    {
+      id: "ec2-q10",
+      question:
+        "What kind of pricing model is EC2 On-Demand?",
+      options: [
+        "Pay a 1-year commitment up front.",
+        "Pay only for what you use, billed per second (Linux) or per hour, with no commitment.",
+        "Free for the first 12 months.",
+        "Paid annually in advance.",
+      ],
+      correct: 1,
+      explanation:
+        "On-Demand pricing has no long-term commitment. Linux instances are billed per second (60-second minimum); other OSes are billed per hour. Highest cost per hour but maximum flexibility.",
+    },
+    {
+      id: "ec2-q11",
+      question:
+        "Which feature of EC2 is used to bootstrap an instance — installing software and configuring it the first time it boots?",
+      options: ["AMI", "User Data", "Security Group", "Placement Group"],
+      correct: 1,
+      explanation:
+        "User Data is a bootstrap script (typically bash or PowerShell) that runs at first boot to install packages, fetch configuration, and prepare the instance for use.",
+    },
+    {
+      id: "ec2-q12",
+      question:
+        "Which AWS service helps you choose the right EC2 instance type and identify under-utilized instances?",
+      options: ["AWS Trusted Advisor", "AWS Compute Optimizer", "Amazon Inspector", "AWS Config"],
+      correct: 1,
+      explanation:
+        "AWS Compute Optimizer analyzes utilization metrics and recommends optimal EC2 instance types and sizes (right-sizing) to improve performance and reduce cost.",
+    },
+    {
+      id: "ec2-q13",
+      question:
+        "An EC2 instance must run on physical hardware that is dedicated to a single customer for compliance reasons. Which option meets this requirement?",
+      options: [
+        "On-Demand instance",
+        "Spot instance",
+        "Dedicated Host or Dedicated Instance",
+        "T-series burstable",
+      ],
+      correct: 2,
+      explanation:
+        "Dedicated Hosts give you a physical server fully dedicated to your account (and let you bring existing software licenses). Dedicated Instances run on hardware dedicated to your account but you don't see the underlying host.",
+    },
+    {
+      id: "ec2-q14",
+      question:
+        "Which Savings Plan type provides flexibility across instance family, size, OS, region, and tenancy?",
+      options: [
+        "Compute Savings Plan",
+        "EC2 Instance Savings Plan",
+        "SageMaker Savings Plan",
+        "Reserved Instance",
+      ],
+      correct: 0,
+      explanation:
+        "Compute Savings Plans (up to 66% off) apply across EC2, Lambda, and Fargate, regardless of instance family, region, OS, or tenancy. EC2 Instance Savings Plans (up to 72%) are limited to a specific family in a region.",
+    },
+    {
+      id: "ec2-q15",
+      question:
+        "Which type of EC2 placement group is BEST for low-latency, high-throughput communication between instances (e.g., HPC)?",
+      options: ["Cluster", "Spread", "Partition", "Random"],
+      correct: 0,
+      explanation:
+        "Cluster placement groups pack instances close together in a single AZ for the lowest network latency and highest network throughput — ideal for HPC and tightly-coupled workloads.",
+    },
+    {
+      id: "ec2-q16",
+      question:
+        "Which placement group spreads instances across distinct underlying hardware to reduce correlated failures?",
+      options: ["Cluster", "Spread", "Partition", "Dedicated"],
+      correct: 1,
+      explanation:
+        "Spread placement groups place each instance on distinct racks/hardware (up to 7 per AZ), minimizing the chance that simultaneous hardware failures affect multiple critical instances.",
+    },
+    {
+      id: "ec2-q17",
+      question:
+        "Which placement group divides instances into logical partitions, used for distributed/replicated workloads like Hadoop, Cassandra, Kafka?",
+      options: ["Cluster", "Spread", "Partition", "Tenant"],
+      correct: 2,
+      explanation:
+        "Partition placement groups separate instances into partitions (up to 7 per AZ). Each partition has its own racks. If a rack fails, only that partition is impacted — perfect for distributed databases.",
+    },
+    {
+      id: "ec2-q18",
+      question:
+        "Which statement about Security Groups attached to an EC2 instance is correct?",
+      options: [
+        "An instance can only have one Security Group.",
+        "An instance can have multiple Security Groups, and the rules are evaluated as a UNION (cumulative).",
+        "Multiple Security Groups conflict and the latest one wins.",
+        "Security Groups are limited to 1 inbound rule each.",
+      ],
+      correct: 1,
+      explanation:
+        "An EC2 instance can have multiple Security Groups; their rules are combined cumulatively (any allow lets the traffic through). Security Groups support many rules per group.",
+    },
+    {
+      id: "ec2-q19",
+      question:
+        "What is an Amazon Machine Image (AMI)?",
+      options: [
+        "A networking object used to peer two VPCs.",
+        "A template that contains the OS, application server, and applications used to launch an EC2 instance.",
+        "An IAM policy.",
+        "A type of EBS snapshot used by S3.",
+      ],
+      correct: 1,
+      explanation:
+        "An AMI is a pre-configured template (root volume + launch permissions + block-device mapping) used to create EC2 instances. AWS provides public AMIs; you can also create custom AMIs.",
+    },
+    {
+      id: "ec2-q20",
+      question: "Which of the following is true about EC2 instance types?",
+      options: [
+        "All EC2 instances have the same CPU and memory.",
+        "Instance types are organized into families (e.g., T, M, C, R, I) optimized for specific workloads.",
+        "Instance types cannot be changed once chosen.",
+        "Instance types only differ by cost, not capability.",
+      ],
+      correct: 1,
+      explanation:
+        "EC2 has many instance families optimized for different workloads: T (burstable), M (general purpose), C (compute), R/X (memory), I/D (storage), P/G (accelerated), etc.",
+    },
+    {
+      id: "ec2-q21",
+      question:
+        "What is the recommended way to grant an EC2 instance permissions to access AWS services like S3 or DynamoDB?",
+      options: [
+        "Embed an IAM access key in the application code.",
+        "Use the root user credentials.",
+        "Attach an IAM Role to the EC2 instance.",
+        "Allow public access on the target service.",
+      ],
+      correct: 2,
+      explanation:
+        "Attach an IAM role to the EC2 instance — this provides temporary, automatically rotated credentials via the instance metadata service. It is more secure than long-lived access keys.",
+    },
+    {
+      id: "ec2-q22",
+      question:
+        "Which EC2 pricing option is CHEAPEST for non-critical workloads that can tolerate interruption?",
+      options: [
+        "On-Demand",
+        "Reserved Instances (3-year)",
+        "Spot Instances",
+        "Dedicated Hosts",
+      ],
+      correct: 2,
+      explanation:
+        "Spot Instances are the cheapest (up to 90% off) but can be reclaimed with 2 minutes notice. Best for fault-tolerant, flexible, batch-style workloads.",
+    },
+    {
+      id: "ec2-q23",
+      question: "Which of the following best describes EC2?",
+      options: [
+        "A managed object storage service.",
+        "A managed relational database.",
+        "Infrastructure as a Service (IaaS) providing resizable virtual machines in the cloud.",
+        "A Platform-as-a-Service for deploying web apps.",
+      ],
+      correct: 2,
+      explanation:
+        "Amazon EC2 (Elastic Compute Cloud) is the foundational IaaS compute service — it provides virtual machines (instances) of various sizes that you control at the OS level.",
+    },
+    {
+      id: "ec2-q24",
+      question:
+        "A company wants to run an application requiring an existing Windows Server license that is tied to a physical machine. Which EC2 option supports BYOL with hardware-level visibility?",
+      options: ["On-Demand", "Spot", "Dedicated Host", "Savings Plan"],
+      correct: 2,
+      explanation:
+        "Dedicated Hosts let you bring your own software licenses (BYOL) tied to physical sockets/cores, and give you visibility into the underlying physical server.",
+    },
+    {
+      id: "ec2-q25",
+      question:
+        "Which network construct is associated with an EC2 instance to control inbound and outbound traffic at the instance level?",
+      options: ["Network ACL", "Subnet", "Security Group", "Route Table"],
+      correct: 2,
+      explanation:
+        "Security Groups operate at the instance (ENI) level and act as virtual firewalls. NACLs operate at the subnet level and are stateless.",
     },
   ],
 };

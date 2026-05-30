@@ -387,72 +387,347 @@ export const vpc: TopicData = {
     {
       id: "vpc-q1",
       question:
-        "ข้อใดต่อไปนี้ <strong>ถูกต้อง</strong> เกี่ยวกับ NACL และ Security Groups?",
+        "Which of the following is TRUE about NACLs and Security Groups?",
       options: [
-        "Security Groups เป็น stateless และมี DENY rules ได้",
-        "NACL เป็น stateful และมีแค่ ALLOW rules",
-        "NACL เป็น stateless และมีทั้ง ALLOW + DENY rules ส่วน Security Groups เป็น stateful และมีแค่ ALLOW rules",
-        "ทั้งคู่เป็น stateful และมีแค่ ALLOW rules",
+        "Both are stateful.",
+        "NACLs are stateless and operate at subnet level; Security Groups are stateful and operate at instance level.",
+        "NACLs operate at instance level; Security Groups operate at subnet level.",
+        "Security Groups support deny rules, NACLs do not.",
       ],
-      correct: 2,
+      correct: 1,
       explanation:
-        "NACL ทำงานที่ระดับ subnet เป็น STATELESS (return traffic ต้องเปิด rule แยก) และรองรับทั้ง ALLOW + DENY rules ส่วน Security Groups ทำงานที่ระดับ ENI/EC2 instance เป็น STATEFUL (return traffic อัตโนมัติ) และมีแค่ ALLOW rules — จำคู่นี้ให้แม่น เพราะข้อสอบชอบถาม",
+        "NACLs (Network ACLs) are stateless and operate at the subnet level — return traffic must be explicitly allowed. Security Groups are stateful and operate at the instance/ENI level — return traffic is automatically allowed. NACLs support deny rules; Security Groups support only allow rules.",
     },
     {
       id: "vpc-q2",
       question:
-        "Instances ใน private subnet ต้องการ download software updates จาก internet โดย<em>ยังคงเป็น private</em> (internet เข้ามาหาไม่ได้) ควรใช้อะไร?",
+        "Which AWS service provides a virtual network in the cloud, isolated from other customers?",
       options: [
-        "Internet Gateway attach กับ private subnet โดยตรง",
-        "NAT Gateway ใน public subnet",
-        "VPC Peering กับ public VPC",
-        "Direct Connect",
+        "Amazon VPC",
+        "AWS Direct Connect",
+        "AWS Transit Gateway",
+        "Amazon Route 53",
       ],
-      correct: 1,
+      correct: 0,
       explanation:
-        "NAT Gateway (AWS-managed) อยู่ใน public subnet — ให้ instances ใน private subnet ออก internet ได้ (outbound) เช่น download updates แต่ internet ไม่สามารถ initiate connection เข้ามาหา instance ได้ (inbound blocked) ทำให้ private subnet ยังคงความเป็น private",
+        "Amazon VPC (Virtual Private Cloud) is a logically isolated virtual network in AWS where you launch resources, defined by IP ranges and broken into subnets across AZs.",
     },
     {
       id: "vpc-q3",
       question:
-        "บริษัทมี VPC A, B, C โดย A peer กับ B และ B peer กับ C — ข้อใดถูกต้อง?",
+        "What is the difference between a public and private subnet in a VPC?",
       options: [
-        "A สามารถสื่อสารกับ C ได้โดยตรงผ่าน B (transitive)",
-        "VPC Peering เป็น transitive โดย default",
-        "A ไม่สามารถสื่อสารกับ C ได้ ต้องสร้าง peering A↔C เพิ่ม เพราะ VPC Peering ไม่เป็น transitive",
-        "VPC ทั้งสาม CIDR สามารถ overlap กันได้",
+        "Private subnets are in different regions.",
+        "A public subnet has a route to an Internet Gateway in its route table; a private subnet does not.",
+        "Public subnets are free.",
+        "Private subnets cannot have EC2 instances.",
       ],
-      correct: 2,
+      correct: 1,
       explanation:
-        "VPC Peering ไม่เป็น transitive — ถ้า A↔B และ B↔C ไม่ทำให้ A สื่อสารกับ C ได้ ต้อง peer A↔C แยกต่างหาก นอกจากนี้ CIDR ของ VPC ที่ peer กันต้องไม่ overlap ถ้ามีหลาย VPC ที่ต้องเชื่อมกันหมด ควรใช้ Transit Gateway แทน",
+        "Public subnet = subnet with a default route (0.0.0.0/0) to an Internet Gateway. Private subnet = no IGW route. Private subnets typically use a NAT Gateway in a public subnet to reach the internet outbound.",
     },
     {
       id: "vpc-q4",
       question:
-        "บริษัทต้องการเชื่อม on-premises data center กับ AWS โดยต้องการ <strong>private, secure, fast</strong> connection ที่ไม่ผ่าน public internet — ควรใช้อะไร?",
+        "Which device allows EC2 instances in a private subnet to make outbound internet requests (e.g., to download patches) but blocks inbound internet connections?",
       options: [
-        "Site-to-Site VPN เพราะ encrypted automatically",
-        "AWS Direct Connect เพราะเป็น physical connection ที่ private และ fast",
-        "VPC Peering",
         "Internet Gateway",
+        "NAT Gateway (or NAT instance)",
+        "Egress-only Internet Gateway (IPv6 only)",
+        "Route 53 resolver",
       ],
       correct: 1,
       explanation:
-        "AWS Direct Connect เป็น physical connection ระหว่าง on-premises กับ AWS — เป็น private, secure, fast (ไม่ผ่าน public internet) แต่ใช้เวลาอย่างน้อย 1 เดือนในการ establish ส่วน Site-to-Site VPN แม้จะ encrypted แต่ยังคง goes over public internet",
+        "A NAT Gateway lives in a public subnet and translates outbound traffic from private-subnet instances. It blocks inbound connections initiated from the internet. (For IPv6, use an Egress-only IGW instead.)",
     },
     {
       id: "vpc-q5",
       question:
-        "คุณต้องการให้ EC2 ใน private subnet เข้าถึง <strong>S3 และ DynamoDB</strong> โดยไม่ผ่าน public internet ควรใช้ VPC Endpoint แบบใด?",
+        "What is VPC Peering?",
       options: [
-        "VPC Endpoint Interface (PrivateLink)",
-        "VPC Endpoint Gateway",
-        "NAT Gateway",
-        "Transit Gateway",
+        "A service to connect VPCs to on-premises only.",
+        "A networking connection between two VPCs that enables routing using private IPs as if they were the same network.",
+        "A service to connect to the internet.",
+        "A way to attach a VPC to multiple regions automatically.",
       ],
       correct: 1,
       explanation:
-        "VPC Endpoint Gateway สำหรับ S3 และ DynamoDB เท่านั้น — ฟรี, กำหนดใน route table ให้ traffic ไป service โดยตรงผ่าน private network ส่วน VPC Endpoint Interface ใช้กับ AWS services อื่นๆ (มี ENI + ค่าใช้จ่ายรายชั่วโมง) จำคู่นี้: Gateway → S3/DynamoDB, Interface → ที่เหลือ",
+        "VPC Peering connects two VPCs (same or different account/region) so resources can communicate via private IPs. Peerings are non-transitive — A peered with B and B peered with C does NOT mean A can reach C.",
+    },
+    {
+      id: "vpc-q6",
+      question:
+        "Which AWS service is BEST for connecting many VPCs and on-premises networks through a central hub?",
+      options: [
+        "VPC Peering full mesh",
+        "AWS Transit Gateway",
+        "AWS Direct Connect alone",
+        "VPN Gateway",
+      ],
+      correct: 1,
+      explanation:
+        "AWS Transit Gateway is a regional network transit hub for connecting hundreds of VPCs, VPNs, and Direct Connect — replaces the complexity of VPC peering full-mesh.",
+    },
+    {
+      id: "vpc-q7",
+      question:
+        "Which type of VPC endpoint is used for S3 and DynamoDB?",
+      options: [
+        "Interface Endpoint",
+        "Gateway Endpoint",
+        "Direct Connect Endpoint",
+        "Transit Endpoint",
+      ],
+      correct: 1,
+      explanation:
+        "VPC Gateway Endpoints (free) are used for S3 and DynamoDB. They are routing-table entries. All other AWS services use Interface Endpoints (powered by AWS PrivateLink, which costs per-hour + per-GB).",
+    },
+    {
+      id: "vpc-q8",
+      question:
+        "What does VPC Flow Logs capture?",
+      options: [
+        "Disk I/O on EC2 instances.",
+        "IP traffic information for ENIs in a VPC, subnet, or specific ENI — captured to CloudWatch Logs or S3.",
+        "API calls.",
+        "User logins.",
+      ],
+      correct: 1,
+      explanation:
+        "VPC Flow Logs capture metadata about IP traffic going to/from network interfaces in a VPC. Logs go to CloudWatch Logs or S3. Used for troubleshooting and security analysis.",
+    },
+    {
+      id: "vpc-q9",
+      question:
+        "Which AWS service is a private connection between a VPC and AWS services without traversing the public internet?",
+      options: [
+        "AWS PrivateLink (Interface VPC Endpoint)",
+        "AWS Transit Gateway",
+        "Direct Connect",
+        "Internet Gateway",
+      ],
+      correct: 0,
+      explanation:
+        "AWS PrivateLink (Interface VPC Endpoints) provides private connectivity from your VPC to AWS services or 3rd-party services without internet/NAT/IGW. Powered by ENIs in your VPC.",
+    },
+    {
+      id: "vpc-q10",
+      question:
+        "Which is true about a VPC and its CIDR block?",
+      options: [
+        "A VPC must be exactly /16.",
+        "A VPC has a primary CIDR block (between /16 and /28). You can add up to 4 secondary CIDR blocks.",
+        "VPCs cannot use private IP ranges.",
+        "A VPC is bound to one AZ only.",
+      ],
+      correct: 1,
+      explanation:
+        "A VPC has a primary IPv4 CIDR (size /16 to /28) and you can add up to 4 secondary CIDRs. A VPC spans all AZs in a region.",
+    },
+    {
+      id: "vpc-q11",
+      question:
+        "Which is true about subnets in a VPC?",
+      options: [
+        "A subnet can span multiple AZs.",
+        "A subnet is bound to a single Availability Zone — for HA you create subnets in multiple AZs.",
+        "Subnets can span regions.",
+        "Each subnet must be exactly /24.",
+      ],
+      correct: 1,
+      explanation:
+        "Each subnet exists in exactly one AZ. For HA, create subnets in multiple AZs and distribute resources across them.",
+    },
+    {
+      id: "vpc-q12",
+      question:
+        "Which device lets EC2 instances in a VPC communicate with the public internet?",
+      options: [
+        "Internet Gateway (IGW)",
+        "NAT Gateway",
+        "Customer Gateway",
+        "Direct Connect Gateway",
+      ],
+      correct: 0,
+      explanation:
+        "An Internet Gateway is attached to the VPC and enables internet communication for resources in public subnets (those with a route to the IGW).",
+    },
+    {
+      id: "vpc-q13",
+      question:
+        "Which is true about Security Group rules?",
+      options: [
+        "Security Groups support both allow and deny rules.",
+        "Security Groups support ONLY allow rules — there are no deny rules. The default is to deny all.",
+        "Security Group rules apply at subnet level.",
+        "Security Groups are stateless.",
+      ],
+      correct: 1,
+      explanation:
+        "Security Groups support only ALLOW rules (no deny). All inbound is denied by default; outbound allowed by default. Stateful — return traffic is automatic.",
+    },
+    {
+      id: "vpc-q14",
+      question:
+        "Which is true about NACL rules?",
+      options: [
+        "NACLs only support allow rules.",
+        "NACLs support both allow and deny rules, evaluated in numeric order. Default NACL allows all in/out.",
+        "NACLs are stateful.",
+        "NACLs operate at instance level.",
+      ],
+      correct: 1,
+      explanation:
+        "NACLs are stateless, operate at subnet level, and support both allow and deny rules processed in rule-number order. Default NACL allows all in/out (custom NACLs deny all by default).",
+    },
+    {
+      id: "vpc-q15",
+      question:
+        "Which AWS service provides a managed encrypted VPN over the internet from your data center to your VPC?",
+      options: [
+        "AWS Site-to-Site VPN",
+        "AWS Client VPN",
+        "AWS Direct Connect",
+        "AWS PrivateLink",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Site-to-Site VPN provides an IPsec VPN tunnel between an on-prem network and AWS — quick to set up; runs over the public internet.",
+    },
+    {
+      id: "vpc-q16",
+      question:
+        "Which is true about IPv6 in AWS VPC?",
+      options: [
+        "AWS does not support IPv6.",
+        "VPCs and subnets can have IPv6 CIDR blocks. IPv6 addresses are public; private subnets use an Egress-only IGW for outbound IPv6.",
+        "IPv6 is only available in some regions.",
+        "IPv6 in AWS works exactly the same as IPv4.",
+      ],
+      correct: 1,
+      explanation:
+        "AWS supports IPv6. All IPv6 addresses are publicly routable; for private outbound IPv6 use an Egress-only Internet Gateway (the IPv6 equivalent of NAT for outbound only).",
+    },
+    {
+      id: "vpc-q17",
+      question:
+        "Which is the recommended way to allow EC2 instances in a private subnet to access AWS services privately?",
+      options: [
+        "Through a NAT Gateway and the public internet.",
+        "Through VPC Endpoints (Gateway endpoint for S3/DynamoDB; Interface endpoints for others) — keeps traffic on the AWS network.",
+        "Through Direct Connect only.",
+        "Through Client VPN.",
+      ],
+      correct: 1,
+      explanation:
+        "VPC Endpoints provide private connectivity from a VPC to AWS services, avoiding the public internet (and NAT Gateway egress charges). Gateway endpoint for S3/DynamoDB; Interface endpoint (PrivateLink) for everything else.",
+    },
+    {
+      id: "vpc-q18",
+      question:
+        "What is the maximum number of VPCs per AWS region by default?",
+      options: ["1", "5 (soft limit)", "100", "Unlimited"],
+      correct: 1,
+      explanation:
+        "Default is 5 VPCs per region per account (soft limit, can be increased via Service Quotas).",
+    },
+    {
+      id: "vpc-q19",
+      question:
+        "What is the difference between a NAT Gateway and a NAT Instance?",
+      options: [
+        "They are identical.",
+        "NAT Gateway is fully managed by AWS (high availability, scalable); NAT Instance is a customer-managed EC2 — older approach.",
+        "NAT Instance is cheaper for high traffic.",
+        "NAT Gateway is on-premises.",
+      ],
+      correct: 1,
+      explanation:
+        "NAT Gateway is AWS-managed: highly available within an AZ, auto-scales bandwidth (up to 100 Gbps), no maintenance. NAT Instance is a customer-managed EC2 — legacy approach; you manage HA and scaling.",
+    },
+    {
+      id: "vpc-q20",
+      question:
+        "Which is the role of a route table?",
+      options: [
+        "It defines firewall rules.",
+        "It controls how traffic is routed within a subnet — to other subnets, IGW, NAT Gateway, VPC peering, etc.",
+        "It encrypts traffic.",
+        "It lists IAM users.",
+      ],
+      correct: 1,
+      explanation:
+        "A route table contains rules (routes) that determine where network traffic from subnets is directed. Each subnet must be associated with a route table.",
+    },
+    {
+      id: "vpc-q21",
+      question:
+        "Which CIDR block sizes are supported for a VPC?",
+      options: [
+        "Only /16",
+        "Between /16 (largest, ~65k IPs) and /28 (smallest, 16 IPs)",
+        "Any size up to /8",
+        "Only /24",
+      ],
+      correct: 1,
+      explanation:
+        "VPC CIDR blocks must be between /16 (65,536 IPs) and /28 (16 IPs). Note: AWS reserves 5 IP addresses in every subnet for AWS use (network, gateway, DNS, etc.).",
+    },
+    {
+      id: "vpc-q22",
+      question:
+        "Which network construct provides private connectivity between two VPCs in the same OR different regions?",
+      options: [
+        "VPC Peering (works across regions, accounts, even if in different organizations)",
+        "Internet Gateway",
+        "NAT Gateway",
+        "Customer Gateway",
+      ],
+      correct: 0,
+      explanation:
+        "VPC Peering connects two VPCs — same or different region/account/org — over AWS's private network using private IPs. Non-transitive.",
+    },
+    {
+      id: "vpc-q23",
+      question:
+        "Which service helps you visualize, troubleshoot, and audit your VPC network at scale?",
+      options: [
+        "VPC Reachability Analyzer / Network Access Analyzer",
+        "Amazon Inspector",
+        "AWS Trusted Advisor",
+        "Amazon GuardDuty",
+      ],
+      correct: 0,
+      explanation:
+        "VPC Reachability Analyzer tests whether traffic can reach a destination, identifying blocking elements. Network Access Analyzer audits for unintended network paths.",
+    },
+    {
+      id: "vpc-q24",
+      question:
+        "Which is true about Direct Connect?",
+      options: [
+        "It is a public internet connection.",
+        "It is a private dedicated connection from your data center to AWS, bypassing the internet (1, 10, or 100 Gbps).",
+        "It is encrypted by default.",
+        "It is the cheapest option for any company.",
+      ],
+      correct: 1,
+      explanation:
+        "AWS Direct Connect provides a dedicated physical network connection between your data center and AWS — predictable performance, NOT encrypted by default (use VPN over Direct Connect for encryption).",
+    },
+    {
+      id: "vpc-q25",
+      question:
+        "When creating a new VPC, what does AWS create by default?",
+      options: [
+        "Nothing — completely empty.",
+        "A default VPC + default subnets in each AZ + Internet Gateway + default route table — ready to launch instances.",
+        "Only an Internet Gateway.",
+        "Only EC2 instances.",
+      ],
+      correct: 1,
+      explanation:
+        "Each AWS account comes with a default VPC per region (with default subnets in each AZ, IGW, and routes) — ready to use immediately. Custom VPCs start empty.",
     },
   ],
 };

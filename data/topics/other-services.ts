@@ -482,73 +482,354 @@ export const otherServices: TopicData = {
   ],
   quiz: [
     {
-      id: "other-q1",
+      id: "os-q1",
       question:
-        "องค์กรต้องการให้พนักงานเข้าถึง <strong>application เฉพาะตัวหนึ่ง</strong> ผ่าน web browser โดยไม่ต้องติดตั้งบนเครื่อง user — ควรใช้ service ไหน?",
+        "An organization wants employees to access a SPECIFIC application via web browser without installing it locally. Which AWS service is BEST?",
       options: [
-        "Amazon WorkSpaces — เพราะให้ desktop เต็มรูปแบบ",
-        "Amazon AppStream 2.0 — stream เฉพาะ application ลง browser",
-        "AWS IoT Core — เชื่อม devices กับ cloud",
-        "AWS AppFlow — สำหรับเชื่อม SaaS กับ AWS",
+        "Amazon AppStream 2.0",
+        "Amazon WorkSpaces",
+        "Amazon EC2",
+        "AWS Cloud9",
       ],
-      correct: 1,
+      correct: 0,
       explanation:
-        "AppStream 2.0 = stream เฉพาะ <strong>application</strong> (ไม่ใช่ทั้ง desktop) ลง web browser — application รันบน AWS แล้ว stream ออกไป ส่วน WorkSpaces จะให้ <strong>full desktop</strong> ทั้งเครื่อง ซึ่ง overkill ถ้าต้องการแค่ใช้ app เดียว",
+        "Amazon AppStream 2.0 streams individual desktop applications (Windows or Linux) to a web browser. Used for delivering apps to users without installation.",
     },
     {
-      id: "other-q2",
+      id: "os-q2",
       question:
-        "ทีมต้องการ backup ข้อมูลแบบรวมศูนย์จากหลาย AWS services (EC2, EBS, RDS, DynamoDB, EFS) ในที่เดียว ควรใช้ service ใด?",
+        "Which AWS service is a managed cloud-based virtual desktop (DaaS) for end users?",
       options: [
-        "เขียน custom Lambda scripts สำหรับแต่ละ service",
-        "AWS DataSync — เพราะย้ายข้อมูลได้",
-        "AWS Backup — fully managed centralized backup ครอบคลุมหลาย services",
-        "AWS Storage Gateway — สำหรับ on-prem เท่านั้น",
+        "Amazon WorkSpaces",
+        "Amazon AppStream 2.0",
+        "Amazon EC2",
+        "AWS Outposts",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon WorkSpaces provides full virtual desktops (Windows or Linux) — accessible from any device. Pay monthly or hourly. Used by enterprises to deliver desktops without managing on-prem VDI.",
+    },
+    {
+      id: "os-q3",
+      question:
+        "Which AWS service is used to manage / inventory IT assets across hybrid environments (EC2 + on-premises servers)?",
+      options: [
+        "AWS Systems Manager",
+        "AWS Config",
+        "AWS Trusted Advisor",
+        "AWS CloudTrail",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Systems Manager (SSM) provides operational management — inventory, patching, automation, run command, session manager, parameter store — across EC2 and on-prem servers.",
+    },
+    {
+      id: "os-q4",
+      question:
+        "Which AWS service replaces traditional SSH/RDP with browser-based or CLI shell access to EC2 instances using IAM (no inbound port required)?",
+      options: [
+        "AWS Systems Manager Session Manager",
+        "AWS EC2 Instance Connect",
+        "Both can do this",
+        "Only EC2 SSH agent",
       ],
       correct: 2,
       explanation:
-        "AWS Backup เป็น <strong>centralized backup service</strong> ที่ครอบคลุม EC2, EBS, EFS, RDS, Aurora, DynamoDB, Storage Gateway, FSx — กำหนด Backup Plans (schedule, frequency, retention) ได้ในที่เดียว รองรับ cross-region/cross-account และ Vault Lock (WORM) DataSync ใช้ย้ายข้อมูล (ไม่ใช่ backup), Storage Gateway เชื่อม on-prem กับ AWS storage",
+        "Both SSM Session Manager (no port required, browser/CLI) and EC2 Instance Connect (browser-based SSH using IAM) eliminate the need to manage SSH keys / open SSH/RDP ports.",
     },
     {
-      id: "other-q3",
+      id: "os-q5",
       question:
-        "ในกลยุทธ์ Disaster Recovery 4 แบบ ข้อใดมี <strong>RTO สูงสุด</strong> (กู้คืนช้าสุด) แต่ <strong>cost ต่ำสุด</strong>?",
+        "Which AWS service provides cost-effective hybrid cloud storage by caching frequently accessed data on-prem and storing the bulk in AWS?",
       options: [
-        "Multi-Site / Hot Site",
-        "Warm Standby",
-        "Pilot Light",
-        "Backup & Restore",
+        "AWS Storage Gateway",
+        "AWS DataSync",
+        "AWS Snowball",
+        "AWS Direct Connect",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Storage Gateway integrates on-prem environments with AWS storage. Variants: S3 File Gateway, FSx File Gateway, Volume Gateway (iSCSI), Tape Gateway. Local cache + cloud backend.",
+    },
+    {
+      id: "os-q6",
+      question:
+        "Which AWS service is BEST to back up data from many AWS resources (EBS, RDS, DynamoDB, EFS, FSx) in a centralized way?",
+      options: [
+        "AWS Backup",
+        "Amazon S3 Versioning",
+        "AWS DataSync",
+        "Amazon EBS Snapshots manually",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Backup is a managed centralized backup service for EBS, RDS, DynamoDB, EFS, FSx, EC2, Storage Gateway. Policies define retention and cross-region copy. Far simpler than per-service backups.",
+    },
+    {
+      id: "os-q7",
+      question:
+        "Which AWS service is a managed disaster recovery solution that replicates servers from on-premises (or any cloud) to AWS for fast failover?",
+      options: [
+        "AWS Elastic Disaster Recovery (DRS)",
+        "AWS Backup",
+        "AWS Migration Hub",
+        "AWS Snowball",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Elastic Disaster Recovery (formerly CloudEndure DR) provides continuous replication of on-prem (or other cloud) servers to AWS. RPO seconds, RTO minutes. Pay only for staging until failover.",
+    },
+    {
+      id: "os-q8",
+      question:
+        "Which AWS service helps you discover, plan, and migrate on-premises applications to AWS?",
+      options: [
+        "AWS Migration Hub",
+        "AWS DataSync",
+        "AWS Backup",
+        "AWS Outposts",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Migration Hub provides a single place to track the progress of application migrations across multiple AWS migration tools (Application Migration Service, Database Migration Service, etc.).",
+    },
+    {
+      id: "os-q9",
+      question:
+        "Which AWS service is BEST for replicating servers (lift-and-shift) from on-premises or other cloud to AWS?",
+      options: [
+        "AWS Application Migration Service (MGN)",
+        "AWS Database Migration Service",
+        "AWS DataSync",
+        "AWS Backup",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Application Migration Service (MGN, formerly CloudEndure Migration) is the recommended service for lift-and-shift server migration to AWS — replicates VMs/physical servers as EC2 instances.",
+    },
+    {
+      id: "os-q10",
+      question:
+        "Which AWS service is BEST for migrating relational databases between heterogeneous engines (e.g., Oracle → Aurora)?",
+      options: [
+        "AWS Database Migration Service (DMS) + Schema Conversion Tool (SCT)",
+        "AWS Snowball",
+        "AWS Backup",
+        "AWS DataSync",
+      ],
+      correct: 0,
+      explanation:
+        "AWS DMS migrates data between databases (homogeneous and heterogeneous). For heterogeneous (e.g., Oracle → PostgreSQL), use AWS Schema Conversion Tool (SCT) to convert schema first.",
+    },
+    {
+      id: "os-q11",
+      question:
+        "Which AWS service is BEST for transferring large amounts of data over network from on-prem to AWS storage?",
+      options: [
+        "AWS DataSync",
+        "AWS Snowball",
+        "AWS Direct Connect",
+        "Amazon S3 Transfer Acceleration",
+      ],
+      correct: 0,
+      explanation:
+        "AWS DataSync is a managed online data transfer service — moves data between on-prem (NFS, SMB, HDFS, object storage) and AWS storage (S3, EFS, FSx). Built-in encryption, validation, scheduling.",
+    },
+    {
+      id: "os-q12",
+      question:
+        "Which AWS service is a managed Robotics Operating System (ROS) for testing/deploying robotic applications?",
+      options: [
+        "AWS RoboMaker (sunset)",
+        "AWS DeepLens",
+        "AWS DeepRacer",
+        "AWS IoT Core",
+      ],
+      correct: 0,
+      explanation:
+        "AWS RoboMaker was a service to develop, test, and deploy intelligent robotics applications using ROS. (It is being sunset; mentioned for legacy exam coverage.)",
+    },
+    {
+      id: "os-q13",
+      question:
+        "Which AWS service is BEST for IoT device management at scale (millions of devices)?",
+      options: [
+        "AWS IoT Core",
+        "AWS IoT Greengrass",
+        "AWS IoT Device Management",
+        "All of the above are part of AWS IoT family",
       ],
       correct: 3,
       explanation:
-        "<strong>Backup & Restore</strong> = backup data ตามปกติ ตอน disaster ค่อย restore + provision infrastructure ใหม่ → ช้าสุด (RTO/RPO สูง) แต่ถูกสุด ส่วน Multi-Site = active-active ทั้ง 2 site (RTO ใกล้ 0 แต่แพงสุด), Pilot Light = core เล็ก ๆ รันอยู่, Warm Standby = ระบบรันอยู่แบบ minimum",
+        "AWS IoT family includes IoT Core (broker / device gateway), IoT Greengrass (edge runtime), IoT Device Management (registry, OTA updates), IoT Analytics, IoT SiteWise (industrial), IoT FleetWise (vehicles).",
     },
     {
-      id: "other-q4",
-      question: "AWS DataSync ใช้ทำอะไร?",
-      options: [
-        "Backup AWS services แบบรวมศูนย์",
-        "ย้ายข้อมูลจำนวนมาก on-premises \u2194 AWS หรือ AWS \u2194 AWS รองรับ NFS, SMB, S3, EFS, FSx",
-        "แปลง database schema ระหว่าง DB ต่างชนิด",
-        "ทดสอบ mobile app บน real devices",
-      ],
-      correct: 1,
-      explanation:
-        "AWS DataSync = ย้ายข้อมูลขนาดใหญ่ <strong>เข้า/ออก/ภายใน AWS</strong> รองรับ protocols NFS, SMB, S3, EFS, FSx for Windows เร็วกว่า open-source tools ได้ถึง 10 เท่า ส่วน AWS Backup = backup รวมศูนย์, SCT = แปลง DB schema, Device Farm = ทดสอบ app บน real device",
-    },
-    {
-      id: "other-q5",
+      id: "os-q14",
       question:
-        "องค์กรต้องการย้าย physical/virtual servers จาก on-premises มา AWS แบบ <strong>lift-and-shift</strong> โดยไม่แก้ application code ควรใช้ service ใด?",
+        "Which AWS service brings AWS infrastructure to a customer's data center as a fully managed rack?",
       options: [
-        "AWS Application Discovery Service",
-        "AWS Migration Evaluator",
-        "AWS Application Migration Service (MGN)",
-        "AWS Schema Conversion Tool",
+        "AWS Outposts",
+        "AWS Local Zones",
+        "AWS Wavelength",
+        "AWS Snowball",
       ],
-      correct: 2,
+      correct: 0,
       explanation:
-        "AWS Application Migration Service (MGN) — เดิมชื่อ CloudEndure Migration — เป็นโซลูชัน <strong>lift-and-shift</strong> หลัก ย้าย physical, virtual, cloud-based servers มาเป็น EC2 โดยใช้ continuous replication ส่วน Application Discovery = plan migration (เก็บ data on-prem), Migration Evaluator = สร้าง business case (TCO), SCT = แปลง DB schema",
+        "AWS Outposts is a fully managed rack of AWS infrastructure delivered to the customer's data center, providing EC2, EBS, RDS, EKS, etc. on-prem with the same APIs as the cloud.",
+    },
+    {
+      id: "os-q15",
+      question:
+        "Which AWS service is BEST for streaming game development infrastructure to game studios?",
+      options: [
+        "Amazon GameLift",
+        "Amazon AppStream 2.0",
+        "Amazon WorkSpaces",
+        "AWS Cloud9",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon GameLift is a managed service for deploying, operating, and scaling dedicated multiplayer game servers. Used by game studios for matchmaking, server hosting, and scaling.",
+    },
+    {
+      id: "os-q16",
+      question:
+        "Which AWS service hosts blockchain networks (Hyperledger Fabric or Ethereum)?",
+      options: [
+        "Amazon Managed Blockchain",
+        "Amazon QLDB",
+        "Amazon DynamoDB",
+        "Amazon Neptune",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Managed Blockchain provides managed blockchain networks for Hyperledger Fabric and Ethereum — for use cases like supply chain, financial transactions, decentralized apps.",
+    },
+    {
+      id: "os-q17",
+      question:
+        "Which AWS service is an immutable, cryptographically verifiable transaction log database?",
+      options: [
+        "Amazon Quantum Ledger Database (QLDB)",
+        "Amazon Managed Blockchain",
+        "Amazon DynamoDB",
+        "Amazon Aurora",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon QLDB is a centralized, fully managed ledger database — immutable, cryptographically verifiable, with a built-in journal. Used for audit trails, supply chain history, financial transactions.",
+    },
+    {
+      id: "os-q18",
+      question:
+        "Which AWS service is used to manage software licenses across AWS and on-premises?",
+      options: [
+        "AWS License Manager",
+        "AWS Marketplace",
+        "AWS Service Catalog",
+        "AWS Trusted Advisor",
+      ],
+      correct: 0,
+      explanation:
+        "AWS License Manager streamlines license management for software vendor licenses (Microsoft, Oracle, SAP, IBM, etc.) — across AWS and on-prem. Helps avoid over-deployment.",
+    },
+    {
+      id: "os-q19",
+      question:
+        "Which AWS service is a fully managed quantum computing service?",
+      options: [
+        "Amazon Braket",
+        "AWS DeepRacer",
+        "Amazon SageMaker",
+        "AWS RoboMaker",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Braket is a managed quantum computing service — gives access to quantum hardware from D-Wave, IonQ, Rigetti, and a quantum simulator.",
+    },
+    {
+      id: "os-q20",
+      question:
+        "Which AWS service provides a fully managed integration platform for data integration / iPaaS?",
+      options: [
+        "AWS AppFlow",
+        "AWS Glue",
+        "AWS DataSync",
+        "Amazon EventBridge",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon AppFlow integrates SaaS applications (Salesforce, ServiceNow, Slack, Zendesk, etc.) with AWS services with no code. Schedule or event-trigger based, with data transformation.",
+    },
+    {
+      id: "os-q21",
+      question:
+        "Which AWS service is BEST for sending transactional or marketing emails at scale?",
+      options: [
+        "Amazon Simple Email Service (SES)",
+        "Amazon SNS",
+        "Amazon Pinpoint",
+        "Amazon WorkMail",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon SES is a cost-effective, scalable email service — sending and receiving emails for marketing, notifications, and transactional. SNS is for pub/sub messaging; Pinpoint is multi-channel (email, SMS, push) marketing.",
+    },
+    {
+      id: "os-q22",
+      question:
+        "Which AWS service is a multi-channel customer engagement service (email, SMS, push, voice)?",
+      options: [
+        "Amazon Pinpoint",
+        "Amazon SES",
+        "Amazon Connect",
+        "Amazon SNS",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Pinpoint is a multi-channel customer engagement platform — email, SMS, push, voice, in-app — with segmentation, A/B testing, analytics. SES is just email.",
+    },
+    {
+      id: "os-q23",
+      question:
+        "What is AWS Amplify?",
+      options: [
+        "A platform for building full-stack mobile/web apps with hosting, CI/CD, and AWS service integrations.",
+        "A managed Kubernetes service.",
+        "A backup service.",
+        "A monitoring service.",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Amplify is a development platform for full-stack web/mobile apps with auth (Cognito), API (AppSync/API Gateway), storage (S3), hosting, and CI/CD — designed for frontend developers.",
+    },
+    {
+      id: "os-q24",
+      question:
+        "Which AWS service is BEST for collaborative document/spreadsheet editing (a Google Docs / Office 365 alternative on AWS)?",
+      options: [
+        "Amazon WorkDocs (deprecated) / Amazon WorkSpaces",
+        "Amazon WorkMail",
+        "Amazon Chime",
+        "Amazon Connect",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon WorkDocs was AWS's collaborative file storage and document service (it has been deprecated as of 2024, but still appears in some exam materials). Amazon WorkMail handles email/calendar.",
+    },
+    {
+      id: "os-q25",
+      question:
+        "Which AWS service is BEST for video conferencing and team collaboration?",
+      options: [
+        "Amazon Chime",
+        "Amazon Connect",
+        "Amazon WorkMail",
+        "AWS WAF",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Chime is a communications service (video, voice, chat, meetings). Amazon Connect is a contact center, WorkMail is email.",
     },
   ],
 };

@@ -501,144 +501,349 @@ export const otherCompute: TopicData = {
   ],
   quiz: [
     {
-      id: "other-compute-q1",
+      id: "oc-q1",
       question:
-        "Amazon ECR ทำหน้าที่อะไรในระบบ container ของ AWS?",
+        "What is the role of Amazon ECR in AWS containers?",
       options: [
-        "รัน Docker containers แบบ serverless",
-        "Private Docker image repository ที่ integrate กับ ECS, ใช้ S3 เป็น storage และควบคุมด้วย IAM",
-        "Managed Kubernetes control plane",
-        "Load balancer สำหรับกระจาย traffic ไปยัง containers",
+        "A managed Kubernetes control plane.",
+        "A fully managed Docker container image registry.",
+        "A container orchestrator.",
+        "A serverless function service.",
       ],
       correct: 1,
       explanation:
-        "ECR (Elastic Container Registry) คือ private Docker image repository บน AWS — fully integrated กับ ECS, backed by S3, ควบคุม access ด้วย IAM (security ดี) เหมือน Docker Hub แต่ private และอยู่บน AWS",
+        "Amazon ECR (Elastic Container Registry) is a fully managed Docker / OCI container image registry — used by ECS, EKS, Lambda, and on-premises containers to pull images.",
     },
     {
-      id: "other-compute-q2",
+      id: "oc-q2",
       question:
-        "ความแตกต่างหลักระหว่าง ECS EC2 Launch Type และ Fargate Launch Type คืออะไร?",
+        "Which AWS service is a serverless container engine that runs containers WITHOUT provisioning EC2 instances?",
       options: [
-        "EC2 Launch Type รันได้แค่ Linux ส่วน Fargate รันได้ทุก OS",
-        "EC2 Launch Type ผู้ใช้ต้อง provision/maintain EC2 instances เอง ส่วน Fargate เป็น serverless ไม่ต้องดูแล infrastructure",
-        "Fargate รัน containers ได้แค่ 1 ตัว แต่ EC2 Launch Type รันได้หลายตัว",
-        "Fargate ใช้ Kubernetes ส่วน EC2 Launch Type ใช้ Docker Swarm",
-      ],
-      correct: 1,
-      explanation:
-        "EC2 Launch Type: เรา provision และดูแล EC2 instances เอง AWS แค่จัดการ container start/stop | Fargate: serverless ไม่ต้องดูแล server เลย แค่กำหนด CPU/RAM ที่ต้องการ AWS จัดการที่เหลือ",
-    },
-    {
-      id: "other-compute-q3",
-      question:
-        "Amazon EKS คือบริการอะไร?",
-      options: [
-        "Managed service สำหรับรัน Docker Swarm บน AWS",
-        "AWS proprietary container orchestration ที่ไม่เกี่ยวกับ open-source",
-        "Managed Kubernetes service ที่ AWS ดูแล control plane ให้ compatible กับ on-prem K8s",
-        "Container registry สำหรับเก็บ Docker images",
+        "Amazon ECS on EC2",
+        "Amazon EKS on EC2",
+        "AWS Fargate",
+        "AWS Batch",
       ],
       correct: 2,
       explanation:
-        "EKS (Elastic Kubernetes Service) เป็น managed Kubernetes บน AWS — AWS ดูแล control plane ให้ compatible กับ on-premises Kubernetes 100% เหมาะกับทีมที่ใช้ K8s อยู่แล้วหรือต้องการ multi-cloud portability",
+        "AWS Fargate is a serverless container engine for ECS and EKS. You define the container; Fargate runs it without managing servers. Pay per vCPU/RAM per second.",
     },
     {
-      id: "other-compute-q4",
+      id: "oc-q3",
       question:
-        "AWS Lambda function รันได้นานสูงสุดเท่าไหร่ต่อหนึ่ง execution?",
+        "Which is AWS's managed Kubernetes service?",
       options: [
-        "5 นาที",
-        "15 นาที",
-        "1 ชั่วโมง",
-        "ไม่จำกัดเวลา",
+        "Amazon ECS",
+        "Amazon EKS (Elastic Kubernetes Service)",
+        "AWS Fargate only",
+        "Amazon Lambda",
       ],
       correct: 1,
       explanation:
-        "Lambda มี maximum execution time = 15 นาที (900 วินาที) ถ้า workload ใช้เวลานานกว่านี้ ต้องใช้ ECS, Fargate, AWS Batch หรือ EC2 แทน",
+        "Amazon EKS is the managed Kubernetes service — runs upstream Kubernetes; integrates with AWS networking, IAM, ALB, and storage. Can run on EC2 or Fargate.",
     },
     {
-      id: "other-compute-q5",
+      id: "oc-q4",
       question:
-        "ข้อใด <strong>ไม่ใช่</strong> serverless service บน AWS?",
+        "What is AWS Lambda?",
+      options: [
+        "A managed virtual machine service.",
+        "A serverless compute service that runs code in response to events; pay per invocation and execution duration.",
+        "A managed database.",
+        "A container registry.",
+      ],
+      correct: 1,
+      explanation:
+        "AWS Lambda is serverless compute — you upload code, define a trigger, and Lambda runs the code on demand. Pay only for execution time (rounded to ms) and number of invocations.",
+    },
+    {
+      id: "oc-q5",
+      question:
+        "Which is a typical use case for AWS Lambda?",
+      options: [
+        "Running a 24/7 monolithic database.",
+        "Event-driven processing — e.g., S3 object upload triggers image resize, API Gateway request triggers backend logic, scheduled cron-like jobs.",
+        "Running a 6-month batch ML training job.",
+        "Hosting a stateful WebSocket server with sticky sessions.",
+      ],
+      correct: 1,
+      explanation:
+        "Lambda is ideal for short-running, event-driven workloads — S3 / DynamoDB streams / API Gateway / EventBridge / SNS / SQS triggers, or scheduled tasks. Max execution = 15 minutes.",
+    },
+    {
+      id: "oc-q6",
+      question:
+        "What is the maximum execution time for an AWS Lambda function?",
+      options: ["1 minute", "5 minutes", "15 minutes", "1 hour"],
+      correct: 2,
+      explanation:
+        "AWS Lambda functions can run for up to 15 minutes per invocation. Longer-running tasks should use ECS, EC2, Batch, or Step Functions.",
+    },
+    {
+      id: "oc-q7",
+      question:
+        "Which AWS service is BEST to run large-scale, parallel batch computing jobs (e.g., simulations, scientific computing)?",
       options: [
         "AWS Lambda",
-        "Amazon DynamoDB",
-        "AWS Fargate",
-        "Amazon EC2",
-      ],
-      correct: 3,
-      explanation:
-        "EC2 ไม่ใช่ serverless — ผู้ใช้ต้อง provision, manage, patch instances เอง | Lambda, DynamoDB, Fargate, S3, Aurora Serverless ทั้งหมดเป็น serverless services ที่ AWS จัดการ infrastructure ให้",
-    },
-    {
-      id: "other-compute-q6",
-      question:
-        "บริษัทต้องการสร้าง serverless REST API ที่ scale อัตโนมัติ ควรใช้ services ใดร่วมกัน?",
-      options: [
-        "EC2 + ALB",
-        "API Gateway + Lambda",
-        "ECS + Fargate + RDS",
-        "Lightsail + DynamoDB",
+        "AWS Batch",
+        "Amazon EC2 manually",
+        "AWS Step Functions",
       ],
       correct: 1,
       explanation:
-        "Pattern serverless API ที่นิยมที่สุดคือ API Gateway (managed REST API) + Lambda (function เป็น backend logic) — ไม่ต้อง manage server, scale อัตโนมัติ, จ่ายตามใช้งาน มักใช้ร่วมกับ DynamoDB เป็น database",
+        "AWS Batch is a managed batch computing service that schedules and runs batch jobs on EC2 / Fargate / Spot — automatically provisions compute. Designed for HPC, scientific, and ML batch workloads.",
     },
     {
-      id: "other-compute-q7",
+      id: "oc-q8",
       question:
-        "Lambda คิดค่าใช้จ่ายอย่างไร?",
+        "Which service lets you orchestrate multiple Lambda / ECS / API calls into a workflow with retries and parallel branches?",
       options: [
-        "คิดเป็นรายเดือนคงที่ตาม plan ที่เลือก",
-        "คิดตามจำนวน functions ที่สร้างไว้ ไม่ว่าจะรันหรือไม่",
-        "คิดตามจำนวน requests + duration (compute time × RAM allocated เป็น GB-seconds) — Free tier 1M requests + 400k GB-seconds ต่อเดือน",
-        "คิดตามจำนวน EC2 instances ที่ Lambda ใช้ background",
+        "AWS Step Functions",
+        "Amazon SWF",
+        "AWS Batch",
+        "Amazon SNS",
       ],
-      correct: 2,
+      correct: 0,
       explanation:
-        "Lambda billing = จำนวน requests + duration (GB-seconds = RAM × execution time) | Free tier: 1 ล้าน requests/เดือน + 400,000 GB-seconds/เดือน ฟรีตลอดไป | ไม่มี invocation = ไม่เสียเงิน",
+        "AWS Step Functions is a serverless workflow orchestrator using state machines (Standard or Express). Visual designer, automatic retries, error handling, parallel branches, and integration with 200+ AWS services.",
     },
     {
-      id: "other-compute-q8",
+      id: "oc-q9",
       question:
-        "บริษัทต้องการรัน batch processing job ที่ใช้เวลา 2 ชั่วโมง ควรเลือก service ใด?",
+        "What is AWS App Runner?",
       options: [
-        "AWS Lambda เพราะ serverless และถูกที่สุด",
-        "AWS Batch เพราะไม่มี time limit รัน job ยาวๆ ได้",
-        "API Gateway",
+        "A managed Kubernetes service.",
+        "A fully managed service to deploy containerized web apps and APIs without managing infrastructure.",
+        "A serverless function service.",
+        "A container registry.",
+      ],
+      correct: 1,
+      explanation:
+        "AWS App Runner is a fully managed service to deploy containerized web applications and APIs from a container image or source code — handles building, deploying, scaling, and load balancing.",
+    },
+    {
+      id: "oc-q10",
+      question:
+        "Which AWS service is a 100% managed virtual desktop (DaaS)?",
+      options: [
+        "Amazon WorkSpaces",
+        "Amazon AppStream 2.0",
+        "Amazon EC2",
+        "Amazon Workspaces Web",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon WorkSpaces provides cloud-based persistent Windows or Linux desktops — accessible from any device. Pay monthly or per usage.",
+    },
+    {
+      id: "oc-q11",
+      question:
+        "Which AWS service streams a single application (rather than a full desktop) to remote users?",
+      options: [
+        "Amazon WorkSpaces",
+        "Amazon AppStream 2.0",
+        "Amazon EC2",
+        "AWS Lambda",
+      ],
+      correct: 1,
+      explanation:
+        "Amazon AppStream 2.0 streams individual applications (Windows or Linux) to a web browser — useful for delivering desktop apps without installation.",
+    },
+    {
+      id: "oc-q12",
+      question:
+        "Which serverless feature describes the time it takes Lambda to initialize a new container for a function (not yet warm)?",
+      options: [
+        "Cold start",
+        "Warm-up",
+        "Hot path",
+        "Concurrency limit",
+      ],
+      correct: 0,
+      explanation:
+        "A Lambda cold start is the time to initialize a new execution environment (download code, start runtime, run init code). Subsequent invocations on the warm container are much faster.",
+    },
+    {
+      id: "oc-q13",
+      question:
+        "Which Lambda feature reduces cold start latency by keeping containers initialized and ready to respond?",
+      options: [
+        "Provisioned Concurrency",
+        "Reserved Concurrency",
+        "Lambda Layers",
+        "Lambda@Edge",
+      ],
+      correct: 0,
+      explanation:
+        "Provisioned Concurrency keeps a specified number of execution environments initialized and warm — eliminates cold starts for predictable workloads, at additional cost.",
+    },
+    {
+      id: "oc-q14",
+      question:
+        "Which AWS service is used to package and reuse common code/dependencies across Lambda functions?",
+      options: [
+        "Lambda Layers",
+        "Lambda Aliases",
+        "Lambda Versions",
+        "Lambda@Edge",
+      ],
+      correct: 0,
+      explanation:
+        "Lambda Layers let you package libraries, custom runtimes, or other shared content. Up to 5 layers per function. Promotes reuse and reduces deployment package sizes.",
+    },
+    {
+      id: "oc-q15",
+      question:
+        "Which AWS service is a hybrid edge computing platform that brings AWS infrastructure to your data center?",
+      options: [
+        "AWS Outposts",
+        "AWS Wavelength",
+        "AWS Local Zones",
+        "AWS Snowball",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Outposts is a fully managed rack of AWS infrastructure delivered to the customer's data center — provides EC2, EBS, RDS, EKS, and other AWS services on-premises with the same APIs as the cloud.",
+    },
+    {
+      id: "oc-q16",
+      question:
+        "Which AWS edge offering is BEST for ultra-low-latency 5G mobile applications?",
+      options: [
+        "AWS Outposts",
+        "AWS Wavelength",
+        "AWS Local Zones",
+        "Amazon CloudFront",
+      ],
+      correct: 1,
+      explanation:
+        "AWS Wavelength embeds AWS compute and storage within telecommunications providers' 5G networks at the edge — single-digit millisecond latency for mobile devices.",
+    },
+    {
+      id: "oc-q17",
+      question:
+        "Which AWS edge solution extends an AWS Region to metros with low-latency requirements (e.g., Los Angeles)?",
+      options: [
+        "AWS Local Zones",
+        "AWS Wavelength",
+        "AWS Outposts",
         "Amazon Lightsail",
       ],
-      correct: 1,
+      correct: 0,
       explanation:
-        "Lambda มี time limit แค่ 15 นาที ทำงาน 2 ชั่วโมงไม่ได้ | AWS Batch ไม่มี time limit, รันบน EC2/Spot Instances แบบ dynamic, jobs เป็น Docker images — เหมาะสำหรับ long-running batch jobs",
+        "AWS Local Zones place AWS compute, storage, database, and other services close to large population, industry, and IT centers — ideal for low-latency applications, content creation, ML inference, etc.",
     },
     {
-      id: "other-compute-q9",
+      id: "oc-q18",
       question:
-        "Amazon Lightsail เหมาะกับใครมากที่สุด?",
+        "What is Amazon Lightsail?",
       options: [
-        "Enterprise ขนาดใหญ่ที่ต้องการ deep AWS integration และ auto-scaling",
-        "Beginners และ simple workloads (เช่น WordPress site, dev/test) ที่ต้องการราคาถูกและคาดเดาได้",
-        "Workloads ที่ต้องการ GPU computing และ HPC",
-        "Multi-region production applications ที่มี traffic สูงมาก",
+        "A managed Kubernetes service.",
+        "A simple, easy-to-use cloud platform with bundled VMs, databases, and load balancers at predictable monthly pricing.",
+        "A container registry.",
+        "A serverless function service.",
       ],
       correct: 1,
       explanation:
-        "Lightsail ออกแบบมาสำหรับ beginners และ simple use cases — ราคาถูก predictable, มี templates สำเร็จรูป (WordPress, LAMP, Node.js, ฯลฯ), HA ได้แต่ไม่มี auto-scaling, integration จำกัด เหมาะกับ web apps เล็กๆ และ dev/test",
+        "Amazon Lightsail is AWS's offering for users who want simplicity — pre-configured VMs, databases, networking, with predictable monthly bills. Targeted at small business / dev / test workloads.",
     },
     {
-      id: "other-compute-q10",
+      id: "oc-q19",
       question:
-        "ข้อใดเป็น event source ที่สามารถ trigger AWS Lambda ได้?",
+        "Which is the difference between ECS and EKS?",
       options: [
-        "เฉพาะ API Gateway เท่านั้น",
-        "Lambda ไม่รองรับ trigger ต้อง invoke manually เท่านั้น",
-        "S3 object upload, API Gateway requests, CloudWatch Events / EventBridge, DynamoDB Streams, SNS, SQS และอีกมากมาย",
-        "เฉพาะ EC2 instance state changes",
+        "ECS is Kubernetes; EKS is AWS-proprietary.",
+        "ECS is AWS's proprietary container orchestrator; EKS is managed upstream Kubernetes.",
+        "Both run only on EC2.",
+        "ECS supports Windows; EKS does not.",
       ],
-      correct: 2,
+      correct: 1,
       explanation:
-        "Lambda เป็น event-driven — รองรับ triggers หลากหลาย: S3 events (เช่น object upload), API Gateway, CloudWatch Events / EventBridge (cron jobs), DynamoDB Streams, SNS, SQS, Kinesis และ AWS services อื่นๆ อีกมาก",
+        "ECS is AWS's proprietary container orchestrator, simpler to use and tightly integrated with AWS. EKS runs upstream Kubernetes — same API as on-premises K8s clusters.",
+    },
+    {
+      id: "oc-q20",
+      question:
+        "Which is the difference between ECS launch type EC2 and Fargate?",
+      options: [
+        "There is no difference.",
+        "EC2 launch type means you manage the underlying EC2 instances; Fargate launch type means AWS manages all infrastructure (serverless containers).",
+        "Fargate launch type is only for Linux.",
+        "EC2 launch type costs more.",
+      ],
+      correct: 1,
+      explanation:
+        "ECS EC2 launch type runs containers on EC2 instances you provision and manage. Fargate runs containers serverlessly — AWS manages the underlying infrastructure entirely.",
+    },
+    {
+      id: "oc-q21",
+      question:
+        "Which AWS service is used to run code at AWS edge locations (CloudFront), close to end users?",
+      options: [
+        "Lambda@Edge or CloudFront Functions",
+        "AWS Lambda standard",
+        "AWS Outposts",
+        "AWS Local Zones",
+      ],
+      correct: 0,
+      explanation:
+        "Lambda@Edge runs Node.js/Python at CloudFront edge locations (4 trigger points). CloudFront Functions are even lighter (JavaScript only, viewer events) for ultra-low-latency request manipulation.",
+    },
+    {
+      id: "oc-q22",
+      question:
+        "Which is true about AWS Lambda pricing?",
+      options: [
+        "You pay a flat monthly fee regardless of usage.",
+        "You pay per invocation + GB-seconds of memory × execution duration. Free tier: 1M requests + 400,000 GB-seconds per month.",
+        "Lambda is always free.",
+        "You pay per CPU-hour reserved.",
+      ],
+      correct: 1,
+      explanation:
+        "AWS Lambda pricing is based on the number of requests and the GB-seconds of memory consumed during execution. The Always Free tier includes 1M requests and 400,000 GB-seconds monthly.",
+    },
+    {
+      id: "oc-q23",
+      question:
+        "Which compute option is BEST for a long-running, predictable, 24/7 web application with steady traffic?",
+      options: [
+        "AWS Lambda",
+        "EC2 with Reserved Instances or Savings Plan",
+        "AWS Batch",
+        "AWS Glue",
+      ],
+      correct: 1,
+      explanation:
+        "For steady 24/7 workloads, EC2 (or Fargate) with Reserved Instances or Savings Plans typically offers the lowest cost. Lambda is best for spiky, event-driven, short-running tasks.",
+    },
+    {
+      id: "oc-q24",
+      question:
+        "Which AWS service helps run distributed batch processing across many EC2/Fargate instances?",
+      options: [
+        "AWS Batch",
+        "AWS Lambda",
+        "Amazon S3",
+        "AWS Step Functions",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Batch dynamically provisions compute capacity (EC2 / Spot / Fargate) and submits jobs across many machines — ideal for parallel batch jobs at scale.",
+    },
+    {
+      id: "oc-q25",
+      question:
+        "Which is the BEST description of serverless?",
+      options: [
+        "There are no servers anywhere.",
+        "There are still servers, but the customer doesn't manage them — AWS handles provisioning, scaling, patching, and pays per use.",
+        "Serverless means free.",
+        "Serverless only refers to Lambda.",
+      ],
+      correct: 1,
+      explanation:
+        "Serverless means the cloud provider manages servers entirely; customers focus on code and configuration. Examples: Lambda, Fargate, DynamoDB on-demand, S3, Aurora Serverless, EventBridge, SNS, SQS.",
     },
   ],
 };

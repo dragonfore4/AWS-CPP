@@ -354,61 +354,347 @@ export const wellArchitected: TopicData = {
     {
       id: "wa-q1",
       question:
-        "AWS Well-Architected Framework ปัจจุบันประกอบด้วยกี่ pillars?",
-      options: ["4 pillars", "5 pillars", "6 pillars", "7 pillars"],
+        "How many pillars does the AWS Well-Architected Framework currently have?",
+      options: ["4", "5", "6", "7"],
       correct: 2,
       explanation:
-        "Well-Architected Framework เริ่มต้นด้วย 5 pillars และเพิ่ม Sustainability เป็นเสาที่ 6 ในปี 2021 ปัจจุบันจึงมีทั้งหมด 6 pillars: Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimization, Sustainability",
+        "AWS Well-Architected Framework has 6 pillars: Operational Excellence, Security, Reliability, Performance Efficiency, Cost Optimization, and Sustainability (added in 2021).",
     },
     {
       id: "wa-q2",
       question:
-        "เสาหลัก (pillar) ที่ 6 ที่ AWS เพิ่มเข้ามาในปี 2021 คือเสาใด?",
+        "Which Well-Architected pillar focuses on the ability to run workloads efficiently and recover quickly from failures?",
       options: [
         "Reliability",
-        "Sustainability",
         "Performance Efficiency",
+        "Operational Excellence",
         "Cost Optimization",
       ],
-      correct: 1,
+      correct: 0,
       explanation:
-        "Sustainability เป็นเสาที่ 6 ที่ AWS เพิ่มเข้ามาในปี 2021 มุ่งเน้นการลดผลกระทบต่อสิ่งแวดล้อมจากการรัน workload — best practices ได้แก่ เข้าใจ impact, ตั้ง sustainability goals, maximize utilization, ใช้ managed services และ adopt hardware/software ที่ efficient",
+        "The Reliability pillar covers the ability to recover from infrastructure or service disruptions, dynamically acquire computing resources to meet demand, and mitigate disruptions like misconfigurations or transient network issues.",
     },
     {
       id: "wa-q3",
       question:
-        "ข้อใดเป็น best practice ของ Reliability pillar?",
+        "Which Well-Architected pillar focuses on running and monitoring systems to deliver business value, and continually improving processes?",
       options: [
-        "Hard-code Access Keys ลงใน application",
-        "Scale vertically (เพิ่ม CPU/RAM ของ server เดิม) เป็นหลัก",
-        "Test recovery procedures, auto recovery และ scale horizontally",
-        "ลด availability zone ให้เหลือเพียง zone เดียวเพื่อความง่าย",
+        "Operational Excellence",
+        "Performance Efficiency",
+        "Reliability",
+        "Cost Optimization",
       ],
-      correct: 2,
+      correct: 0,
       explanation:
-        "Reliability pillar เน้น test recovery procedures, automatically recover จาก failure, scale horizontally เพื่อ availability, stop guessing capacity และ manage change ผ่าน automation — ส่วน hard-code keys, scale vertically อย่างเดียว และใช้ AZ เดียว ขัดกับ best practices ของ Reliability",
+        "Operational Excellence focuses on running, monitoring, and continually improving systems and processes — including automation, frequent small changes, anticipating failure, and learning from operational events.",
     },
     {
       id: "wa-q4",
       question:
-        "ใน AWS Cloud Adoption Framework (CAF) perspective ใดที่ดูแลเรื่อง roles, responsibilities, skills และ training?",
-      options: ["Business", "Governance", "People", "Operations"],
-      correct: 2,
+        "Which Well-Architected pillar covers protecting information, systems, and assets while delivering business value?",
+      options: [
+        "Security",
+        "Reliability",
+        "Operational Excellence",
+        "Performance Efficiency",
+      ],
+      correct: 0,
       explanation:
-        "People perspective ใน CAF ดูแลเรื่อง roles, responsibilities, skills และ training — เตรียมคนให้พร้อมทำงานบน cloud และ plan การเปลี่ยนแปลง culture ส่วน Business = business strategy, Governance = organizational/project structure, Operations = ongoing operations และ monitoring",
+        "The Security pillar covers protecting data, systems, and assets — design principles include strong identity foundation, traceability, applying security at all layers, automating best practices, encryption, and incident preparation.",
     },
     {
       id: "wa-q5",
-      question: "AWS Right Sizing คืออะไร?",
+      question:
+        "Which Well-Architected pillar focuses on using IT and computing resources efficiently, and selecting the right resource types and sizes?",
       options: [
-        "การเพิ่มจำนวน instance ให้มากที่สุดเพื่อ performance สูงสุด",
-        "การ match instance type/size ให้ตรงกับ workload เพื่อ performance + capacity ที่ราคาต่ำที่สุด",
-        "การย้าย workload ไปยัง region ที่ใหญ่ที่สุด",
-        "การซื้อ Reserved Instances ทั้งหมดล่วงหน้า 3 ปีโดยไม่ต้องวิเคราะห์",
+        "Performance Efficiency",
+        "Cost Optimization",
+        "Sustainability",
+        "Operational Excellence",
+      ],
+      correct: 0,
+      explanation:
+        "Performance Efficiency focuses on using resources efficiently, selecting the right types/sizes, monitoring performance, and making informed scaling decisions.",
+    },
+    {
+      id: "wa-q6",
+      question:
+        "Which Well-Architected pillar focuses on running systems at the lowest price point that delivers value?",
+      options: [
+        "Cost Optimization",
+        "Operational Excellence",
+        "Performance Efficiency",
+        "Sustainability",
+      ],
+      correct: 0,
+      explanation:
+        "Cost Optimization focuses on cost-aware design — right-sizing, using managed services, matching supply with demand, and analyzing/attributing expenditure.",
+    },
+    {
+      id: "wa-q7",
+      question:
+        "Which Well-Architected pillar was added most recently and focuses on minimizing environmental impact?",
+      options: [
+        "Sustainability",
+        "Security",
+        "Reliability",
+        "Operational Excellence",
+      ],
+      correct: 0,
+      explanation:
+        "The Sustainability pillar (added in 2021) focuses on minimizing the environmental impacts of running cloud workloads — energy efficiency, hardware efficiency, and choosing efficient services.",
+    },
+    {
+      id: "wa-q8",
+      question:
+        "Which AWS tool helps you review your workloads against Well-Architected best practices?",
+      options: [
+        "AWS Well-Architected Tool",
+        "AWS Trusted Advisor",
+        "AWS Config",
+        "AWS Inspector",
+      ],
+      correct: 0,
+      explanation:
+        "The AWS Well-Architected Tool is a free service in the console — guides you through a workload review against the framework's pillars, identifies issues, and produces an improvement plan.",
+    },
+    {
+      id: "wa-q9",
+      question:
+        "Which Operational Excellence design principle encourages making CHANGES gradually?",
+      options: [
+        "Big-bang releases.",
+        "Make frequent, small, reversible changes.",
+        "Avoid all changes once in production.",
+        "Manual changes only.",
       ],
       correct: 1,
       explanation:
-        "Right Sizing คือการ match instance types/sizes ให้ตรงกับ workload performance + capacity requirements ที่ราคาต่ำที่สุด — ใช้ Cost Explorer และ Compute Optimizer ดู recommendations แล้ว stop unused, downsize หรือ upgrade instance ตามความเหมาะสม ควรทำ right sizing ก่อนซื้อ Reserved Instances",
+        "Operational Excellence design principles include: perform operations as code, make frequent small reversible changes, refine procedures frequently, anticipate failure, and learn from operational events.",
+    },
+    {
+      id: "wa-q10",
+      question:
+        "Which Security design principle encourages logging and detection?",
+      options: [
+        "Implement a strong identity foundation.",
+        "Enable traceability — log, monitor, and audit actions/changes in real time.",
+        "Eliminate all logging to reduce overhead.",
+        "Use only on-premises security.",
+      ],
+      correct: 1,
+      explanation:
+        "Security design principles include: strong identity foundation, enable traceability (CloudTrail, CloudWatch, Config), apply security at all layers, automate best practices, protect data in transit and at rest, prepare for security events, keep people away from data.",
+    },
+    {
+      id: "wa-q11",
+      question:
+        "Which Reliability design principle covers automated recovery from failure?",
+      options: [
+        "Automatically recover from failure (e.g., monitor + automated remediation).",
+        "Manually restart everything when something fails.",
+        "Avoid failure analysis.",
+        "Use single AZ deployments.",
+      ],
+      correct: 0,
+      explanation:
+        "Reliability design principles: automatically recover from failure, test recovery procedures, scale horizontally to increase availability, stop guessing capacity, manage changes via automation.",
+    },
+    {
+      id: "wa-q12",
+      question:
+        "Which Performance Efficiency design principle covers experimentation?",
+      options: [
+        "Avoid experiments in the cloud.",
+        "Experiment more often — virtual/automated testing of new services and features is cheap.",
+        "Stick with on-premises forever.",
+        "Use the largest instance for everything.",
+      ],
+      correct: 1,
+      explanation:
+        "Performance Efficiency principles: democratize advanced technologies, go global in minutes, use serverless architectures, experiment more often (cheap), use mechanical sympathy.",
+    },
+    {
+      id: "wa-q13",
+      question:
+        "Which Cost Optimization design principle is BEST described by 'Adopt a consumption model'?",
+      options: [
+        "Pay for capacity you might use later.",
+        "Pay only for the resources you actually consume; turn off resources when not needed.",
+        "Buy lots of long-term commitments.",
+        "Pay annually upfront.",
+      ],
+      correct: 1,
+      explanation:
+        "Cost Optimization principles: implement Cloud Financial Management, adopt a consumption model (pay for what you use), measure overall efficiency, stop spending on undifferentiated heavy lifting, analyze and attribute expenditure.",
+    },
+    {
+      id: "wa-q14",
+      question:
+        "Which Sustainability design principle is BEST described by 'maximize hardware utilization'?",
+      options: [
+        "Run idle resources.",
+        "Maximize utilization of provisioned resources by right-sizing, using managed services, and consolidating workloads.",
+        "Provision more than needed.",
+        "Use older hardware.",
+      ],
+      correct: 1,
+      explanation:
+        "Sustainability principles: understand impact, establish goals, maximize utilization, anticipate and adopt new (more efficient) hardware/software, use managed services, reduce downstream impact.",
+    },
+    {
+      id: "wa-q15",
+      question:
+        "What is the AWS Cloud Adoption Framework (AWS CAF)?",
+      options: [
+        "A guide that helps organizations migrate to AWS, covering 6 perspectives: Business, People, Governance, Platform, Security, Operations.",
+        "A type of EC2 instance.",
+        "A managed database.",
+        "A backup service.",
+      ],
+      correct: 0,
+      explanation:
+        "AWS CAF organizes guidance into 6 perspectives: Business, People, Governance (business capability) and Platform, Security, Operations (technical capability) — to help orgs plan/execute their cloud journey.",
+    },
+    {
+      id: "wa-q16",
+      question:
+        "What are the 7 R's of cloud migration?",
+      options: [
+        "Rehost, Replatform, Repurchase, Refactor, Retire, Retain, Relocate",
+        "Read, Replicate, Restart, Replace, Repair, Rebuild, Retire",
+        "Run, Retest, Reduce, Renew, Restart, Reset, Restore",
+        "Just rehost",
+      ],
+      correct: 0,
+      explanation:
+        "The 7 R's: Rehost (lift-and-shift), Replatform (lift-tinker-shift), Repurchase (move to SaaS), Refactor/Re-architect, Retire, Retain (keep on-prem for now), Relocate (VMware to VMware Cloud on AWS).",
+    },
+    {
+      id: "wa-q17",
+      question:
+        "Which is the BEST description of 'Rehost' (lift-and-shift)?",
+      options: [
+        "Re-architecting the application as serverless.",
+        "Moving the application to AWS as-is, with minimal changes — typically using AWS Application Migration Service.",
+        "Replacing it with a SaaS solution.",
+        "Keeping it on-premises.",
+      ],
+      correct: 1,
+      explanation:
+        "Rehost (lift-and-shift) means moving the application from on-premises to AWS with minimal changes (just enough to run on AWS). Fastest migration, but doesn't fully use cloud benefits.",
+    },
+    {
+      id: "wa-q18",
+      question:
+        "Which is the BEST description of 'Replatform' (lift, tinker, and shift)?",
+      options: [
+        "Move to AWS with some optimizations (e.g., move from self-managed MySQL to RDS) without changing the application's core architecture.",
+        "Complete re-architecture.",
+        "Keep on-premises.",
+        "Buy a SaaS replacement.",
+      ],
+      correct: 0,
+      explanation:
+        "Replatform = move with some cloud-native optimizations (e.g., MySQL on EC2 → RDS managed MySQL, file system → S3) but no fundamental architecture change.",
+    },
+    {
+      id: "wa-q19",
+      question:
+        "Which Well-Architected pillar would consider the use of Auto Scaling Groups to handle variable load?",
+      options: [
+        "Reliability and Performance Efficiency",
+        "Only Security",
+        "Only Operational Excellence",
+        "None — ASG isn't part of any pillar",
+      ],
+      correct: 0,
+      explanation:
+        "Auto Scaling addresses Reliability (recover from failures, match capacity) AND Performance Efficiency (right-size capacity in real time). Cost Optimization too (only pay for what you need).",
+    },
+    {
+      id: "wa-q20",
+      question:
+        "Which Well-Architected pillar addresses choosing the right region/instance to minimize latency for users?",
+      options: [
+        "Performance Efficiency",
+        "Cost Optimization",
+        "Reliability",
+        "Security",
+      ],
+      correct: 0,
+      explanation:
+        "Performance Efficiency includes selecting the right resources (regions, instance types) and design choices (caching, CDNs, serverless) to deliver the best performance for users.",
+    },
+    {
+      id: "wa-q21",
+      question:
+        "Which is the BEST way to apply Cost Optimization in AWS?",
+      options: [
+        "Use Reserved Instances / Savings Plans for steady workloads, Spot for fault-tolerant, right-size, monitor usage with Cost Explorer, and use managed/serverless services to avoid undifferentiated work.",
+        "Only use On-Demand for everything.",
+        "Always provision the largest instance.",
+        "Avoid monitoring.",
+      ],
+      correct: 0,
+      explanation:
+        "Cost Optimization combines: right-sizing, RIs/Savings Plans for steady workloads, Spot for flexible workloads, monitoring (Cost Explorer/Budgets), managed services, and removing waste.",
+    },
+    {
+      id: "wa-q22",
+      question:
+        "Which AWS feature is BEST aligned with the Reliability pillar's principle of 'Test recovery procedures'?",
+      options: [
+        "AWS Fault Injection Service (formerly Fault Injection Simulator)",
+        "Amazon CloudFront",
+        "AWS Trusted Advisor",
+        "AWS WAF",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Fault Injection Service (FIS) lets you inject faults into AWS workloads — chaos engineering — to test resilience and recovery procedures, aligned with the Reliability pillar.",
+    },
+    {
+      id: "wa-q23",
+      question:
+        "Which Well-Architected pillar would address using lightweight, ARM-based Graviton instances for better price-performance and energy efficiency?",
+      options: [
+        "Cost Optimization, Performance Efficiency, AND Sustainability",
+        "Only Sustainability",
+        "Only Security",
+        "Only Operational Excellence",
+      ],
+      correct: 0,
+      explanation:
+        "Graviton (ARM) instances deliver better price-performance (Cost Optimization, Performance Efficiency) AND lower energy use per workload (Sustainability) — touching multiple pillars.",
+    },
+    {
+      id: "wa-q24",
+      question:
+        "Which is true about the Well-Architected Review process?",
+      options: [
+        "It costs $10,000 per review.",
+        "It is FREE — provided as a self-service tool, with optional involvement of AWS Solutions Architects (Enterprise Support).",
+        "It is required before any AWS deployment.",
+        "It is only for Enterprise customers.",
+      ],
+      correct: 1,
+      explanation:
+        "The Well-Architected Review is free (using the Well-Architected Tool) and self-service. Enterprise Support customers can also engage AWS Solutions Architects for review assistance.",
+    },
+    {
+      id: "wa-q25",
+      question:
+        "Which Well-Architected pillar emphasizes using IAM, encryption, and traceability?",
+      options: [
+        "Security",
+        "Reliability",
+        "Operational Excellence",
+        "Cost Optimization",
+      ],
+      correct: 0,
+      explanation:
+        "Security pillar emphasizes strong identity foundation (IAM), traceability (CloudTrail, Config), defense in depth, encryption, automation, and preparation for incidents.",
     },
   ],
 };

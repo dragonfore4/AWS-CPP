@@ -507,74 +507,333 @@ export const cloudConcepts: TopicData = {
   ],
   quiz: [
     {
-      id: "cloud-q1",
+      id: "cc-q1",
       question:
-        "ข้อใดคือ 1 ใน 6 Advantages of Cloud Computing ที่ถูกต้อง?",
+        "Which of the following is one of the six advantages of cloud computing?",
       options: [
-        "Increase CAPEX expenses for better tax benefits",
-        "Trade CAPEX for OPEX — จ่ายตามที่ใช้จริง ลด TCO",
-        "Guess capacity ล่วงหน้าเพื่อเตรียม hardware ให้พร้อม",
-        "Lock in to a single Region to reduce complexity",
+        "Pay upfront for capacity that may never be used.",
+        "Trade capital expense (CapEx) for variable expense (OpEx).",
+        "Maintain your own data centers to keep full control.",
+        "Provision resources only after a 6-week procurement cycle.",
       ],
       correct: 1,
       explanation:
-        "1 ใน 6 Advantages คือ <strong>Trade CAPEX for OPEX</strong> — เปลี่ยนจากลงทุน hardware ก้อนใหญ่ (Capital Expense) เป็นจ่ายตามใช้จริง (Operating Expense) ช่วยลด Total Cost of Ownership ส่วนข้ออื่นเป็นปัญหาของ traditional IT ที่ Cloud แก้ไข เช่น \"Stop Guessing Capacity\" คือข้อดีจริงของ Cloud (ตรงข้ามกับตัวเลือก C)",
+        "AWS lists six advantages of cloud computing: (1) trade CapEx for variable OpEx, (2) benefit from massive economies of scale, (3) stop guessing capacity, (4) increase speed and agility, (5) stop spending money on running data centers, and (6) go global in minutes.",
     },
     {
-      id: "cloud-q2",
+      id: "cc-q2",
       question:
-        "ข้อใดอธิบายลักษณะ \"On-demand Self-service\" ของ Cloud Computing ได้ถูกต้องที่สุด?",
+        "A company runs an application on EC2 and the underlying physical server fails — the EC2 instance is automatically launched on healthy hardware. Which AWS Well-Architected pillar BEST describes this?",
+      options: ["Cost Optimization", "Reliability", "Performance Efficiency", "Sustainability"],
+      correct: 1,
+      explanation:
+        "Reliability covers the ability of a workload to recover from infrastructure or service failures, including auto-recovery and minimizing the impact of disruptions.",
+    },
+    {
+      id: "cc-q3",
+      question:
+        "Which cloud deployment model uses a mix of on-premises infrastructure and AWS public cloud, with connectivity between them?",
+      options: ["Public cloud", "Private cloud", "Hybrid cloud", "Multi-cloud"],
+      correct: 2,
+      explanation:
+        "Hybrid cloud combines an organization's on-premises infrastructure (or private cloud) with public cloud services such as AWS, typically connected via VPN or AWS Direct Connect.",
+    },
+    {
+      id: "cc-q4",
+      question:
+        "Which AWS service model gives the customer the MOST control over the operating system and runtime?",
       options: [
-        "ลูกค้าหลายรายใช้ infrastructure ร่วมกันเพื่อลด cost",
-        "ผู้ใช้สามารถ provision compute resources ได้เองโดยไม่ต้องติดต่อคนของผู้ให้บริการ",
-        "ระบบสามารถวัดการใช้งานเพื่อคิดเงินตามจริงได้",
-        "เข้าถึง service ผ่าน network จากหลากหลาย device",
+        "Software as a Service (SaaS)",
+        "Platform as a Service (PaaS)",
+        "Infrastructure as a Service (IaaS)",
+        "Function as a Service (FaaS)",
+      ],
+      correct: 2,
+      explanation:
+        "IaaS (e.g., Amazon EC2) gives customers control of the operating system, runtime, and applications. With PaaS the platform is managed by AWS, and with SaaS the entire application stack is managed by the provider.",
+    },
+    {
+      id: "cc-q5",
+      question:
+        "Which of the following BEST describes the AWS pay-as-you-go pricing model?",
+      options: [
+        "Customers pay a fixed monthly fee for unlimited usage.",
+        "Customers pay only for the resources and services they actually consume.",
+        "Customers must commit to 3 years of usage upfront.",
+        "Customers receive a refund for any unused capacity at year-end.",
       ],
       correct: 1,
       explanation:
-        "<strong>On-demand Self-service</strong> หมายถึงผู้ใช้สามารถ provision ทรัพยากร (เช่น VM, storage) ได้ <em>ด้วยตัวเอง</em> ผ่าน console/API <em>โดยไม่ต้องคุยกับ human</em> — ตัวเลือก A คือ Multi-tenancy / Resource Pooling, ตัวเลือก C คือ Measured Service, ตัวเลือก D คือ Broad Network Access",
+        "AWS pay-as-you-go means you pay only for what you use, with no long-term commitments and no upfront expenses required (Reserved Instances and Savings Plans are optional commitment-based discounts).",
     },
     {
-      id: "cloud-q3",
-      question:
-        "Amazon EC2 จัดเป็น Cloud Computing ประเภทใด?",
+      id: "cc-q6",
+      question: "Which of the following is NOT a benefit of cloud elasticity?",
       options: [
-        "SaaS — Software as a Service",
-        "PaaS — Platform as a Service",
+        "Automatically scaling up to meet a traffic spike.",
+        "Automatically scaling down during low demand to save cost.",
+        "Maintaining a fixed pool of servers regardless of demand.",
+        "Matching infrastructure capacity to actual demand.",
+      ],
+      correct: 2,
+      explanation:
+        "Elasticity is the ability to acquire resources as you need them and release them when you don't. Maintaining a fixed pool regardless of demand is the opposite of elasticity.",
+    },
+    {
+      id: "cc-q7",
+      question:
+        "AWS is responsible for the security \"of\" the cloud, while the customer is responsible for security \"in\" the cloud. Which model is this?",
+      options: [
+        "Single Responsibility Model",
+        "Shared Responsibility Model",
+        "Customer Responsibility Model",
+        "AWS Total Care Model",
+      ],
+      correct: 1,
+      explanation:
+        "AWS uses the Shared Responsibility Model: AWS secures the underlying infrastructure (security of the cloud), and the customer secures their data, identities, and configurations (security in the cloud).",
+    },
+    {
+      id: "cc-q8",
+      question:
+        "Which AWS Well-Architected pillar focuses on the ability to run workloads efficiently and to scale resources to meet demand?",
+      options: [
+        "Operational Excellence",
+        "Reliability",
+        "Performance Efficiency",
+        "Cost Optimization",
+      ],
+      correct: 2,
+      explanation:
+        "Performance Efficiency is about using IT resources efficiently — selecting the right resource types, monitoring performance, and scaling to match demand.",
+    },
+    {
+      id: "cc-q9",
+      question:
+        "Which of the following is an example of horizontal scaling?",
+      options: [
+        "Increasing the CPU and RAM of a single EC2 instance.",
+        "Adding more EC2 instances behind a load balancer to handle increased load.",
+        "Switching from a t3.micro to an m5.4xlarge.",
+        "Adding more storage to an EBS volume.",
+      ],
+      correct: 1,
+      explanation:
+        "Horizontal scaling (scale out) adds more instances. Vertical scaling (scale up) increases the capacity of an existing instance.",
+    },
+    {
+      id: "cc-q10",
+      question:
+        "Which deployment model is referred to as on-premises in AWS terminology?",
+      options: [
+        "Public cloud only",
+        "Private cloud / on-premises data centers",
+        "Hybrid cloud",
+        "Edge locations",
+      ],
+      correct: 1,
+      explanation:
+        "On-premises (or private cloud) refers to deploying resources within an organization's own data centers, typically using virtualization tools.",
+    },
+    {
+      id: "cc-q11",
+      question:
+        "Which type of cloud computing model includes services like Amazon S3, Amazon DynamoDB, and AWS Lambda where AWS handles all of the infrastructure?",
+      options: [
         "IaaS — Infrastructure as a Service",
-        "FaaS — Function as a Service",
+        "PaaS — Platform as a Service",
+        "Serverless / managed service",
+        "On-premises",
       ],
       correct: 2,
       explanation:
-        "<strong>Amazon EC2</strong> เป็น <strong>IaaS (Infrastructure as a Service)</strong> — ให้ virtual machine (building block ระดับ infrastructure) ที่ลูกค้าต้องดูแล OS, runtime, app เอง ส่วน <em>PaaS</em> ตัวอย่างคือ Elastic Beanstalk, Heroku, App Engine และ <em>SaaS</em> ตัวอย่างคือ Dropbox, Zoom, Gmail",
+        "Services like S3, DynamoDB, and Lambda are managed/serverless: customers don't provision or manage servers — AWS handles all of the infrastructure, scaling, and patching.",
     },
     {
-      id: "cloud-q4",
+      id: "cc-q12",
       question:
-        "ข้อใดคือ AWS Global Service (ไม่ผูกกับ Region ใด Region หนึ่ง)?",
+        "Which of the following best describes the concept of agility in cloud computing?",
       options: [
-        "Amazon EC2",
-        "Amazon RDS",
-        "AWS IAM",
-        "AWS Lambda",
+        "The ability to acquire IT resources in seconds or minutes instead of weeks.",
+        "The ability to keep data on-premises forever.",
+        "The ability to predict capacity needs years in advance.",
+        "The ability to lock infrastructure into a single region.",
       ],
-      correct: 2,
+      correct: 0,
       explanation:
-        "<strong>AWS IAM</strong> เป็น <strong>Global service</strong> — Users, Groups, Roles, Policies ใช้ได้เหมือนกันทั่วโลก ไม่ผูกกับ Region Global services อื่นๆ ที่ต้องจำคือ <em>Route 53 (DNS), CloudFront (CDN), WAF</em> ส่วน EC2, RDS, Lambda เป็น <em>Regional services</em>",
+        "Cloud agility means dramatically reducing the time to provision new resources — from weeks (for on-premises) to seconds or minutes — enabling faster experimentation and time-to-market.",
     },
     {
-      id: "cloud-q5",
+      id: "cc-q13",
       question:
-        "บริษัทในยุโรปต้องเก็บข้อมูลลูกค้าให้อยู่ในเขตยุโรปตามกฎหมาย GDPR ปัจจัยใดสำคัญที่สุดในการเลือก AWS Region?",
+        "Which of the following is true about the AWS global infrastructure?",
       options: [
-        "Pricing — เลือก Region ที่ราคาถูกที่สุด",
-        "Compliance — กฎหมาย data sovereignty กำหนดให้ข้อมูลต้องอยู่ในเขตที่กำหนด",
-        "Proximity — เลือก Region ใกล้สำนักงานใหญ่",
-        "Available Services — เลือก Region ที่มี services ครบที่สุด",
+        "Each Region consists of a single data center.",
+        "Each Region consists of multiple, isolated, and physically separate Availability Zones.",
+        "All Availability Zones share the same building for cost efficiency.",
+        "Edge Locations are the same thing as Availability Zones.",
       ],
       correct: 1,
       explanation:
-        "เมื่อมีกฎหมายเรื่อง <strong>data sovereignty</strong> เช่น GDPR ปัจจัยสำคัญที่สุดคือ <strong>Compliance</strong> — ต้องเลือก Region ที่อยู่ในเขตยุโรป (เช่น eu-west-1 Ireland, eu-central-1 Frankfurt) เพื่อให้ข้อมูลไม่ออกนอกเขต ปัจจัยอื่น (Pricing, Proximity, Available Services) สำคัญรองลงมา และต้องไม่ขัดกับ Compliance",
+        "An AWS Region is composed of multiple Availability Zones (typically 3+). Each AZ is one or more discrete data centers with redundant power, networking, and connectivity, in physically separated buildings.",
+    },
+    {
+      id: "cc-q14",
+      question:
+        "Which AWS Well-Architected pillar focuses on minimizing the environmental impact of running cloud workloads?",
+      options: [
+        "Operational Excellence",
+        "Cost Optimization",
+        "Sustainability",
+        "Performance Efficiency",
+      ],
+      correct: 2,
+      explanation:
+        "Sustainability (added in 2021 as the 6th pillar) addresses environmental impacts — energy consumption, hardware efficiency, and choosing services that minimize the carbon footprint of workloads.",
+    },
+    {
+      id: "cc-q15",
+      question:
+        "A startup wants to launch a new application globally without paying for unused infrastructure. Which cloud benefit BEST applies?",
+      options: [
+        "Massive economies of scale",
+        "Variable expense / pay-as-you-go",
+        "Stop guessing capacity",
+        "All of the above",
+      ],
+      correct: 3,
+      explanation:
+        "All three apply: AWS passes on economies of scale through low prices, customers pay only for usage, and they can scale up or down without guessing capacity in advance.",
+    },
+    {
+      id: "cc-q16",
+      question:
+        "Which is an example of an Operational Excellence best practice?",
+      options: [
+        "Performing operations as code (Infrastructure as Code) and automating changes.",
+        "Avoiding monitoring to reduce overhead.",
+        "Running annual instead of frequent deployments.",
+        "Documenting nothing to keep things lean.",
+      ],
+      correct: 0,
+      explanation:
+        "Operational Excellence best practices include performing operations as code (IaC), making frequent small reversible changes, refining procedures, anticipating failure, and learning from operational events.",
+    },
+    {
+      id: "cc-q17",
+      question:
+        "Which AWS pricing fundamental states that AWS reduces prices as it grows in scale?",
+      options: [
+        "Pay-as-you-go",
+        "Save when you reserve",
+        "Pay less per unit by using more",
+        "Pay less as AWS grows",
+      ],
+      correct: 3,
+      explanation:
+        "AWS has four pricing fundamentals: pay-as-you-go, save when you reserve (RIs / Savings Plans), pay less per unit when using more (volume discounts), and pay less as AWS grows (price reductions over time).",
+    },
+    {
+      id: "cc-q18",
+      question:
+        "What does the term \"undifferentiated heavy lifting\" mean in cloud computing?",
+      options: [
+        "Tasks that provide direct business value but require manual effort.",
+        "Routine infrastructure tasks (racking servers, patching OS, capacity planning) that don't differentiate the business — best offloaded to the cloud provider.",
+        "Tasks that only large enterprises perform.",
+        "Tasks that require specialized weight-lifting equipment.",
+      ],
+      correct: 1,
+      explanation:
+        "Undifferentiated heavy lifting refers to routine infrastructure work (provisioning, patching, networking, hardware management) that doesn't differentiate a business from competitors. Cloud lets companies offload it and focus on what matters.",
+    },
+    {
+      id: "cc-q19",
+      question:
+        "What is the difference between high availability and fault tolerance?",
+      options: [
+        "They mean exactly the same thing.",
+        "High availability minimizes downtime; fault tolerance allows continued operation even when components fail (typically zero downtime).",
+        "Fault tolerance only applies to databases.",
+        "High availability is achieved by running on a single AZ.",
+      ],
+      correct: 1,
+      explanation:
+        "High availability means the system stays operational with minimal downtime (e.g., quick failover). Fault tolerance is stronger — the system continues operating without interruption even when components fail, often via redundancy.",
+    },
+    {
+      id: "cc-q20",
+      question:
+        "Which of the following is the BEST example of cloud scalability?",
+      options: [
+        "Buying more on-premises servers next quarter.",
+        "Using Auto Scaling to add EC2 instances as demand grows.",
+        "Migrating all workloads to a single instance.",
+        "Manually emailing IT to increase capacity.",
+      ],
+      correct: 1,
+      explanation:
+        "Auto Scaling automatically adjusts capacity based on demand — a textbook example of cloud scalability.",
+    },
+    {
+      id: "cc-q21",
+      question:
+        "Which Well-Architected pillar focuses on preventing financial waste through right-sizing and matching supply with demand?",
+      options: [
+        "Operational Excellence",
+        "Reliability",
+        "Cost Optimization",
+        "Performance Efficiency",
+      ],
+      correct: 2,
+      explanation:
+        "Cost Optimization focuses on running systems at the lowest price point: right-sizing, using managed services, monitoring spend, and matching supply with demand.",
+    },
+    {
+      id: "cc-q22",
+      question:
+        "Which is a key characteristic of cloud computing per the NIST definition that AWS aligns with?",
+      options: [
+        "Manual provisioning by an administrator only.",
+        "On-demand self-service — a consumer can provision capabilities without human interaction with each service provider.",
+        "Fixed pricing for unlimited usage.",
+        "Single-tenant infrastructure for every customer.",
+      ],
+      correct: 1,
+      explanation:
+        "On-demand self-service is one of the five essential characteristics of cloud computing: customers can provision resources automatically without requiring human interaction with the service provider.",
+    },
+    {
+      id: "cc-q23",
+      question:
+        "Which is true about AWS Edge Locations?",
+      options: [
+        "They are the same as Availability Zones.",
+        "They are used by services like Amazon CloudFront and Route 53 to deliver content with low latency to end users globally.",
+        "They are only used for backup storage.",
+        "They host customer EC2 instances.",
+      ],
+      correct: 1,
+      explanation:
+        "Edge Locations are AWS Points of Presence (PoPs) used by content delivery (CloudFront), DNS (Route 53), and other edge services to cache content close to users for low latency.",
+    },
+    {
+      id: "cc-q24",
+      question:
+        "Which AWS pillar covers protecting data, systems, and assets while delivering business value through risk assessments and mitigation?",
+      options: ["Reliability", "Security", "Performance Efficiency", "Cost Optimization"],
+      correct: 1,
+      explanation:
+        "The Security pillar covers protecting information, systems, and assets while delivering business value through risk assessments and mitigation strategies — including identity, detection, infrastructure protection, data protection, and incident response.",
+    },
+    {
+      id: "cc-q25",
+      question:
+        "A company wants to provision compute resources only when needed and pay for execution time in milliseconds. Which AWS service category is this?",
+      options: ["IaaS", "Serverless / FaaS", "On-premises", "PaaS"],
+      correct: 1,
+      explanation:
+        "Serverless (Function-as-a-Service) like AWS Lambda lets customers run code on-demand and pay only for execution time, with no servers to manage. This is the most extreme form of pay-per-use.",
     },
   ],
 };
