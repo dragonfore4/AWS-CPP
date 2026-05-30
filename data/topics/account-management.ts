@@ -5,7 +5,6 @@ export const accountManagement: TopicData = {
   title: "Account Management & Billing",
   subtitle: "Organizations, Pricing, Cost Tools & Support",
   accent: "yellow",
-  emoji: "💰",
   category: "Cloud Financial Management",
   description:
     "หัวข้อใหญ่ที่รวม Account Management (Organizations, SCP, Control Tower), Pricing Models, Cost Tools (Cost Explorer, Budgets, Pricing Calculator), Savings Plans, Compute Optimizer, Trusted Advisor และ Support Plans — เป็นเซ็คชันที่ออกข้อสอบ CLF-C02 บ่อยมาก ต้องเข้าใจทั้งการจัดการ multi-account, การวางแผนต้นทุน, การติดตามค่าใช้จ่าย และระดับ support ที่เหมาะสม",
@@ -263,7 +262,7 @@ export const accountManagement: TopicData = {
             {
               title: "Free Tier (12 Months)",
               description:
-                "EC2 t2.micro 750 hrs/month นาน 12 เดือน, S3 5GB, EBS, ELB, data transfer ฟรีบางส่วน",
+                "EC2 t2.micro หรือ t3.micro 750 hrs/month นาน 12 เดือน, S3 5GB, EBS, ELB, data transfer ฟรีบางส่วน",
             },
           ],
         },
@@ -272,7 +271,7 @@ export const accountManagement: TopicData = {
           items: [
             "Always Free: IAM, VPC, Consolidated Billing — ไม่มีวันหมดอายุ",
             "Free Service (จ่ายเฉพาะ resources): Elastic Beanstalk, CloudFormation, ASG",
-            "12 Months Free: EC2 t2.micro, S3 Standard 5GB, ELB 750 hrs, data transfer",
+            "12 Months Free: EC2 t2.micro/t3.micro, S3 Standard 5GB, ELB 750 hrs, data transfer",
             "หลังครบ 12 เดือน — ต้องจ่ายค่าใช้บริการตาม pricing ปกติ",
           ],
         },
@@ -280,7 +279,7 @@ export const accountManagement: TopicData = {
           type: "callout",
           variant: "warning",
           title: "ข้อสอบชอบถาม",
-          text: "EC2 t2.micro ฟรี <strong>12 เดือน</strong> หลังจากเปิด account (ไม่ใช่ตลอดไป) — <strong>IAM, VPC, Consolidated Billing</strong> = ฟรีตลอด (Always Free)",
+          text: "EC2 t2.micro/t3.micro ฟรี <strong>12 เดือน</strong> หลังจากเปิด account (ไม่ใช่ตลอดไป) — <strong>IAM, VPC, Consolidated Billing, 1M Lambda invocations, 25 GB DynamoDB</strong> = ฟรีตลอด (Always Free)",
         },
       ],
     },
@@ -747,7 +746,7 @@ export const accountManagement: TopicData = {
             {
               title: "Basic (ฟรี)",
               description:
-                "24x7 customer service สำหรับ billing, documentation, 7 core Trusted Advisor checks, Personal Health Dashboard",
+                "24x7 customer service สำหรับ billing, documentation, 7 core Trusted Advisor checks, AWS Health Dashboard",
             },
             {
               title: "Developer",
@@ -1175,7 +1174,7 @@ export const accountManagement: TopicData = {
       ],
       correct: 1,
       explanation:
-        "AWS Free Tier offers three categories: 12-month free (e.g., 750 hr/month t2.micro EC2, 5 GB S3), Always Free (e.g., 1M Lambda invocations/month), and Trials (e.g., short-term Inspector trial). Limited per month.",
+        "AWS Free Tier offers three categories: 12-months free (e.g., 750 hr/month of a t2.micro or t3.micro EC2 instance, 5 GB S3 Standard), Always Free (e.g., 1M Lambda invocations/month, 25 GB DynamoDB), and Short-Term Trials (e.g., 30-day Inspector trial). Limits reset monthly.",
     },
     {
       id: "am-q20",

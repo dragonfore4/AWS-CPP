@@ -5,7 +5,6 @@ export const cloudIntegration: TopicData = {
   title: "Cloud Integration",
   subtitle: "SQS, SNS, Kinesis & Amazon MQ",
   accent: "fuchsia",
-  emoji: "🔗",
   category: "Application Integration",
   description:
     "Cloud Integration คือกลุ่มบริการที่ช่วยให้ applications สื่อสารกันได้แบบ decoupled — ไม่ต้องรอกัน, scale แยกกัน, และไม่พังพร้อมกัน ครอบคลุม SQS (queue), SNS (pub/sub), Kinesis (streaming), Amazon MQ (traditional protocols) ซึ่งเป็นพื้นฐานของ event-driven architecture บน AWS",
@@ -324,14 +323,14 @@ Use Case             | Notifications, fan-out   | Decoupling, buffering`,
                 "Low-latency ingestion ที่ scale รับ data จากหลายแสน sources พร้อมกัน — เป็นตัวหลักของ Kinesis ใช้สำหรับ real-time data pipeline",
             },
             {
-              title: "Kinesis Data Firehose",
+              title: "Amazon Data Firehose (เดิม Kinesis Data Firehose)",
               description:
-                "Load streaming data ไปเก็บที่ S3, Redshift, ElasticSearch, Splunk — fully managed, ไม่ต้องเขียน code, near real-time (~60s buffer)",
+                "Load streaming data ไปเก็บที่ S3, Redshift, OpenSearch, Splunk — fully managed, ไม่ต้องเขียน code, near real-time (~60s buffer). AWS rebrand ปี 2024",
             },
             {
-              title: "Kinesis Data Analytics",
+              title: "Managed Service for Apache Flink (เดิม Kinesis Data Analytics)",
               description:
-                "วิเคราะห์ streaming data แบบ real-time ด้วย <strong>SQL queries</strong> — ไม่ต้อง manage infrastructure",
+                "วิเคราะห์ streaming data แบบ real-time ด้วย <strong>SQL queries</strong> หรือ Apache Flink — ไม่ต้อง manage infrastructure",
             },
             {
               title: "Kinesis Video Streams",
@@ -344,8 +343,8 @@ Use Case             | Notifications, fan-out   | Decoupling, buffering`,
           type: "code",
           language: "text",
           caption: "Kinesis Use Case Example",
-          code: `IoT Sensors ──► Kinesis Data Streams ──► Kinesis Data Analytics (SQL real-time)
-   (100k sensors)                          ──► Kinesis Data Firehose ──► S3 (archive)
+          code: `IoT Sensors ──► Kinesis Data Streams ──► Managed Service for Flink (SQL real-time)
+   (100k sensors)                          ──► Amazon Data Firehose ──► S3 (archive)
                                             ──► Lambda ──► DynamoDB (alerts)`,
         },
         {
@@ -441,7 +440,7 @@ Use case            | Migrate on-prem    | Cloud-native apps`,
 "send email/SMS notification"               → SNS
 "broadcast event ไป 5 services พร้อมกัน"     → SNS + SQS (Fan-out)
 "real-time IoT sensor data + analytics"     → Kinesis
-"clickstream / log streaming + S3 archive"  → Kinesis Data Firehose
+"clickstream / log streaming + S3 archive"  → Amazon Data Firehose
 "migrate Java app ที่ใช้ AMQP จาก on-prem"  → Amazon MQ
 "order processing — ห้ามหาย ถ้า consumer ล่ม" → SQS
 "trigger Lambda จาก S3 upload"              → SNS (หรือ S3 event direct)`,
@@ -677,16 +676,16 @@ Use case            | Migrate on-prem    | Cloud-native apps`,
     {
       id: "ci-q13",
       question:
-        "Which Kinesis service is BEST for streaming data DIRECTLY to S3, Redshift, OpenSearch without code?",
+        "Which streaming service is BEST for delivering streaming data DIRECTLY to S3, Redshift, OpenSearch without writing code?",
       options: [
         "Kinesis Data Streams",
-        "Kinesis Data Firehose",
+        "Amazon Data Firehose (formerly Kinesis Data Firehose)",
         "Kinesis Video Streams",
-        "Kinesis Data Analytics",
+        "Amazon Managed Service for Apache Flink",
       ],
       correct: 1,
       explanation:
-        "Kinesis Data Firehose is a fully managed delivery service to S3, Redshift, OpenSearch, Splunk, and HTTP endpoints — no code needed, with optional buffering, transformation, and compression.",
+        "Amazon Data Firehose (renamed from Kinesis Data Firehose in 2024) is a fully managed delivery service to S3, Redshift, OpenSearch, Splunk, and HTTP endpoints — no code needed, with optional buffering, transformation, and compression.",
     },
     {
       id: "ci-q14",

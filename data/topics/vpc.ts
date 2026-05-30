@@ -5,13 +5,12 @@ export const vpc: TopicData = {
   title: "VPC",
   subtitle: "Virtual Private Cloud",
   accent: "indigo",
-  emoji: "🌐",
   category: "Networking",
   description:
     "VPC คือ private network ส่วนตัวของคุณใน AWS (ระดับ Region) ที่ให้คุณควบคุม IP range, subnets, route tables, gateways ได้เต็มที่ เปรียบเหมือนการมี data center ของตัวเองบน cloud",
   keyPoints: [
-    "VPC = private network (Regional) | Subnets = partition VPC (ผูกกับ AZ)",
-    "Public subnet เข้าถึงจาก internet ได้ผ่าน IGW | Private subnet ไม่ได้ (ใช้ NAT Gateway ออกได้)",
+    "VPC = private network (Regional)<br>Subnets = partition VPC (ผูกกับ AZ)",
+    "Public subnet เข้าถึงจาก internet ได้ผ่าน IGW<br>Private subnet ไม่ได้ (ใช้ NAT Gateway ออกได้)",
     "Security Groups (stateful, ENI level) vs NACLs (stateless, subnet level, มี DENY)",
     "VPC Peering / Endpoints / Site-to-Site VPN / Direct Connect / Transit Gateway",
   ],
@@ -82,14 +81,14 @@ export const vpc: TopicData = {
           items: [
             "<strong>IGW</strong> ทำให้ public subnet เชื่อมต่อ internet ได้ทั้ง <em>inbound และ outbound</em>",
             "<strong>NAT Gateway / NAT Instance</strong> ทำให้ private subnet เข้าถึง internet ได้ <em>เฉพาะ outbound</em> โดยยังคงความเป็น private (internet initiate เข้ามาไม่ได้)",
-            "NAT Gateway = AWS managed (high availability, scale อัตโนมัติ) | NAT Instance = self-managed",
+            "NAT Gateway = AWS managed (high availability, scale อัตโนมัติ)<br>NAT Instance = self-managed",
           ],
         },
         {
           type: "callout",
           variant: "tip",
           title: "Flow สำคัญ",
-          text: "Public Subnet → Route Table → IGW → Internet | Private Subnet → Route Table → NAT Gateway (ใน public subnet) → IGW → Internet",
+          text: "Public Subnet → Route Table → IGW → Internet<br>Private Subnet → Route Table → NAT Gateway (ใน public subnet) → IGW → Internet",
         },
       ],
     },
@@ -119,9 +118,9 @@ export const vpc: TopicData = {
         {
           type: "list",
           items: [
-            "<strong>NACL</strong>: subnet level | ALLOW + DENY | IP only | STATELESS | evaluate ตาม rule number (ต่ำก่อน)",
-            "<strong>Security Group</strong>: ENI/EC2 level | ALLOW only | IP + SG อื่น | STATEFUL | evaluate ทุก rule รวมกัน",
-            "Default NACL = allow ทุกอย่าง | Default SG = deny all inbound, allow all outbound",
+            "<strong>NACL</strong>: subnet level<br>ALLOW + DENY<br>IP only<br>STATELESS<br>evaluate ตาม rule number (ต่ำก่อน)",
+            "<strong>Security Group</strong>: ENI/EC2 level<br>ALLOW only<br>IP + SG อื่น<br>STATEFUL<br>evaluate ทุก rule รวมกัน",
+            "Default NACL = allow ทุกอย่าง<br>Default SG = deny all inbound, allow all outbound",
             "Best practice: ใช้ทั้งคู่ — NACL เป็น first line (subnet), SG เป็น second line (instance)",
           ],
         },
@@ -129,7 +128,7 @@ export const vpc: TopicData = {
           type: "callout",
           variant: "warning",
           title: "ข้อสอบชอบถาม",
-          text: "Security Group = STATEFUL, allow only, IP + SG | NACL = STATELESS, allow + DENY, IP only — ถ้าถามว่าอะไรมี DENY rules → ตอบ NACL!",
+          text: "Security Group = STATEFUL, allow only, IP + SG<br>NACL = STATELESS, allow + DENY, IP only — ถ้าถามว่าอะไรมี DENY rules → ตอบ NACL!",
         },
       ],
     },
@@ -220,7 +219,7 @@ export const vpc: TopicData = {
           type: "callout",
           variant: "tip",
           title: "ข้อสอบ",
-          text: "ถ้าถามเรื่องเข้าถึง S3 หรือ DynamoDB จาก private subnet โดยไม่ผ่าน internet → คำตอบคือ VPC Endpoint Gateway | services อื่นๆ → Interface Endpoint",
+          text: "ถ้าถามเรื่องเข้าถึง S3 หรือ DynamoDB จาก private subnet โดยไม่ผ่าน internet → คำตอบคือ VPC Endpoint Gateway<br>services อื่นๆ → Interface Endpoint",
         },
       ],
     },
@@ -718,16 +717,16 @@ export const vpc: TopicData = {
     {
       id: "vpc-q25",
       question:
-        "When creating a new VPC, what does AWS create by default?",
+        "What does AWS automatically provision for every new account in each region?",
       options: [
-        "Nothing — completely empty.",
-        "A default VPC + default subnets in each AZ + Internet Gateway + default route table — ready to launch instances.",
+        "Nothing — accounts start with no VPCs.",
+        "A default VPC with default subnets in each AZ, an Internet Gateway, and pre-populated route tables — ready to launch instances.",
         "Only an Internet Gateway.",
         "Only EC2 instances.",
       ],
       correct: 1,
       explanation:
-        "Each AWS account comes with a default VPC per region (with default subnets in each AZ, IGW, and routes) — ready to use immediately. Custom VPCs start empty.",
+        "Every AWS account comes with a default VPC per region (default CIDR 172.31.0.0/16) — including default subnets in each AZ, an Internet Gateway, and routes — so users can launch EC2 instances immediately. Custom VPCs that you create yourself, by contrast, start empty.",
     },
   ],
 };

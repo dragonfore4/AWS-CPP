@@ -5,7 +5,6 @@ export const otherServices: TopicData = {
   title: "Other Services",
   subtitle: "WorkSpaces, IoT, Backup, Migration & more",
   accent: "slate",
-  emoji: "\ud83d\udce6",
   category: "Other AWS Services",
   description:
     "รวม AWS services อื่น ๆ ที่อาจปรากฏในข้อสอบ CLF-C02 — End-User Computing (WorkSpaces, AppStream), IoT, Media, Integration, Backup & Disaster Recovery, Migration tools, Amplify, DataExchange และอื่น ๆ เน้นรู้จัก service ในภาพรวม + use case หลัก ไม่ลงลึกเชิงเทคนิค",
@@ -64,7 +63,7 @@ export const otherServices: TopicData = {
           type: "callout",
           variant: "tip",
           title: "WorkSpaces vs AppStream",
-          text: "<strong>WorkSpaces</strong> = full desktop (ทั้งเครื่อง) | <strong>AppStream 2.0</strong> = เฉพาะ application (ไม่ใช่ทั้ง desktop) — stream แค่ app เดียวลง browser",
+          text: "<strong>WorkSpaces</strong> = full desktop (ทั้งเครื่อง)<br><strong>AppStream 2.0</strong> = เฉพาะ application (ไม่ใช่ทั้ง desktop) — stream แค่ app เดียวลง browser",
         },
         {
           type: "list",
@@ -205,7 +204,7 @@ export const otherServices: TopicData = {
             {
               title: "1. Backup & Restore",
               description:
-                "<strong>Cost: ต่ำสุด</strong> | <strong>RTO/RPO: สูงสุด (ช้า)</strong> — backup data ปกติ ตอน disaster ค่อย restore + provision ใหม่",
+                "<strong>Cost: ต่ำสุด</strong><br><strong>RTO/RPO: สูงสุด (ช้า)</strong> — backup data ปกติ ตอน disaster ค่อย restore + provision ใหม่",
             },
             {
               title: "2. Pilot Light",
@@ -220,7 +219,7 @@ export const otherServices: TopicData = {
             {
               title: "4. Multi-Site / Hot Site",
               description:
-                "<strong>Cost: สูงสุด</strong> | <strong>RTO/RPO: ใกล้ 0</strong> — full active-active ทั้ง 2 site รัน production ขนาดเต็ม",
+                "<strong>Cost: สูงสุด</strong><br><strong>RTO/RPO: ใกล้ 0</strong> — full active-active ทั้ง 2 site รัน production ขนาดเต็ม",
             },
           ],
         },
@@ -228,7 +227,7 @@ export const otherServices: TopicData = {
           type: "callout",
           variant: "info",
           title: "จดจำ",
-          text: "ยิ่งกลยุทธ์<strong>แพง</strong>ขึ้น → RTO/RPO ยิ่ง<strong>ต่ำ</strong>ลง (กู้คืนเร็วขึ้น) | Backup & Restore ถูกสุดแต่ช้าสุด, Multi-Site แพงสุดแต่เร็วสุด",
+          text: "ยิ่งกลยุทธ์<strong>แพง</strong>ขึ้น → RTO/RPO ยิ่ง<strong>ต่ำ</strong>ลง (กู้คืนเร็วขึ้น)<br>Backup & Restore ถูกสุดแต่ช้าสุด, Multi-Site แพงสุดแต่เร็วสุด",
         },
       ],
     },
@@ -638,16 +637,16 @@ export const otherServices: TopicData = {
     {
       id: "os-q12",
       question:
-        "Which AWS service is a managed Robotics Operating System (ROS) for testing/deploying robotic applications?",
+        "Which AWS service is BEST for building, training, and racing 1/18th-scale autonomous race cars to learn reinforcement learning?",
       options: [
-        "AWS RoboMaker (sunset)",
-        "AWS DeepLens",
         "AWS DeepRacer",
-        "AWS IoT Core",
+        "Amazon Bedrock",
+        "Amazon Q Developer",
+        "Amazon SageMaker",
       ],
       correct: 0,
       explanation:
-        "AWS RoboMaker was a service to develop, test, and deploy intelligent robotics applications using ROS. (It is being sunset; mentioned for legacy exam coverage.)",
+        "AWS DeepRacer is a 1/18th-scale fully autonomous racing car for getting started with reinforcement learning (RL) — comes with a virtual simulator, league competitions, and integrates with SageMaker. (Amazon SageMaker is the general-purpose ML platform; Bedrock is for foundation models / generative AI; Q Developer is the AI coding assistant.)",
     },
     {
       id: "os-q13",
@@ -741,7 +740,7 @@ export const otherServices: TopicData = {
         "Amazon Braket",
         "AWS DeepRacer",
         "Amazon SageMaker",
-        "AWS RoboMaker",
+        "AWS Outposts",
       ],
       correct: 0,
       explanation:
@@ -806,30 +805,30 @@ export const otherServices: TopicData = {
     {
       id: "os-q24",
       question:
-        "Which AWS service is BEST for collaborative document/spreadsheet editing (a Google Docs / Office 365 alternative on AWS)?",
+        "Which AWS service provides a managed business email and calendar service?",
       options: [
-        "Amazon WorkDocs (deprecated) / Amazon WorkSpaces",
         "Amazon WorkMail",
+        "Amazon SES",
         "Amazon Chime",
         "Amazon Connect",
       ],
       correct: 0,
       explanation:
-        "Amazon WorkDocs was AWS's collaborative file storage and document service (it has been deprecated as of 2024, but still appears in some exam materials). Amazon WorkMail handles email/calendar.",
+        "Amazon WorkMail is a managed business email and calendaring service compatible with Microsoft Outlook and IMAP clients. (SES is for transactional/marketing email; Connect is for contact-center; Chime was for communications but ended support in Feb 2026 — Chime SDK remains for embedding voice/video into apps.)",
     },
     {
       id: "os-q25",
       question:
-        "Which AWS service is BEST for video conferencing and team collaboration?",
+        "Which AWS service provides developer SDKs for embedding real-time voice, video, and messaging into your own applications?",
       options: [
-        "Amazon Chime",
+        "Amazon Chime SDK",
         "Amazon Connect",
         "Amazon WorkMail",
         "AWS WAF",
       ],
       correct: 0,
       explanation:
-        "Amazon Chime is a communications service (video, voice, chat, meetings). Amazon Connect is a contact center, WorkMail is email.",
+        "Amazon Chime SDK lets developers add real-time audio, video, and messaging to web/mobile applications. (The Chime end-user app ended support in Feb 2026, but the Chime SDK remains an active service. Amazon Connect is a managed contact center, WorkMail is email.)",
     },
   ],
 };

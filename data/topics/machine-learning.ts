@@ -5,13 +5,12 @@ export const machineLearning: TopicData = {
   title: "Machine Learning",
   subtitle: "Rekognition, Transcribe, SageMaker & more",
   accent: "violet",
-  emoji: "\ud83e\udd16",
   category: "Machine Learning",
   description:
     "AWS \u0e21\u0e35\u0e1a\u0e23\u0e34\u0e01\u0e32\u0e23 Machine Learning \u0e04\u0e23\u0e1a\u0e27\u0e07\u0e08\u0e23 \u2014 \u0e15\u0e31\u0e49\u0e07\u0e41\u0e15\u0e48 AI services \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e43\u0e0a\u0e49 (Rekognition, Transcribe, Polly, Translate, Lex, Comprehend) \u0e44\u0e1b\u0e08\u0e19\u0e16\u0e36\u0e07 SageMaker \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e2a\u0e23\u0e49\u0e32\u0e07 train \u0e41\u0e25\u0e30 deploy ML model \u0e02\u0e2d\u0e07\u0e04\u0e38\u0e13\u0e40\u0e2d\u0e07 \u2014 \u0e02\u0e49\u0e2d\u0e2a\u0e2d\u0e1a CCP \u0e08\u0e30\u0e40\u0e19\u0e49\u0e19\u0e01\u0e32\u0e23\u0e08\u0e1a\u0e04\u0e39\u0e48 service \u0e01\u0e31\u0e1a use case",
   keyPoints: [
     "AI services \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e43\u0e0a\u0e49: Rekognition (\u0e23\u0e39\u0e1b/\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d), Transcribe (\u0e40\u0e2a\u0e35\u0e22\u0e07\u2192\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21), Polly (\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u2192\u0e40\u0e2a\u0e35\u0e22\u0e07)",
-    "Translate \u2014 \u0e41\u0e1b\u0e25\u0e20\u0e32\u0e29\u0e32 | Lex+Connect \u2014 chatbot+call center | Comprehend \u2014 NLP",
+    "Translate \u2014 \u0e41\u0e1b\u0e25\u0e20\u0e32\u0e29\u0e32<br>Lex+Connect \u2014 chatbot+call center<br>Comprehend \u2014 NLP",
     "SageMaker \u2014 build/train/deploy ML model \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a developers + data scientists",
     "Forecast, Kendra, Personalize, Textract \u2014 \u0e1e\u0e22\u0e32\u0e01\u0e23\u0e13\u0e4c, document search, recommendation, OCR",
   ],
@@ -259,6 +258,12 @@ export const machineLearning: TopicData = {
             "\u0e25\u0e14\u0e40\u0e27\u0e25\u0e32\u0e1e\u0e22\u0e32\u0e01\u0e23\u0e13\u0e4c\u0e08\u0e32\u0e01 <strong>\u0e2b\u0e25\u0e32\u0e22\u0e40\u0e14\u0e37\u0e2d\u0e19 \u2192 \u0e0a\u0e31\u0e48\u0e27\u0e42\u0e21\u0e07</strong>",
             "Use cases: \u0e27\u0e32\u0e07\u0e41\u0e1c\u0e19 demand \u0e02\u0e2d\u0e07\u0e2a\u0e34\u0e19\u0e04\u0e49\u0e32 (product demand planning), \u0e27\u0e32\u0e07\u0e41\u0e1c\u0e19\u0e01\u0e32\u0e23\u0e40\u0e07\u0e34\u0e19 (financial planning), \u0e27\u0e32\u0e07\u0e41\u0e1c\u0e19\u0e17\u0e23\u0e31\u0e1e\u0e22\u0e32\u0e01\u0e23 (resource planning)",
           ],
+        },
+        {
+          type: "callout",
+          variant: "info",
+          title: "ทางเลือกใหม่",
+          text: "AWS แนะนำให้ใช้ <strong>Amazon SageMaker Canvas</strong> สำหรับงาน forecasting ใหม่ — มี time-series forecasting ในรูปแบบ no-code ใช้งานง่าย เหมาะกับ business analyst",
         },
       ],
     },
@@ -572,7 +577,7 @@ export const machineLearning: TopicData = {
       ],
       correct: 0,
       explanation:
-        "Amazon Forecast is a managed time-series forecasting service — uses the same technology Amazon uses for retail demand forecasting. (Note: Amazon Forecast is being deprecated; for new workloads, use SageMaker Canvas.)",
+        "Amazon Forecast is a managed time-series forecasting service — uses the same technology Amazon uses for retail demand forecasting. (Tip: AWS now also encourages using Amazon SageMaker Canvas for new forecasting workloads since it includes time-series forecasting in a no-code experience.)",
     },
     {
       id: "ml-q12",
@@ -619,16 +624,16 @@ export const machineLearning: TopicData = {
     {
       id: "ml-q15",
       question:
-        "Which AWS service is BEST for detecting anomalies in business metrics using ML?",
+        "Which AWS service uses ML to detect anomalies in your application performance metrics, infrastructure metrics, and operational telemetry?",
       options: [
-        "Amazon Lookout for Metrics",
+        "Amazon DevOps Guru",
         "Amazon Forecast",
         "Amazon Personalize",
         "Amazon Macie",
       ],
       correct: 0,
       explanation:
-        "Amazon Lookout for Metrics automatically detects anomalies in business metrics (revenue, conversions, traffic) and helps identify root causes. Lookout for Equipment / Vision are similar for industrial.",
+        "Amazon DevOps Guru uses ML to detect operational anomalies (latency spikes, error spikes, resource exhaustion) and recommend remediations. It analyzes CloudWatch metrics, AWS X-Ray traces, AWS Config events, and CloudTrail logs.",
     },
     {
       id: "ml-q16",
@@ -731,30 +736,30 @@ export const machineLearning: TopicData = {
     {
       id: "ml-q23",
       question:
-        "Which AWS service is BEST for industrial computer vision (e.g., defect detection on assembly lines)?",
+        "Which AWS service lets you train a custom image-classification or object-detection model with just a few labeled images, for use cases like brand-logo detection or visual inspection?",
       options: [
-        "Amazon Lookout for Vision",
-        "Amazon Rekognition",
+        "Amazon Rekognition Custom Labels",
         "Amazon Comprehend",
         "Amazon Polly",
+        "Amazon Translate",
       ],
       correct: 0,
       explanation:
-        "Amazon Lookout for Vision is purpose-built for industrial computer vision — automated defect detection in manufacturing, with minimal training images needed.",
+        "Amazon Rekognition Custom Labels lets customers train custom computer-vision models on their own images (e.g., detect their company's products, brand logos, machine parts) without ML expertise — backed by Rekognition's transfer-learning pipeline.",
     },
     {
       id: "ml-q24",
       question:
-        "Which AWS service is BEST for predictive maintenance (detecting equipment anomalies from sensor data)?",
+        "Which AWS service provides specialized speech-to-text optimized for medical conversations and clinical documentation?",
       options: [
-        "Amazon Lookout for Equipment",
-        "Amazon Lookout for Metrics",
-        "Amazon Forecast",
-        "Amazon Comprehend",
+        "Amazon Transcribe Medical",
+        "Amazon Polly",
+        "Amazon Comprehend Medical",
+        "Amazon HealthLake",
       ],
       correct: 0,
       explanation:
-        "Amazon Lookout for Equipment uses sensor data (vibration, temperature, etc.) to detect abnormal equipment behavior and predict maintenance needs.",
+        "Amazon Transcribe Medical is a speech-to-text service tuned for medical terminology — used for clinical documentation, telehealth, and patient-provider conversations. (Comprehend Medical is NLP for medical text; Transcribe Medical is for audio.)",
     },
     {
       id: "ml-q25",

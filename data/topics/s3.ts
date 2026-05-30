@@ -5,7 +5,6 @@ export const s3: TopicData = {
   title: "S3",
   subtitle: "Simple Storage Service",
   accent: "yellow",
-  emoji: "🪣",
   category: "Storage",
   description:
     "Amazon S3 คือ Object Storage ระดับ infinitely scalable เก็บไฟล์ได้ไม่จำกัด มี durability 99.999999999% (11 nines) ใช้สำหรับ backup, DR, archive, hybrid cloud, hosting, media, data lakes, software delivery และ static website นอกจากนี้ AWS ยังมี Snow Family สำหรับ migrate ข้อมูลขนาดใหญ่เข้าสู่ S3",
@@ -14,7 +13,7 @@ export const s3: TopicData = {
     "Storage Classes 6 แบบ — เลือกตามความถี่ในการเข้าถึงเพื่อประหยัดค่าใช้จ่าย",
     "Durability 99.999999999% (11 nines) ทุก class — ข้อมูลแทบไม่มีทางหาย",
     "รองรับ Versioning, Replication (CRR/SRR), Object Lock (WORM) และ Static Website Hosting",
-    "Snow Family — ขนข้อมูลทางกายภาพเข้าสู่ S3 (Snowcone, Snowball Edge, Snowmobile)",
+    "Snow Family — ขนข้อมูลทางกายภาพเข้าสู่ S3 (Snowcone, Snowball Edge)",
   ],
   sections: [
     {
@@ -422,7 +421,7 @@ export const s3: TopicData = {
             {
               title: "1. Data Migration",
               description:
-                "ขนข้อมูลจำนวนมากเข้า AWS โดยส่งอุปกรณ์ทางไปรษณีย์ — Snowcone, Snowball Edge, Snowmobile",
+                "ขนข้อมูลจำนวนมากเข้า AWS โดยส่งอุปกรณ์ทางไปรษณีย์ — Snowcone, Snowball Edge",
             },
             {
               title: "2. Edge Computing",
@@ -453,18 +452,13 @@ export const s3: TopicData = {
               description:
                 "<strong>42 TB</strong> HDD + GPU optional · เหมาะกับงาน <em>edge computing</em>, machine learning, video analytics, local computing",
             },
-            {
-              title: "Snowmobile",
-              description:
-                "<strong>ตู้คอนเทนเนอร์</strong> 45 ฟุต ลากด้วยรถบรรทุก! · ความจุ <strong>up to 100 PB ต่อคัน</strong> · เหมาะเมื่อต้อง migrate <strong>มากกว่า 10 PB</strong> · มี GPS tracking, 24/7 video surveillance, security personnel",
-            },
           ],
         },
         {
           type: "callout",
           variant: "tip",
           title: "เลือกอุปกรณ์อย่างไร",
-          text: "<strong>≤ 24 TB:</strong> Snowcone · <strong>หลาย TB ถึง PB:</strong> Snowball Edge · <strong>&gt; 10 PB:</strong> Snowmobile",
+          text: "<strong>≤ 24 TB:</strong> Snowcone · <strong>หลาย TB ถึง PB:</strong> Snowball Edge — สำหรับ <strong>petabyte-scale</strong> ส่งหลายเครื่องพร้อมกัน (Snowmobile รถตู้ 100 PB ถูกยกเลิกแล้ว)",
         },
         {
           type: "paragraph",
@@ -687,11 +681,16 @@ export const s3: TopicData = {
     {
       id: "s3-q12",
       question:
-        "What is the maximum number of S3 buckets you can have in an AWS account by default?",
-      options: ["10", "100", "1000", "Unlimited"],
-      correct: 1,
+        "What is the maximum size of an Amazon S3 bucket (the total amount of data it can store)?",
+      options: [
+        "5 TB",
+        "1 PB",
+        "100 PB",
+        "Effectively unlimited — there is no overall bucket-size limit, only per-object limits.",
+      ],
+      correct: 3,
       explanation:
-        "By default, an AWS account can have up to 100 S3 buckets. This is a soft limit and can be increased via AWS Support up to 1,000.",
+        "S3 buckets have no overall storage size limit. The only relevant limits are per object: a single object can be up to 5 TB, and uploads larger than 5 GB must use multipart upload. The number of buckets per account has a default service quota that can be increased via Service Quotas if needed.",
     },
     {
       id: "s3-q13",
@@ -752,16 +751,16 @@ export const s3: TopicData = {
     {
       id: "s3-q17",
       question:
-        "A company needs to migrate exabytes of data to AWS. Which service is appropriate?",
+        "A company has 100 TB of on-premises archive data and very limited internet bandwidth. They want to move it to S3 in a single shipment. Which AWS service is BEST?",
       options: [
-        "AWS Snowball",
-        "AWS Snowmobile",
+        "AWS Snowball Edge Storage Optimized",
         "AWS DataSync",
         "AWS Direct Connect",
+        "S3 Transfer Acceleration",
       ],
-      correct: 1,
+      correct: 0,
       explanation:
-        "AWS Snowmobile is a 45-foot shipping container truck that can transfer up to 100 PB per Snowmobile — designed for exabyte-scale data center migrations.",
+        "AWS Snowball Edge Storage Optimized is a ruggedized physical device shipped to the customer for offline bulk data transfer (~80 TB usable per device, request multiple devices for larger jobs). For 100 TB on a constrained link, this is dramatically faster than uploading over the internet. (Note: AWS Snowmobile, the 45-foot truck for exabyte-scale transfers, has been discontinued.)",
     },
     {
       id: "s3-q18",

@@ -5,7 +5,6 @@ export const otherCompute: TopicData = {
   title: "Other Compute",
   subtitle: "Lambda, ECS, Fargate, Lightsail & more",
   accent: "amber",
-  emoji: "\u26a1",
   category: "Compute",
   description:
     "หมวด Other Compute Services รวบรวม compute options นอกเหนือจาก EC2 — ตั้งแต่ container services (ECS, Fargate, EKS, ECR), serverless (Lambda, API Gateway), batch processing (AWS Batch) ไปจนถึง Lightsail สำหรับ beginners ครอบคลุมทุกแบบที่ข้อสอบ CLF-C02 ต้องรู้",
@@ -40,7 +39,7 @@ export const otherCompute: TopicData = {
             {
               title: "Docker Repositories",
               description:
-                "<strong>Public</strong>: Docker Hub (https://hub.docker.com) — public registry ที่ใหญ่ที่สุด | <strong>Private</strong>: Amazon ECR (Elastic Container Registry) — private registry บน AWS",
+                "<strong>Public</strong>: Docker Hub (https://hub.docker.com) — public registry ที่ใหญ่ที่สุด<br><strong>Private</strong>: Amazon ECR (Elastic Container Registry) — private registry บน AWS",
             },
             {
               title: "Docker vs Virtual Machine (VM)",
@@ -53,7 +52,7 @@ export const otherCompute: TopicData = {
           type: "callout",
           variant: "info",
           title: "Container vs VM",
-          text: "VM ต้องรัน guest OS เต็มตัว → หนัก, boot ช้า, รันได้ไม่กี่ตัวต่อ server | Container share OS kernel → เบา, start เป็นวินาที, รันได้นับร้อยต่อ server",
+          text: "VM ต้องรัน guest OS เต็มตัว → หนัก, boot ช้า, รันได้ไม่กี่ตัวต่อ server<br>Container share OS kernel → เบา, start เป็นวินาที, รันได้นับร้อยต่อ server",
         },
       ],
     },
@@ -79,7 +78,7 @@ export const otherCompute: TopicData = {
           type: "callout",
           variant: "warning",
           title: "ความรับผิดชอบใน ECS (EC2 Launch Type)",
-          text: "เรา = ดูแล EC2 instances (provision, patch, scale) | AWS = ดูแล container lifecycle (start, stop, schedule) → ยังไม่ใช่ \"serverless\" สมบูรณ์ ต้องใช้ Fargate ถ้าต้องการ serverless",
+          text: "เรา = ดูแล EC2 instances (provision, patch, scale)<br>AWS = ดูแล container lifecycle (start, stop, schedule) → ยังไม่ใช่ \"serverless\" สมบูรณ์ ต้องใช้ Fargate ถ้าต้องการ serverless",
         },
       ],
     },
@@ -105,7 +104,7 @@ export const otherCompute: TopicData = {
           type: "callout",
           variant: "tip",
           title: "ข้อสอบ CLF-C02",
-          text: "ถ้าโจทย์บอก \"run containers without managing servers\" หรือ \"serverless containers\" → Fargate | ถ้าต้อง control OS / GPU / custom AMI → ECS + EC2 Launch Type",
+          text: "ถ้าโจทย์บอก \"run containers without managing servers\" หรือ \"serverless containers\" → Fargate<br>ถ้าต้อง control OS / GPU / custom AMI → ECS + EC2 Launch Type",
         },
       ],
     },
@@ -159,7 +158,7 @@ export const otherCompute: TopicData = {
             {
               title: "EKS vs ECS",
               description:
-                "EKS = open-source Kubernetes (portable, K8s ecosystem) | ECS = AWS proprietary (ง่ายกว่า, integrate AWS ดี) — ทั้งคู่รองรับ Fargate",
+                "EKS = open-source Kubernetes (portable, K8s ecosystem)<br>ECS = AWS proprietary (ง่ายกว่า, integrate AWS ดี) — ทั้งคู่รองรับ Fargate",
             },
             {
               title: "เมื่อไรเลือก EKS",
@@ -194,7 +193,7 @@ export const otherCompute: TopicData = {
             {
               title: "AWS Serverless Services ที่เคยเรียน",
               description:
-                "<strong>S3</strong> (storage) | <strong>DynamoDB</strong> (NoSQL DB) | <strong>Fargate</strong> (containers) | <strong>Lambda</strong> (functions) | <strong>Aurora Serverless</strong> (relational DB)",
+                "<strong>S3</strong> (storage)<br><strong>DynamoDB</strong> (NoSQL DB)<br><strong>Fargate</strong> (containers)<br><strong>Lambda</strong> (functions)<br><strong>Aurora Serverless</strong> (relational DB)",
             },
             {
               title: "ไม่ใช่ Serverless",
@@ -306,12 +305,12 @@ export const otherCompute: TopicData = {
             {
               title: "AWS Batch",
               description:
-                "<strong>ไม่มี time limit</strong> | runtime อะไรก็ได้ (ผ่าน Docker) | ใช้ <strong>EBS / Instance Store</strong> | รันบน <strong>EC2-based</strong> infrastructure",
+                "<strong>ไม่มี time limit</strong><br>runtime อะไรก็ได้ (ผ่าน Docker)<br>ใช้ <strong>EBS / Instance Store</strong><br>รันบน <strong>EC2-based</strong> infrastructure",
             },
             {
               title: "AWS Lambda",
               description:
-                "<strong>มี time limit (15 นาที)</strong> | runtime จำกัด (ที่ AWS รองรับ) | temporary disk เท่านั้น | <strong>Serverless</strong> สมบูรณ์",
+                "<strong>มี time limit (15 นาที)</strong><br>runtime จำกัด (ที่ AWS รองรับ)<br>temporary disk เท่านั้น<br><strong>Serverless</strong> สมบูรณ์",
             },
           ],
         },
@@ -319,7 +318,7 @@ export const otherCompute: TopicData = {
           type: "callout",
           variant: "tip",
           title: "Batch vs Lambda",
-          text: "ถ้า job รันนานกว่า 15 นาที, ต้องใช้ runtime พิเศษ, หรือต้อง storage ขนาดใหญ่ → AWS Batch | ถ้าเป็น short event-driven function → Lambda",
+          text: "ถ้า job รันนานกว่า 15 นาที, ต้องใช้ runtime พิเศษ, หรือต้อง storage ขนาดใหญ่ → AWS Batch<br>ถ้าเป็น short event-driven function → Lambda",
         },
       ],
     },
@@ -373,22 +372,22 @@ export const otherCompute: TopicData = {
             {
               title: "Amazon ECS",
               description:
-                "<strong>Container orchestrator</strong>: ใช่ (AWS proprietary) | <strong>Control plane</strong>: AWS manages | <strong>Launch types</strong>: EC2 + Fargate | <strong>เลือกเมื่อ</strong>: ใช้ AWS เป็นหลัก, ต้องการความง่าย, ไม่มี K8s expertise",
+                "<strong>Container orchestrator</strong>: ใช่ (AWS proprietary)<br><strong>Control plane</strong>: AWS manages<br><strong>Launch types</strong>: EC2 + Fargate<br><strong>เลือกเมื่อ</strong>: ใช้ AWS เป็นหลัก, ต้องการความง่าย, ไม่มี K8s expertise",
             },
             {
               title: "Amazon EKS",
               description:
-                "<strong>Container orchestrator</strong>: ใช่ (Kubernetes) | <strong>Control plane</strong>: AWS manages K8s control plane | <strong>Launch types</strong>: EC2 Nodes + Fargate | <strong>เลือกเมื่อ</strong>: ใช้ K8s อยู่แล้ว, ต้องการ multi-cloud portability",
+                "<strong>Container orchestrator</strong>: ใช่ (Kubernetes)<br><strong>Control plane</strong>: AWS manages K8s control plane<br><strong>Launch types</strong>: EC2 Nodes + Fargate<br><strong>เลือกเมื่อ</strong>: ใช้ K8s อยู่แล้ว, ต้องการ multi-cloud portability",
             },
             {
               title: "AWS Fargate",
               description:
-                "<strong>Container orchestrator</strong>: ไม่ใช่ (เป็น compute engine) | <strong>Control plane</strong>: ไม่มี (serverless) | <strong>Launch types</strong>: ใช้ร่วมกับ ECS หรือ EKS | <strong>เลือกเมื่อ</strong>: ต้องการ serverless containers, ไม่อยาก manage EC2",
+                "<strong>Container orchestrator</strong>: ไม่ใช่ (เป็น compute engine)<br><strong>Control plane</strong>: ไม่มี (serverless)<br><strong>Launch types</strong>: ใช้ร่วมกับ ECS หรือ EKS<br><strong>เลือกเมื่อ</strong>: ต้องการ serverless containers, ไม่อยาก manage EC2",
             },
             {
               title: "Amazon ECR",
               description:
-                "<strong>Container orchestrator</strong>: ไม่ใช่ (เป็น registry) | ใช้เก็บ Docker images | ใช้ร่วมกับ ECS หรือ EKS | Backed by S3, controlled by IAM",
+                "<strong>Container orchestrator</strong>: ไม่ใช่ (เป็น registry)<br>ใช้เก็บ Docker images<br>ใช้ร่วมกับ ECS หรือ EKS<br>Backed by S3, controlled by IAM",
             },
           ],
         },
@@ -629,11 +628,11 @@ export const otherCompute: TopicData = {
         "Amazon WorkSpaces",
         "Amazon AppStream 2.0",
         "Amazon EC2",
-        "Amazon Workspaces Web",
+        "Amazon WorkSpaces Secure Browser",
       ],
       correct: 0,
       explanation:
-        "Amazon WorkSpaces provides cloud-based persistent Windows or Linux desktops — accessible from any device. Pay monthly or per usage.",
+        "Amazon WorkSpaces provides cloud-based persistent Windows or Linux desktops — accessible from any device. Pay monthly or per usage. (WorkSpaces Secure Browser, formerly WorkSpaces Web, is a different service that streams a secure browser, not a full desktop.)",
     },
     {
       id: "oc-q11",
