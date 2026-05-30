@@ -5,7 +5,6 @@ export const security: TopicData = {
   title: "Security & Compliance",
   subtitle: "Shield, WAF, KMS, GuardDuty & more",
   accent: "red",
-  emoji: "\ud83d\udee1\ufe0f",
   category: "Security, Identity & Compliance",
   description:
     "รวมบริการด้านความปลอดภัยของ AWS — ตั้งแต่การป้องกัน DDoS (Shield, WAF), การเข้ารหัสข้อมูล (KMS, CloudHSM, ACM), การจัดการความลับ (Secrets Manager), การตรวจจับภัยคุกคาม (GuardDuty, Inspector, Macie, Detective) ไปจนถึงการรวมศูนย์ความปลอดภัย (Security Hub) และเอกสาร compliance (Artifact) — พร้อม Shared Responsibility Model ที่เป็นหัวใจของการใช้งาน AWS อย่างปลอดภัย",
@@ -417,7 +416,7 @@ export const security: TopicData = {
           type: "list",
           items: [
             "Target = <strong>EC2 instances</strong> (รวม container image และ Lambda function ในเวอร์ชันใหม่)",
-            "ต้องติดตั้ง <strong>Inspector Agent</strong> บน OS ของ instance",
+            "ต้องติดตั้ง <strong>AWS Systems Manager (SSM) Agent</strong> บน EC2 (Inspector v2 ใช้ SSM Agent — ไม่ต้องการ Inspector Agent แยก)",
             "วิเคราะห์ <strong>OS vulnerabilities</strong> และ <strong>network reachability</strong>",
             "Output = <strong>vulnerability report</strong> เรียงตามความรุนแรง",
           ],

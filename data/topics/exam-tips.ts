@@ -5,7 +5,6 @@ export const examTips: TopicData = {
   title: "Exam Tips & Strategy",
   subtitle: "CLF-C02 Format, Strategy & Resources",
   accent: "lime",
-  emoji: "\ud83c\udf93",
   category: "Exam Preparation",
   description:
     "\u0e2a\u0e23\u0e38\u0e1b\u0e17\u0e38\u0e01\u0e2a\u0e34\u0e48\u0e07\u0e17\u0e35\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e23\u0e39\u0e49\u0e01\u0e48\u0e2d\u0e19\u0e2a\u0e2d\u0e1a CLF-C02 \u2014 \u0e23\u0e39\u0e1b\u0e41\u0e1a\u0e1a\u0e02\u0e49\u0e2d\u0e2a\u0e2d\u0e1a, \u0e2a\u0e31\u0e14\u0e2a\u0e48\u0e27\u0e19 domain, \u0e01\u0e25\u0e22\u0e38\u0e17\u0e18\u0e4c\u0e01\u0e32\u0e23\u0e17\u0e33\u0e02\u0e49\u0e2d\u0e2a\u0e2d\u0e1a, \u0e01\u0e32\u0e23\u0e1a\u0e23\u0e34\u0e2b\u0e32\u0e23\u0e40\u0e27\u0e25\u0e32 \u0e41\u0e25\u0e30 distractors \u0e17\u0e35\u0e48\u0e1e\u0e1a\u0e1a\u0e48\u0e2d\u0e22 \u0e1e\u0e23\u0e49\u0e2d\u0e21 resources \u0e1f\u0e23\u0e35\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e40\u0e15\u0e23\u0e35\u0e22\u0e21\u0e15\u0e31\u0e27 \u0e41\u0e25\u0e30 next steps \u0e2b\u0e25\u0e31\u0e07\u0e2a\u0e2d\u0e1a\u0e1c\u0e48\u0e32\u0e19",
@@ -163,7 +162,17 @@ export const examTips: TopicData = {
           type: "callout",
           variant: "tip",
           title: "AWS Keyword Hints",
-          text: "\u0e08\u0e33\u0e44\u0e27\u0e49: \"fully managed\" = RDS, DynamoDB, Lambda | \"serverless\" = Lambda, Fargate, S3, DynamoDB | \"global\" = CloudFront, Route 53, IAM | \"highly available\" = Multi-AZ, ELB | \"cost-effective\" = Spot, Savings Plans, S3 Glacier",
+          text: "\u0e08\u0e33 keyword \u2192 service \u2014 \u0e0a\u0e48\u0e27\u0e22\u0e15\u0e2d\u0e1a\u0e02\u0e49\u0e2d\u0e2a\u0e2d\u0e1a\u0e44\u0e14\u0e49\u0e40\u0e23\u0e47\u0e27",
+        },
+        {
+          type: "list",
+          items: [
+            "<strong>\"fully managed\"</strong> \u2192 RDS, DynamoDB, Lambda",
+            "<strong>\"serverless\"</strong> \u2192 Lambda, Fargate, S3, DynamoDB, Aurora Serverless",
+            "<strong>\"global\"</strong> \u2192 CloudFront, Route 53, IAM",
+            "<strong>\"highly available\"</strong> \u2192 Multi-AZ, ELB",
+            "<strong>\"cost-effective\"</strong> \u2192 Spot, Savings Plans, S3 Glacier",
+          ],
         },
       ],
     },
@@ -181,62 +190,62 @@ export const examTips: TopicData = {
             {
               title: "Agility vs Scalability vs Elasticity",
               description:
-                "<strong>Agility</strong> = \u0e04\u0e27\u0e32\u0e21\u0e40\u0e23\u0e47\u0e27\u0e43\u0e19\u0e01\u0e32\u0e23 provisioning (\u0e44\u0e21\u0e48\u0e43\u0e0a\u0e48 scaling) | <strong>Scalability</strong> = \u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a load \u0e17\u0e35\u0e48\u0e43\u0e2b\u0e0d\u0e48\u0e02\u0e36\u0e49\u0e19\u0e44\u0e14\u0e49 | <strong>Elasticity</strong> = auto-scale \u0e02\u0e36\u0e49\u0e19/\u0e25\u0e07\u0e15\u0e32\u0e21 demand",
+                "<strong>Agility</strong> = \u0e04\u0e27\u0e32\u0e21\u0e40\u0e23\u0e47\u0e27\u0e43\u0e19\u0e01\u0e32\u0e23 provisioning (\u0e44\u0e21\u0e48\u0e43\u0e0a\u0e48 scaling)<br><strong>Scalability</strong> = \u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a load \u0e17\u0e35\u0e48\u0e43\u0e2b\u0e0d\u0e48\u0e02\u0e36\u0e49\u0e19\u0e44\u0e14\u0e49<br><strong>Elasticity</strong> = auto-scale \u0e02\u0e36\u0e49\u0e19/\u0e25\u0e07\u0e15\u0e32\u0e21 demand",
             },
             {
               title: "Region vs AZ vs Edge",
               description:
-                "<strong>Region</strong> \u0e21\u0e35\u0e2b\u0e25\u0e32\u0e22 AZ | <strong>AZ</strong> \u0e21\u0e35\u0e2b\u0e25\u0e32\u0e22 data center (1+) | <strong>Edge Location</strong> \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a CloudFront \u2014 \u0e21\u0e35\u0e21\u0e32\u0e01\u0e01\u0e27\u0e48\u0e32 Region",
+                "<strong>Region</strong> \u0e21\u0e35\u0e2b\u0e25\u0e32\u0e22 AZ<br><strong>AZ</strong> \u0e21\u0e35\u0e2b\u0e25\u0e32\u0e22 data center (1+)<br><strong>Edge Location</strong> \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a CloudFront \u2014 \u0e21\u0e35\u0e21\u0e32\u0e01\u0e01\u0e27\u0e48\u0e32 Region",
             },
             {
               title: "EBS vs Instance Store",
               description:
-                "<strong>EBS</strong> = network drive, persistent (\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e2d\u0e22\u0e39\u0e48\u0e16\u0e36\u0e07\u0e41\u0e21\u0e49\u0e15\u0e2d\u0e19 instance \u0e14\u0e31\u0e1a) | <strong>Instance Store</strong> = physical disk, ephemeral (\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e2b\u0e32\u0e22\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e14\u0e31\u0e1a)",
+                "<strong>EBS</strong> = network drive, persistent (\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e2d\u0e22\u0e39\u0e48\u0e16\u0e36\u0e07\u0e41\u0e21\u0e49\u0e15\u0e2d\u0e19 instance \u0e14\u0e31\u0e1a)<br><strong>Instance Store</strong> = physical disk, ephemeral (\u0e02\u0e49\u0e2d\u0e21\u0e39\u0e25\u0e2b\u0e32\u0e22\u0e40\u0e21\u0e37\u0e48\u0e2d\u0e14\u0e31\u0e1a)",
             },
             {
               title: "Multi-AZ vs Read Replica",
               description:
-                "<strong>Multi-AZ</strong> = HA + automatic failover (synchronous, standby) | <strong>Read Replica</strong> = \u0e02\u0e22\u0e32\u0e22 read performance (asynchronous, \u0e2d\u0e48\u0e32\u0e19\u0e44\u0e14\u0e49\u0e08\u0e23\u0e34\u0e07)",
+                "<strong>Multi-AZ</strong> = HA + automatic failover (synchronous, standby)<br><strong>Read Replica</strong> = \u0e02\u0e22\u0e32\u0e22 read performance (asynchronous, \u0e2d\u0e48\u0e32\u0e19\u0e44\u0e14\u0e49\u0e08\u0e23\u0e34\u0e07)",
             },
             {
               title: "NACL vs Security Group",
               description:
-                "<strong>NACL</strong> = stateless, ALLOW + DENY, subnet level | <strong>Security Group</strong> = stateful, ALLOW only, instance/ENI level",
+                "<strong>NACL</strong> = stateless, ALLOW + DENY, subnet level<br><strong>Security Group</strong> = stateful, ALLOW only, instance/ENI level",
             },
             {
               title: "ALB vs NLB",
               description:
-                "<strong>ALB</strong> = Layer 7 (HTTP/HTTPS), path/host routing | <strong>NLB</strong> = Layer 4 (TCP/UDP/TLS), \u0e1c\u0e25\u0e07\u0e32\u0e19\u0e2a\u0e39\u0e07, low-latency, static IP",
+                "<strong>ALB</strong> = Layer 7 (HTTP/HTTPS), path/host routing<br><strong>NLB</strong> = Layer 4 (TCP/UDP/TLS), \u0e1c\u0e25\u0e07\u0e32\u0e19\u0e2a\u0e39\u0e07, low-latency, static IP",
             },
             {
               title: "CloudWatch vs CloudTrail",
               description:
-                "<strong>CloudWatch</strong> = metrics + logs (performance monitoring) | <strong>CloudTrail</strong> = API audit log (governance/compliance) \u2014 \"\u0e43\u0e04\u0e23\u0e17\u0e33\u0e2d\u0e30\u0e44\u0e23\u0e25\u0e07\u0e44\u0e1b?\"",
+                "<strong>CloudWatch</strong> = metrics + logs (performance monitoring)<br><strong>CloudTrail</strong> = API audit log (governance/compliance) \u2014 \"\u0e43\u0e04\u0e23\u0e17\u0e33\u0e2d\u0e30\u0e44\u0e23\u0e25\u0e07\u0e44\u0e1b?\"",
             },
             {
               title: "KMS vs CloudHSM",
               description:
-                "<strong>KMS</strong> = software, AWS-managed keys, multi-tenant | <strong>CloudHSM</strong> = hardware (FIPS 140-2 Level 3), customer-managed keys, single-tenant",
+                "<strong>KMS</strong> = software, AWS-managed keys, multi-tenant<br><strong>CloudHSM</strong> = hardware (FIPS 140-2 Level 3), customer-managed keys, single-tenant",
             },
             {
               title: "Rekognition vs Comprehend vs Transcribe vs Polly",
               description:
-                "<strong>Rekognition</strong> = images/video | <strong>Comprehend</strong> = text NLP (sentiment) | <strong>Transcribe</strong> = speech \u2192 text | <strong>Polly</strong> = text \u2192 speech",
+                "<strong>Rekognition</strong> = images/video<br><strong>Comprehend</strong> = text NLP (sentiment)<br><strong>Transcribe</strong> = speech \u2192 text<br><strong>Polly</strong> = text \u2192 speech",
             },
             {
               title: "S3 Storage Classes",
               description:
-                "<strong>Standard</strong> (frequent) | <strong>Standard-IA</strong> (\u0e44\u0e21\u0e48\u0e1a\u0e48\u0e2d\u0e22) | <strong>One Zone-IA</strong> (1 AZ) | <strong>Glacier Instant/Flexible/Deep</strong> (archival)",
+                "<strong>Standard</strong> (frequent)<br><strong>Standard-IA</strong> (\u0e44\u0e21\u0e48\u0e1a\u0e48\u0e2d\u0e22)<br><strong>One Zone-IA</strong> (1 AZ)<br><strong>Glacier Instant/Flexible/Deep</strong> (archival)",
             },
             {
               title: "SNS vs SQS",
               description:
-                "<strong>SNS</strong> = pub/sub, push, fanout (1 \u2192 many) | <strong>SQS</strong> = queue, pull, decouple producer-consumer",
+                "<strong>SNS</strong> = pub/sub, push, fanout (1 \u2192 many)<br><strong>SQS</strong> = queue, pull, decouple producer-consumer",
             },
             {
               title: "Organizations vs Control Tower",
               description:
-                "<strong>Organizations</strong> = consolidated billing + SCP | <strong>Control Tower</strong> = \u0e15\u0e31\u0e49\u0e07 multi-account environment \u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08\u0e23\u0e39\u0e1b (built on Organizations)",
+                "<strong>Organizations</strong> = consolidated billing + SCP<br><strong>Control Tower</strong> = \u0e15\u0e31\u0e49\u0e07 multi-account environment \u0e2a\u0e33\u0e40\u0e23\u0e47\u0e08\u0e23\u0e39\u0e1b (built on Organizations)",
             },
           ],
         },

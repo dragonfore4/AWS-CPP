@@ -5,15 +5,14 @@ export const databases: TopicData = {
   title: "Databases & Analytics",
   subtitle: "RDS, Aurora, DynamoDB, Redshift, Athena & more",
   accent: "sky",
-  emoji: "🗄️",
   category: "Database",
   description:
     "ภาพรวม Database & Analytics ทั้งหมดของ AWS ตั้งแต่ Relational (RDS, Aurora), NoSQL (DynamoDB, DocumentDB), In-memory (ElastiCache), Data Warehouse (Redshift), Big Data (EMR, Athena, QuickSight, Glue) ไปจนถึง Specialty DB (Neptune, QLDB, Managed Blockchain) — เลือกใช้ให้ถูกกับ workload",
   keyPoints: [
-    "RDS = Relational (SQL) | DynamoDB = NoSQL (key-value) — เลือกตาม schema และ scaling pattern",
-    "Aurora เร็วกว่า MySQL 5x, PostgreSQL 3x — auto-grow storage ถึง 64TB",
-    "Read Replicas = scale READ | Multi-AZ = high availability (failover)",
-    "Redshift = OLAP/Analytics | Athena = Serverless SQL บน S3 | EMR = Hadoop big data",
+    "RDS = Relational (SQL)<br>DynamoDB = NoSQL (key-value) — เลือกตาม schema และ scaling pattern",
+    "Aurora เร็วกว่า MySQL 5x, PostgreSQL 3x — auto-grow storage ถึง 128 TiB",
+    "Read Replicas = scale READ<br>Multi-AZ = high availability (failover)",
+    "Redshift = OLAP/Analytics<br>Athena = Serverless SQL บน S3<br>EMR = Hadoop big data",
   ],
   sections: [
     {
@@ -98,7 +97,7 @@ export const databases: TopicData = {
           type: "list",
           items: [
             "<strong>เร็วกว่า MySQL บน RDS ถึง 5x และเร็วกว่า PostgreSQL บน RDS ถึง 3x</strong>",
-            "Storage <strong>auto-grows</strong> ทีละ 10GB จนถึง <strong>64TB</strong>",
+            "Storage <strong>auto-grows</strong> ทีละ 10GB จนถึง <strong>128 TiB</strong>",
             "ราคาแพงกว่า RDS ~20% แต่ <em>more efficient</em> (cost-effective ในระยะยาว)",
             "<strong>ไม่อยู่ใน Free Tier</strong>",
             "Cloud-native — เก็บ 6 copies ของข้อมูลใน 3 AZ",
@@ -171,7 +170,7 @@ export const databases: TopicData = {
           type: "callout",
           variant: "info",
           title: "Redis vs Memcached",
-          text: "Redis = HA + persistence + replication + pub/sub | Memcached = simple, multi-threaded, no persistence, ไม่มี HA — ส่วนใหญ่ Redis คือ default choice",
+          text: "Redis = HA + persistence + replication + pub/sub<br>Memcached = simple, multi-threaded, no persistence, ไม่มี HA — ส่วนใหญ่ Redis คือ default choice",
         },
       ],
     },
@@ -206,7 +205,7 @@ export const databases: TopicData = {
             {
               title: "DAX vs ElastiCache",
               description:
-                "DAX = ใช้ได้เฉพาะ DynamoDB เท่านั้น | ElastiCache = general-purpose ใช้ได้กับ database ใดก็ได้ (RDS, Aurora, custom) — ถามเรื่อง cache DynamoDB ตอบ DAX",
+                "DAX = ใช้ได้เฉพาะ DynamoDB เท่านั้น<br>ElastiCache = general-purpose ใช้ได้กับ database ใดก็ได้ (RDS, Aurora, custom) — ถามเรื่อง cache DynamoDB ตอบ DAX",
             },
             {
               title: "DynamoDB Global Tables",
@@ -247,7 +246,7 @@ export const databases: TopicData = {
           type: "callout",
           variant: "warning",
           title: "OLAP vs OLTP",
-          text: "Redshift = OLAP (analytics, reporting, large queries) | RDS/Aurora = OLTP (transactions, real-time CRUD) — เลือกผิดจะ performance พัง",
+          text: "Redshift = OLAP (analytics, reporting, large queries)<br>RDS/Aurora = OLTP (transactions, real-time CRUD) — เลือกผิดจะ performance พัง",
         },
       ],
     },
@@ -333,7 +332,7 @@ export const databases: TopicData = {
           items: [
             "MongoDB-compatible document database (NoSQL JSON)",
             "Fully managed, highly available — replicate ข้าม <strong>3 AZ</strong>",
-            "Storage <strong>auto-grows</strong> ทีละ 10GB จนถึง <strong>64TB</strong>",
+            "Storage <strong>auto-grows</strong> ทีละ 10GB จนถึง <strong>128 TiB</strong>",
             "รองรับ <strong>millions of requests/second</strong>",
             "เหมาะกับ migration จาก MongoDB on-premise มา AWS",
           ],
@@ -380,7 +379,7 @@ export const databases: TopicData = {
           type: "callout",
           variant: "info",
           title: "QLDB vs Blockchain",
-          text: "QLDB = central ledger (มี central authority) | Managed Blockchain = decentralized (multi-party, no central authority) — ใช้ต่างกัน",
+          text: "QLDB = central ledger (มี central authority)<br>Managed Blockchain = decentralized (multi-party, no central authority) — ใช้ต่างกัน",
         },
       ],
     },
@@ -784,16 +783,16 @@ export const databases: TopicData = {
     {
       id: "db-q19",
       question:
-        "Which Kinesis service is BEST to stream data into S3, Redshift, OpenSearch, or Splunk WITHOUT writing custom code?",
+        "Which streaming service is BEST to deliver streaming data into S3, Redshift, OpenSearch, or Splunk WITHOUT writing custom code?",
       options: [
         "Kinesis Data Streams",
-        "Kinesis Data Firehose",
+        "Amazon Data Firehose (formerly Kinesis Data Firehose)",
         "Kinesis Video Streams",
-        "Kinesis Data Analytics",
+        "Managed Service for Apache Flink",
       ],
       correct: 1,
       explanation:
-        "Kinesis Data Firehose is a fully managed delivery service for streaming data into S3, Redshift, OpenSearch, Splunk, etc. — no code needed, with optional buffering and transformation.",
+        "Amazon Data Firehose (renamed from Kinesis Data Firehose in 2024) is a fully managed delivery service for streaming data into S3, Redshift, OpenSearch, Splunk, etc. — no code needed, with optional buffering and transformation.",
     },
     {
       id: "db-q20",
@@ -829,13 +828,13 @@ export const databases: TopicData = {
         "Which database engines does Amazon RDS support? (Choose the BEST answer.)",
       options: [
         "Only MySQL.",
-        "MySQL, PostgreSQL, MariaDB, Oracle, SQL Server, and Amazon Aurora.",
+        "MySQL, PostgreSQL, MariaDB, Oracle, Microsoft SQL Server, IBM Db2, and Amazon Aurora.",
         "Only NoSQL engines.",
         "Only proprietary engines.",
       ],
       correct: 1,
       explanation:
-        "Amazon RDS supports MySQL, PostgreSQL, MariaDB, Oracle, Microsoft SQL Server, IBM Db2, and Amazon Aurora.",
+        "Amazon RDS supports seven engines: MySQL, PostgreSQL, MariaDB, Oracle, Microsoft SQL Server, IBM Db2 (added in 2023), and Amazon Aurora.",
     },
     {
       id: "db-q23",

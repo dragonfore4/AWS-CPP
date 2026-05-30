@@ -5,7 +5,6 @@ export const globalInfrastructure: TopicData = {
   title: "Global Infrastructure",
   subtitle: "Route 53, CloudFront & Global Apps",
   accent: "purple",
-  emoji: "🌐",
   category: "Networking & Content Delivery",
   description:
     "AWS Global Infrastructure ประกอบด้วย Regions, Availability Zones, และ Edge Locations ทั่วโลก ช่วยให้สร้าง global applications ที่ latency ต่ำ ทนทานต่อ disaster และป้องกัน attack ได้ บทนี้ครอบคลุม Route 53 (DNS), CloudFront (CDN), S3 Transfer Acceleration, Global Accelerator, Outposts, WaveLength และ Local Zones",
@@ -40,7 +39,7 @@ export const globalInfrastructure: TopicData = {
             {
               title: "Edge Locations / Points of Presence",
               description:
-                "จุดที่กระจาย content ใกล้ผู้ใช้ — ใช้กับ CloudFront, Global Accelerator, Route 53 มี 400+ แห่งทั่วโลก ครอบคลุม 90+ เมือง — ช่วยลด latency โดยไม่ต้องไปถึง region",
+                "จุดที่กระจาย content ใกล้ผู้ใช้ — ใช้กับ CloudFront, Global Accelerator, Route 53 มีหลายร้อยแห่ง (600+) ทั่วโลก ครอบคลุมเมืองสำคัญทั่วโลก — ช่วยลด latency โดยไม่ต้องไปถึง region",
             },
           ],
         },
@@ -190,7 +189,7 @@ export const globalInfrastructure: TopicData = {
       content: [
         {
           type: "paragraph",
-          text: "<strong>Amazon CloudFront</strong> คือ Content Delivery Network (CDN) ปรับปรุง read performance โดย <strong>cache content ที่ edge</strong> มี <strong>216+ Points of Presence</strong> ทั่วโลก พร้อม DDoS protection ในตัว (integrate กับ Shield + WAF)",
+          text: "<strong>Amazon CloudFront</strong> คือ Content Delivery Network (CDN) ปรับปรุง read performance โดย <strong>cache content ที่ edge</strong> มี <strong>หลายร้อย Points of Presence (600+)</strong> ทั่วโลก พร้อม DDoS protection ในตัว (integrate กับ Shield + WAF)",
         },
         {
           type: "list",
@@ -554,7 +553,7 @@ export const globalInfrastructure: TopicData = {
       ],
       correct: 0,
       explanation:
-        "Amazon CloudFront is AWS's global CDN — caches content at 400+ Edge Locations worldwide for low-latency delivery, with built-in DDoS protection (AWS Shield Standard).",
+        "Amazon CloudFront is AWS's global CDN — caches content at hundreds of Edge Locations and Regional Edge Caches worldwide for low-latency delivery, with built-in DDoS protection (AWS Shield Standard).",
     },
     {
       id: "gi-q5",
@@ -610,7 +609,7 @@ export const globalInfrastructure: TopicData = {
       ],
       correct: 1,
       explanation:
-        "Edge Locations are AWS Points of Presence (PoPs) used by CloudFront for caching, Route 53 for DNS, and other edge services. There are 400+ edge locations vs ~30 regions.",
+        "Edge Locations are AWS Points of Presence (PoPs) used by CloudFront for caching, Route 53 for DNS, and other edge services. AWS operates hundreds of edge locations worldwide — far more than the ~30+ AWS Regions — to bring content close to end users.",
     },
     {
       id: "gi-q9",

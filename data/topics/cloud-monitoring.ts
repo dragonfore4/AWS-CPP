@@ -5,7 +5,6 @@ export const cloudMonitoring: TopicData = {
   title: "Cloud Monitoring",
   subtitle: "CloudWatch, CloudTrail, Config & Health",
   accent: "teal",
-  emoji: "📊",
   category: "Management & Governance",
   description:
     "Cloud Monitoring บน AWS ครอบคลุม 4 บริการหลักในการดูแลระบบ: CloudWatch (metrics + logs + events), CloudTrail (audit API calls), AWS Config (compliance + config history), และ Health Dashboards (สถานะ service ของ AWS) — ใช้ร่วมกันเพื่อ visibility, troubleshoot, security audit และ cost optimization",
@@ -13,7 +12,7 @@ export const cloudMonitoring: TopicData = {
     "CloudWatch — เก็บ metrics, logs, alarms, dashboards จาก AWS services และ apps",
     "CloudTrail — บันทึกทุก API call เพื่อ governance, compliance, audit",
     "AWS Config — track การเปลี่ยนแปลง configuration ของ resource และ compliance",
-    "Service Health Dashboard (public) vs Personal Health Dashboard (your resources)",
+    "Service Health Dashboard (public) vs AWS Health Dashboard (your account/resources)",
   ],
   sections: [
     {
@@ -56,7 +55,7 @@ export const cloudMonitoring: TopicData = {
             {
               title: "Health Dashboards",
               description:
-                "Service Health Dashboard (สถานะ AWS public) + Personal Health Dashboard (resource ของคุณ)",
+                "Service Health Dashboard (สถานะ AWS public) + AWS Health Dashboard (resource ของคุณ)",
             },
           ],
         },
@@ -350,7 +349,7 @@ export const cloudMonitoring: TopicData = {
           type: "callout",
           variant: "tip",
           title: "Mnemonic ช่วยจำ",
-          text: "CloudWatch = <strong>W</strong>orkload monitoring (สถานะระบบ) | CloudTrail = <strong>T</strong>rail of who did what (เส้นทางผู้ใช้)",
+          text: "CloudWatch = <strong>W</strong>orkload monitoring (สถานะระบบ)<br>CloudTrail = <strong>T</strong>rail of who did what (เส้นทางผู้ใช้)",
         },
       ],
     },
@@ -433,11 +432,11 @@ export const cloudMonitoring: TopicData = {
     },
     {
       id: "personal-health-dashboard",
-      title: "AWS Personal Health Dashboard (PHD)",
+      title: "AWS Health Dashboard (formerly Personal Health Dashboard)",
       content: [
         {
           type: "paragraph",
-          text: "<strong>AWS Personal Health Dashboard (PHD)</strong> ให้ <strong>personalized view</strong> ของสุขภาพ AWS resources ที่คุณใช้งานจริง — แตกต่างจาก Service Health Dashboard ที่เป็น public แบบรวม",
+          text: "<strong>AWS Health Dashboard</strong> (เดิมชื่อ Personal Health Dashboard) ให้ <strong>personalized view</strong> ของสุขภาพ AWS resources ที่คุณใช้งานจริง — แตกต่างจาก Service Health Dashboard ที่เป็น public แบบรวม",
         },
         {
           type: "list",
@@ -452,8 +451,8 @@ export const cloudMonitoring: TopicData = {
         {
           type: "callout",
           variant: "warning",
-          title: "Service Health vs Personal Health",
-          text: "<strong>Service Health Dashboard</strong> = สถานะ AWS โดยรวม (public, ทุกคน) | <strong>Personal Health Dashboard</strong> = สถานะ resource ของคุณเอง (เฉพาะ account คุณ)",
+          title: "Service Health vs AWS Health Dashboard",
+          text: "<strong>Service Health Dashboard</strong> = สถานะ AWS โดยรวม (public, ทุกคน)<br><strong>AWS Health Dashboard</strong> (เดิม Personal Health Dashboard) = สถานะ resource ของคุณเอง (เฉพาะ account คุณ)",
         },
       ],
     },
@@ -504,7 +503,7 @@ export const cloudMonitoring: TopicData = {
                 "<strong>Use case:</strong> ดูสถานะ AWS services ทั้งหมด (public) — ตอบคำถาม \"AWS ล่มทั่วโลกไหม?\"",
             },
             {
-              title: "Personal Health Dashboard",
+              title: "AWS Health Dashboard",
               description:
                 "<strong>Use case:</strong> ดูสถานะ resource ของคุณเอง + remediation — ตอบคำถาม \"resource ของฉันได้รับผลกระทบไหม?\"",
             },
@@ -540,7 +539,7 @@ export const cloudMonitoring: TopicData = {
             {
               title: '"resource ของฉัน healthy ไหม?"',
               description:
-                "ดูสถานะ resource ใน account ของคุณเอง พร้อม remediation → <strong>Personal Health Dashboard</strong>",
+                "ดูสถานะ resource ใน account ของคุณเอง พร้อม remediation → <strong>AWS Health Dashboard</strong> (เดิม Personal Health Dashboard)",
             },
           ],
         },
@@ -589,7 +588,7 @@ export const cloudMonitoring: TopicData = {
             "<strong>CloudWatch Dashboards:</strong> สูงสุด 1000 dashboards / account และ 100 widgets / dashboard รองรับ cross-region และ cross-account",
             "<strong>CloudTrail Events:</strong> แบ่งเป็น Management, Data และ Insights — เปิด default และดูย้อนหลังได้ <strong>90 วันฟรี</strong>",
             "<strong>AWS Config:</strong> ทำงาน per-region แต่สามารถ aggregate ข้าม account และข้าม region ได้",
-            "<strong>Personal Health Dashboard:</strong> ให้คำแนะนำ <em>remediation</em> เมื่อ resource ของคุณได้รับผลกระทบ",
+            "<strong>AWS Health Dashboard:</strong> ให้คำแนะนำ <em>remediation</em> เมื่อ resource ของคุณได้รับผลกระทบ",
           ],
         },
         {

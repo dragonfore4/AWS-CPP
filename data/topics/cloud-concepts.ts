@@ -5,7 +5,6 @@ export const cloudConcepts: TopicData = {
   title: "Cloud Concepts",
   subtitle: "Cloud Computing & AWS Global Infrastructure",
   accent: "sky",
-  emoji: "\u2601\ufe0f",
   category: "Cloud Foundations",
   description:
     "พื้นฐาน Cloud Computing — เปรียบเทียบ Traditional IT กับ Cloud, 5 Characteristics, 6 Advantages, ประเภทของ Cloud (IaaS / PaaS / SaaS), Deployment Models, AWS Global Infrastructure (Regions, AZs, Edge Locations) และวิธีเลือก Region ที่เหมาะสม",
@@ -13,7 +12,7 @@ export const cloudConcepts: TopicData = {
     "Cloud = On-demand delivery ของ compute, storage, DB ผ่าน pay-as-you-go",
     "5 Characteristics + 6 Advantages — trade CAPEX for OPEX, go global in minutes",
     "IaaS (EC2) / PaaS (Elastic Beanstalk) / SaaS (Dropbox, Zoom)",
-    "AWS Global Infra: Regions (อย่างน้อย 2 AZ), AZs, Edge Locations 216+ จุด",
+    "AWS Global Infra: Regions (อย่างน้อย 2 AZ), AZs, Edge Locations หลายร้อยจุด (600+ ทั่วโลก)",
   ],
   sections: [
     {
@@ -287,7 +286,7 @@ export const cloudConcepts: TopicData = {
             {
               title: "Edge Locations / Points of Presence",
               description:
-                "<strong>216+ จุดทั่วโลก</strong> — ใช้ส่ง content ใกล้ผู้ใช้ (content delivery) สำหรับ <em>CloudFront (CDN)</em> และ <em>Route 53 (DNS)</em>",
+                "<strong>หลายร้อยจุดทั่วโลก (600+ PoPs)</strong> — ใช้ส่ง content ใกล้ผู้ใช้ (content delivery) สำหรับ <em>CloudFront (CDN)</em> และ <em>Route 53 (DNS)</em>",
             },
             {
               title: "AWS Data Centers",
@@ -300,7 +299,7 @@ export const cloudConcepts: TopicData = {
           type: "code",
           language: "text",
           caption: "ลำดับชั้น AWS Global Infrastructure",
-          code: "AWS Global Infrastructure\n  └── Region (เช่น ap-southeast-1)\n        └── Availability Zone (เช่น ap-southeast-1a)\n              └── Data Center (physical hardware)\n\nEdge Locations / PoPs (216+) — แยกต่างหาก ใช้กับ CloudFront / Route 53",
+          code: "AWS Global Infrastructure\n  └── Region (เช่น ap-southeast-1)\n        └── Availability Zone (เช่น ap-southeast-1a)\n              └── Data Center (physical hardware)\n\nEdge Locations / PoPs (600+) — แยกต่างหาก ใช้กับ CloudFront / Route 53",
         },
       ],
     },
@@ -482,7 +481,7 @@ export const cloudConcepts: TopicData = {
             {
               title: "Global Infrastructure",
               description:
-                "Region (avg 3 AZ, min 2, max 6) → AZ → Data Center และ Edge Location 216+ จุดทั่วโลก",
+                "Region (avg 3 AZ, min 2, max 6) → AZ → Data Center และ Edge Location หลายร้อยจุดทั่วโลก",
             },
           ],
         },

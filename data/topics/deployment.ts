@@ -5,7 +5,6 @@ export const deployment: TopicData = {
   title: "Deployment & IaC",
   subtitle: "CloudFormation, Beanstalk, CodePipeline & SSM",
   accent: "rose",
-  emoji: "\ud83d\ude80",
   category: "Developer Tools",
   description:
     "\u0e23\u0e27\u0e21\u0e1a\u0e23\u0e34\u0e01\u0e32\u0e23\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a deploy \u0e41\u0e25\u0e30\u0e08\u0e31\u0e14\u0e01\u0e32\u0e23 infrastructure \u0e1a\u0e19 AWS \u2014 \u0e15\u0e31\u0e49\u0e07\u0e41\u0e15\u0e48 Infrastructure as Code (CloudFormation, CDK), PaaS (Elastic Beanstalk), CI/CD pipeline (CodeCommit, CodeBuild, CodeDeploy, CodePipeline) \u0e44\u0e1b\u0e08\u0e19\u0e16\u0e36\u0e07\u0e01\u0e32\u0e23\u0e08\u0e31\u0e14\u0e01\u0e32\u0e23 fleet \u0e02\u0e19\u0e32\u0e14\u0e43\u0e2b\u0e0d\u0e48\u0e14\u0e49\u0e27\u0e22 Systems Manager (SSM) \u0e41\u0e25\u0e30 OpsWorks",
@@ -289,24 +288,6 @@ export const deployment: TopicData = {
       ],
     },
     {
-      id: "codestar",
-      title: "AWS CodeStar",
-      content: [
-        {
-          type: "paragraph",
-          text: "<strong>CodeStar</strong> \u0e04\u0e37\u0e2d unified UI \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e07\u0e32\u0e19 software development \u2014 \u0e23\u0e27\u0e21 CodeCommit + CodePipeline + CodeBuild + CodeDeploy + Beanstalk + EC2 \u0e44\u0e27\u0e49\u0e17\u0e35\u0e48\u0e40\u0e14\u0e35\u0e22\u0e27",
-        },
-        {
-          type: "list",
-          items: [
-            "Quick start \u2014 setup project CI/CD \u0e44\u0e14\u0e49\u0e23\u0e27\u0e14\u0e40\u0e23\u0e47\u0e27",
-            "\u0e41\u0e01\u0e49 code \u0e1a\u0e19 cloud \u0e44\u0e14\u0e49\u0e1c\u0e48\u0e32\u0e19 <strong>Cloud9</strong>",
-            "\u0e23\u0e27\u0e21 dashboard issue tracking, team collaboration",
-          ],
-        },
-      ],
-    },
-    {
       id: "cloud9",
       title: "AWS Cloud9",
       content: [
@@ -319,8 +300,14 @@ export const deployment: TopicData = {
           items: [
             "Browser-based IDE",
             "\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a real-time collaboration (pair programming)",
-            "Integrate \u0e01\u0e31\u0e1a CodeStar / CodeCommit \u0e44\u0e14\u0e49",
+            "Integrate \u0e01\u0e31\u0e1a CodeCommit \u0e44\u0e14\u0e49\u0e42\u0e14\u0e22\u0e15\u0e23\u0e07",
           ],
+        },
+        {
+          type: "callout",
+          variant: "warning",
+          title: "\u0e2a\u0e16\u0e32\u0e19\u0e30\u0e1b\u0e31\u0e08\u0e08\u0e38\u0e1a\u0e31\u0e19",
+          text: "AWS \u0e1b\u0e23\u0e30\u0e01\u0e32\u0e28 <strong>\u0e2b\u0e22\u0e38\u0e14\u0e23\u0e31\u0e1a\u0e25\u0e39\u0e01\u0e04\u0e49\u0e32\u0e43\u0e2b\u0e21\u0e48</strong> \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a Cloud9 \u0e15\u0e31\u0e49\u0e07\u0e41\u0e15\u0e48 \u0e01.\u0e04. 2024 \u2014 \u0e25\u0e39\u0e01\u0e04\u0e49\u0e32\u0e40\u0e14\u0e34\u0e21\u0e22\u0e31\u0e07\u0e43\u0e0a\u0e49\u0e07\u0e32\u0e19\u0e15\u0e48\u0e2d\u0e44\u0e14\u0e49 \u2014 \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e07\u0e32\u0e19\u0e43\u0e2b\u0e21\u0e48 AWS \u0e41\u0e19\u0e30\u0e19\u0e33\u0e43\u0e2b\u0e49\u0e43\u0e0a\u0e49 <strong>VS Code + AWS Toolkit</strong> \u0e2b\u0e23\u0e37\u0e2d <strong>AWS CloudShell</strong> \u0e41\u0e17\u0e19",
         },
       ],
     },
@@ -471,12 +458,8 @@ export const deployment: TopicData = {
               description: "\u0e40\u0e01\u0e47\u0e1a software package / dependency",
             },
             {
-              title: "CodeStar",
-              description: "Unified UI \u0e23\u0e27\u0e21\u0e17\u0e38\u0e01\u0e2d\u0e22\u0e48\u0e32\u0e07\u0e44\u0e27\u0e49\u0e17\u0e35\u0e48\u0e40\u0e14\u0e35\u0e22\u0e27",
-            },
-            {
               title: "Cloud9",
-              description: "Cloud IDE \u0e1a\u0e19 browser",
+              description: "Cloud IDE \u0e1a\u0e19 browser (closed to new customers \u0e01.\u0e04. 2024)",
             },
             {
               title: "CDK",
@@ -528,7 +511,7 @@ export const deployment: TopicData = {
       ],
       correct: 1,
       explanation:
-        "AWS CodeCommit is a managed Git service for hosting private repositories (note: CodeCommit is no longer accepting new customers as of July 2024 — Stephane updates AGENTS.md but the exam still tests it).",
+        "AWS CodeCommit is a managed Git service for hosting private repositories — secured by IAM and integrated with the rest of the AWS Code* family (CodeBuild, CodeDeploy, CodePipeline).",
     },
     {
       id: "dep-q4",
@@ -538,7 +521,7 @@ export const deployment: TopicData = {
         "AWS CodeBuild",
         "AWS CodeCommit",
         "AWS CodeDeploy",
-        "AWS CodeStar",
+        "AWS CodeArtifact",
       ],
       correct: 0,
       explanation:
@@ -578,13 +561,13 @@ export const deployment: TopicData = {
         "Which AWS service provides managed Jenkins-like build/test pipelines as a fully managed alternative?",
       options: [
         "AWS CodeBuild",
-        "AWS CodeStar",
+        "AWS CodeArtifact",
         "AWS Elastic Beanstalk",
         "AWS Cloud9",
       ],
       correct: 0,
       explanation:
-        "AWS CodeBuild is the managed CI service. While CodeStar / Cloud9 are dev environments, CodeBuild specifically handles build/test workflows — replacing self-managed Jenkins.",
+        "AWS CodeBuild is the managed CI service — it compiles, tests, and packages code on demand without provisioning Jenkins servers. Pay only for build minutes used.",
     },
     {
       id: "dep-q8",
@@ -603,16 +586,16 @@ export const deployment: TopicData = {
     {
       id: "dep-q9",
       question:
-        "Which AWS service is a no-code, fully managed development tool for issue tracking, source control, and CI/CD?",
+        "Which AWS service uses ML to detect application performance issues and recommend optimizations to running code?",
       options: [
-        "AWS CodeStar",
+        "Amazon CodeGuru Profiler",
         "AWS CodeBuild",
-        "AWS CodeArtifact",
-        "AWS CodeGuru",
+        "AWS X-Ray",
+        "Amazon CloudWatch Logs Insights",
       ],
       correct: 0,
       explanation:
-        "AWS CodeStar is an integrated development tool that provides a unified UI for managing software projects (combining CodeCommit, CodeBuild, CodeDeploy, CodePipeline, JIRA, etc.).",
+        "Amazon CodeGuru Profiler analyzes the runtime performance of production applications and uses ML to recommend optimizations (e.g., expensive methods, latency bottlenecks). CodeGuru Reviewer (the sibling product) does ML-driven static code reviews on pull requests.",
     },
     {
       id: "dep-q10",
@@ -649,26 +632,26 @@ export const deployment: TopicData = {
       options: [
         "AWS CodeArtifact",
         "AWS CodeCommit",
-        "AWS CodeStar",
+        "AWS CodeBuild",
         "Amazon ECR",
       ],
       correct: 0,
       explanation:
-        "AWS CodeArtifact is a managed artifact repository for application dependencies — supports npm, Maven, PyPI, NuGet, RubyGems, etc. Integrates with public repositories.",
+        "AWS CodeArtifact is a managed artifact repository for application dependencies — supports npm, Maven, PyPI, NuGet, RubyGems, etc. Integrates with public repositories. (Amazon ECR is for container images, not language packages.)",
     },
     {
       id: "dep-q13",
       question:
-        "Which AWS service uses ML to detect security/code-quality issues during code reviews?",
+        "Which AWS service uses ML to detect security and code-quality issues during pull-request code reviews?",
       options: [
-        "AWS CodeGuru",
+        "Amazon CodeGuru Reviewer",
         "AWS CodeBuild",
         "AWS CodePipeline",
         "Amazon Inspector",
       ],
       correct: 0,
       explanation:
-        "Amazon CodeGuru uses ML for automated code reviews (CodeGuru Reviewer) and application performance optimization (CodeGuru Profiler).",
+        "Amazon CodeGuru Reviewer uses ML and program analysis to find issues (security, concurrency, resource leaks, AWS best-practice violations) in Java and Python code during pull-request reviews. Amazon Inspector scans EC2/ECR/Lambda for vulnerabilities, not source code.",
     },
     {
       id: "dep-q14",
@@ -677,12 +660,12 @@ export const deployment: TopicData = {
       options: [
         "AWS Cloud9",
         "AWS CodeBuild",
-        "AWS CodeStar",
+        "AWS CodeArtifact",
         "AWS CloudShell",
       ],
       correct: 0,
       explanation:
-        "AWS Cloud9 is a cloud-based IDE that supports Python, JavaScript, PHP, Ruby, Go, C++, etc. Provides a code editor + terminal + debugger directly in the browser.",
+        "AWS Cloud9 is a cloud-based IDE that supports Python, JavaScript, PHP, Ruby, Go, C++, etc. Provides a code editor + terminal + debugger directly in the browser. (CloudShell is a browser-based shell only \u2014 no full IDE features. Note: AWS announced in 2024 that Cloud9 is no longer onboarding new customers.)",
     },
     {
       id: "dep-q15",

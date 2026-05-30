@@ -157,8 +157,6 @@ interface TopicData {
   subtitle: string;      // Full name, e.g. "Identity and Access Management"
   /** @deprecated UI no longer reads this — accents come from category. */
   accent: string;
-  /** @deprecated UI no longer renders emoji. */
-  emoji: string;
   category: string;      // AWS service category, e.g. "Compute", "Storage"
   description: string;   // Thai description, rendered as the lead paragraph (HTML — supports <strong>, <em>)
   keyPoints: string[];   // 3-4 bullets used to derive tags on the homepage card (HTML allowed)
@@ -281,6 +279,81 @@ This pattern (mounted boolean via `useSyncExternalStore`) is the canonical way t
 Open `data/topics/<slug>.ts`, find the `quiz: [...]` array near the bottom, and append more `QuizQuestion` objects. IDs follow `<slug>-q<n>` (e.g. `iam-q27`). Keep questions in English so they're consistent with the existing pool. Sources used historically: AWS sample questions, exam guides, and reputable CLF-C02 prep material — not copy-pasted verbatim.
 
 After editing, run `npm run lint && npm run build` to verify the static export still emits cleanly (24 pages: 1 home + 20 topics + 3 system).
+
+## Content currency policy
+
+This project's content was audited end-to-end on **2026-05-30** against AWS Official Documentation and the CLF-C02 Exam Guide. The full report — including the line-by-line list of every quiz and article-body change made, plus the methodology used — lives at **[`AUDIT.md`](./AUDIT.md)** at the repo root.
+
+**Before modifying any topic file (article body or quiz), read `AUDIT.md` first** so you don't reintroduce issues that were just removed. The audit covered all 501 quiz questions and ~16,000 lines of article body across 20 topic files; ~142 edits were applied.
+
+### Discontinued services — DO NOT REINTRODUCE
+
+These AWS services have been removed from the content because they are no longer sold or supported. Do not add them back as quiz options or article content. If a CLF-C02 exam study resource still references them (older Stephane lectures, third-party prep books), prefer the current AWS reality.
+
+| Service | Status as of May 2026 |
+|---|---|
+| AWS CodeStar | Discontinued 2024-07-31 (product page redirects) |
+| AWS Snowmobile | Discontinued 2024 (product page redirects to Snowball) |
+| Amazon WorkDocs | Discontinued 2025-03-31 |
+| Amazon Lookout for Metrics | Discontinued (product page redirects) |
+| Amazon Lookout for Vision | Discontinued (product page redirects) |
+| AWS RoboMaker | Closed to new customers Sep 2022 |
+| AWS DeepLens | Discontinued 2024 |
+| Amazon Chime end-user app | End of support 2026-02-20 — **Chime SDK is still active and OK to reference** |
+| Amazon Lookout for Equipment | End of support 2026-10-07 — avoid in new content |
+
+### Renamed services — use current names
+
+When writing quiz options or article body, use the current AWS service name. The audit standardised on these names; on a first reference you may use `(formerly X)` to help exam takers, but subsequent references should use the current name only.
+
+| Old name | Current name |
+|---|---|
+| Kinesis Data Firehose | Amazon Data Firehose |
+| Kinesis Data Analytics | Amazon Managed Service for Apache Flink |
+| AWS SSO / AWS Single Sign-On | AWS IAM Identity Center |
+| Amazon CodeWhisperer | Amazon Q Developer |
+| AWS Personal Health Dashboard | AWS Health Dashboard |
+| AWS Fault Injection Simulator | AWS Fault Injection Service |
+| Amazon WorkSpaces Web | Amazon WorkSpaces Secure Browser |
+| AWS CodeStar Connections | AWS CodeConnections |
+| Amazon Elasticsearch Service | Amazon OpenSearch Service |
+| Inspector Agent (v1) | AWS Systems Manager (SSM) Agent — Inspector v2 since 2021 |
+
+### Partial-EoL — keep with disclaimer
+
+These services still exist but have known limitations. Mention the caveat near their primary description (typically a `callout` of variant `warning`):
+
+| Service | Caveat |
+|---|---|
+| AWS Cloud9 | Closed to new customers since July 2024 — existing users may continue |
+| Amazon Forecast | Still active; AWS now also recommends **SageMaker Canvas** for new forecasting workloads |
+| AWS CodeCommit | Returned to **full GA on 2025-11-24** — do **not** add the old "closed to new customers" disclaimer |
+
+### Authoring rules from the audit
+
+- **No pipe-separator violations.** Never use ` | ` to cram multiple bullet points into a single `description:` or `text:` field. Use `type: "list"` for multi-bullet content, multiple `grid` items for multi-concept rows, or `<br>` inside a callout for short multi-line mnemonics. ASCII tables inside `code:` blocks are exempt — those use ` | ` legitimately as table separators.
+- **Use stable phrasing for numeric facts that AWS revises frequently.** Prefer `"hundreds of edge locations (600+)"` over `"216+"` so the content stays correct through the next AWS expansion. Specific numbers are OK when they're stable (e.g. Lambda max execution = 15 minutes, S3 max object = 5 TB, Aurora storage auto-scales to 128 TiB).
+- **No emoji** in user-facing content. Use `lucide-react` icons via `<CategoryIcon>` for visual cues. The legacy `emoji` field on `TopicData` was removed in the May 2026 audit.
+- **No agent-comment leakage.** Never write meta-commentary like `"Stephane updates AGENTS.md"`, `"TODO"`, or `"FIXME"` into a quiz `explanation` or article `text`. The audit removed one such leak from `deployment.ts` quiz q3.
+
+### Reference sources (in priority order)
+
+When checking currency or adding new content, consult these sources in order:
+
+1. **AWS Certified Cloud Practitioner (CLF-C02) Exam Guide** — https://aws.amazon.com/certification/certified-cloud-practitioner/ (defines exam scope and domain weighting: Cloud Concepts 24%, Security 30%, Cloud Technology 34%, Billing/Pricing/Support 12%)
+2. **AWS official service pages** — `https://aws.amazon.com/<service>/` for each service. A 404 or redirect to homepage typically signals a discontinued service.
+3. **AWS What's New** — https://aws.amazon.com/new/ — for recent launches, renames, and EoL announcements
+4. **AWS DevOps / News blogs** — for service-status announcements like *"The Future of AWS CodeCommit"* (2025-11-24 GA return)
+5. **Stephane Maarek's Udemy course** — used as the structural baseline (topic order, sections), but **always verify currency against AWS sources first**; if course material disagrees with current AWS reality, follow AWS
+
+### Re-running the audit
+
+If a year passes, or after a major AWS re:Invent announcement, refresh the audit:
+
+1. Read the methodology and category breakdown in `AUDIT.md`
+2. Sweep each topic file against the latest AWS documentation using the same 6 categories (discontinued, partial-EoL, renaming, outdated numbers, format, quiz consistency)
+3. Update `AUDIT.md` with new findings and a new "วันที่ตรวจ" date
+4. Update the tables in this section if new services are discontinued / renamed / EoL'd
 
 ## Build & verification
 

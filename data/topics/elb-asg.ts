@@ -5,7 +5,6 @@ export const elbAsg: TopicData = {
   title: "ELB & ASG",
   subtitle: "Elastic Load Balancing & Auto Scaling",
   accent: "green",
-  emoji: "\u2696\uFE0F",
   category: "High Availability & Scalability",
   description:
     "ELB และ ASG คือคู่หูที่ทำงานร่วมกันเพื่อให้ระบบรองรับ traffic สูง ไม่ล่ม และขยายตัวได้อัตโนมัติ — ELB กระจาย traffic, ASG ปรับจำนวน instance ตาม load",
@@ -106,9 +105,9 @@ export const elbAsg: TopicData = {
                 "ส่ง traffic ผ่าน virtual appliances (firewall, IDS/IPS, deep packet inspection) ก่อนถึง application",
             },
             {
-              title: "CLB — Classic Load Balancer (deprecated)",
+              title: "CLB — Classic Load Balancer (legacy)",
               description:
-                "Layer 4 + 7 รุ่นเดิม — AWS แนะนำย้ายไปใช้ ALB หรือ NLB แทน",
+                "Layer 4 + 7 รุ่นเดิม (previous-generation) — AWS แนะนำให้งานใหม่ใช้ ALB หรือ NLB แทน",
             },
           ],
         },
@@ -474,7 +473,7 @@ export const elbAsg: TopicData = {
     {
       id: "elb-q12",
       question:
-        "Which ELB type is being deprecated and only recommended for legacy workloads using EC2-Classic?",
+        "Which ELB type is the previous-generation Load Balancer that AWS recommends migrating away from for new workloads?",
       options: [
         "Application Load Balancer",
         "Network Load Balancer",
@@ -483,7 +482,7 @@ export const elbAsg: TopicData = {
       ],
       correct: 2,
       explanation:
-        "Classic Load Balancer is the legacy v1 ELB and is being deprecated. AWS recommends ALB or NLB for new workloads.",
+        "Classic Load Balancer is the previous-generation ELB. AWS recommends Application Load Balancer (Layer 7) or Network Load Balancer (Layer 4) for new workloads — both offer richer features and better performance.",
     },
     {
       id: "elb-q13",

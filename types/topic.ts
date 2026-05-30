@@ -8,11 +8,6 @@ export interface TopicData {
    * The field is kept for backward compatibility with existing data files.
    */
   accent: string;
-  /**
-   * @deprecated Emoji decoration has been removed from the UI in favour of
-   * lucide-react icons. The field is kept for backward compatibility.
-   */
-  emoji: string;
   category: string;
   description: string;
   keyPoints: string[]; // bullet points shown on homepage card

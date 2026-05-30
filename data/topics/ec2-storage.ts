@@ -5,14 +5,13 @@ export const ec2Storage: TopicData = {
   title: "EC2 Storage",
   subtitle: "EBS, EFS, Instance Store, FSx & AMI",
   accent: "cyan",
-  emoji: "\uD83D\uDCBE",
   category: "Storage",
   description:
     "รวมทุกเรื่อง Storage ของ EC2 — EBS (Network Drive), Instance Store (Physical Disk), EFS (Network File System), FSx (Windows/Lustre) และ AMI (Image สำหรับ launch instance) เข้าใจความต่างของแต่ละแบบเพื่อเลือกใช้ให้เหมาะกับงาน",
   keyPoints: [
     "EBS = Network Drive ผูกกับ AZ — Instance Store = Physical Disk เร็วสุดแต่ข้อมูลหายเมื่อ stop",
     "EFS = NFS แชร์ได้หลาย instance ข้าม AZ (Linux เท่านั้น) — แพงกว่า EBS ~3x",
-    "FSx for Windows = SMB + Active Directory | FSx for Lustre = HPC/ML cluster file system",
+    "FSx for Windows = SMB + Active Directory<br>FSx for Lustre = HPC/ML cluster file system",
     "AMI = Image ของ EC2 (OS + software + config) — region-specific, copy ข้าม region ได้",
   ],
   sections: [
@@ -404,7 +403,7 @@ export const ec2Storage: TopicData = {
           type: "callout",
           variant: "info",
           title: "เปรียบเทียบกับ EFS",
-          text: "EFS = Linux/NFS | FSx for Windows = Windows/SMB + Active Directory — ถ้าใช้ Windows app ที่ต้องการ shared file system ต้องเลือก FSx for Windows",
+          text: "EFS = Linux/NFS<br>FSx for Windows = Windows/SMB + Active Directory — ถ้าใช้ Windows app ที่ต้องการ shared file system ต้องเลือก FSx for Windows",
         },
       ],
     },
@@ -457,7 +456,7 @@ export const ec2Storage: TopicData = {
           type: "callout",
           variant: "warning",
           title: "สำคัญ",
-          text: "EBS ไม่ backup ให้อัตโนมัติ — ต้องสร้าง Snapshot เองหรือใช้ AWS Backup | Instance Store ข้อมูลหายทันทีเมื่อ stop — ความเสี่ยงนี้ User ต้องรู้และจัดการเอง",
+          text: "EBS ไม่ backup ให้อัตโนมัติ — ต้องสร้าง Snapshot เองหรือใช้ AWS Backup<br>Instance Store ข้อมูลหายทันทีเมื่อ stop — ความเสี่ยงนี้ User ต้องรู้และจัดการเอง",
         },
       ],
     },
@@ -471,17 +470,17 @@ export const ec2Storage: TopicData = {
             {
               title: "EBS",
               description:
-                "<strong>Block Storage (Network)</strong> | เร็ว | ข้อมูลไม่หายเมื่อ stop | 1 instance (หรือ 16 ด้วย Multi-Attach io1/io2) | <strong>ผูก AZ เดียว</strong> | Provisioned size | Linux + Windows",
+                "<strong>Block Storage (Network)</strong><br>เร็ว<br>ข้อมูลไม่หายเมื่อ stop<br>1 instance (หรือ 16 ด้วย Multi-Attach io1/io2)<br><strong>ผูก AZ เดียว</strong><br>Provisioned size<br>Linux + Windows",
             },
             {
               title: "Instance Store",
               description:
-                "<strong>Block Storage (Physical)</strong> | <strong>เร็วที่สุด</strong> | ข้อมูล<strong>หายหมด</strong>เมื่อ stop/terminate | 1 instance เท่านั้น | ผูก AZ เดียว | Fixed size | Linux + Windows | ราคารวมกับ instance",
+                "<strong>Block Storage (Physical)</strong><br><strong>เร็วที่สุด</strong><br>ข้อมูล<strong>หายหมด</strong>เมื่อ stop/terminate<br>1 instance เท่านั้น<br>ผูก AZ เดียว<br>Fixed size<br>Linux + Windows<br>ราคารวมกับ instance",
             },
             {
               title: "EFS",
               description:
-                "<strong>File System (Network NFS)</strong> | ช้ากว่า EBS | ข้อมูลไม่หาย | <strong>หลายร้อย instance ข้าม AZ</strong> | Auto Scaling | <strong>Linux เท่านั้น</strong> | แพงสุด (~3x EBS gp2)",
+                "<strong>File System (Network NFS)</strong><br>ช้ากว่า EBS<br>ข้อมูลไม่หาย<br><strong>หลายร้อย instance ข้าม AZ</strong><br>Auto Scaling<br><strong>Linux เท่านั้น</strong><br>แพงสุด (~3x EBS gp2)",
             },
           ],
         },
