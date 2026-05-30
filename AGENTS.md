@@ -62,6 +62,7 @@ The tree below is rooted at the repository root (`/Users/sirasith/work/AWS-CPP/`
 │   ├── Navbar.tsx                 ← server, sticky brand row + Stephane-order row + Category-grouped rows + breadcrumb
 │   ├── StephaneNavRow.tsx         ← server, 1-row flex-wrap, course-section number prefix
 │   ├── CategoryNavRows.tsx        ← server, 6 rows grouped by AWS category, fixed-width label column
+│   ├── SearchBox.tsx              ← client, command-palette modal — trigger pill in navbar + centered <dialog>; ⌘K shortcut
 │   ├── SettingsPopover.tsx        ← client, anchored menu wrapping ThemeToggle + FontSizeToggle
 │   ├── ThemeToggle.tsx            ← client, light/dark/system, useSyncExternalStore + 'theme-change' event
 │   ├── FontSizeToggle.tsx         ← client, S/M/L, useSyncExternalStore + 'font-size-change' event
@@ -106,6 +107,9 @@ The tree below is rooted at the repository root (`/Users/sirasith/work/AWS-CPP/`
 │   ├── navLayout.ts               ← localStorage helper for nav-layout preference (current build shows both layouts; helper retained for future switching)
 │   ├── readingTime.ts             ← word count + min/page estimate (Thai+English aware)
 │   ├── extractTags.ts             ← derive editorial-style tags from keyPoints[0] for the homepage list
+│   ├── searchIndex.ts             ← builds flat SearchEntry[] (topics + sections; no quiz) at module load with stripHtml + normalize helpers
+│   ├── search.ts                  ← token-based scorer; title-hit / word-boundary / exact-phrase boosts; Stephane-order tie-break
+│   ├── highlightMatch.tsx         ← wraps matched query tokens in <mark> with regex-escape + longest-first sort
 │   └── themeScript.ts             ← inline blocking scripts (themeScript, fontSizeScript, navLayoutScript) injected before paint
 ├── types/
 │   └── topic.ts                   ← TypeScript interfaces (TopicData, Section, QuizQuestion, etc.)

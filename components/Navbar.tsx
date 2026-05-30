@@ -2,6 +2,7 @@ import Link from "next/link";
 import { topics, getTopicBySlug } from "@/data/index";
 import { getCategoryAccent } from "@/lib/categoryAccents";
 import SettingsPopover from "./SettingsPopover";
+import SearchBox from "./SearchBox";
 import { ChevronRight } from "./Icon";
 import CategoryNavRows from "./CategoryNavRows";
 import StephaneNavRow from "./StephaneNavRow";
@@ -53,7 +54,10 @@ export default function Navbar({ activeSlug }: NavbarProps) {
             </span>
           </Link>
 
-          <SettingsPopover />
+          <div className="flex items-center gap-2">
+            <SearchBox />
+            <SettingsPopover />
+          </div>
         </div>
       </div>
 
