@@ -23,15 +23,34 @@ AWS Cloud Practitioner (CLF-C02) study notes — Next.js static site, structured
 
 ## Project location
 
+The Next.js project lives at the repository root — there is no `next-app/` subdirectory. Run all commands (`npm run dev`, `npm run lint`, `npm run build`) from the repo root.
+
 ```
-next-app/          ← Next.js project root (run commands here)
-*.html             ← legacy static HTML files (reference only, not maintained)
+/Users/sirasith/work/AWS-CPP/   ← repo root = Next.js project root
+├── app/                        ← App Router pages and layouts
+├── components/                 ← React components (server + client)
+├── data/                       ← topic registry + per-topic content modules
+├── lib/                        ← shared helpers (theme, accents, progress, etc.)
+├── types/                      ← shared TypeScript interfaces
+├── public/                     ← static assets served as-is
+├── out/                        ← static export output (created by `npm run build`)
+├── AGENTS.md                   ← this file
+├── README.md
+├── next.config.ts              ← `output: "export"` for static HTML export
+├── tsconfig.json
+├── eslint.config.mjs
+├── postcss.config.mjs
+└── package.json
 ```
+
+There are no legacy `*.html` files — the site is generated entirely from the React/TypeScript sources above.
 
 ## File structure
 
+The tree below is rooted at the repository root (`/Users/sirasith/work/AWS-CPP/`).
+
 ```
-next-app/
+.
 ├── app/
 │   ├── layout.tsx                 ← root layout (5 fonts, theme + nav-layout + font-size scripts, metadata)
 │   ├── page.tsx                   ← homepage (editorial hero + indexed topic list)
@@ -51,8 +70,8 @@ next-app/
 │   ├── TopicSection.tsx           ← server, h2 in accent + section-number chip, dot bullets in accent, grid cards as filled boxes, callouts with lucide icons
 │   ├── TopicTOC.tsx               ← client, sticky right-rail TOC + IntersectionObserver
 │   ├── TopicNav.tsx               ← server, prev/next links in Stephane order, rendered after Quiz
-│   ├── QuizSection.tsx            ← client, interactive one-at-a-time quiz with localStorage progress
-│   ├── QuizPrintBlock.tsx         ← server, hidden on screen, reveals all questions + answers in print
+│   ├── QuizSection.tsx            ← client, interactive one-at-a-time quiz; samples 10 random questions per session via useSyncExternalStore (hydration-safe)
+│   ├── QuizPrintBlock.tsx         ← server, hidden on screen, reveals all ~25 questions + answers in print
 │   ├── PrintButton.tsx            ← client, calls window.print()
 │   ├── ReadingProgress.tsx        ← client, fixed 2px solid bar tinted by topic accent
 │   ├── Icon.tsx                   ← lucide-react re-exports + <CategoryIcon> wrapper
@@ -145,7 +164,7 @@ interface TopicData {
   keyPoints: string[];   // 3-4 bullets used to derive tags on the homepage card (HTML allowed)
   tags?: string[];       // Optional editorial tags. If omitted, derived from keyPoints[0..n].
   sections: Section[];   // Content sections
-  quiz: QuizQuestion[];  // 5-10 exam questions per topic
+  quiz: QuizQuestion[];  // ~25 English exam questions per topic; UI samples 10 at random per session
 }
 ```
 
@@ -208,21 +227,66 @@ Active topic styling in both layouts: `font-semibold` + accent text + accent tin
 
 ## Quiz format
 
-Each topic has multiple-choice questions styled for CLF-C02 exam practice:
-- **5 questions** for focused topics (iam, ec2, vpc, machine-learning, etc.)
-- **7-10 questions** for merged/large topics (databases, account-management, security, other-compute, global-infrastructure, cloud-integration, cloud-monitoring, ec2-storage, s3)
-- 4 options (A/B/C/D) — option text supports HTML (`<strong>`, `<em>`, etc.)
-- `correct` = 0-based index of correct answer
-- `explanation` = Thai explanation of why the answer is correct (HTML supported)
-- Interactive: one question at a time, reveal answer on click, score saved to localStorage per slug
-- A separate `<QuizPrintBlock>` renders all questions + answers + explanations on print only, since the on-screen one-at-a-time UI doesn't translate to paper.
+Each topic has a **pool of ~25 English-language CLF-C02 exam-style questions** stored in the `quiz` array of its `data/topics/<slug>.ts` file. The UI samples **10 questions at random** from the pool per session — every visit and every retry produces a different subset.
 
-Total quiz questions across all 20 topics: ~125+ exam-style questions.
+- **Pool size** — 25–26 questions per topic (501 total across the 20 topics)
+- **Session size** — 10 random questions, drawn fresh on mount and on retry
+- **Language** — questions, options, and explanations are all in **English** (the topic article body content remains Thai)
+- **Question shape** — 4 options (A/B/C/D), `correct` is the 0-based index of the right answer, `explanation` is shown after the user picks. All text fields support HTML (`<strong>`, `<em>`, `<code>`, `<br>`, etc.)
+- **Interactive flow** — one question at a time; clicking an option locks in the answer, reveals the explanation, and advances to the next on the user's click. The final score is saved to localStorage per slug under the key `quiz_progress_<slug>`.
+- **Retry** — bumps a `retryToken` state which forces `useMemo` to re-shuffle the pool. The previous-result panel is hidden until the new session completes (even though the old score still lives in localStorage until the new one overwrites it).
+- **Print** — `<QuizPrintBlock>` is a server component that renders the **entire pool** of questions + answers + explanations, hidden on screen via `hidden print:block` and revealed only when printing. Useful for offline study.
+
+### Hydration-safe randomization
+
+Because the site is statically exported, every topic page is server-rendered at build time. The quiz randomization must NOT cause a server/client HTML mismatch on hydration. `QuizSection.tsx` solves this with `useSyncExternalStore`:
+
+```tsx
+// True after mount on the client; false during SSR + first client paint.
+const isMounted = useSyncExternalStore(
+  subscribeNoop,
+  () => true,    // client snapshot
+  () => false,   // server snapshot
+);
+
+// Saved progress: null during SSR, populated from localStorage after mount.
+// Subscribes to 'quiz-progress-change' + 'storage' for live updates.
+const previousProgress = useSyncExternalStore<QuizProgress | null>(
+  subscribeProgress,
+  () => readProgress(slug),
+  () => null,
+);
+
+const activeQuestions = useMemo(() => {
+  if (!isMounted) return deterministicSample(questions, 10);  // first 10
+  return sampleQuestions(questions, 10);                       // random 10
+}, [isMounted, questions, retryToken]);
+```
+
+Why it works:
+
+1. SSR + first client render → `isMounted=false` → both produce `questions.slice(0, 10)` → byte-identical HTML, no mismatch.
+2. After hydration commits, `useSyncExternalStore` re-reads → `isMounted=true` → `useMemo` re-runs with `Math.random()` → swaps in a fresh shuffle.
+3. Retry button bumps `retryToken` → `useMemo` re-runs → fresh shuffle.
+
+Two project-wide lint rules influence this design:
+
+- `react-hooks/set-state-in-effect` — disallows `setState` calls inside `useEffect` for client-only initialization. We use derived state (`useMemo` + `useSyncExternalStore`) instead.
+- `react-hooks/refs` — disallows reading `ref.current` during render. We use `useState` + `useMemo` instead of caching the shuffle in a `useRef`.
+
+This pattern (mounted boolean via `useSyncExternalStore`) is the canonical way to gate any client-only / non-deterministic / browser-API-dependent rendering in this codebase. The same pattern is used by `HomepageProgress.tsx` for reading saved scores.
+
+### Authoring more questions
+
+Open `data/topics/<slug>.ts`, find the `quiz: [...]` array near the bottom, and append more `QuizQuestion` objects. IDs follow `<slug>-q<n>` (e.g. `iam-q27`). Keep questions in English so they're consistent with the existing pool. Sources used historically: AWS sample questions, exam guides, and reputable CLF-C02 prep material — not copy-pasted verbatim.
+
+After editing, run `npm run lint && npm run build` to verify the static export still emits cleanly (24 pages: 1 home + 20 topics + 3 system).
 
 ## Build & verification
 
+Run all commands from the repository root:
+
 ```bash
-cd next-app
 npm run lint          # ESLint check (must pass with 0 errors)
 npm run build         # TypeScript compile + static export to out/
 npm run dev           # Dev server at localhost:3000
@@ -234,7 +298,7 @@ Verify:
 - Navbar shows both Stephane-order row and Category-grouped rows on every page; the active topic is highlighted in both
 - HTML tags inside content (e.g., `<strong>`) render properly — they should NOT appear as literal text
 - Inside topic articles, `<strong>` shows a soft marker-pen highlight in the topic's category accent (light + dark)
-- Quiz is interactive (click answers, see explanation, score saves to localStorage)
+- Quiz is interactive (click answers, see explanation, score saves to localStorage); each visit / retry shows a different random 10-question subset drawn from the topic's full pool of ~25 questions, with no hydration warnings in the browser console
 - Theme toggle (Light / Dark / System) and font-size toggle (S / M / L) both persist across reloads with no FOUC and no hydration warnings
 - Reading progress bar tints to the topic's category accent
 - Print preview hides nav/footer/TOC/settings, forces light theme, and reveals every quiz question + its answer + explanation
