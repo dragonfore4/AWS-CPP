@@ -603,116 +603,349 @@ export const cloudMonitoring: TopicData = {
   ],
   quiz: [
     {
-      id: "cloud-monitoring-q1",
+      id: "cm-q1",
       question:
-        "บริษัทต้องการ audit ว่าใครเป็นคนเรียก API ลบ S3 bucket ในเดือนที่แล้ว ควรใช้ service ใด?",
+        "A company wants to audit who called the API to delete an S3 bucket last month. Which service should they use?",
       options: [
-        "Amazon CloudWatch Metrics",
-        "Amazon CloudWatch Logs",
+        "Amazon CloudWatch",
         "AWS CloudTrail",
-        "AWS Service Health Dashboard",
-      ],
-      correct: 2,
-      explanation:
-        "CloudTrail บันทึกทุก API call ภายใน AWS account รวมถึง who (IAM user/role), what (เช่น DeleteBucket), when (timestamp), where (IP) — ใช้สำหรับ audit/governance/compliance ส่วน CloudWatch ใช้ดู metrics + logs ของระบบ ไม่บอกว่า \"ใครทำ\"",
-    },
-    {
-      id: "cloud-monitoring-q2",
-      question:
-        "CloudWatch Alarm มี state ใดบ้าง?",
-      options: [
-        "GREEN, YELLOW, RED",
-        "OK, WARNING, CRITICAL",
-        "OK, INSUFFICIENT_DATA, ALARM",
-        "ACTIVE, INACTIVE, PENDING",
-      ],
-      correct: 2,
-      explanation:
-        "CloudWatch Alarm มี 3 states: OK (metric อยู่ในเกณฑ์ปกติ), INSUFFICIENT_DATA (ข้อมูลไม่เพียงพอที่จะตัดสิน), และ ALARM (metric ข้าม threshold) — ไม่มี state WARNING, CRITICAL หรือสีแบบ traffic light",
-    },
-    {
-      id: "cloud-monitoring-q3",
-      question:
-        "ข้อใด <strong>ไม่ใช่</strong> source ของ CloudWatch Logs?",
-      options: [
-        "AWS Lambda",
-        "VPC Flow Logs",
-        "Elastic Beanstalk",
-        "AWS Config configuration history",
-      ],
-      correct: 3,
-      explanation:
-        "Sources ของ CloudWatch Logs ได้แก่ SDK, CloudWatch Logs Agent, Elastic Beanstalk, ECS, Lambda, VPC Flow Logs, API Gateway, CloudTrail, Route 53 ส่วน AWS Config เก็บ configuration history ใน S3 (ไม่ใช่ CloudWatch Logs) แม้ Config จะส่ง notification ผ่าน SNS ได้แต่ไม่ส่ง config history เข้า CloudWatch Logs",
-    },
-    {
-      id: "cloud-monitoring-q4",
-      question:
-        "ต้องการ track ทุกการเรียก S3 GetObject และ PutObject เพื่อ security audit ควรเปิด CloudTrail event ประเภทใด?",
-      options: [
-        "Management Events (เปิด default แล้ว)",
-        "Data Events (ต้อง opt-in)",
-        "Insights Events",
-        "Service Events",
-      ],
-      correct: 1,
-      explanation:
-        "S3 object-level operations (GetObject, PutObject, DeleteObject) เป็น <strong>Data Events</strong> ซึ่งปิด default เพราะมีปริมาณมหาศาลและเสียค่าใช้จ่าย — ต้องเปิด opt-in ใน Trail settings ส่วน Management Events จะบันทึกการ create/delete bucket แต่ไม่ได้บันทึก object-level access",
-    },
-    {
-      id: "cloud-monitoring-q5",
-      question:
-        "ต้องการตรวจสอบว่า S3 buckets ตัวใดเปิด public access อยู่ และดู configuration ย้อนหลัง 1 เดือนที่ผ่านมา ควรใช้ service ใด?",
-      options: [
-        "AWS CloudTrail",
-        "Amazon CloudWatch Logs",
         "AWS Config",
-        "AWS Personal Health Dashboard",
+        "AWS Trusted Advisor",
       ],
+      correct: 1,
+      explanation:
+        "AWS CloudTrail logs every API call (who, what, when, where) for governance, compliance, and operational/risk auditing. By default, retention is 90 days in the Event History; for longer retention, use a CloudTrail trail to S3.",
+    },
+    {
+      id: "cm-q2",
+      question:
+        "Which AWS service collects metrics, logs, and events for monitoring AWS resources and applications?",
+      options: [
+        "Amazon CloudWatch",
+        "AWS CloudTrail",
+        "AWS Config",
+        "Amazon Inspector",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon CloudWatch is the unified observability service — metrics, logs, events, alarms, dashboards, and ServiceLens for AWS resources and applications.",
+    },
+    {
+      id: "cm-q3",
+      question:
+        "Which AWS service tracks resource configuration changes over time and evaluates compliance against rules?",
+      options: [
+        "AWS Config",
+        "AWS CloudTrail",
+        "Amazon CloudWatch",
+        "AWS Trusted Advisor",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Config records the configuration history of AWS resources and evaluates compliance using managed or custom rules — useful for compliance and security baseline enforcement.",
+    },
+    {
+      id: "cm-q4",
+      question:
+        "Which AWS service provides best-practice recommendations across cost, performance, security, fault tolerance, and service limits?",
+      options: [
+        "AWS Trusted Advisor",
+        "AWS Config",
+        "AWS CloudTrail",
+        "Amazon Inspector",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Trusted Advisor analyzes your account and recommends improvements across 5 pillars: cost optimization, performance, security, fault tolerance, and service limits.",
+    },
+    {
+      id: "cm-q5",
+      question:
+        "Which CloudWatch concept triggers an action (e.g., notify SNS, scale ASG) when a metric crosses a threshold?",
+      options: [
+        "CloudWatch Alarm",
+        "CloudWatch Log",
+        "CloudWatch Event",
+        "CloudWatch Dashboard",
+      ],
+      correct: 0,
+      explanation:
+        "A CloudWatch Alarm watches a metric and transitions states (OK / ALARM / INSUFFICIENT_DATA). Alarms can trigger SNS, Auto Scaling actions, or EC2 actions.",
+    },
+    {
+      id: "cm-q6",
+      question:
+        "Which CloudWatch feature collects custom application logs from EC2 instances, on-premises servers, or Lambda?",
+      options: [
+        "CloudWatch Logs (with the CloudWatch agent for EC2/on-prem)",
+        "CloudTrail",
+        "AWS Config",
+        "X-Ray",
+      ],
+      correct: 0,
+      explanation:
+        "CloudWatch Logs collects, monitors, and stores log files. Use the CloudWatch agent on EC2 or on-prem servers; Lambda automatically sends logs.",
+    },
+    {
+      id: "cm-q7",
+      question:
+        "What is the difference between CloudWatch and CloudTrail?",
+      options: [
+        "They are the same.",
+        "CloudWatch monitors performance/operational metrics and logs; CloudTrail logs API calls / audit history.",
+        "CloudTrail is for performance; CloudWatch is for audits.",
+        "Both are billing services.",
+      ],
+      correct: 1,
+      explanation:
+        "CloudWatch = monitoring (metrics + logs + alarms + dashboards). CloudTrail = governance/audit (who-did-what API call log).",
+    },
+    {
+      id: "cm-q8",
+      question:
+        "What does Amazon CloudWatch Logs Insights do?",
+      options: [
+        "Encrypts log files.",
+        "Provides interactive log search and analytics with a purpose-built query language.",
+        "Records API calls.",
+        "Replaces CloudWatch Alarms.",
+      ],
+      correct: 1,
+      explanation:
+        "CloudWatch Logs Insights is a query language for fast interactive log search and analytics — pattern matching, statistical analysis, and visualization on log data.",
+    },
+    {
+      id: "cm-q9",
+      question:
+        "Which service helps detect security findings on EC2, Lambda, and ECR using continuous vulnerability scanning?",
+      options: [
+        "Amazon Inspector",
+        "Amazon GuardDuty",
+        "AWS WAF",
+        "AWS Shield",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Inspector continuously scans EC2 instances, Lambda functions, and ECR container images for vulnerabilities and unintended network exposure.",
+    },
+    {
+      id: "cm-q10",
+      question:
+        "Which AWS service uses ML to detect malicious or unauthorized activity in your AWS account, including unusual API calls and crypto-mining?",
+      options: [
+        "Amazon GuardDuty",
+        "Amazon Inspector",
+        "AWS Trusted Advisor",
+        "AWS Config",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon GuardDuty is a managed threat-detection service. Uses ML, anomaly detection, and AWS-curated threat intelligence to monitor for malicious activity (CloudTrail logs, VPC flow logs, DNS logs, etc.).",
+    },
+    {
+      id: "cm-q11",
+      question:
+        "By default, how long does CloudTrail store events visible in the Event History?",
+      options: ["7 days", "30 days", "90 days", "Forever"],
       correct: 2,
       explanation:
-        "AWS Config บันทึก configurations + changes ของ resource ตลอดเวลา และมี Config Rules ตรวจ compliance เช่น \"S3 bucket ห้าม public\" สามารถดู configuration timeline ย้อนหลังได้ ส่วน CloudTrail บอกว่า \"ใครเปลี่ยน config\" แต่ไม่ได้แสดง state ของ config ในแต่ละช่วงเวลาแบบ Config",
+        "CloudTrail Event History keeps the last 90 days of management events, browseable in the console. For longer retention or data events, create a CloudTrail trail to deliver logs to S3.",
     },
     {
-      id: "cloud-monitoring-q6",
+      id: "cm-q12",
       question:
-        "ต้องการ schedule ให้ Lambda function ทำงานทุก 1 ชั่วโมง (cron job) ควรใช้ service ใด?",
+        "Which CloudWatch metric is enabled BY DEFAULT for EC2?",
       options: [
+        "Memory utilization",
+        "CPU utilization, Disk I/O, Network I/O (basic metrics, 5-min interval)",
+        "Application errors",
+        "All of the above",
+      ],
+      correct: 1,
+      explanation:
+        "EC2 default CloudWatch metrics: CPU utilization, network in/out, disk read/write — at 5-minute intervals. Memory and disk-utilization-percentage are NOT default; you need the CloudWatch agent for those.",
+    },
+    {
+      id: "cm-q13",
+      question:
+        "Which CloudWatch feature provides a more granular metric collection rate (1-minute or 1-second intervals)?",
+      options: [
+        "Detailed Monitoring (1-min) and High-Resolution custom metrics (1-sec)",
+        "Basic Monitoring",
+        "Free metrics",
+        "X-Ray",
+      ],
+      correct: 0,
+      explanation:
+        "EC2 Detailed Monitoring (paid feature) collects metrics every 1 minute (vs default 5). Custom metrics can be high-resolution (1-second granularity).",
+    },
+    {
+      id: "cm-q14",
+      question:
+        "What is AWS Health Dashboard?",
+      options: [
+        "A dashboard showing the health of EC2 instances.",
+        "A service that provides personalized info on AWS service health and any events that may affect your AWS resources.",
+        "A monitoring service for on-premises infrastructure.",
+        "A billing dashboard.",
+      ],
+      correct: 1,
+      explanation:
+        "AWS Health Dashboard (formerly Personal Health Dashboard) shows AWS service health and any events specifically affecting your account — outages, maintenance, deprecations.",
+    },
+    {
+      id: "cm-q15",
+      question:
+        "Which AWS service produces a single point of view for compliance status across multiple accounts, integrating Config, GuardDuty, Inspector?",
+      options: [
+        "AWS Security Hub",
+        "Amazon GuardDuty alone",
+        "AWS Config alone",
+        "AWS Shield",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Security Hub aggregates findings from GuardDuty, Inspector, Macie, IAM Access Analyzer, and partner products. Single-pane view of security posture and compliance.",
+    },
+    {
+      id: "cm-q16",
+      question:
+        "What is CloudWatch Synthetics?",
+      options: [
+        "A backup service.",
+        "Canaries (configurable scripts) that monitor endpoints and APIs from outside, simulating user behavior.",
+        "A service that creates EC2 instances.",
+        "A type of CloudTrail.",
+      ],
+      correct: 1,
+      explanation:
+        "CloudWatch Synthetics canaries run on a schedule, simulate end-user paths (loading pages, hitting APIs), and report results — proactive monitoring before users notice problems.",
+    },
+    {
+      id: "cm-q17",
+      question:
+        "Which CloudWatch feature visualizes customizable graphs of metrics?",
+      options: [
+        "CloudWatch Dashboards",
         "CloudWatch Alarms",
-        "CloudWatch Events / Amazon EventBridge",
-        "AWS Config Rules",
-        "CloudTrail Insights",
+        "CloudWatch Logs",
+        "CloudWatch Events",
       ],
-      correct: 1,
+      correct: 0,
       explanation:
-        "CloudWatch Events (= EventBridge) รองรับ <strong>Schedule (cron)</strong> เพื่อ trigger target เช่น Lambda ตามเวลา และยัง react ต่อ Event Pattern ของ AWS services ได้ด้วย ส่วน CloudWatch Alarms ใช้ trigger เมื่อ metric ข้าม threshold ไม่ได้ทำ scheduling",
+        "CloudWatch Dashboards are customizable home pages — graphs, numbers, text, and alarms — for monitoring resources at a glance. Cross-region/cross-account dashboards supported.",
     },
     {
-      id: "cloud-monitoring-q7",
+      id: "cm-q18",
       question:
-        "ผู้ใช้ต้องการดูว่า EC2 instance ของตัวเองได้รับผลกระทบจาก hardware maintenance ที่ AWS กำลังจะทำหรือไม่ พร้อม remediation steps ควรใช้บริการใด?",
+        "Which CloudWatch feature listens to AWS events (e.g., 'EC2 state changed', 'CloudFormation stack failed') and triggers actions?",
       options: [
-        "AWS Service Health Dashboard (status.aws.amazon.com)",
-        "AWS Personal Health Dashboard (PHD)",
-        "Amazon CloudWatch Dashboard",
-        "AWS CloudTrail",
+        "Amazon EventBridge (formerly CloudWatch Events)",
+        "CloudWatch Logs",
+        "CloudWatch Alarms",
+        "CloudTrail",
       ],
-      correct: 1,
+      correct: 0,
       explanation:
-        "<strong>Personal Health Dashboard (PHD)</strong> ให้ personalized view เฉพาะ resource ของ account คุณเอง รวมถึง proactive notifications เรื่อง scheduled changes (เช่น EC2 underlying hardware ใกล้ retire) พร้อม remediation steps ส่วน Service Health Dashboard เป็น public view รวมของทุก service ไม่เจาะจงว่า resource ของคุณกระทบหรือไม่",
+        "CloudWatch Events / Amazon EventBridge listens for AWS service events and triggers targets (Lambda, SNS, SQS, Step Functions, etc.). EventBridge is the modern superset.",
     },
     {
-      id: "cloud-monitoring-q8",
+      id: "cm-q19",
       question:
-        "CloudTrail Insights ใช้ทำอะไร?",
+        "Which Trusted Advisor pillar checks for over-provisioned EC2 instances and idle ELBs to save cost?",
       options: [
-        "ส่ง CloudTrail logs ไปเก็บใน S3 อัตโนมัติ",
-        "ตรวจจับ unusual API activity (anomaly detection) เช่น API call spike",
-        "Query CloudTrail logs ด้วย SQL",
-        "บันทึก S3 object-level access events",
+        "Cost Optimization",
+        "Performance",
+        "Security",
+        "Fault Tolerance",
+      ],
+      correct: 0,
+      explanation:
+        "Trusted Advisor's Cost Optimization checks include idle load balancers, low-utilization EC2 instances, unassociated Elastic IPs, RDS recommendations, etc.",
+    },
+    {
+      id: "cm-q20",
+      question:
+        "Which AWS service watches for sensitive data (PII, financial info) in S3 buckets using ML?",
+      options: [
+        "Amazon Macie",
+        "Amazon GuardDuty",
+        "Amazon Inspector",
+        "AWS Config",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Macie uses ML and pattern matching to discover and protect sensitive data (PII, credit card numbers, etc.) in S3 buckets. Reports findings via Security Hub.",
+    },
+    {
+      id: "cm-q21",
+      question:
+        "Which AWS service stores audit logs for an extended period and can be analyzed with Athena?",
+      options: [
+        "Send CloudTrail events to S3 (a CloudTrail trail), then query with Athena.",
+        "Use only Event History.",
+        "Use IAM Credentials Report.",
+        "Use Trusted Advisor archive.",
+      ],
+      correct: 0,
+      explanation:
+        "Best practice: create a CloudTrail trail that delivers logs to S3 (and optionally CloudWatch Logs). Use Amazon Athena to query CloudTrail JSON logs in S3 with SQL.",
+    },
+    {
+      id: "cm-q22",
+      question:
+        "Which service helps you analyze and visualize VPC traffic flows for security and troubleshooting?",
+      options: [
+        "VPC Flow Logs (delivered to CloudWatch Logs or S3)",
+        "AWS Trusted Advisor",
+        "AWS Config",
+        "Amazon Inspector",
+      ],
+      correct: 0,
+      explanation:
+        "VPC Flow Logs capture IP traffic info for ENIs in a VPC, subnet, or specific ENI — sent to CloudWatch Logs or S3. Useful for troubleshooting and security analysis.",
+    },
+    {
+      id: "cm-q23",
+      question:
+        "Which AWS feature analyzes changes to AWS resources and can automatically remediate non-compliance via SSM?",
+      options: [
+        "AWS Config Rules with Auto-Remediation",
+        "CloudWatch Alarms",
+        "CloudTrail",
+        "Trusted Advisor",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Config Rules can be configured with Auto-Remediation — when a rule is violated, AWS Config triggers an SSM Automation document to fix the issue automatically.",
+    },
+    {
+      id: "cm-q24",
+      question:
+        "What is the BEST description of AWS X-Ray?",
+      options: [
+        "A monitoring agent for EC2.",
+        "A distributed tracing service that helps debug performance issues across microservices.",
+        "A backup service.",
+        "An audit service.",
       ],
       correct: 1,
       explanation:
-        "CloudTrail Insights ใช้ machine learning วิเคราะห์ API activity patterns แล้วแจ้งเตือนเมื่อพบ <strong>unusual activity / anomaly</strong> เช่น API call spike, error rate สูงผิดปกติ ส่วนการ query ด้วย SQL คือ CloudTrail Lake และ S3 object-level access คือ Data Events (ไม่ใช่ Insights)",
+        "AWS X-Ray provides distributed tracing — visualizes request paths through Lambda, ECS, EC2, API Gateway, etc., showing latency and errors at each hop.",
+    },
+    {
+      id: "cm-q25",
+      question:
+        "Which service combines logs, metrics, and traces into a single observability platform?",
+      options: [
+        "Amazon CloudWatch (with CloudWatch Logs, ServiceLens, X-Ray integration)",
+        "AWS Config alone",
+        "AWS CloudTrail alone",
+        "Amazon Inspector alone",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon CloudWatch — combined with X-Ray, ServiceLens, Container Insights, Lambda Insights — provides unified observability (metrics + logs + traces) for AWS workloads.",
     },
   ],
 };

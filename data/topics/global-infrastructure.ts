@@ -501,99 +501,354 @@ export const globalInfrastructure: TopicData = {
   ],
   quiz: [
     {
-      id: "global-infra-q1",
+      id: "gi-q1",
       question:
-        "Application deploy อยู่ใน 4 regions ทั่วโลก ต้องการให้ users แต่ละทวีปได้ response เร็วที่สุดโดย route ไป region ที่มี network latency ต่ำสุด ควรใช้ Route 53 Routing Policy ใด?",
+        "An application is deployed in 4 regions worldwide. Users should be routed to the region with the lowest network latency. Which Route 53 routing policy?",
       options: [
-        "Simple Routing",
-        "Geolocation Routing",
-        "Latency-based Routing",
-        "Weighted Routing",
+        "Simple",
+        "Weighted",
+        "Latency-based",
+        "Geolocation",
       ],
       correct: 2,
       explanation:
-        "Latency-based Routing วัด network latency จริงระหว่าง user กับแต่ละ region แล้ว route ไป region ที่ latency ต่ำสุด — เหมาะกับ global app ที่ต้องการ low-latency สำหรับ users ทั่วโลก ส่วน Geolocation route ตาม location ของ user ไม่ใช่ network performance",
+        "Route 53 Latency-based routing directs users to the AWS region that provides the lowest network latency for their location.",
     },
     {
-      id: "global-infra-q2",
-      question: "CloudFront ทำหน้าที่หลักในการ cache อะไรที่ edge locations?",
-      options: [
-        "Database queries และ session data",
-        "Content เช่น static files (images, CSS, JS, videos) และ dynamic content ที่ cache ได้",
-        "EC2 instance state",
-        "VPC routing tables",
-      ],
-      correct: 1,
-      explanation:
-        "CloudFront เป็น CDN ที่ cache content (static + dynamic) ที่ edge locations ใกล้ user ครั้งแรก fetch จาก origin แล้ว cache ตาม TTL — ครั้งต่อไปส่งจาก edge ทันที ลด latency มาก",
-    },
-    {
-      id: "global-infra-q3",
+      id: "gi-q2",
       question:
-        "บริษัทมี static website assets (images, CSS, JS) ต้องการให้ available ทั่วโลกด้วย latency ต่ำสุด ไม่อยาก setup replication รายตัวต่อ region ควรใช้บริการใด?",
+        "Which Route 53 routing policy lets you direct users based on the geographic location of the requester (e.g., 'all European users go to eu-west-1')?",
       options: [
-        "S3 Cross-Region Replication (CRR) ไปทุก region",
-        "CloudFront",
-        "AWS Outposts ทุก region",
-        "Global Accelerator",
+        "Latency-based",
+        "Geolocation",
+        "Geoproximity",
+        "Failover",
       ],
       correct: 1,
       explanation:
-        "CloudFront เหมาะกับ static content ที่ต้อง available ทั่วโลก — ใช้ global edge network cache ไฟล์ตาม TTL ไม่ต้อง setup ทีละ region ส่วน S3 CRR ต้อง configure replication per region เหมาะกับ dynamic content low-latency ใน few regions ที่กำหนด",
+        "Geolocation routing directs traffic based on the user's location (continent, country, or US state). Useful for compliance / language localization.",
     },
     {
-      id: "global-infra-q4",
+      id: "gi-q3",
       question:
-        "ข้อใดคือความแตกต่างหลักระหว่าง CloudFront กับ AWS Global Accelerator?",
+        "Which Route 53 routing policy directs traffic based on the geographic distance between the user and the resource, with optional bias?",
       options: [
-        "CloudFront ใช้ edge locations แต่ Global Accelerator ไม่ใช้",
-        "CloudFront caches content ที่ edge ส่วน Global Accelerator ไม่ cache แค่ proxy packets ผ่าน AWS network ไปยัง region",
-        "Global Accelerator มี DDoS protection แต่ CloudFront ไม่มี",
-        "CloudFront ใช้ได้เฉพาะ HTTP ส่วน Global Accelerator ใช้ได้เฉพาะ HTTPS",
+        "Geolocation",
+        "Latency-based",
+        "Geoproximity (Traffic Flow only)",
+        "Multivalue answer",
       ],
-      correct: 1,
+      correct: 2,
       explanation:
-        "ความแตกต่างหลัก: CloudFront = caches content ที่ edge (content delivery), serve จาก cache — ส่วน Global Accelerator = ไม่ cache แต่ใช้ AWS internal network proxy packets ที่ edge ไปยัง app ใน region — ปรับปรุง performance ของ TCP/UDP, ให้ static IPs, deterministic regional failover ทั้งคู่ใช้ edge + Shield",
+        "Geoproximity routing (only via Traffic Flow) routes based on the geographic distance between users and AWS resources, with a bias factor that lets you shift traffic toward or away from a region.",
     },
     {
-      id: "global-infra-q5",
-      question: "S3 Transfer Acceleration ใช้เร่งอะไร?",
-      options: [
-        "เร่ง replication ระหว่าง S3 buckets ใน region ต่างๆ",
-        "เร่ง upload/download ไฟล์เข้า/ออก S3 โดย route ผ่าน edge location → AWS backbone network",
-        "Cache content ที่ edge เหมือน CloudFront",
-        "เร่ง EBS volume snapshot ข้าม region",
-      ],
-      correct: 1,
-      explanation:
-        "S3 Transfer Acceleration เร่ง upload/download ไฟล์เข้า/ออก S3 โดย user ส่งไปยัง edge location ที่ใกล้ที่สุด แล้ว edge forward ผ่าน AWS internal backbone network (ที่เร็วและ stable) ไปยัง S3 region — ใช้ bucket เดิม แค่เปิด feature เหมาะกับ upload ไฟล์ใหญ่ข้าม region",
-    },
-    {
-      id: "global-infra-q6",
+      id: "gi-q4",
       question:
-        "บริษัทมีกฎ data residency ต้อง process data ภายใน data center ของตัวเอง แต่ต้องการใช้ AWS services และ APIs เดียวกับใน cloud ควรใช้บริการใด?",
+        "Which AWS service is the global content delivery network (CDN)?",
       options: [
-        "AWS Local Zones",
-        "AWS WaveLength",
-        "AWS Outposts",
+        "Amazon CloudFront",
+        "Amazon Route 53",
+        "AWS Global Accelerator",
         "AWS Direct Connect",
       ],
-      correct: 2,
+      correct: 0,
       explanation:
-        "AWS Outposts เป็น hybrid cloud — AWS ส่ง rack มาติดตั้งใน DC ของลูกค้า (on-premises) ลูกค้าใช้ AWS services + APIs เดียวกันบน on-prem hardware เหมาะกับ data residency, low-latency on-prem access, local data processing — AWS manage hardware ลูกค้ารับผิดชอบ physical security",
+        "Amazon CloudFront is AWS's global CDN — caches content at 400+ Edge Locations worldwide for low-latency delivery, with built-in DDoS protection (AWS Shield Standard).",
     },
     {
-      id: "global-infra-q7",
-      question: "AWS WaveLength นำ AWS infrastructure ไปติดตั้ง embedded ในเครือข่ายแบบใด?",
+      id: "gi-q5",
+      question:
+        "Which AWS service provides static IPs and uses the AWS global network to improve performance and availability of applications globally (TCP/UDP)?",
       options: [
-        "เครือข่าย satellite ของ AWS Ground Station",
-        "เครือข่าย 5G ของ telco / Communication Service Providers",
-        "Submarine cables ใต้ทะเล",
-        "เครือข่าย fiber ของ Direct Connect partners",
+        "AWS Global Accelerator",
+        "Amazon CloudFront",
+        "Amazon Route 53",
+        "AWS Direct Connect",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Global Accelerator provides 2 anycast static IPs that route over the AWS global backbone to your nearest healthy endpoint — for non-HTTP TCP/UDP applications, gaming, etc.",
+    },
+    {
+      id: "gi-q6",
+      question:
+        "What is an AWS Region?",
+      options: [
+        "A single data center.",
+        "A physical geographic location consisting of multiple, isolated Availability Zones.",
+        "An edge cache location.",
+        "A type of EC2 instance.",
       ],
       correct: 1,
       explanation:
-        "AWS WaveLength นำ AWS infrastructure (EC2, EBS, VPC) ไปติดตั้ง embedded ใน 5G telco networks ที่ edge — traffic จาก mobile user ไม่ต้องออกจาก Communication Service Provider's network ทำให้ได้ ultra-low latency เหมาะกับ AR/VR, connected vehicles, real-time gaming, smart cities",
+        "An AWS Region is a physical location worldwide containing multiple isolated Availability Zones (typically 3+). Examples: us-east-1, eu-west-1, ap-southeast-1.",
+    },
+    {
+      id: "gi-q7",
+      question:
+        "What is an AWS Availability Zone?",
+      options: [
+        "A region.",
+        "One or more discrete data centers with redundant power, networking, and connectivity in an AWS Region — physically separated.",
+        "An edge cache.",
+        "A type of EC2 instance.",
+      ],
+      correct: 1,
+      explanation:
+        "An AZ is one or more discrete data centers in a Region, physically separated (km apart) and connected by high-bandwidth, low-latency private fiber.",
+    },
+    {
+      id: "gi-q8",
+      question:
+        "What is an AWS Edge Location?",
+      options: [
+        "A small data center used for backups.",
+        "A point of presence (PoP) where CloudFront, Route 53, and other services cache content close to end users.",
+        "A type of EC2 instance.",
+        "A region with only 1 AZ.",
+      ],
+      correct: 1,
+      explanation:
+        "Edge Locations are AWS Points of Presence (PoPs) used by CloudFront for caching, Route 53 for DNS, and other edge services. There are 400+ edge locations vs ~30 regions.",
+    },
+    {
+      id: "gi-q9",
+      question:
+        "Which Route 53 routing policy splits traffic across resources based on a percentage you set (e.g., 80% to instance A, 20% to instance B)?",
+      options: [
+        "Latency-based",
+        "Weighted",
+        "Geolocation",
+        "Failover",
+      ],
+      correct: 1,
+      explanation:
+        "Weighted routing splits traffic among multiple resources by percentages you assign — useful for blue/green deployments, canary releases, A/B testing.",
+    },
+    {
+      id: "gi-q10",
+      question:
+        "Which Route 53 routing policy supports a primary + secondary setup with health checks for active-passive failover?",
+      options: [
+        "Failover",
+        "Weighted",
+        "Latency-based",
+        "Geolocation",
+      ],
+      correct: 0,
+      explanation:
+        "Failover routing routes to a primary resource as long as it's healthy; if it fails (per Route 53 health checks), traffic fails over to a secondary.",
+    },
+    {
+      id: "gi-q11",
+      question:
+        "Which Route 53 routing policy returns multiple values (up to 8) and lets the client choose, with health checks per record?",
+      options: [
+        "Weighted",
+        "Multivalue Answer",
+        "Latency-based",
+        "Simple",
+      ],
+      correct: 1,
+      explanation:
+        "Multivalue Answer routing returns up to 8 healthy records per query, with optional health checks. NOT a substitute for an ELB but useful for client-side load balancing.",
+    },
+    {
+      id: "gi-q12",
+      question:
+        "Which AWS service provides DNS web service?",
+      options: [
+        "Amazon Route 53",
+        "Amazon CloudFront",
+        "AWS Global Accelerator",
+        "Amazon API Gateway",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Route 53 is AWS's authoritative DNS service. Supports many routing policies, health checks, traffic flow, and a 100% uptime SLA.",
+    },
+    {
+      id: "gi-q13",
+      question:
+        "Which Route 53 record type maps a domain to an AWS resource (like ELB or CloudFront) without requiring an IP address?",
+      options: [
+        "A record",
+        "Alias record",
+        "CNAME record",
+        "MX record",
+      ],
+      correct: 1,
+      explanation:
+        "Route 53 Alias records map directly to AWS resources (ELB, CloudFront, S3 static site, API Gateway, RDS, etc.) — they work at the apex/zone root (unlike CNAME) and have no extra cost.",
+    },
+    {
+      id: "gi-q14",
+      question:
+        "Which AWS service provides dedicated, private, low-latency connectivity from on-premises to AWS (1 Gbps to 100 Gbps), bypassing the public internet?",
+      options: [
+        "AWS Direct Connect",
+        "AWS Site-to-Site VPN",
+        "AWS Global Accelerator",
+        "AWS Transit Gateway",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Direct Connect provides dedicated network connection from your data center to AWS — predictable performance, lower data egress costs, and private (does not traverse the public internet).",
+    },
+    {
+      id: "gi-q15",
+      question:
+        "Which Direct Connect option provides faster, lower-cost setup using a Direct Connect Partner's existing connection?",
+      options: [
+        "Dedicated Connection",
+        "Hosted Connection",
+        "VPN",
+        "Backbone Connection",
+      ],
+      correct: 1,
+      explanation:
+        "A Hosted Connection comes from a Direct Connect Partner who already has a connection to AWS — you get a slice (50 Mbps to 10 Gbps). Cheaper and faster setup than a Dedicated Connection.",
+    },
+    {
+      id: "gi-q16",
+      question:
+        "Which AWS service is BEST for distributing user requests across multiple AWS regions with intelligent failover?",
+      options: [
+        "Route 53 latency or geolocation routing, OR AWS Global Accelerator",
+        "Amazon ECS",
+        "AWS Lambda",
+        "Amazon RDS",
+      ],
+      correct: 0,
+      explanation:
+        "Both Route 53 (DNS-based) and Global Accelerator (anycast IP, layer-4) can route users across regions. Global Accelerator is faster failover (~30s) using AWS backbone; Route 53 is DNS with TTL-based propagation.",
+    },
+    {
+      id: "gi-q17",
+      question:
+        "Which AWS service is the encrypted IPsec VPN connection from on-premises to a VPC?",
+      options: [
+        "AWS Site-to-Site VPN",
+        "AWS Client VPN",
+        "AWS Direct Connect",
+        "AWS Transit Gateway",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Site-to-Site VPN provides an IPsec VPN tunnel between your on-premises network and your AWS VPC. Quick to set up; runs over the public internet.",
+    },
+    {
+      id: "gi-q18",
+      question:
+        "Which AWS service is a remote-access OpenVPN-based VPN for individual users to connect to AWS?",
+      options: [
+        "AWS Site-to-Site VPN",
+        "AWS Client VPN",
+        "AWS Direct Connect",
+        "AWS Transit Gateway",
+      ],
+      correct: 1,
+      explanation:
+        "AWS Client VPN is an OpenVPN-based remote access solution — individual users (employees) connect from laptops to a VPC. Supports MFA and AD integration.",
+    },
+    {
+      id: "gi-q19",
+      question:
+        "Which AWS service is a network transit hub that connects multiple VPCs and on-premises networks through a central gateway?",
+      options: [
+        "AWS Transit Gateway",
+        "VPC Peering",
+        "AWS Direct Connect",
+        "AWS PrivateLink",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Transit Gateway is a regional, central hub-and-spoke router that interconnects VPCs and on-prem networks. Replaces the complexity of full-mesh VPC peering at scale.",
+    },
+    {
+      id: "gi-q20",
+      question:
+        "Which AWS service is a private DNS forwarder for hybrid cloud DNS resolution between on-premises and VPC?",
+      options: [
+        "Route 53 Resolver",
+        "Amazon CloudFront",
+        "AWS Direct Connect",
+        "AWS Global Accelerator",
+      ],
+      correct: 0,
+      explanation:
+        "Route 53 Resolver enables hybrid DNS — inbound endpoints (on-prem can resolve VPC names) and outbound endpoints (VPC resources can resolve on-prem names).",
+    },
+    {
+      id: "gi-q21",
+      question:
+        "Which is true about CloudFront's behavior at the edge?",
+      options: [
+        "It only caches HTML.",
+        "Edge locations cache copies of content (objects, video, APIs) close to users — cache hit returns content instantly; miss fetches from origin and caches.",
+        "It serves dynamic content only.",
+        "It only works for S3 origins.",
+      ],
+      correct: 1,
+      explanation:
+        "CloudFront caches content at edge locations: cache hit = instant delivery; cache miss = fetch from origin (S3, ALB, EC2, custom HTTP) and store. Origins can be AWS or non-AWS.",
+    },
+    {
+      id: "gi-q22",
+      question:
+        "Which AWS service is a fully managed DNS-based service mesh and service discovery for microservices?",
+      options: [
+        "AWS Cloud Map",
+        "AWS Service Catalog",
+        "AWS Route 53",
+        "Amazon CloudFront",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Cloud Map is a cloud resource discovery service — register resources with custom names, and applications discover them dynamically.",
+    },
+    {
+      id: "gi-q23",
+      question:
+        "Which is the TCP/UDP performance benefit of using AWS Global Accelerator?",
+      options: [
+        "It encrypts everything.",
+        "It uses the AWS global private backbone to route traffic, avoiding internet hops, reducing latency and packet loss, and providing automatic failover.",
+        "It increases storage capacity.",
+        "It speeds up DNS only.",
+      ],
+      correct: 1,
+      explanation:
+        "Global Accelerator routes traffic over AWS's optimized global backbone (rather than the public internet) — improves latency, jitter, and provides fast (~30s) failover via health checks.",
+    },
+    {
+      id: "gi-q24",
+      question:
+        "When choosing AWS regions to deploy resources, which factors should you consider?",
+      options: [
+        "Compliance / data residency requirements, latency to users, service availability, pricing.",
+        "Only cost.",
+        "Only customer location.",
+        "Random choice.",
+      ],
+      correct: 0,
+      explanation:
+        "Region selection considers: (1) data residency / compliance, (2) latency, (3) service availability (not all services in all regions), (4) pricing.",
+    },
+    {
+      id: "gi-q25",
+      question:
+        "What is the typical number of Availability Zones in an AWS Region?",
+      options: [
+        "Always exactly 1",
+        "2 minimum",
+        "3 or more (typically 3-6)",
+        "1-100 randomly",
+      ],
+      correct: 2,
+      explanation:
+        "Most AWS Regions have 3 or more AZs (some have up to 6). AWS recommends spanning workloads across multiple AZs for high availability.",
     },
   ],
 };

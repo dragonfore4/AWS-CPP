@@ -597,102 +597,319 @@ export const ec2Storage: TopicData = {
   ],
   quiz: [
     {
-      id: "ec2-storage-q1",
+      id: "ec2s-q1",
       question:
-        "บริษัทต้องการ EBS Volume ที่ใช้เป็น Boot Volume ของ EC2 instance — ข้อใด <em>ไม่สามารถ</em> ใช้เป็น Boot Volume ได้?",
+        "Which of the following CANNOT be used as a boot volume for an EC2 instance?",
       options: [
-        "gp3 (General Purpose SSD)",
-        "io2 Block Express (Provisioned IOPS SSD)",
-        "st1 (Throughput Optimized HDD)",
-        "gp2 (General Purpose SSD)",
+        "General Purpose SSD (gp3)",
+        "Provisioned IOPS SSD (io2)",
+        "Throughput Optimized HDD (st1)",
+        "General Purpose SSD (gp2)",
       ],
       correct: 2,
       explanation:
-        "Boot Volume ต้องเป็น SSD เท่านั้น (gp2, gp3, io1, io2) — st1 และ sc1 เป็น HDD ใช้เป็น Boot Volume ไม่ได้ st1 เหมาะกับ Big Data/Data Warehouse/Log processing แต่ไม่สามารถใช้เป็น root volume ของ EC2 ได้",
+        "Boot volumes must be SSD-based: gp2, gp3, io1, io2. HDD types (st1 = throughput optimized, sc1 = cold) cannot be used as boot volumes.",
     },
     {
-      id: "ec2-storage-q2",
+      id: "ec2s-q2",
       question:
-        "ข้อใดอธิบายความแตกต่างระหว่าง EBS กับ EC2 Instance Store ในเรื่อง data persistence ได้ถูกต้อง?",
+        "Which AWS storage service is BEST for shared file storage that can be mounted by multiple Linux EC2 instances simultaneously?",
+      options: ["EBS", "Instance Store", "EFS (Elastic File System)", "S3"],
+      correct: 2,
+      explanation:
+        "Amazon EFS provides a fully managed, shared NFS file system that can be mounted by thousands of Linux EC2 instances simultaneously across AZs. EBS volumes are typically attached to a single instance (Multi-Attach is limited).",
+    },
+    {
+      id: "ec2s-q3",
+      question:
+        "What happens to data on an EC2 Instance Store when the instance is stopped or terminated?",
       options: [
-        "ทั้ง EBS และ Instance Store ข้อมูลจะหายเมื่อ instance ถูก stop",
-        "EBS ข้อมูลคงอยู่แม้ instance ถูก stop/terminate ส่วน Instance Store ข้อมูลจะหายเมื่อ instance ถูก stop หรือ terminate",
-        "Instance Store ข้อมูลคงอยู่ตลอด ส่วน EBS ข้อมูลจะหายเมื่อ stop",
-        "ทั้งสองแบบข้อมูลคงอยู่ตลอดไม่ว่าจะ stop หรือ terminate",
+        "Data is preserved automatically.",
+        "Data is moved to S3.",
+        "Data is lost — Instance Store is ephemeral.",
+        "Data is moved to an EBS snapshot.",
+      ],
+      correct: 2,
+      explanation:
+        "Instance Store is physically attached to the host and provides very high I/O performance — but it is ephemeral. Stopping or terminating the instance loses the data; only persists across reboots.",
+    },
+    {
+      id: "ec2s-q4",
+      question:
+        "Which EBS volume type is the latest-generation, lowest-cost SSD that decouples performance from volume size?",
+      options: ["gp2", "gp3", "io1", "st1"],
+      correct: 1,
+      explanation:
+        "gp3 (General Purpose SSD v3) provides a baseline 3,000 IOPS and 125 MB/s independent of volume size, with the ability to provision more for additional cost. It typically costs ~20% less than gp2 for the same performance.",
+    },
+    {
+      id: "ec2s-q5",
+      question:
+        "Which AWS service is BEST suited for running a Windows-based file share with Active Directory integration in the cloud?",
+      options: [
+        "Amazon EFS",
+        "Amazon FSx for Windows File Server",
+        "Amazon S3",
+        "EBS Multi-Attach",
       ],
       correct: 1,
       explanation:
-        "EBS เป็น network drive ข้อมูลคงอยู่แม้ instance จะถูก stop หรือ terminate (สามารถตั้ง Delete on Termination ได้) ส่วน Instance Store เป็น physical disk บน host ข้อมูลจะหายทันทีเมื่อ instance ถูก stop / terminate / hardware ล้มเหลว — เป็น ephemeral storage จึงเหมาะกับ cache/buffer/temp data เท่านั้น",
+        "Amazon FSx for Windows File Server provides a fully managed Windows-native file system with SMB protocol, AD integration, NTFS permissions, and Windows ACLs — perfect for Windows workloads.",
     },
     {
-      id: "ec2-storage-q3",
+      id: "ec2s-q6",
       question:
-        "บริษัทมี EC2 instance หลายตัวกระจายอยู่ใน 3 AZ และต้องการให้ทุก instance เข้าถึง shared file system เดียวกันพร้อมกันได้ — ควรเลือก storage แบบใด?",
+        "Which FSx variant is built for high-performance computing (HPC) and machine learning workloads?",
       options: [
-        "EBS gp3 ที่ attach กับ instance หลายตัว",
-        "EFS (Elastic File System)",
-        "EC2 Instance Store",
-        "EBS Multi-Attach (io2)",
-      ],
-      correct: 1,
-      explanation:
-        "EFS เป็น Managed NFS ที่ให้หลายร้อย EC2 instance ในหลาย AZ mount พร้อมกันได้ ในขณะที่ EBS ผูกกับ AZ เดียว (แม้ Multi-Attach ก็ยังจำกัดอยู่ใน AZ เดียวกันและสูงสุด 16 instance เท่านั้น) ส่วน Instance Store ใช้ได้กับ instance เดียว — EFS จึงเป็นคำตอบที่ถูกต้องสำหรับ shared storage ข้าม AZ",
-    },
-    {
-      id: "ec2-storage-q4",
-      question:
-        "Amazon Machine Image (AMI) ประกอบด้วยอะไร?",
-      options: [
-        "เฉพาะ Operating System เท่านั้น",
-        "เฉพาะ EBS Snapshot ของ root volume",
-        "Operating System + Software + Configuration + Monitoring agent ของ EC2 instance",
-        "Network configuration และ Security Group rules ของ EC2",
-      ],
-      correct: 2,
-      explanation:
-        "AMI คือ customization ของ EC2 ที่เก็บ OS + software ที่ติดตั้ง + configuration + monitoring agent ไว้พร้อมใช้ launch instance ใหม่ได้ทันที — ทำให้ boot เร็วขึ้น (ไม่ต้อง install software ตอน boot) AMI เป็น region-specific จึงต้อง copy ข้าม region ถ้าจะใช้ใน region อื่น",
-    },
-    {
-      id: "ec2-storage-q5",
-      question:
-        "EBS Volume ประเภทใดที่รองรับ Multi-Attach (attach กับหลาย instance พร้อมกันใน AZ เดียวกัน)?",
-      options: [
-        "gp2 และ gp3",
-        "st1 และ sc1",
-        "io1 และ io2 เท่านั้น",
-        "EBS ทุกประเภทรองรับ Multi-Attach",
-      ],
-      correct: 2,
-      explanation:
-        "Multi-Attach รองรับเฉพาะ io1 และ io2 (Provisioned IOPS SSD) เท่านั้น — สามารถ attach กับ instance สูงสุด 16 ตัวพร้อมกันใน AZ เดียวกัน Application ต้องจัดการ concurrent write เอง และต้องใช้ cluster filesystem เช่น GFS2 หรือ OCFS2 (ไม่ใช่ ext4 หรือ xfs ธรรมดา)",
-    },
-    {
-      id: "ec2-storage-q6",
-      question:
-        "บริษัททำงานด้าน Machine Learning ต้องการ file system ที่มี throughput สูงระดับ 100s GB/s, ล้าน IOPS, sub-millisecond latency สำหรับ training data ขนาดใหญ่ ควรเลือก storage แบบใด?",
-      options: [
-        "EFS Standard",
         "FSx for Windows File Server",
         "FSx for Lustre",
-        "EBS gp3 Multi-Attach",
-      ],
-      correct: 2,
-      explanation:
-        "FSx for Lustre (Linux + cluster) เป็น high-performance file system ที่ออกแบบมาสำหรับงาน HPC, Machine Learning, Analytics และ Financial Modeling — รองรับ throughput 100s GB/s, ล้าน IOPS, sub-millisecond latency ส่วน EFS แม้ scale ได้แต่ throughput ต่ำกว่ามาก และ FSx for Windows เหมาะกับ Windows app ไม่ใช่ HPC/ML",
-    },
-    {
-      id: "ec2-storage-q7",
-      question:
-        "บริษัทมี EBS Volume อยู่ใน ap-southeast-1a และต้องการย้ายไปใช้กับ EC2 instance ใน ap-southeast-1b ต้องทำอย่างไร?",
-      options: [
-        "Detach volume แล้ว attach กับ instance ใน AZ ใหม่ได้เลย",
-        "สร้าง Snapshot จาก volume → Copy/Create Volume ใหม่จาก snapshot ใน ap-southeast-1b → Attach กับ instance",
-        "เปิด EBS Multi-Attach แล้ว attach ข้าม AZ ได้",
-        "ไม่สามารถย้าย EBS ข้าม AZ ได้ ต้องสร้าง volume ใหม่และ copy ข้อมูลผ่าน network",
+        "FSx for ONTAP",
+        "FSx for OpenZFS",
       ],
       correct: 1,
       explanation:
-        "EBS Volume ผูกกับ AZ เดียว — ไม่สามารถ attach กับ instance ใน AZ อื่นได้โดยตรง วิธีย้ายคือ: 1) สร้าง Snapshot จาก volume เดิม (snapshot เก็บใน S3) → 2) Create Volume ใหม่จาก snapshot โดยเลือก AZ ปลายทาง (ap-southeast-1b) → 3) Attach volume ใหม่กับ instance — Snapshot จึงเป็นวิธีหลักในการย้าย EBS ข้าม AZ หรือ Region",
+        "Amazon FSx for Lustre is designed for HPC, ML, and media workloads — providing sub-millisecond latency and millions of IOPS, with optional integration with S3.",
+    },
+    {
+      id: "ec2s-q7",
+      question:
+        "What is an EBS Snapshot used for?",
+      options: [
+        "Encrypting an EBS volume.",
+        "Creating a point-in-time backup of an EBS volume, stored in S3.",
+        "Increasing IOPS performance.",
+        "Mounting the volume on multiple instances.",
+      ],
+      correct: 1,
+      explanation:
+        "An EBS Snapshot is an incremental, point-in-time backup of an EBS volume stored in S3 (managed by AWS). Snapshots can be used to create new volumes (potentially in different AZs/Regions), enabling backup and DR.",
+    },
+    {
+      id: "ec2s-q8",
+      question:
+        "An EC2 instance in AZ us-east-1a needs to use an EBS volume that was created in us-east-1b. What must you do?",
+      options: [
+        "Attach the volume directly across AZs — EBS is regional.",
+        "Take a snapshot of the volume, then create a new volume from the snapshot in us-east-1a.",
+        "Detach and re-attach the volume.",
+        "EBS volumes can be attached to instances in any AZ.",
+      ],
+      correct: 1,
+      explanation:
+        "EBS volumes are tied to a single AZ. To move a volume to another AZ, snapshot it (snapshots are regional, stored in S3), then create a new volume from the snapshot in the target AZ.",
+    },
+    {
+      id: "ec2s-q9",
+      question:
+        "Which of the following is true about EBS volumes by default?",
+      options: [
+        "They are deleted when the instance is stopped.",
+        "They persist independently of the EC2 instance — they continue to exist if the instance is terminated (unless DeleteOnTermination=true for the root volume).",
+        "They are automatically replicated to S3.",
+        "They share storage with all instances in the VPC.",
+      ],
+      correct: 1,
+      explanation:
+        "EBS volumes persist independently of the instance lifecycle. The root volume defaults to DeleteOnTermination=true (deleted with the instance). Additional attached volumes default to false (preserved).",
+    },
+    {
+      id: "ec2s-q10",
+      question:
+        "What is an AMI (Amazon Machine Image)?",
+      options: [
+        "A backup of an EBS snapshot only.",
+        "A template containing the OS, applications, and configuration used to launch EC2 instances.",
+        "A container image registry.",
+        "A networking ACL.",
+      ],
+      correct: 1,
+      explanation:
+        "An AMI is a launch template for EC2 — it includes the root volume (OS + apps), launch permissions, and block-device mapping. It can be public, private, AWS-provided, or custom.",
+    },
+    {
+      id: "ec2s-q11",
+      question:
+        "Which feature of AWS allows EC2 instances to access shared storage that scales automatically?",
+      options: [
+        "EBS",
+        "Instance Store",
+        "Amazon EFS (Elastic File System)",
+        "S3 Glacier",
+      ],
+      correct: 2,
+      explanation:
+        "Amazon EFS scales automatically and elastically — pay only for the storage used. Multiple instances can mount it concurrently, making it ideal for shared workloads.",
+    },
+    {
+      id: "ec2s-q12",
+      question:
+        "Which EBS volume type is designed for high-throughput, sequential workloads like big data and data warehouses?",
+      options: ["gp3", "io2", "st1 (Throughput Optimized HDD)", "sc1 (Cold HDD)"],
+      correct: 2,
+      explanation:
+        "st1 is throughput-optimized HDD — high MB/s for streaming workloads like big data, log processing, and data warehouses. Cannot be used as boot volume.",
+    },
+    {
+      id: "ec2s-q13",
+      question:
+        "Which storage class is the LOWEST-COST EBS HDD option, intended for infrequently accessed data?",
+      options: ["gp3", "io2", "st1", "sc1 (Cold HDD)"],
+      correct: 3,
+      explanation:
+        "sc1 (Cold HDD) is the lowest-cost EBS option — for infrequently accessed, large, sequential workloads. Cannot be used as boot volume.",
+    },
+    {
+      id: "ec2s-q14",
+      question:
+        "Which EBS volume type is designed for the highest performance — millions of IOPS — for I/O-intensive databases?",
+      options: ["gp2", "gp3", "io2 Block Express", "st1"],
+      correct: 2,
+      explanation:
+        "io2 Block Express delivers up to 256,000 IOPS and 4,000 MB/s — designed for the most demanding I/O-intensive applications like SAP HANA, large databases, and other latency-sensitive workloads.",
+    },
+    {
+      id: "ec2s-q15",
+      question:
+        "What is the main difference between EFS and EBS?",
+      options: [
+        "EFS is block storage, EBS is object storage.",
+        "EFS is a shared, multi-AZ NFS file system; EBS is block storage attached to a single AZ instance.",
+        "EFS only works on Windows, EBS only on Linux.",
+        "There is no difference.",
+      ],
+      correct: 1,
+      explanation:
+        "EFS = elastic, shared, NFS file system across multiple AZs and instances (Linux). EBS = block storage attached to a single instance, in a single AZ.",
+    },
+    {
+      id: "ec2s-q16",
+      question:
+        "Which feature provides automated, scheduled creation and lifecycle management of EBS snapshots?",
+      options: [
+        "Amazon Data Lifecycle Manager (DLM)",
+        "AWS Backup only",
+        "EBS Snapshot Manual",
+        "S3 Lifecycle policy",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Data Lifecycle Manager automates creation, retention, and deletion of EBS snapshots and AMIs. AWS Backup is a broader managed backup service that can also manage EBS snapshots.",
+    },
+    {
+      id: "ec2s-q17",
+      question:
+        "Which of the following is the BEST description of EBS Multi-Attach?",
+      options: [
+        "Allows attaching one volume to instances across multiple regions.",
+        "Allows a single io1/io2 volume to be attached to up to 16 EC2 instances in the same AZ.",
+        "Automatically replicates data across all AZs.",
+        "Lets you mount EBS as a file system from S3.",
+      ],
+      correct: 1,
+      explanation:
+        "EBS Multi-Attach lets a single io1/io2 volume be attached to multiple EC2 instances (up to 16) within the same AZ. Useful for clustered Linux applications. Requires a cluster-aware file system.",
+    },
+    {
+      id: "ec2s-q18",
+      question:
+        "Which storage option is cheapest for archive backups that are rarely accessed?",
+      options: ["EBS gp3", "EFS Standard", "S3 Glacier Deep Archive", "Instance Store"],
+      correct: 2,
+      explanation:
+        "S3 Glacier Deep Archive is the cheapest AWS storage class — designed for long-term archive data accessed perhaps once or twice a year, with retrieval in 12-48 hours.",
+    },
+    {
+      id: "ec2s-q19",
+      question:
+        "Which EC2 storage option provides the LOWEST latency and HIGHEST IOPS, but is ephemeral and tied to the host?",
+      options: ["EBS gp3", "EBS io2", "Instance Store", "EFS"],
+      correct: 2,
+      explanation:
+        "Instance Store is local NVMe SSD physically attached to the host — extreme performance but data is lost when the instance is stopped or terminated.",
+    },
+    {
+      id: "ec2s-q20",
+      question:
+        "Which FSx variant is fully managed NetApp ONTAP storage?",
+      options: [
+        "FSx for Windows File Server",
+        "FSx for Lustre",
+        "FSx for NetApp ONTAP",
+        "FSx for OpenZFS",
+      ],
+      correct: 2,
+      explanation:
+        "Amazon FSx for NetApp ONTAP is a fully managed shared file storage built on NetApp's ONTAP — supports NFS, SMB, iSCSI, with snapshots, clones, replication, and tiering to capacity-optimized storage.",
+    },
+    {
+      id: "ec2s-q21",
+      question:
+        "What is the default behavior for the root EBS volume when you terminate an EC2 instance?",
+      options: [
+        "It is preserved.",
+        "It is deleted (DeleteOnTermination = true by default).",
+        "It is converted to a snapshot.",
+        "It is moved to S3.",
+      ],
+      correct: 1,
+      explanation:
+        "By default, root EBS volumes are deleted when the instance is terminated. You can set DeleteOnTermination=false to preserve the volume.",
+    },
+    {
+      id: "ec2s-q22",
+      question:
+        "An EC2 instance has been stopped. What happens to its EBS volumes?",
+      options: [
+        "All volumes are deleted.",
+        "Volumes remain attached and persist; you continue to pay for storage.",
+        "Volumes are converted to S3 objects.",
+        "Volumes are detached automatically.",
+      ],
+      correct: 1,
+      explanation:
+        "Stopping an EC2 instance does not affect its EBS volumes. They remain attached and you continue to pay for the storage (but not for the instance compute time).",
+    },
+    {
+      id: "ec2s-q23",
+      question:
+        "Which feature allows you to copy an EBS snapshot to another AWS region for disaster recovery?",
+      options: [
+        "EBS Cross-Region Replication is automatic.",
+        "Snapshot Copy — manually copy a snapshot to another region.",
+        "EBS Multi-Region Mode",
+        "S3 Cross-Region Replication",
+      ],
+      correct: 1,
+      explanation:
+        "EBS snapshots are regional. To use them in another region for DR, you copy the snapshot manually to the target region (CopySnapshot API). The copy can also be encrypted with a different KMS key.",
+    },
+    {
+      id: "ec2s-q24",
+      question:
+        "Which is true about EBS encryption?",
+      options: [
+        "EBS volumes cannot be encrypted.",
+        "EBS encryption uses AWS KMS — encryption at rest, in transit, and snapshots are also encrypted automatically.",
+        "Encryption must be enabled per region per request.",
+        "Encryption only applies to gp3 volumes.",
+      ],
+      correct: 1,
+      explanation:
+        "EBS encryption (using AWS KMS) encrypts data at rest, in transit between the instance and the volume, and all created snapshots — at no additional cost. You can enable encryption by default in account settings.",
+    },
+    {
+      id: "ec2s-q25",
+      question:
+        "A company must back up an EFS file system to another region for DR. Which AWS service is BEST?",
+      options: [
+        "Amazon S3 Lifecycle policies",
+        "AWS Backup with cross-region copy",
+        "EBS Snapshots",
+        "AWS Glacier Vault Lock",
+      ],
+      correct: 1,
+      explanation:
+        "AWS Backup provides a centralized way to back up EFS, EBS, RDS, DynamoDB, and other resources, with policy-based retention and cross-region copy support.",
     },
   ],
 };

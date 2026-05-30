@@ -912,144 +912,354 @@ export const accountManagement: TopicData = {
   ],
   quiz: [
     {
-      id: "account-mgmt-q1",
+      id: "am-q1",
       question:
-        "ประโยชน์หลักของ AWS Organizations ในด้านการเงินคืออะไร?",
+        "What is the main FINANCIAL benefit of AWS Organizations?",
       options: [
-        "ลดราคา EC2 อัตโนมัติ 50% สำหรับทุก account",
-        "Consolidated Billing — รวมบิลทุก accounts เป็นใบเดียวและได้ volume discounts จาก aggregated usage",
-        "ทำให้ Free Tier ไม่มีวันหมดอายุ",
-        "บังคับใช้ Reserved Instances ทุก account",
+        "Higher per-account pricing.",
+        "Consolidated billing — combine usage across all accounts to qualify for volume discounts and a single bill.",
+        "Mandatory yearly upgrade fees.",
+        "Higher Support tier costs.",
       ],
       correct: 1,
       explanation:
-        "ประโยชน์หลักด้านการเงินของ AWS Organizations คือ Consolidated Billing — รวมบิลทุก accounts เป็นใบเดียว (single payment) + ได้ volume discount เพราะ aggregated usage + pool Reserved Instances ข้าม accounts ได้",
+        "AWS Organizations consolidated billing combines usage across all accounts to potentially get higher volume discounts (e.g., S3 tiered pricing), shared Reserved Instance / Savings Plan benefits, and a single payer account.",
     },
     {
-      id: "account-mgmt-q2",
+      id: "am-q2",
       question:
-        "Service Control Policies (SCPs) ทำหน้าที่อะไรและ apply ที่ระดับไหน?",
+        "Which AWS Organizations feature lets you set guardrails on what services/actions accounts can use?",
       options: [
-        "Grant permissions ให้ users ใน Master Account",
-        "Restrict IAM actions ที่ระดับ user เท่านั้น",
-        "Whitelist/blacklist IAM actions ที่ apply ที่ OU หรือ Account level (ไม่มีผลกับ Master Account)",
-        "ตรวจสอบ security ของ S3 buckets",
-      ],
-      correct: 2,
-      explanation:
-        "SCPs เป็น whitelist หรือ blacklist ของ IAM actions ที่ apply ที่ OU หรือ Account level — มีผลกับ users + roles + root user ของ member account แต่<strong>ไม่มีผลกับ Master Account</strong> และ SCP restrict ได้แต่ grant ไม่ได้",
-    },
-    {
-      id: "account-mgmt-q3",
-      question:
-        "AWS Control Tower สร้างอยู่บนพื้นฐานของ service ใด?",
-      options: [
-        "AWS IAM",
-        "AWS Config",
-        "AWS Organizations",
-        "AWS CloudFormation",
-      ],
-      correct: 2,
-      explanation:
-        "AWS Control Tower สร้างอยู่บน <strong>AWS Organizations</strong> — เป็น solution ที่ทำ landing zone + guardrails + compliance dashboard ให้อัตโนมัติ โดยใช้ Organizations เป็น foundation",
-    },
-    {
-      id: "account-mgmt-q4",
-      question:
-        "Pricing Model แบบใดที่ \"จ่ายเฉพาะที่ใช้จริง ไม่มี upfront commitment\"?",
-      options: [
-        "Save when you reserve",
-        "Pay as you go",
-        "Pay less by using more",
-        "Pay less as AWS grows",
-      ],
-      correct: 1,
-      explanation:
-        "Pay as you go = จ่ายเฉพาะที่ใช้จริง agile + responsive ไม่มี upfront cost — ส่วน Save when you reserve ต้อง commit ล่วงหน้า, Pay less by using more = volume discount, Pay less as AWS grows = AWS ลดราคาตามเวลา",
-    },
-    {
-      id: "account-mgmt-q5",
-      question:
-        "EC2 t2.micro ใน AWS Free Tier ฟรีนานเท่าไร?",
-      options: [
-        "ฟรีตลอดไป (Always Free)",
-        "ฟรี 30 วัน",
-        "ฟรี 6 เดือน",
-        "ฟรี 12 เดือน หลังจากเปิด account",
-      ],
-      correct: 3,
-      explanation:
-        "EC2 t2.micro = ฟรี <strong>12 เดือน</strong> (750 hrs/month) หลังจากเปิด AWS account — หลังจากนั้นต้องจ่ายตาม pricing ปกติ ส่วน IAM, VPC, Consolidated Billing คือ Always Free",
-    },
-    {
-      id: "account-mgmt-q6",
-      question:
-        "Cost Allocation Tags ที่ AWS สร้างให้อัตโนมัติมี prefix ใด?",
-      options: [
-        "user:",
-        "aws:",
-        "system:",
-        "auto:",
-      ],
-      correct: 1,
-      explanation:
-        "AWS-generated cost allocation tags มี prefix <code>aws:</code> เช่น aws:createdBy ส่วน user-defined tags มี prefix <code>user:</code> เช่น user:Project, user:Environment — ต้อง activate tags ใน Billing console ก่อนใช้ใน reports",
-    },
-    {
-      id: "account-mgmt-q7",
-      question:
-        "ระหว่าง Cost Explorer กับ AWS Budgets เครื่องมือใดมี <em>forecast</em> ค่าใช้จ่าย 12 เดือนข้างหน้า?",
-      options: [
-        "AWS Budgets เท่านั้น",
-        "Cost Explorer — visualize ย้อนหลังและ forecast 12 เดือนข้างหน้า + แนะนำ Savings Plan",
-        "Billing Dashboard เท่านั้น",
-        "ทั้งสองตัวไม่มี forecast",
-      ],
-      correct: 1,
-      explanation:
-        "Cost Explorer = visualize ค่าใช้จ่ายย้อนหลังและ <strong>forecast 12 เดือนข้างหน้า</strong> + แนะนำ optimal Savings Plan ส่วน Budgets ใช้ตั้ง alert เมื่อ cost จะเกิน threshold (ไม่ได้เน้น forecast)",
-    },
-    {
-      id: "account-mgmt-q8",
-      question:
-        "AWS Trusted Advisor ตรวจสอบใน 5 categories ใด?",
-      options: [
-        "Cost, Compute, Storage, Database, Networking",
-        "Billing, Technical, Security, Operational, Compliance",
-        "Cost Optimization, Performance, Security, Fault Tolerance, Service Limits",
-        "Reliability, Performance Efficiency, Security, Cost, Operational Excellence",
-      ],
-      correct: 2,
-      explanation:
-        "5 Categories ของ Trusted Advisor: <strong>Cost Optimization, Performance, Security, Fault Tolerance, Service Limits</strong> — Core checks ฟรีทุก plan, Full Trusted Advisor ต้อง Business plan ขึ้นไป",
-    },
-    {
-      id: "account-mgmt-q9",
-      question:
-        "Designated Technical Account Manager (TAM) มีใน Support Plan ใด?",
-      options: [
-        "Business ขึ้นไป",
-        "Enterprise On-Ramp และ Enterprise",
-        "Enterprise เท่านั้น",
-        "ทุก paid plans (Developer ขึ้นไป)",
-      ],
-      correct: 2,
-      explanation:
-        "Designated TAM (คนเดียวดูแลเราโดยเฉพาะ) มีใน <strong>Enterprise plan เท่านั้น</strong> — Enterprise On-Ramp ได้ pool of TAMs (ไม่ใช่ designated คนเดียว) ส่วน Business/Developer/Basic ไม่มี TAM",
-    },
-    {
-      id: "account-mgmt-q10",
-      question:
-        "Support Plan ใดที่ฟรีสำหรับทุก AWS customer?",
-      options: [
-        "Basic — 24x7 customer service สำหรับ billing, 7 core Trusted Advisor checks, Personal Health Dashboard",
-        "Developer",
-        "Business",
-        "ไม่มี — ทุก plan ต้องจ่ายเงิน",
+        "Service Control Policies (SCPs)",
+        "IAM Policies",
+        "Bucket Policies",
+        "Resource-based Policies",
       ],
       correct: 0,
       explanation:
-        "<strong>Basic plan</strong> ฟรีสำหรับทุก AWS customer — ได้ 24x7 customer service สำหรับ billing/account questions, documentation, 7 core Trusted Advisor checks และ Personal Health Dashboard ส่วน Developer ขึ้นไปต้องจ่ายเงิน",
+        "Service Control Policies (SCPs) are organization-level guardrails — they define the maximum permissions allowed for accounts in an OU (Organizational Unit). SCPs do NOT grant permissions; they restrict.",
+    },
+    {
+      id: "am-q3",
+      question:
+        "Which AWS service helps set up and govern a secure multi-account AWS environment with best practices?",
+      options: [
+        "AWS Control Tower",
+        "AWS Organizations alone",
+        "AWS Service Catalog",
+        "AWS Config",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Control Tower automates the setup of a multi-account landing zone with best practices (Organizations, SSO, Config rules, CloudTrail, S3 logging, Account Factory).",
+    },
+    {
+      id: "am-q4",
+      question:
+        "Which AWS service lets you create approved catalogs of products (CloudFormation templates) for end users to deploy?",
+      options: [
+        "AWS Service Catalog",
+        "AWS Control Tower",
+        "AWS Marketplace",
+        "AWS Organizations",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Service Catalog allows organizations to create curated catalogs of approved AWS resources (CloudFormation templates) for users to self-service launch — ensures compliance.",
+    },
+    {
+      id: "am-q5",
+      question:
+        "Which AWS service provides cost visibility, breakdown, and forecasts?",
+      options: [
+        "AWS Cost Explorer",
+        "AWS Budgets",
+        "AWS Cost and Usage Report (CUR)",
+        "All of the above",
+      ],
+      correct: 3,
+      explanation:
+        "All three serve cost management: Cost Explorer (visualize), Budgets (alerts), CUR (the most detailed cost data, exported to S3 for analysis).",
+    },
+    {
+      id: "am-q6",
+      question:
+        "Which AWS service alerts you when spending or usage exceeds (or is forecasted to exceed) a threshold?",
+      options: [
+        "AWS Budgets",
+        "AWS Cost Explorer",
+        "AWS Trusted Advisor",
+        "AWS Pricing Calculator",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Budgets lets you set custom budgets (cost, usage, RI/Savings Plan utilization or coverage) and triggers alerts via SNS/email/chat when thresholds are reached or forecast to be reached.",
+    },
+    {
+      id: "am-q7",
+      question:
+        "Which tool helps you estimate the cost of an AWS solution BEFORE deploying it?",
+      options: [
+        "AWS Pricing Calculator",
+        "AWS Cost Explorer",
+        "AWS Budgets",
+        "AWS Trusted Advisor",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Pricing Calculator (replaced TCO Calculator and Simple Monthly Calculator) lets you estimate the cost of AWS solutions before building.",
+    },
+    {
+      id: "am-q8",
+      question:
+        "Which feature of Cost Explorer / CUR helps you allocate costs to specific teams/projects/cost centers?",
+      options: [
+        "Cost Allocation Tags",
+        "AWS Budgets",
+        "Trusted Advisor",
+        "Service Catalog",
+      ],
+      correct: 0,
+      explanation:
+        "Cost Allocation Tags (AWS-generated and user-defined) — when activated — show up in Cost Explorer/CUR and let you slice costs by project, team, environment, owner, etc.",
+    },
+    {
+      id: "am-q9",
+      question:
+        "Which AWS Support plan provides 24/7 phone, chat, email + a dedicated Technical Account Manager (TAM)?",
+      options: [
+        "Basic",
+        "Developer",
+        "Business",
+        "Enterprise",
+      ],
+      correct: 3,
+      explanation:
+        "Enterprise Support ($15,000+/month) provides 24/7 access, <15-min critical response, a dedicated TAM, Concierge billing/account help, IEM (Infrastructure Event Management), and Well-Architected reviews.",
+    },
+    {
+      id: "am-q10",
+      question:
+        "Which AWS Support plan is FREE and included with every account?",
+      options: [
+        "Basic",
+        "Developer",
+        "Business",
+        "Enterprise",
+      ],
+      correct: 0,
+      explanation:
+        "Basic Support is free — includes 24/7 customer service for billing/account issues, AWS documentation, whitepapers, support forums, and limited Trusted Advisor checks.",
+    },
+    {
+      id: "am-q11",
+      question:
+        "Which AWS Support plan is the MINIMUM for production workloads with 24/7 phone access?",
+      options: [
+        "Basic",
+        "Developer",
+        "Business",
+        "Enterprise",
+      ],
+      correct: 2,
+      explanation:
+        "Business Support ($100+/month) provides 24/7 access (phone/chat/email), <1-hour production-down response, full Trusted Advisor, and Infrastructure Event Management (additional fee).",
+    },
+    {
+      id: "am-q12",
+      question:
+        "Which AWS service provides personalized recommendations for cost savings, security, performance, and fault tolerance?",
+      options: [
+        "AWS Trusted Advisor",
+        "AWS Config",
+        "AWS CloudTrail",
+        "Amazon GuardDuty",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Trusted Advisor checks against best practices in 5 pillars: Cost Optimization, Performance, Security, Fault Tolerance, and Service Limits. Full set of checks requires Business or Enterprise Support.",
+    },
+    {
+      id: "am-q13",
+      question:
+        "What is AWS IAM Identity Center (formerly AWS SSO)?",
+      options: [
+        "A managed identity service for centrally managing SSO access to multiple AWS accounts and business applications.",
+        "A managed database.",
+        "A monitoring tool.",
+        "A backup service.",
+      ],
+      correct: 0,
+      explanation:
+        "AWS IAM Identity Center (formerly AWS SSO) provides single sign-on across multiple AWS accounts and SaaS apps. Integrates with AWS Organizations and external IdPs (Okta, Azure AD, Google Workspace).",
+    },
+    {
+      id: "am-q14",
+      question:
+        "Which AWS purchasing option provides up to 72% discount in exchange for a 1- or 3-year commitment to a specific instance family?",
+      options: [
+        "Reserved Instances",
+        "Spot Instances",
+        "On-Demand",
+        "Dedicated Hosts",
+      ],
+      correct: 0,
+      explanation:
+        "Reserved Instances (Standard or Convertible, 1 or 3 year terms, all/partial/no upfront) provide up to 72% off On-Demand for predictable workloads.",
+    },
+    {
+      id: "am-q15",
+      question:
+        "Which AWS Savings Plan covers EC2, Fargate, and Lambda with maximum flexibility (any region, instance family, OS)?",
+      options: [
+        "Compute Savings Plans",
+        "EC2 Instance Savings Plans",
+        "SageMaker Savings Plans",
+        "Reserved Instances",
+      ],
+      correct: 0,
+      explanation:
+        "Compute Savings Plans (up to 66% off) apply across EC2, Fargate, Lambda — any region, instance family, OS, tenancy. EC2 Instance Savings Plans (up to 72%) are tied to a specific family in a region.",
+    },
+    {
+      id: "am-q16",
+      question:
+        "Which AWS marketplace lets you purchase third-party software (subscriptions, consulting, AMIs) and pay through your AWS bill?",
+      options: [
+        "AWS Marketplace",
+        "AWS Service Catalog",
+        "AWS Activate",
+        "AWS Outposts",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Marketplace is a digital catalog with thousands of third-party software listings (AMIs, containers, SaaS, ML models). Purchases go on the AWS bill.",
+    },
+    {
+      id: "am-q17",
+      question:
+        "Which AWS feature shows the COST and USAGE of your account at the most granular level (hourly, by resource), exported to S3?",
+      options: [
+        "AWS Cost and Usage Report (CUR)",
+        "AWS Budgets",
+        "AWS Pricing Calculator",
+        "AWS Cost Explorer",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Cost and Usage Report (CUR) provides the most comprehensive billing/usage data — delivered to S3 daily or hourly. Can be queried via Athena, QuickSight, or Redshift Spectrum.",
+    },
+    {
+      id: "am-q18",
+      question:
+        "Which AWS service provides on-demand access to AWS compliance reports (SOC, ISO, PCI, FedRAMP, etc.)?",
+      options: [
+        "AWS Artifact",
+        "AWS Audit Manager",
+        "AWS Trusted Advisor",
+        "AWS Config",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Artifact is a self-service portal for downloading AWS compliance reports and security/compliance documentation, plus signing agreements (NDA, BAA, etc.).",
+    },
+    {
+      id: "am-q19",
+      question:
+        "What is the purpose of the AWS Free Tier?",
+      options: [
+        "Free AWS access forever, unlimited.",
+        "12 months of free / always-free / trial offers — lets new customers explore AWS services with limited usage at no charge.",
+        "Free Enterprise Support.",
+        "Free production-grade workloads.",
+      ],
+      correct: 1,
+      explanation:
+        "AWS Free Tier offers three categories: 12-month free (e.g., 750 hr/month t2.micro EC2, 5 GB S3), Always Free (e.g., 1M Lambda invocations/month), and Trials (e.g., short-term Inspector trial). Limited per month.",
+    },
+    {
+      id: "am-q20",
+      question:
+        "Which feature of Organizations lets you delegate permissions across accounts to manage AWS services centrally (Config aggregator, Security Hub admin, etc.)?",
+      options: [
+        "Delegated Administrator",
+        "Service Control Policies",
+        "Trust Anchor",
+        "Resource Access Manager",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Organizations supports designating a Delegated Administrator account for many services (Config, Security Hub, GuardDuty, etc.) — keeps the management account decoupled from operational tasks.",
+    },
+    {
+      id: "am-q21",
+      question:
+        "Which AWS service provides a centralized billing dashboard for an Organization?",
+      options: [
+        "AWS Billing and Cost Management (in the management/payer account)",
+        "AWS Trusted Advisor",
+        "AWS Config",
+        "AWS Service Catalog",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Billing and Cost Management in the management (payer) account shows consolidated billing for all Organization member accounts.",
+    },
+    {
+      id: "am-q22",
+      question:
+        "What is the difference between a member account and the management (payer) account in AWS Organizations?",
+      options: [
+        "There is no difference.",
+        "The management account creates/invites member accounts, applies SCPs, pays the consolidated bill. Member accounts are subject to SCPs and have their charges rolled up to the payer.",
+        "Member accounts have more permissions.",
+        "Only management accounts get billed.",
+      ],
+      correct: 1,
+      explanation:
+        "The management (payer) account creates/invites members, applies SCPs/policies, and consolidates billing. Members are constrained by SCPs and have their costs rolled up to the management account.",
+    },
+    {
+      id: "am-q23",
+      question:
+        "Which AWS service helps an organization track and mitigate financial risk from AWS resource changes that increase cost (e.g., promoting an EC2 to larger size)?",
+      options: [
+        "AWS Cost Anomaly Detection",
+        "AWS Budgets",
+        "AWS Cost Explorer",
+        "AWS Trusted Advisor",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Cost Anomaly Detection uses ML to detect unusual spending patterns and alert you (via SNS/email) — catches surprise charges from misconfigurations or compromised resources.",
+    },
+    {
+      id: "am-q24",
+      question:
+        "Which AWS Support plan unlocks 24/7 access to Cloud Support Engineers and full Trusted Advisor checks but NOT a dedicated TAM?",
+      options: [
+        "Business",
+        "Enterprise On-Ramp",
+        "Developer",
+        "Basic",
+      ],
+      correct: 0,
+      explanation:
+        "Business Support: 24/7 access, <1-hour production-down response, full Trusted Advisor checks. No dedicated TAM (that's Enterprise / Enterprise On-Ramp at higher tiers).",
+    },
+    {
+      id: "am-q25",
+      question:
+        "Which AWS feature lets you safely share resources (subnets, license configurations, transit gateways, etc.) across AWS accounts?",
+      options: [
+        "AWS Resource Access Manager (RAM)",
+        "VPC Peering",
+        "AWS Organizations",
+        "AWS Service Catalog",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Resource Access Manager (RAM) lets you share AWS resources across accounts within or outside Organizations — e.g., subnets, Transit Gateway, License Manager configs, Aurora DB clusters.",
     },
   ],
 };

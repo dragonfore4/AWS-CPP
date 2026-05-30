@@ -631,110 +631,354 @@ export const security: TopicData = {
   ],
   quiz: [
     {
-      id: "security-q1",
+      id: "sec-q1",
       question:
-        "ข้อใดอธิบายความแตกต่างระหว่าง AWS Shield Standard และ AWS Shield Advanced ได้ถูกต้อง?",
+        "Which statement BEST describes the difference between AWS Shield Standard and AWS Shield Advanced?",
       options: [
-        "Shield Standard เสียเงิน $3,000/เดือน — Shield Advanced ฟรี",
-        "Shield Standard ฟรีและเปิดอัตโนมัติให้ทุก customer ป้องกัน DDoS Layer 3/4 — Shield Advanced $3,000/เดือน/องค์กร มี DRT 24/7 และป้องกันค่าใช้จ่ายที่พุ่งจาก DDoS",
-        "Shield Advanced ป้องกัน Layer 7 (HTTP) เท่านั้น — Shield Standard ป้องกัน Layer 3/4",
-        "ทั้งสองตัวมีค่าใช้จ่ายเท่ากันแต่ Advanced ป้องกัน region เดียว",
+        "Shield Standard costs extra; Shield Advanced is free.",
+        "Shield Standard is free for all AWS customers and protects against common Layer 3/4 DDoS attacks. Shield Advanced ($3,000/month) adds 24/7 DRT support, cost protection, and advanced attack mitigation.",
+        "Both are identical.",
+        "Shield Advanced replaces all firewalls.",
       ],
       correct: 1,
       explanation:
-        "Shield Standard ฟรี + เปิดอัตโนมัติให้ทุก customer ป้องกัน SYN/UDP floods, reflection attacks (Layer 3/4) — ส่วน Shield Advanced ราคา $3,000/เดือน/องค์กร พ่วง DDoS Response Team (DRT) 24/7 + ป้องกัน EC2/ELB/CloudFront/Global Accelerator/Route 53 + ช่วยป้องกันค่าใช้จ่ายที่พุ่งสูงจาก DDoS",
+        "AWS Shield Standard is free and automatically applied to all AWS customers — protects against the most common L3/L4 DDoS attacks. Shield Advanced is paid ($3,000/month per organization) and adds Layer 7 protection, 24/7 DDoS Response Team (DRT), cost protection for scaled resources during attacks, and more sophisticated detection.",
     },
     {
-      id: "security-q2",
-      question: "AWS WAF ปกป้องเว็บแอปพลิเคชันจากภัยคุกคามใน Layer ใด?",
-      options: [
-        "Layer 3 (Network) เท่านั้น",
-        "Layer 4 (Transport)",
-        "Layer 7 (HTTP / Application)",
-        "Layer 2 (Data link)",
-      ],
-      correct: 2,
-      explanation:
-        "AWS WAF (Web Application Firewall) ปกป้อง Layer 7 (HTTP) — กรอง request ตาม rules เช่น IP, header, body, URI string, SQL injection, XSS, geo-match, rate-based rules — Deploy บน ALB / API Gateway / CloudFront ส่วน Layer 3/4 (DDoS) ใช้ AWS Shield",
-    },
-    {
-      id: "security-q3",
-      question: "ข้อใดเปรียบเทียบ AWS KMS กับ AWS CloudHSM ได้ถูกต้อง?",
-      options: [
-        "ทั้ง KMS และ CloudHSM เป็น hardware-based เหมือนกัน — AWS เป็นคนจัดการ keys ทั้งคู่",
-        "KMS เป็น software-based (AWS จัดการ underlying), CloudHSM เป็น hardware-based ที่คุณเป็นคนจัดการ keys (FIPS 140-2 Level 3)",
-        "KMS ใช้ฮาร์ดแวร์ FIPS 140-2 Level 3, CloudHSM เป็น software",
-        "CloudHSM เป็น service ฟรี, KMS เสียเงินมาก",
-      ],
-      correct: 1,
-      explanation:
-        "KMS = software-based, AWS จัดการ underlying infrastructure (เหมาะกับงานทั่วไป ใช้ง่าย) — ส่วน CloudHSM = hardware-based (HSM = Hardware Security Module) ผ่าน FIPS 140-2 Level 3 — AWS แค่จัดเตรียม hardware แต่<strong>คุณ</strong>เป็นคนจัดการ keys เอง เหมาะกับ workload ที่ compliance บังคับ",
-    },
-    {
-      id: "security-q4",
-      question: "Amazon GuardDuty ใช้ข้อมูลจาก source ใดบ้างในการตรวจจับ threat?",
-      options: [
-        "เฉพาะ VPC Flow Logs",
-        "CloudTrail Logs, VPC Flow Logs, และ DNS Logs",
-        "เฉพาะ DNS Logs",
-        "EC2 instance metrics และ CloudWatch alarm",
-      ],
-      correct: 1,
-      explanation:
-        "GuardDuty ใช้ Machine Learning + anomaly detection + 3rd party threat intel ดึงข้อมูลจาก 3 sources: <strong>CloudTrail Logs</strong> (ตรวจ unusual API call), <strong>VPC Flow Logs</strong> (ตรวจ unusual traffic/IP), และ <strong>DNS Logs</strong> (ตรวจ EC2 ที่ใช้ DNS query ขโมยข้อมูล) — เปิดใช้แค่คลิกเดียวพร้อม 30-day trial",
-    },
-    {
-      id: "security-q5",
-      question: "Amazon Macie เน้นค้นหาและปกป้องข้อมูลประเภทใด?",
-      options: [
-        "Vulnerability ของ OS บน EC2 instance",
-        "DDoS attack ที่กำลังโจมตี ELB",
-        "PII (Personally Identifiable Information) ใน S3 buckets ด้วย ML + pattern matching",
-        "API call ที่ผิดปกติใน CloudTrail",
-      ],
-      correct: 2,
-      explanation:
-        "Macie = fully managed data security + privacy service ที่ใช้ Machine Learning + pattern matching ค้นหาและปกป้อง<strong>ข้อมูลละเอียดอ่อน เช่น PII (ชื่อ ที่อยู่ เลขบัตรเครดิต)</strong> ใน <strong>S3 buckets</strong> — ส่วน vulnerability OS ใช้ Inspector, ตรวจ API call ใช้ GuardDuty/CloudTrail",
-    },
-    {
-      id: "security-q6",
-      question: "Amazon Inspector เน้น assess ความปลอดภัยของ resource ประเภทใด?",
-      options: [
-        "S3 buckets — หา PII",
-        "EC2 instances — analyze OS vulnerabilities + unintended network accessibility (ต้อง install agent บน OS)",
-        "DynamoDB tables — หา data exposure",
-        "Route 53 hosted zone — ตรวจ DNS spoofing",
-      ],
-      correct: 1,
-      explanation:
-        "Inspector ทำ automated security assessment สำหรับ <strong>EC2 instances</strong> — วิเคราะห์ <strong>OS vulnerabilities</strong> และ <strong>unintended network accessibility</strong> โดยต้องติดตั้ง <strong>Inspector Agent</strong> บน OS — ผลลัพธ์เป็น vulnerability report เรียงตามความรุนแรง",
-    },
-    {
-      id: "security-q7",
+      id: "sec-q2",
       question:
-        "AWS อนุญาตให้ทำ penetration testing โดยไม่ต้องขออนุญาตล่วงหน้ากับ service ใด?",
+        "Which AWS service is a Web Application Firewall (WAF) that protects against application-layer (Layer 7) attacks like SQL injection and XSS?",
       options: [
-        "ทุก service ของ AWS โดยไม่มีข้อจำกัด",
-        "EC2/NAT GW/ELB, RDS, CloudFront, Aurora, API Gateway, Lambda + Lambda@Edge, Lightsail, Elastic Beanstalk",
-        "เฉพาะ S3 และ DynamoDB เท่านั้น",
-        "Route 53 zone walking และ DDoS simulated test",
+        "AWS WAF",
+        "AWS Shield",
+        "AWS Firewall Manager",
+        "Amazon GuardDuty",
+      ],
+      correct: 0,
+      explanation:
+        "AWS WAF (Web Application Firewall) protects HTTP/HTTPS web apps at Layer 7. Deploys on CloudFront, ALB, API Gateway, or AppSync. Filters common attacks (SQL injection, XSS), bots, IP-based rules.",
+    },
+    {
+      id: "sec-q3",
+      question:
+        "Which AWS service uses ML to detect malicious or unauthorized activity in your AWS account by analyzing CloudTrail logs, VPC flow logs, and DNS logs?",
+      options: [
+        "Amazon GuardDuty",
+        "AWS Shield",
+        "Amazon Macie",
+        "AWS WAF",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon GuardDuty is a threat-detection service that uses ML and AWS-curated threat intelligence to identify malicious activity (cryptomining, compromised instances, unusual API calls, port scanning, etc.).",
+    },
+    {
+      id: "sec-q4",
+      question:
+        "Which AWS service uses ML to discover and protect sensitive data (PII, credit cards, etc.) in S3 buckets?",
+      options: [
+        "Amazon Macie",
+        "Amazon GuardDuty",
+        "Amazon Inspector",
+        "AWS Shield",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Macie uses ML and pattern matching to identify and protect sensitive data (personally identifiable information, financial data, intellectual property) stored in S3.",
+    },
+    {
+      id: "sec-q5",
+      question:
+        "Which AWS service is BEST for managing encryption keys used to encrypt data at rest and in transit?",
+      options: [
+        "AWS KMS (Key Management Service)",
+        "AWS Secrets Manager",
+        "AWS CloudHSM",
+        "AWS IAM",
+      ],
+      correct: 0,
+      explanation:
+        "AWS KMS is the managed key management service. Integrated with most AWS services (S3, EBS, RDS, etc.). Keys are FIPS 140-2 validated. CloudHSM provides dedicated single-tenant hardware security modules.",
+    },
+    {
+      id: "sec-q6",
+      question:
+        "Which AWS service stores secrets (DB passwords, API keys) and provides automatic rotation?",
+      options: [
+        "AWS Secrets Manager",
+        "AWS Systems Manager Parameter Store",
+        "AWS KMS",
+        "AWS IAM",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Secrets Manager stores secrets and provides automatic rotation (e.g., RDS, Redshift, DocumentDB credentials). Parameter Store also stores config but does NOT auto-rotate.",
+    },
+    {
+      id: "sec-q7",
+      question:
+        "Which AWS service issues and manages free public SSL/TLS certificates for use with AWS resources?",
+      options: [
+        "AWS Certificate Manager (ACM)",
+        "AWS KMS",
+        "AWS IAM",
+        "AWS Shield",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Certificate Manager (ACM) provisions, manages, and deploys public/private SSL/TLS certificates for use with ELB, CloudFront, API Gateway. Free for public certs, with auto-renewal.",
+    },
+    {
+      id: "sec-q8",
+      question:
+        "Under the Shared Responsibility Model, who is responsible for patching the operating system on an Amazon EC2 instance?",
+      options: [
+        "AWS",
+        "The customer",
+        "Both equally",
+        "It's automated for free",
       ],
       correct: 1,
       explanation:
-        "AWS อนุญาต pen-test โดยไม่ต้องขออนุญาตกับ 8 services: <strong>EC2/NAT Gateway/ELB, RDS, CloudFront, Aurora, API Gateway, Lambda + Lambda@Edge, Lightsail, Elastic Beanstalk</strong> — ห้ามทำ: DNS zone walking ผ่าน Route 53, DoS/DDoS/simulated DDoS, port flooding, protocol flooding, request flooding (login/API)",
+        "For EC2 (IaaS), the customer is responsible for patching the OS, applications, and data. AWS is responsible for the underlying infrastructure (hypervisor, host OS, physical hardware). For managed services like RDS, AWS handles OS patching.",
     },
     {
-      id: "security-q8",
-      question: "งานใดต่อไปนี้ \"มีแต่ root user เท่านั้น\" ที่ทำได้?",
+      id: "sec-q9",
+      question:
+        "Which AWS service is a managed compliance/audit reporting service that provides on-demand access to AWS compliance reports (SOC, PCI, ISO, FedRAMP)?",
       options: [
-        "สร้าง EC2 instance และ deploy application",
-        "สร้าง IAM user และ assign policy",
-        "Close AWS account และ change/cancel AWS Support Plan",
-        "อ่าน object ใน S3 bucket",
+        "AWS Artifact",
+        "AWS Audit Manager",
+        "AWS Config",
+        "AWS CloudTrail",
       ],
-      correct: 2,
+      correct: 0,
       explanation:
-        "งาน root-only ที่สำคัญ ได้แก่: <strong>change account settings, view tax invoices, close AWS account, restore IAM permissions, change/cancel AWS Support Plan, register เป็น RI Marketplace seller, configure S3 MFA Delete, edit S3 bucket policy ที่มี invalid VPC ID, sign up GovCloud</strong> — งานสร้าง EC2/IAM/อ่าน S3 ใช้ IAM user ที่มี permission เหมาะสมแทน",
+        "AWS Artifact is a self-service portal for downloading AWS audit and compliance reports (SOC 1/2/3, PCI DSS, ISO, HIPAA, FedRAMP) and signing agreements with AWS.",
+    },
+    {
+      id: "sec-q10",
+      question:
+        "Which AWS service helps continuously audit your AWS usage to assess compliance with regulations and industry standards?",
+      options: [
+        "AWS Audit Manager",
+        "AWS Artifact",
+        "AWS Config",
+        "Amazon Inspector",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Audit Manager continuously audits AWS usage and simplifies how you assess risk and compliance with regulations (PCI DSS, GDPR, HIPAA, SOC 2, etc.). Automates evidence collection.",
+    },
+    {
+      id: "sec-q11",
+      question:
+        "Which AWS service provides centralized configuration of WAF rules, Shield Advanced, and security groups across multiple accounts in AWS Organizations?",
+      options: [
+        "AWS Firewall Manager",
+        "AWS WAF",
+        "AWS Shield",
+        "AWS Security Hub",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Firewall Manager provides centralized management of AWS WAF rules, Shield Advanced, and Security Groups across multiple accounts in AWS Organizations.",
+    },
+    {
+      id: "sec-q12",
+      question:
+        "Which AWS service is a managed Hardware Security Module (HSM) for FIPS 140-2 Level 3 compliance, single-tenant?",
+      options: [
+        "AWS CloudHSM",
+        "AWS KMS",
+        "AWS Secrets Manager",
+        "AWS Certificate Manager",
+      ],
+      correct: 0,
+      explanation:
+        "AWS CloudHSM provides dedicated, single-tenant Hardware Security Modules in the cloud. FIPS 140-2 Level 3. Customer manages keys; AWS manages hardware.",
+    },
+    {
+      id: "sec-q13",
+      question:
+        "Which compliance certification does AWS hold that proves IT general controls?",
+      options: [
+        "SOC 1",
+        "SOC 2",
+        "SOC 3",
+        "All of the above",
+      ],
+      correct: 3,
+      explanation:
+        "AWS holds SOC 1 (financial reporting), SOC 2 (security, availability, confidentiality), and SOC 3 (public report) certifications, plus many others (PCI DSS, ISO 27001, HIPAA, FedRAMP, etc.).",
+    },
+    {
+      id: "sec-q14",
+      question:
+        "What does AWS Inspector do?",
+      options: [
+        "Continuously scans EC2 instances, ECR container images, and Lambda functions for software vulnerabilities and unintended network exposure.",
+        "Logs all API calls.",
+        "Manages encryption keys.",
+        "Provides DNS service.",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Inspector is an automated vulnerability assessment service. Continuously scans EC2, ECR images, and Lambda for known software vulnerabilities (CVEs) and unintended network exposure.",
+    },
+    {
+      id: "sec-q15",
+      question:
+        "Which AWS service consolidates security findings from GuardDuty, Inspector, Macie, IAM Access Analyzer, and partner tools?",
+      options: [
+        "AWS Security Hub",
+        "Amazon GuardDuty alone",
+        "AWS Config alone",
+        "AWS Trusted Advisor",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Security Hub aggregates and prioritizes security findings from multiple AWS and partner tools — provides a single security posture dashboard.",
+    },
+    {
+      id: "sec-q16",
+      question:
+        "Which is true about encryption in transit and at rest in AWS?",
+      options: [
+        "AWS does not support encryption.",
+        "AWS supports encryption in transit (TLS) and at rest (AES-256) for nearly all services — sometimes by default, sometimes via configuration.",
+        "Only paid tiers support encryption.",
+        "Only on-premises encryption is supported.",
+      ],
+      correct: 1,
+      explanation:
+        "AWS supports encryption in transit (TLS/HTTPS) and at rest (AES-256, often via KMS) across nearly every service. Some services encrypt by default (S3 since 2023, EBS via account default, RDS storage encryption optional).",
+    },
+    {
+      id: "sec-q17",
+      question:
+        "Which feature of AWS WAF lets you block specific IP addresses from accessing your application?",
+      options: [
+        "IP set / IP-based rules",
+        "Geo-match conditions",
+        "Rate-based rules",
+        "All of the above",
+      ],
+      correct: 3,
+      explanation:
+        "AWS WAF supports IP sets (block/allow specific IPs/CIDR), geo-match (block by country), rate-based rules (block IPs sending too many requests), string matching, regex, SQL injection rules, etc.",
+    },
+    {
+      id: "sec-q18",
+      question:
+        "Under the Shared Responsibility Model, what is AWS responsible for?",
+      options: [
+        "Customer data and applications.",
+        "Security OF the cloud — the global infrastructure (data centers, hardware, host OS, hypervisor, networking).",
+        "OS-level patching for all customers.",
+        "Customer IAM policies.",
+      ],
+      correct: 1,
+      explanation:
+        "AWS is responsible for security OF the cloud: physical security, hardware, host OS, hypervisor, AWS service software, and global infrastructure. The customer is responsible for security IN the cloud.",
+    },
+    {
+      id: "sec-q19",
+      question:
+        "Under the Shared Responsibility Model, what is the customer responsible for?",
+      options: [
+        "Physical security of data centers.",
+        "Security IN the cloud — customer data, IAM (identities/roles/policies), OS patching (for IaaS), application logic, encryption, networking config.",
+        "AWS service availability.",
+        "Hypervisor patching.",
+      ],
+      correct: 1,
+      explanation:
+        "Customer responsibilities (security IN the cloud) include: their data, IAM users/roles/policies, OS patching for IaaS workloads, application config, encryption choices, network ACLs, and security groups.",
+    },
+    {
+      id: "sec-q20",
+      question:
+        "Which service helps you find S3 buckets that are publicly accessible across an AWS Organization?",
+      options: [
+        "IAM Access Analyzer",
+        "AWS Config",
+        "AWS Trusted Advisor",
+        "All of the above can help",
+      ],
+      correct: 3,
+      explanation:
+        "All can help: IAM Access Analyzer flags resources accessible outside your zone of trust; AWS Config rules can detect public buckets; Trusted Advisor checks for open S3 buckets. Use Block Public Access as the safety net.",
+    },
+    {
+      id: "sec-q21",
+      question:
+        "Which is the BEST practice for protecting the AWS account root user?",
+      options: [
+        "Use it for daily admin tasks.",
+        "Enable MFA, lock away credentials, do NOT use it for daily work, and create separate IAM users with appropriate permissions.",
+        "Share the password with all admins.",
+        "Disable the root user.",
+      ],
+      correct: 1,
+      explanation:
+        "Best practice: enable MFA (preferably hardware), securely lock away the password and access keys, never use root for daily ops, and use IAM users / Identity Center for actual work.",
+    },
+    {
+      id: "sec-q22",
+      question:
+        "Which AWS service is an integrated dashboard that shows the current security posture and compliance with security standards?",
+      options: [
+        "AWS Security Hub",
+        "AWS Trusted Advisor",
+        "AWS Config",
+        "Amazon GuardDuty",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Security Hub gives a comprehensive view of high-priority security alerts and compliance status across AWS accounts — using best-practice standards like AWS Foundational Security Best Practices, CIS, PCI DSS.",
+    },
+    {
+      id: "sec-q23",
+      question:
+        "Which AWS service helps you respond to and recover from security incidents using automated playbooks?",
+      options: [
+        "AWS Detective + Security Hub + EventBridge + Lambda runbooks",
+        "AWS Trusted Advisor",
+        "AWS CloudTrail alone",
+        "Amazon Macie alone",
+      ],
+      correct: 0,
+      explanation:
+        "Incident response uses several services: Detective for investigation, Security Hub for findings, EventBridge to trigger Lambda automation, Systems Manager Automation for runbooks, and IR-specific services like AWS Detective.",
+    },
+    {
+      id: "sec-q24",
+      question:
+        "Which service helps investigate the root cause of security findings using a graph model of users, resources, and activities?",
+      options: [
+        "Amazon Detective",
+        "Amazon GuardDuty",
+        "AWS CloudTrail",
+        "AWS Config",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Detective automatically collects log data from CloudTrail, VPC flow logs, GuardDuty findings, and applies graph theory + ML to help analyze and visualize root causes.",
+    },
+    {
+      id: "sec-q25",
+      question:
+        "Which AWS service helps you find unintended public access to AWS resources (S3 buckets, IAM roles, KMS keys, Lambda)?",
+      options: [
+        "IAM Access Analyzer",
+        "AWS Trusted Advisor",
+        "AWS WAF",
+        "AWS Shield",
+      ],
+      correct: 0,
+      explanation:
+        "IAM Access Analyzer continuously analyzes resource policies (S3, IAM roles, KMS, Lambda, SQS, Secrets Manager) and flags resources accessible from outside your account or organization.",
     },
   ],
 };

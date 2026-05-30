@@ -544,100 +544,335 @@ export const s3: TopicData = {
     {
       id: "s3-q1",
       question:
-        "บริษัทต้องการเก็บข้อมูล archive ที่แทบไม่เคยเข้าถึง โดยยอมรับ retrieval time ได้ถึง 12 ชั่วโมง ต้องการต้นทุนที่ <em>ถูกที่สุด</em> ควรใช้ Storage Class ใด?",
+        "A company needs to store archive data that is rarely accessed and accepts retrieval times up to 12 hours. Which storage class is the CHEAPEST?",
       options: [
+        "S3 Standard",
         "S3 Standard-IA",
-        "S3 Glacier Flexible Retrieval (Standard tier)",
+        "S3 Glacier Flexible Retrieval",
         "S3 Glacier Deep Archive",
-        "S3 One Zone-IA",
       ],
-      correct: 2,
+      correct: 3,
       explanation:
-        "S3 Glacier Deep Archive ถูกที่สุดใน S3 เหมาะสำหรับ long-term archive · retrieval Standard ใช้เวลา 12 ชั่วโมง (Bulk 48 ชั่วโมง) · ขั้นต่ำ 180 วัน · ส่วน Glacier Flexible Retrieval Standard ใช้ 3-5 ชั่วโมง ซึ่งแพงกว่า Deep Archive",
+        "S3 Glacier Deep Archive is the cheapest storage class — for long-term archive data accessed maybe once or twice a year, with retrieval times of 12-48 hours.",
     },
     {
       id: "s3-q2",
-      question:
-        "ถ้า <em>suspend</em> S3 Versioning บน bucket ที่เปิดอยู่ จะเกิดอะไรขึ้นกับ versions เดิมที่มีอยู่?",
-      options: [
-        "Versions เดิมถูกลบทั้งหมดทันที",
-        "Versions เดิมยังอยู่ครบ — แค่หยุดสร้าง version ใหม่",
-        "Versions เดิมย้ายไป Glacier อัตโนมัติ",
-        "Bucket ทั้งหมดถูก disable ใช้งานไม่ได้",
-      ],
-      correct: 1,
+      question: "What is the maximum size of a single object in Amazon S3?",
+      options: ["100 MB", "5 GB", "5 TB", "Unlimited"],
+      correct: 2,
       explanation:
-        "Suspending versioning ไม่ลบ version เก่าใดๆ — ทุก version ที่มีอยู่ยังคงอยู่ครบ AWS แค่หยุดสร้าง version ใหม่ ไฟล์ที่ upload หลัง suspend จะมี version ID = null และ overwrite version null เดิม · นอกจากนี้ versioning <strong>ปิดสมบูรณ์ไม่ได้</strong> ทำได้แค่ enable / suspended",
+        "S3 supports objects up to 5 TB in size. Objects larger than 5 GB must use multipart upload. There is no limit on the total size of a bucket.",
     },
     {
       id: "s3-q3",
       question:
-        "บริษัทมี data lake ใน S3 ที่ region us-east-1 และต้อง <strong>compliance</strong> ให้สำเนาข้อมูลอยู่ใน region eu-west-1 ตลอดเวลา ควรใช้ feature ใด?",
+        "Which S3 feature is used to keep multiple versions of an object so accidental deletes/overwrites can be recovered?",
       options: [
-        "Same-Region Replication (SRR)",
-        "Cross-Region Replication (CRR)",
-        "S3 Lifecycle Rules",
-        "S3 Transfer Acceleration",
+        "S3 Cross-Region Replication",
+        "S3 Versioning",
+        "S3 Lifecycle Policy",
+        "S3 Object Lock",
       ],
       correct: 1,
       explanation:
-        "Cross-Region Replication (CRR) ใช้สำหรับการ replicate object ข้าม region ซึ่งเหมาะกับ <em>compliance</em>, lower latency access จาก region อื่น และ replication ข้าม account · SRR ใช้ภายใน region เดียวกัน · Lifecycle Rules ใช้ย้ายระหว่าง storage class · Transfer Acceleration ใช้ upload เร็วขึ้นผ่าน CloudFront edge",
+        "S3 Versioning preserves every version of every object, including deleted ones. Deleting an object actually inserts a delete marker — older versions remain available.",
     },
     {
       id: "s3-q4",
       question:
-        "S3 Bucket Policy เขียนในรูปแบบ JSON ต้องประกอบด้วย element ใดบ้าง (เลือกที่ถูกต้องที่สุด)?",
+        "Which S3 storage class is optimized for unknown or changing access patterns?",
       options: [
-        "Resources, Actions, Effect, Principal",
-        "Region, AZ, VPC, Subnet",
-        "Username, Password, Role, Group",
-        "Source IP, Destination IP, Port, Protocol",
+        "S3 Standard",
+        "S3 Intelligent-Tiering",
+        "S3 Glacier",
+        "S3 One Zone-IA",
       ],
-      correct: 0,
+      correct: 1,
       explanation:
-        "S3 Bucket Policy เป็น JSON document ที่ประกอบด้วย: <strong>Resources</strong> (ARN ของ bucket/object), <strong>Actions</strong> (เช่น s3:GetObject), <strong>Effect</strong> (Allow/Deny), <strong>Principal</strong> (account/user/role ที่ policy มีผล) ตัวเลือกอื่นเป็น concept ของ networking หรือ IAM ไม่ใช่ bucket policy",
+        "S3 Intelligent-Tiering automatically moves objects between frequent, infrequent, archive, and deep archive tiers based on access patterns — no retrieval charges and a small monitoring fee.",
     },
     {
       id: "s3-q5",
       question:
-        "บริษัทต้องการ migrate ข้อมูล <strong>50 PB</strong> เข้า AWS ในเวลาที่จำกัด ผ่าน internet จะช้ามาก ควรใช้อุปกรณ์ใดของ Snow Family?",
+        "Which feature automates moving objects between storage classes (e.g., Standard → Standard-IA → Glacier) based on age?",
       options: [
-        "Snowcone",
-        "Snowball Edge — Storage Optimized",
-        "Snowmobile",
-        "Snowball Edge — Compute Optimized",
+        "S3 Lifecycle Policies",
+        "S3 Versioning",
+        "S3 Replication",
+        "S3 Event Notifications",
       ],
-      correct: 2,
+      correct: 0,
       explanation:
-        "Snowmobile รองรับสูงสุดถึง <strong>100 PB ต่อตู้</strong> และเหมาะสำหรับ migration <strong>มากกว่า 10 PB</strong> · เป็นตู้คอนเทนเนอร์ขนาด 45 ฟุตลากด้วยรถบรรทุก · Snowcone ได้แค่ 8-14 TB · Snowball Edge Storage Optimized 80 TB ต่อเครื่อง (ต้องใช้หลายร้อยเครื่องสำหรับ 50 PB ไม่คุ้ม)",
+        "S3 Lifecycle Policies automate transitions between storage classes (e.g., move to IA after 30 days, Glacier after 90, expire after 365). Saves cost without manual effort.",
     },
     {
       id: "s3-q6",
       question:
-        "ทีมต้อง process ข้อมูลจากกล้อง CCTV ในเหมืองห่างไกลที่ <em>ไม่มี internet</em> โดยรัน EC2 Instances และ Lambda functions ในพื้นที่จริง ควรใช้อุปกรณ์ใด?",
-      options: [
-        "Snowmobile",
-        "Snowball Edge — Compute Optimized",
-        "EC2 instance ใน region ที่ใกล้ที่สุด",
-        "AWS Direct Connect",
-      ],
-      correct: 1,
+        "Which encryption option encrypts S3 objects with keys managed entirely by AWS, with no customer interaction?",
+      options: ["SSE-S3", "SSE-KMS", "SSE-C", "Client-Side Encryption"],
+      correct: 0,
       explanation:
-        "Snowball Edge — Compute Optimized เหมาะกับงาน <strong>edge computing</strong> ในที่ไม่มี / มี internet จำกัด · รัน EC2 Instances + Lambda functions ผ่าน AWS IoT Greengrass · มี GPU optional สำหรับ ML / video analytics · Snowmobile เน้น storage migration · EC2 ใน region ใช้ไม่ได้เพราะไม่มี internet · Direct Connect ก็ต้องมีสายเชื่อมต่อ",
+        "SSE-S3 (Server-Side Encryption with S3-managed keys) uses AES-256 keys fully managed by AWS. Default for new buckets since 2023. SSE-KMS uses customer-controlled KMS keys; SSE-C uses customer-provided keys.",
     },
     {
       id: "s3-q7",
       question:
-        "S3 Object Lock ใช้รูปแบบ <strong>WORM</strong> — WORM ย่อมาจากอะไร และทำหน้าที่อย่างไร?",
+        "How can you ensure an object cannot be deleted even by an account administrator (e.g., for regulatory compliance)?",
       options: [
-        "Write Once Replicate Many — replicate ข้อมูลไปหลาย region",
-        "Write Once Read Many — เขียนได้ครั้งเดียว อ่านได้ไม่จำกัด แต่แก้/ลบไม่ได้ในช่วงที่กำหนด",
-        "Write Often Read Mostly — สำหรับ workload ที่ write เยอะ",
-        "Wide Object Replication Mode — ขยาย object ไปหลาย bucket",
+        "Use S3 Versioning only.",
+        "Use S3 Object Lock with Compliance Mode.",
+        "Use IAM policy.",
+        "Use S3 Bucket Policy.",
       ],
       correct: 1,
       explanation:
-        "<strong>WORM = Write Once Read Many</strong> — เขียนข้อมูลได้ครั้งเดียว อ่านได้ไม่จำกัด แต่ <em>แก้ไข / ลบไม่ได้</em> ตลอดช่วงเวลาที่กำหนด (retention period) · เหมาะกับ compliance เช่น financial records, healthcare data, regulatory requirements · แม้ root account ก็ลบไม่ได้ในช่วง lock · Glacier Vault Lock ก็ใช้ concept เดียวกัน",
+        "S3 Object Lock in Compliance Mode prevents anyone (including the root user) from deleting or modifying an object version for the duration of the retention period — designed for WORM compliance.",
+    },
+    {
+      id: "s3-q8",
+      question:
+        "Which S3 feature lets you serve a static website directly from a bucket?",
+      options: [
+        "S3 Static Website Hosting",
+        "S3 Replication",
+        "S3 Lifecycle",
+        "S3 Versioning",
+      ],
+      correct: 0,
+      explanation:
+        "S3 buckets can be configured for static website hosting — serving HTML/CSS/JS/images. The endpoint is http://<bucket>.s3-website.<region>.amazonaws.com.",
+    },
+    {
+      id: "s3-q9",
+      question:
+        "How can you grant a temporary, time-limited URL to download an S3 object without making the bucket public?",
+      options: [
+        "Use a presigned URL.",
+        "Make the bucket public.",
+        "Email the object directly.",
+        "Use IAM access keys.",
+      ],
+      correct: 0,
+      explanation:
+        "S3 presigned URLs grant temporary access to a private object, signed with the requester's credentials. URLs expire after a configurable duration — useful for time-limited downloads.",
+    },
+    {
+      id: "s3-q10",
+      question:
+        "Which feature replicates S3 objects between buckets in different AWS Regions?",
+      options: [
+        "Same-Region Replication (SRR)",
+        "Cross-Region Replication (CRR)",
+        "S3 Cross-Account Sync",
+        "AWS DataSync",
+      ],
+      correct: 1,
+      explanation:
+        "S3 Cross-Region Replication (CRR) automatically replicates objects from a source bucket to a destination bucket in a different region, used for DR, lower-latency access, or compliance.",
+    },
+    {
+      id: "s3-q11",
+      question:
+        "Which S3 storage class stores data in a SINGLE Availability Zone, costs less, but has lower durability?",
+      options: [
+        "S3 Standard",
+        "S3 Standard-IA",
+        "S3 One Zone-IA",
+        "S3 Glacier Instant Retrieval",
+      ],
+      correct: 2,
+      explanation:
+        "S3 One Zone-IA stores data in a single AZ — about 20% cheaper than Standard-IA. Suitable for re-creatable, infrequently accessed data that can tolerate AZ-level loss.",
+    },
+    {
+      id: "s3-q12",
+      question:
+        "What is the maximum number of S3 buckets you can have in an AWS account by default?",
+      options: ["10", "100", "1000", "Unlimited"],
+      correct: 1,
+      explanation:
+        "By default, an AWS account can have up to 100 S3 buckets. This is a soft limit and can be increased via AWS Support up to 1,000.",
+    },
+    {
+      id: "s3-q13",
+      question:
+        "Which S3 feature is BEST to transfer files to S3 from a remote location with low bandwidth?",
+      options: [
+        "S3 Multipart Upload",
+        "S3 Transfer Acceleration",
+        "AWS DataSync",
+        "AWS Snowball",
+      ],
+      correct: 1,
+      explanation:
+        "S3 Transfer Acceleration uses CloudFront edge locations to upload files over the AWS backbone — speeding up uploads from distant locations. Snowball is for petabyte-scale offline data transfer.",
+    },
+    {
+      id: "s3-q14",
+      question:
+        "An S3 bucket has \"Block Public Access\" enabled. What does this do?",
+      options: [
+        "Allows full public access.",
+        "Prevents the bucket and its objects from being made publicly accessible, even via bucket policy or ACL.",
+        "Encrypts all objects.",
+        "Replicates the bucket cross-region.",
+      ],
+      correct: 1,
+      explanation:
+        "S3 Block Public Access is a safety net at account/bucket level that overrides bucket policies and ACLs to prevent any accidental public exposure. Enabled by default for new buckets.",
+    },
+    {
+      id: "s3-q15",
+      question:
+        "Which Amazon S3 feature can be used to query data directly using SQL without loading it elsewhere?",
+      options: [
+        "S3 Select",
+        "S3 Lambda",
+        "S3 Versioning",
+        "S3 Lifecycle",
+      ],
+      correct: 0,
+      explanation:
+        "S3 Select retrieves a subset of object data (CSV, JSON, Parquet) using SQL, reducing data transfer and downstream processing cost. Athena offers richer SQL across many objects/buckets.",
+    },
+    {
+      id: "s3-q16",
+      question:
+        "A company has 50 TB of on-premises data and very limited internet bandwidth. They need to migrate the data to S3 quickly. Which AWS service is BEST?",
+      options: [
+        "AWS Storage Gateway",
+        "AWS Snowball or Snowball Edge",
+        "AWS DataSync",
+        "AWS Direct Connect",
+      ],
+      correct: 1,
+      explanation:
+        "AWS Snowball / Snowball Edge are physical devices shipped to the customer for offline bulk data transfer (up to ~80 TB per device). For 50 TB this is far faster than uploading over the internet.",
+    },
+    {
+      id: "s3-q17",
+      question:
+        "A company needs to migrate exabytes of data to AWS. Which service is appropriate?",
+      options: [
+        "AWS Snowball",
+        "AWS Snowmobile",
+        "AWS DataSync",
+        "AWS Direct Connect",
+      ],
+      correct: 1,
+      explanation:
+        "AWS Snowmobile is a 45-foot shipping container truck that can transfer up to 100 PB per Snowmobile — designed for exabyte-scale data center migrations.",
+    },
+    {
+      id: "s3-q18",
+      question: "Which S3 feature allows event-driven processing (e.g., trigger Lambda on object upload)?",
+      options: [
+        "S3 Event Notifications",
+        "S3 Inventory",
+        "S3 Replication",
+        "S3 Versioning",
+      ],
+      correct: 0,
+      explanation:
+        "S3 Event Notifications can trigger Lambda functions, SQS queues, or SNS topics when objects are created, deleted, or restored — the foundation for event-driven workflows in S3.",
+    },
+    {
+      id: "s3-q19",
+      question:
+        "Which Glacier retrieval option provides retrieval within 1-5 minutes (at higher cost)?",
+      options: [
+        "Standard retrieval",
+        "Bulk retrieval",
+        "Expedited retrieval",
+        "Free tier retrieval",
+      ],
+      correct: 2,
+      explanation:
+        "S3 Glacier Flexible Retrieval has 3 retrieval options: Expedited (1-5 min), Standard (3-5 hours), Bulk (5-12 hours). Glacier Deep Archive: Standard 12 hours, Bulk 48 hours.",
+    },
+    {
+      id: "s3-q20",
+      question:
+        "What is the durability of objects in Amazon S3 Standard?",
+      options: [
+        "99% (2 nines)",
+        "99.9% (3 nines)",
+        "99.99% (4 nines)",
+        "99.999999999% (11 nines)",
+      ],
+      correct: 3,
+      explanation:
+        "Amazon S3 is designed for 99.999999999% (11 nines) durability of objects in a year — meaning if you store 10 million objects, you can on average expect to lose one once every 10,000 years.",
+    },
+    {
+      id: "s3-q21",
+      question:
+        "Which feature limits S3 access to a specific VPC, blocking all internet-based access?",
+      options: [
+        "VPC Endpoint for S3 (Gateway Endpoint)",
+        "S3 ACL",
+        "S3 Bucket Policy",
+        "AWS Shield",
+      ],
+      correct: 0,
+      explanation:
+        "A VPC Gateway Endpoint for S3 enables private connectivity from within a VPC to S3 over the AWS backbone (no internet). You can also enforce VPC-only access via bucket policy conditions.",
+    },
+    {
+      id: "s3-q22",
+      question:
+        "Which S3 storage class provides millisecond-latency access for rarely-accessed data, with lower cost than Standard?",
+      options: [
+        "S3 Standard-IA",
+        "S3 One Zone-IA",
+        "S3 Glacier Instant Retrieval",
+        "All of the above (each with different trade-offs)",
+      ],
+      correct: 3,
+      explanation:
+        "All three offer millisecond-latency. Standard-IA stores across AZs; One Zone-IA in a single AZ for ~20% less; Glacier Instant Retrieval is for archive that must still be retrieved quickly when needed.",
+    },
+    {
+      id: "s3-q23",
+      question:
+        "Which AWS service is BEST for syncing files between on-premises NFS / SMB file shares and AWS storage?",
+      options: [
+        "AWS DataSync",
+        "AWS Snowball",
+        "AWS Storage Gateway",
+        "AWS Direct Connect",
+      ],
+      correct: 0,
+      explanation:
+        "AWS DataSync is a managed service for online data transfer between on-premises and AWS (S3, EFS, FSx). It's much faster than scripted rsync/cp jobs, with built-in encryption and validation.",
+    },
+    {
+      id: "s3-q24",
+      question:
+        "Which Storage Gateway type provides on-premises access to S3 objects via NFS/SMB?",
+      options: [
+        "Volume Gateway",
+        "Tape Gateway",
+        "File Gateway / Amazon S3 File Gateway",
+        "FSx Gateway",
+      ],
+      correct: 2,
+      explanation:
+        "S3 File Gateway (formerly File Gateway) presents S3 buckets as NFS or SMB file shares to on-premises servers, with local caching for low-latency reads.",
+    },
+    {
+      id: "s3-q25",
+      question:
+        "Which S3 cost optimization feature is FREE and recommended as a first step?",
+      options: [
+        "S3 Lifecycle policies to transition old data to cheaper tiers.",
+        "AWS Snowball",
+        "S3 Replication",
+        "Glacier Vault Lock",
+      ],
+      correct: 0,
+      explanation:
+        "S3 Lifecycle policies are free to configure and automatically transition or expire objects based on age — typically the first and biggest S3 cost optimization win.",
     },
   ],
 };

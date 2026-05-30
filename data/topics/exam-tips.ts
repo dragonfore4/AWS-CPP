@@ -443,70 +443,334 @@ export const examTips: TopicData = {
   ],
   quiz: [
     {
-      id: "exam-tips-q1",
-      question: "\u0e02\u0e49\u0e2d\u0e2a\u0e2d\u0e1a CLF-C02 \u0e21\u0e35\u0e08\u0e33\u0e19\u0e27\u0e19\u0e02\u0e49\u0e2d\u0e17\u0e31\u0e49\u0e07\u0e2b\u0e21\u0e14\u0e01\u0e35\u0e48\u0e02\u0e49\u0e2d?",
-      options: [
-        "50 \u0e02\u0e49\u0e2d \u0e20\u0e32\u0e22\u0e43\u0e19 60 \u0e19\u0e32\u0e17\u0e35",
-        "65 \u0e02\u0e49\u0e2d \u0e20\u0e32\u0e22\u0e43\u0e19 90 \u0e19\u0e32\u0e17\u0e35",
-        "75 \u0e02\u0e49\u0e2d \u0e20\u0e32\u0e22\u0e43\u0e19 130 \u0e19\u0e32\u0e17\u0e35",
-        "100 \u0e02\u0e49\u0e2d \u0e20\u0e32\u0e22\u0e43\u0e19 180 \u0e19\u0e32\u0e17\u0e35",
-      ],
-      correct: 1,
-      explanation:
-        "CLF-C02 \u0e21\u0e35 <strong>65 \u0e02\u0e49\u0e2d</strong> \u0e20\u0e32\u0e22\u0e43\u0e19\u0e40\u0e27\u0e25\u0e32 <strong>90 \u0e19\u0e32\u0e17\u0e35</strong> \u2014 \u0e1c\u0e2a\u0e21 multiple choice (1 \u0e08\u0e32\u0e01 4) \u0e41\u0e25\u0e30 multi-select (2+ \u0e08\u0e32\u0e01 5+) \u2014 \u0e40\u0e09\u0e25\u0e35\u0e48\u0e22 \u2248 1.4 \u0e19\u0e32\u0e17\u0e35\u0e15\u0e48\u0e2d\u0e02\u0e49\u0e2d \u0e2a\u0e48\u0e27\u0e19 75/130 \u0e04\u0e37\u0e2d Associate-level (SAA, DVA, SOA)",
-    },
-    {
-      id: "exam-tips-q2",
-      question: "\u0e04\u0e30\u0e41\u0e19\u0e19\u0e15\u0e48\u0e33\u0e2a\u0e38\u0e14\u0e17\u0e35\u0e48\u0e1c\u0e48\u0e32\u0e19\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a CLF-C02 \u0e04\u0e37\u0e2d\u0e40\u0e17\u0e48\u0e32\u0e44\u0e2b\u0e23\u0e48?",
-      options: [
-        "650 / 1000",
-        "700 / 1000",
-        "720 / 1000",
-        "750 / 1000",
-      ],
-      correct: 1,
-      explanation:
-        "CLF-C02 \u0e15\u0e49\u0e2d\u0e07\u0e44\u0e14\u0e49 <strong>700 \u0e08\u0e32\u0e01 1000</strong> \u0e2b\u0e23\u0e37\u0e2d\u0e1b\u0e23\u0e30\u0e21\u0e32\u0e13 70% \u0e08\u0e36\u0e07\u0e08\u0e30\u0e1c\u0e48\u0e32\u0e19 \u2014 \u0e40\u0e1b\u0e47\u0e19 scaled score \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e16\u0e48\u0e27\u0e07\u0e19\u0e49\u0e33\u0e2b\u0e19\u0e31\u0e01\u0e02\u0e49\u0e2d\u0e15\u0e48\u0e2d\u0e02\u0e49\u0e2d \u2014 \u0e02\u0e49\u0e2d\u0e22\u0e32\u0e01\u0e21\u0e35\u0e04\u0e30\u0e41\u0e19\u0e19\u0e21\u0e32\u0e01\u0e01\u0e27\u0e48\u0e32 \u2014 \u0e1e\u0e22\u0e32\u0e22\u0e32\u0e21\u0e21\u0e38\u0e48\u0e07 80%+ \u0e43\u0e19 practice exam \u0e01\u0e48\u0e2d\u0e19\u0e2a\u0e2d\u0e1a\u0e08\u0e23\u0e34\u0e07",
-    },
-    {
-      id: "exam-tips-q3",
-      question: "Domain \u0e44\u0e2b\u0e19\u0e02\u0e2d\u0e07 CLF-C02 \u0e21\u0e35 weight \u0e2a\u0e39\u0e07\u0e17\u0e35\u0e48\u0e2a\u0e38\u0e14?",
-      options: [
-        "Domain 1: Cloud Concepts (24%)",
-        "Domain 2: Security and Compliance (30%)",
-        "Domain 3: Cloud Technology and Services (34%)",
-        "Domain 4: Billing, Pricing, and Support (12%)",
-      ],
-      correct: 2,
-      explanation:
-        "<strong>Domain 3: Cloud Technology and Services</strong> \u0e21\u0e35\u0e19\u0e49\u0e33\u0e2b\u0e19\u0e31\u0e01\u0e2a\u0e39\u0e07\u0e2a\u0e38\u0e14\u0e17\u0e35\u0e48 <strong>34%</strong> \u2014 \u0e04\u0e23\u0e2d\u0e1a\u0e04\u0e25\u0e38\u0e21 services \u0e15\u0e48\u0e32\u0e07\u0e46 (compute, database, network, storage, AI/ML), Global Infrastructure (Region/AZ/Edge) \u2014 \u0e15\u0e32\u0e21\u0e21\u0e32\u0e14\u0e49\u0e27\u0e22 Domain 2 (30%), Domain 1 (24%), Domain 4 (12%)",
-    },
-    {
-      id: "exam-tips-q4",
-      question: "\u0e16\u0e49\u0e32\u0e41\u0e1a\u0e48\u0e07\u0e40\u0e27\u0e25\u0e32\u0e40\u0e17\u0e48\u0e32\u0e46 \u0e01\u0e31\u0e19\u0e17\u0e38\u0e01\u0e02\u0e49\u0e2d \u0e04\u0e38\u0e13\u0e21\u0e35\u0e40\u0e27\u0e25\u0e32\u0e40\u0e09\u0e25\u0e35\u0e48\u0e22\u0e15\u0e48\u0e2d\u0e02\u0e49\u0e2d\u0e1b\u0e23\u0e30\u0e21\u0e32\u0e13\u0e40\u0e17\u0e48\u0e32\u0e44\u0e2b\u0e23\u0e48?",
-      options: [
-        "\u0e1b\u0e23\u0e30\u0e21\u0e32\u0e13 0.7 \u0e19\u0e32\u0e17\u0e35\u0e15\u0e48\u0e2d\u0e02\u0e49\u0e2d",
-        "\u0e1b\u0e23\u0e30\u0e21\u0e32\u0e13 1.4 \u0e19\u0e32\u0e17\u0e35\u0e15\u0e48\u0e2d\u0e02\u0e49\u0e2d",
-        "\u0e1b\u0e23\u0e30\u0e21\u0e32\u0e13 2 \u0e19\u0e32\u0e17\u0e35\u0e15\u0e48\u0e2d\u0e02\u0e49\u0e2d",
-        "\u0e1b\u0e23\u0e30\u0e21\u0e32\u0e13 3 \u0e19\u0e32\u0e17\u0e35\u0e15\u0e48\u0e2d\u0e02\u0e49\u0e2d",
-      ],
-      correct: 1,
-      explanation:
-        "90 \u0e19\u0e32\u0e17\u0e35 \u00f7 65 \u0e02\u0e49\u0e2d \u2248 <strong>1.4 \u0e19\u0e32\u0e17\u0e35\u0e15\u0e48\u0e2d\u0e02\u0e49\u0e2d</strong> \u2014 \u0e01\u0e25\u0e22\u0e38\u0e17\u0e18\u0e4c\u0e17\u0e35\u0e48\u0e14\u0e35\u0e04\u0e37\u0e2d\u0e15\u0e2d\u0e1a\u0e02\u0e49\u0e2d\u0e07\u0e48\u0e32\u0e22\u0e20\u0e32\u0e22\u0e43\u0e19 1 \u0e19\u0e32\u0e17\u0e35\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e40\u0e01\u0e47\u0e1a\u0e40\u0e27\u0e25\u0e32\u0e44\u0e27\u0e49\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e02\u0e49\u0e2d\u0e22\u0e32\u0e01 \u2014 mark for review \u0e02\u0e49\u0e2d\u0e17\u0e35\u0e48\u0e44\u0e21\u0e48\u0e21\u0e31\u0e48\u0e19\u0e43\u0e08\u0e41\u0e25\u0e49\u0e27\u0e01\u0e25\u0e31\u0e1a\u0e21\u0e32\u0e17\u0e35\u0e2b\u0e25\u0e31\u0e07",
-    },
-    {
-      id: "exam-tips-q5",
+      id: "et-q1",
       question:
-        "AWS Certified Cloud Practitioner certification \u0e21\u0e35\u0e2d\u0e32\u0e22\u0e38\u0e01\u0e35\u0e48\u0e1b\u0e35\u0e01\u0e48\u0e2d\u0e19\u0e15\u0e49\u0e2d\u0e07 renew?",
+        "How many questions are in the AWS Certified Cloud Practitioner (CLF-C02) exam?",
+      options: ["50", "65", "75", "100"],
+      correct: 1,
+      explanation:
+        "The CLF-C02 exam has 65 multi-choice / multi-response questions (50 scored + 15 unscored). The 15 unscored items are not identified.",
+    },
+    {
+      id: "et-q2",
+      question:
+        "What is the time limit for the CLF-C02 exam?",
+      options: ["60 minutes", "90 minutes", "120 minutes", "180 minutes"],
+      correct: 1,
+      explanation:
+        "CLF-C02 exam time is 90 minutes. Non-native English speakers can request an extra 30 minutes (ESL accommodation).",
+    },
+    {
+      id: "et-q3",
+      question:
+        "What is the passing score for the CLF-C02 exam?",
+      options: ["650/1000", "700/1000", "720/1000", "750/1000"],
+      correct: 2,
+      explanation:
+        "CLF-C02 passing score is 700 out of 1000 (some sources cite 700; AWS scaled scoring with min/max). The exam grade isn't simply percentage of correct answers — it uses scaled scoring.",
+    },
+    {
+      id: "et-q4",
+      question:
+        "What is the cost of the CLF-C02 exam (USD)?",
+      options: ["$50", "$100", "$150", "$300"],
+      correct: 1,
+      explanation:
+        "AWS Cloud Practitioner exam costs $100 USD. Other AWS certifications cost more (Associate $150, Professional / Specialty $300).",
+    },
+    {
+      id: "et-q5",
+      question:
+        "Which CLF-C02 exam domain has the LARGEST weighting?",
       options: [
-        "1 \u0e1b\u0e35",
-        "2 \u0e1b\u0e35",
-        "3 \u0e1b\u0e35",
-        "5 \u0e1b\u0e35",
+        "Cloud Concepts",
+        "Security and Compliance",
+        "Cloud Technology and Services",
+        "Billing, Pricing, and Support",
       ],
       correct: 2,
       explanation:
-        "AWS Certifications (\u0e23\u0e27\u0e21\u0e16\u0e36\u0e07 CLF-C02) \u0e21\u0e35\u0e2d\u0e32\u0e22\u0e38 <strong>3 \u0e1b\u0e35</strong> \u2014 \u0e15\u0e49\u0e2d\u0e07\u0e2a\u0e2d\u0e1a recertification \u0e2b\u0e23\u0e37\u0e2d\u0e2d\u0e31\u0e1e higher-level cert (Associate) \u2014 \u0e16\u0e49\u0e32\u0e1c\u0e48\u0e32\u0e19 Associate \u0e20\u0e32\u0e22\u0e43\u0e19 3 \u0e1b\u0e35\u0e02\u0e2d\u0e07 CLF-C02 \u2014 CLF \u0e08\u0e30 renew \u0e2d\u0e31\u0e15\u0e42\u0e19\u0e21\u0e31\u0e15\u0e34\u0e1f\u0e23\u0e35\u0e44\u0e1b\u0e2d\u0e35\u0e01 3 \u0e1b\u0e35",
+        "CLF-C02 domains: Cloud Concepts (24%), Security and Compliance (30%), Cloud Technology and Services (34%), Billing/Pricing/Support (12%). Cloud Technology and Services is the largest.",
+    },
+    {
+      id: "et-q6",
+      question:
+        "Which strategy is BEST when answering AWS exam questions?",
+      options: [
+        "Read the question carefully, eliminate obviously wrong answers, choose the BEST answer (not just a correct one), and watch for keywords like 'most cost-effective', 'highly available', 'least operational overhead'.",
+        "Always pick the longest answer.",
+        "Answer randomly to save time.",
+        "Skip all questions and submit blank.",
+      ],
+      correct: 0,
+      explanation:
+        "Best practice: read carefully, eliminate clearly wrong answers, focus on the question's qualifiers (cheapest? most secure? least operational overhead?). Often multiple answers are technically correct — pick the BEST one.",
+    },
+    {
+      id: "et-q7",
+      question:
+        "Which type of question does the CLF-C02 exam contain?",
+      options: [
+        "Only multiple-choice with one correct answer.",
+        "Multiple-choice (one correct) and multiple-response (two or more correct).",
+        "Essay-style questions only.",
+        "True/False only.",
+      ],
+      correct: 1,
+      explanation:
+        "CLF-C02 contains multiple-choice (single correct) and multiple-response (two or more correct from a list of 5+) questions. Read the question for instructions like 'select TWO'.",
+    },
+    {
+      id: "et-q8",
+      question:
+        "When you see 'most cost-effective' in a question, which AWS purchasing option is OFTEN the answer for stable, long-term workloads?",
+      options: [
+        "On-Demand",
+        "Spot Instances",
+        "Reserved Instances or Savings Plans",
+        "Dedicated Hosts",
+      ],
+      correct: 2,
+      explanation:
+        "For stable, predictable workloads, Reserved Instances or Savings Plans (1-3 year commitment) are the most cost-effective, with up to 72% off On-Demand.",
+    },
+    {
+      id: "et-q9",
+      question:
+        "When you see 'fault-tolerant' or 'can be interrupted' workloads, which EC2 pricing option is often the BEST?",
+      options: [
+        "On-Demand",
+        "Reserved Instances",
+        "Spot Instances",
+        "Dedicated Hosts",
+      ],
+      correct: 2,
+      explanation:
+        "For fault-tolerant, interruptible workloads (batch, big data, CI/CD), Spot Instances offer up to 90% discount but can be reclaimed with 2-min notice.",
+    },
+    {
+      id: "et-q10",
+      question:
+        "When you see 'highly available' (HA) in a question, which AWS pattern is usually involved?",
+      options: [
+        "Single AZ deployment",
+        "Multi-AZ deployment with load balancing and auto-scaling",
+        "Single instance",
+        "On-premises deployment",
+      ],
+      correct: 1,
+      explanation:
+        "High Availability typically involves Multi-AZ deployments — distributing resources across multiple Availability Zones with load balancing and ASG. For DR, also consider multi-region.",
+    },
+    {
+      id: "et-q11",
+      question:
+        "When you see 'least operational overhead' or 'fully managed', which type of service should you favor?",
+      options: [
+        "Self-managed EC2 instances.",
+        "Managed / serverless services (Lambda, Fargate, RDS, DynamoDB, S3).",
+        "On-premises hardware.",
+        "Custom-built solutions.",
+      ],
+      correct: 1,
+      explanation:
+        "Look for managed/serverless options: Lambda > EC2, RDS > EC2 with self-managed DB, DynamoDB > self-managed NoSQL. They reduce operational overhead by letting AWS handle infrastructure.",
+    },
+    {
+      id: "et-q12",
+      question:
+        "When you see 'temporary access to AWS resources for an external user', which service is usually the answer?",
+      options: [
+        "Create an IAM user with permanent access keys.",
+        "AWS STS / IAM Role with temporary credentials (or Cognito for app users).",
+        "Share root credentials.",
+        "Create an Amazon SES rule.",
+      ],
+      correct: 1,
+      explanation:
+        "Temporary AWS access = STS, IAM Role assumption, identity federation. For app users, use Cognito Identity Pools.",
+    },
+    {
+      id: "et-q13",
+      question:
+        "When you see 'who called the API to delete X' (audit), which service is the answer?",
+      options: [
+        "AWS CloudTrail",
+        "Amazon CloudWatch",
+        "AWS Config",
+        "AWS Trusted Advisor",
+      ],
+      correct: 0,
+      explanation:
+        "CloudTrail logs every API call (who, what, when). Anything related to 'who did what' is CloudTrail.",
+    },
+    {
+      id: "et-q14",
+      question:
+        "When you see 'configuration changes / compliance over time', which service is the answer?",
+      options: [
+        "AWS Config",
+        "AWS CloudTrail",
+        "Amazon CloudWatch",
+        "AWS Trusted Advisor",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Config tracks configuration changes and compliance against rules. CloudTrail is API call audit; Config is configuration state and compliance.",
+    },
+    {
+      id: "et-q15",
+      question:
+        "When you see 'CDN' or 'low latency content delivery globally', which AWS service is the answer?",
+      options: [
+        "Amazon CloudFront",
+        "Amazon Route 53",
+        "AWS Global Accelerator",
+        "Amazon S3",
+      ],
+      correct: 0,
+      explanation:
+        "CDN = CloudFront. (Note: For TCP/UDP non-HTTP optimization, Global Accelerator. For DNS, Route 53.)",
+    },
+    {
+      id: "et-q16",
+      question:
+        "When you see 'ML to detect threats / suspicious activity', which AWS service is the answer?",
+      options: [
+        "Amazon GuardDuty",
+        "Amazon Inspector",
+        "AWS Shield",
+        "AWS WAF",
+      ],
+      correct: 0,
+      explanation:
+        "GuardDuty = ML threat detection (analyzes CloudTrail/VPC flow/DNS logs). Inspector = vulnerability scanning. Shield = DDoS. WAF = web application firewall.",
+    },
+    {
+      id: "et-q17",
+      question:
+        "When you see 'PII / sensitive data discovery in S3', which AWS service is the answer?",
+      options: [
+        "Amazon Macie",
+        "Amazon GuardDuty",
+        "Amazon Inspector",
+        "AWS Config",
+      ],
+      correct: 0,
+      explanation:
+        "Macie = sensitive data discovery in S3 (PII, financial, intellectual property) using ML.",
+    },
+    {
+      id: "et-q18",
+      question:
+        "When you see 'recommendations on cost / performance / security / fault tolerance / service limits', which AWS service is the answer?",
+      options: [
+        "AWS Trusted Advisor",
+        "AWS Config",
+        "AWS CloudTrail",
+        "Amazon CloudWatch",
+      ],
+      correct: 0,
+      explanation:
+        "Trusted Advisor = best practice checks across 5 pillars (cost, performance, security, fault tolerance, service limits).",
+    },
+    {
+      id: "et-q19",
+      question:
+        "When you see 'Layer 7 web application firewall (block SQL injection, XSS)', which service is the answer?",
+      options: [
+        "AWS WAF",
+        "AWS Shield",
+        "Security Group",
+        "NACL",
+      ],
+      correct: 0,
+      explanation:
+        "WAF = Web Application Firewall, Layer 7 (HTTP). Deploys on CloudFront, ALB, API Gateway, or AppSync.",
+    },
+    {
+      id: "et-q20",
+      question:
+        "When you see 'DDoS protection', which service is the answer?",
+      options: [
+        "AWS Shield (Standard free, Advanced paid)",
+        "AWS WAF",
+        "Security Group",
+        "NACL",
+      ],
+      correct: 0,
+      explanation:
+        "Shield = DDoS protection. Shield Standard (free) for L3/L4. Shield Advanced (paid) for L7 + 24/7 DRT + cost protection.",
+    },
+    {
+      id: "et-q21",
+      question:
+        "When you see 'consolidate billing across multiple AWS accounts', which service is the answer?",
+      options: [
+        "AWS Organizations (with consolidated billing)",
+        "AWS Control Tower",
+        "AWS Cost Explorer",
+        "AWS Trusted Advisor",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Organizations provides consolidated billing for multiple accounts, plus SCPs, account creation, etc.",
+    },
+    {
+      id: "et-q22",
+      question:
+        "When you see 'estimate cost before deploying', which service is the answer?",
+      options: [
+        "AWS Pricing Calculator",
+        "AWS Cost Explorer",
+        "AWS Budgets",
+        "AWS Trusted Advisor",
+      ],
+      correct: 0,
+      explanation:
+        "Pricing Calculator = estimate AWS costs BEFORE deploying. Cost Explorer = analyze actual past spend. Budgets = alert on actual or forecast spend.",
+    },
+    {
+      id: "et-q23",
+      question:
+        "When you see '24/7 phone support' as a requirement, which AWS Support plan is the MINIMUM?",
+      options: [
+        "Basic",
+        "Developer",
+        "Business",
+        "Enterprise",
+      ],
+      correct: 2,
+      explanation:
+        "Business Support is the minimum for 24/7 phone/chat/email access. Developer has business-hours email only. Basic has billing/account only.",
+    },
+    {
+      id: "et-q24",
+      question:
+        "When you see 'dedicated Technical Account Manager (TAM)', which AWS Support plan is required?",
+      options: [
+        "Basic",
+        "Developer",
+        "Business",
+        "Enterprise (or Enterprise On-Ramp for limited TAM)",
+      ],
+      correct: 3,
+      explanation:
+        "Dedicated TAM is included in Enterprise Support. Enterprise On-Ramp has a pool of TAMs (not dedicated). Business and below = no TAM.",
+    },
+    {
+      id: "et-q25",
+      question:
+        "When you see 'compliance reports (SOC, ISO, PCI, FedRAMP)', which AWS service is the answer?",
+      options: [
+        "AWS Artifact",
+        "AWS Audit Manager",
+        "AWS Trusted Advisor",
+        "AWS Config",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Artifact = self-service portal for downloading compliance reports. Audit Manager = continuous compliance auditing.",
     },
   ],
 };

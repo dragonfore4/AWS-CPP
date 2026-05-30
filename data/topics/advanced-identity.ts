@@ -306,74 +306,354 @@ export const advancedIdentity: TopicData = {
   ],
   quiz: [
     {
-      id: "advanced-identity-q1",
+      id: "ai-q1",
       question:
-        "AWS STS (Security Token Service) ให้สิ่งใดเป็นหลักกับผู้ใช้หรือ service ที่ต้องการเข้าถึง AWS?",
+        "What does AWS STS (Security Token Service) primarily provide?",
       options: [
-        "Long-term access keys ที่ไม่หมดอายุ ใช้ได้ตลอดไป",
-        "Temporary, limited-privilege credentials ที่มีอายุจำกัด (15 นาที ถึงหลายชั่วโมง)",
-        "Username และ password สำหรับ login เข้า AWS Management Console",
-        "JSON Web Token (JWT) สำหรับ mobile app user",
+        "Long-term IAM access keys.",
+        "Temporary, limited-privilege security credentials for AWS users or services.",
+        "Permanent S3 access tokens.",
+        "MFA hardware devices.",
       ],
       correct: 1,
       explanation:
-        "AWS STS ออก <strong>temporary, limited-privilege credentials</strong> ที่มี configurable expiration ตั้งแต่ 15 นาที ไปจนถึงหลายชั่วโมง \u2014 ใช้กับ identity federation, cross-account access และ IAM Roles for EC2 ส่วน long-term access keys เป็นของ IAM user (ไม่ใช่ STS), JWT เป็นของ Cognito User Pools",
+        "AWS STS issues temporary, time-limited credentials (typically 15 minutes to 36 hours). Used when assuming roles, federation, or generating short-lived API access.",
     },
     {
-      id: "advanced-identity-q2",
+      id: "ai-q2",
       question:
-        "Amazon Cognito ออกแบบมาเพื่อจัดการ identity ของผู้ใช้กลุ่มใดเป็นหลัก?",
+        "Which AWS service is BEST for managing user authentication for web/mobile applications, including sign-up, sign-in, and social identity providers?",
       options: [
-        "พนักงานในองค์กรที่ต้องเข้าถึง AWS Management Console",
-        "Service หรือ EC2 instance ที่ต้องเรียก AWS API",
-        "ผู้ใช้ web และ mobile application (อาจมีถึงหลักล้านคน)",
-        "Admin ที่ต้องบริหาร AWS หลาย account ผ่าน SSO",
+        "Amazon Cognito",
+        "AWS IAM Identity Center",
+        "AWS Directory Service",
+        "AWS STS",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Cognito provides authentication and user management for web/mobile apps — user pools (sign-up/sign-in) and identity pools (federated identity for AWS access). Supports social login (Google, Facebook, Apple), SAML, OIDC.",
+    },
+    {
+      id: "ai-q3",
+      question:
+        "What is the difference between Cognito User Pools and Identity Pools?",
+      options: [
+        "They are identical.",
+        "User Pools handle authentication (sign-in/sign-up); Identity Pools provide AWS credentials to authenticated users (federated identities for accessing AWS resources).",
+        "Identity Pools are deprecated.",
+        "User Pools are only for B2B.",
+      ],
+      correct: 1,
+      explanation:
+        "Cognito User Pools = user directory for sign-up/sign-in (returns JWT tokens). Cognito Identity Pools = exchange JWT/social/SAML tokens for temporary AWS credentials (so the app can call AWS services).",
+    },
+    {
+      id: "ai-q4",
+      question:
+        "Which AWS service provides a managed Microsoft Active Directory in the cloud?",
+      options: [
+        "AWS Directory Service for Microsoft AD (AWS Managed Microsoft AD)",
+        "AWS IAM",
+        "Amazon Cognito",
+        "AWS STS",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Managed Microsoft AD is a fully managed AD service built on actual Microsoft AD. Supports trusts with on-prem AD, can be used by Windows EC2 instances, RDS for SQL Server, WorkSpaces, etc.",
+    },
+    {
+      id: "ai-q5",
+      question:
+        "Which Directory Service option is BEST for redirecting AD requests from your AWS resources to your existing on-premises AD?",
+      options: [
+        "AWS Managed Microsoft AD",
+        "AD Connector",
+        "Simple AD",
+        "Cognito",
+      ],
+      correct: 1,
+      explanation:
+        "AD Connector is a directory gateway / proxy that redirects requests to your existing on-premises AD without caching information in AWS. No on-prem replication needed.",
+    },
+    {
+      id: "ai-q6",
+      question:
+        "Which Directory Service option is a stand-alone, lightweight directory compatible with basic AD features for small (<5000 users) environments?",
+      options: [
+        "Simple AD",
+        "AD Connector",
+        "AWS Managed Microsoft AD",
+        "Cognito User Pools",
+      ],
+      correct: 0,
+      explanation:
+        "Simple AD is a lightweight, low-cost Samba-based directory compatible with most AD-aware applications. Good for small workloads. No trust support, no full MS AD features.",
+    },
+    {
+      id: "ai-q7",
+      question:
+        "What does \"identity federation\" mean in AWS?",
+      options: [
+        "Creating IAM users for every external user.",
+        "Allowing users authenticated by an external identity provider (corporate AD, SAML, social login) to access AWS without creating IAM users.",
+        "Federating S3 buckets across regions.",
+        "Replicating users across regions.",
+      ],
+      correct: 1,
+      explanation:
+        "Identity federation lets external users (from Microsoft AD, SAML, OIDC, social IdPs) sign into AWS without an IAM user. They assume an IAM role via STS for temporary credentials.",
+    },
+    {
+      id: "ai-q8",
+      question:
+        "Which protocol is commonly used for enterprise SAML 2.0 federation with AWS (e.g., Active Directory Federation Services)?",
+      options: [
+        "SAML 2.0",
+        "OAuth 2.0",
+        "Kerberos",
+        "RADIUS",
+      ],
+      correct: 0,
+      explanation:
+        "Enterprise federation with AWS commonly uses SAML 2.0 (e.g., ADFS, Okta, Ping). Users authenticate to the IdP, get a SAML assertion, exchange it via STS for AWS temporary credentials.",
+    },
+    {
+      id: "ai-q9",
+      question:
+        "Which AWS service is the modern replacement for legacy AWS SSO and is recommended for managing access across multiple AWS accounts?",
+      options: [
+        "AWS IAM Identity Center (formerly AWS SSO)",
+        "AWS Directory Service",
+        "Amazon Cognito",
+        "AWS STS",
+      ],
+      correct: 0,
+      explanation:
+        "AWS IAM Identity Center (formerly AWS Single Sign-On) is the recommended way to manage workforce access across AWS accounts and SaaS apps. Integrates with AWS Organizations and external IdPs.",
+    },
+    {
+      id: "ai-q10",
+      question:
+        "Which is true about IAM roles vs. IAM users?",
+      options: [
+        "Users and roles are the same.",
+        "Users have long-term credentials and represent a single person/service; roles have no credentials and are assumed by trusted entities to get temporary credentials.",
+        "Roles are deprecated.",
+        "Users provide temporary credentials.",
+      ],
+      correct: 1,
+      explanation:
+        "IAM users have long-term credentials (password / access keys) tied to a specific identity. Roles are assumable identities — trusted entities (users, services, federated identities) call AssumeRole to get temporary credentials.",
+    },
+    {
+      id: "ai-q11",
+      question:
+        "Which AWS feature simplifies cross-account access using IAM roles?",
+      options: [
+        "Trust policy with role assumption (sts:AssumeRole)",
+        "Resource-based S3 bucket ACLs",
+        "VPC peering",
+        "Direct Connect",
+      ],
+      correct: 0,
+      explanation:
+        "Cross-account access uses IAM roles with a trust policy that allows another AWS account (or specific role) to call sts:AssumeRole — getting temporary credentials in the target account.",
+    },
+    {
+      id: "ai-q12",
+      question:
+        "Which AWS service helps you analyze IAM permissions and identify resources accessible from outside your account or organization?",
+      options: [
+        "IAM Access Analyzer",
+        "AWS CloudTrail",
+        "AWS Trusted Advisor",
+        "Amazon GuardDuty",
+      ],
+      correct: 0,
+      explanation:
+        "IAM Access Analyzer analyzes resource policies (S3 buckets, IAM roles, KMS keys, Lambda, SQS, Secrets Manager) and flags resources accessible from outside your account or organization — also helps generate least-privilege policies.",
+    },
+    {
+      id: "ai-q13",
+      question:
+        "What is a permissions boundary in IAM?",
+      options: [
+        "A safety net that defines the MAXIMUM permissions an identity-based policy can grant to a user or role.",
+        "A type of resource policy.",
+        "A region-level restriction.",
+        "A type of trust policy.",
+      ],
+      correct: 0,
+      explanation:
+        "A permissions boundary is a safety net — the EFFECTIVE permissions of a user/role are the intersection of attached policies AND the boundary. Cannot exceed the boundary.",
+    },
+    {
+      id: "ai-q14",
+      question:
+        "Which AWS service provides workforce identity management (federated SSO) for ENTERPRISE / B2E use cases?",
+      options: [
+        "AWS IAM Identity Center",
+        "Amazon Cognito",
+        "AWS STS",
+        "AWS Directory Service",
+      ],
+      correct: 0,
+      explanation:
+        "AWS IAM Identity Center is for workforce / employee access (B2E). Cognito is for customer-facing applications (B2C / B2B).",
+    },
+    {
+      id: "ai-q15",
+      question:
+        "Which AWS service provides customer-facing identity management (B2C / B2B) for mobile and web apps?",
+      options: [
+        "Amazon Cognito",
+        "AWS IAM Identity Center",
+        "AWS Directory Service",
+        "AWS Managed Microsoft AD",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Cognito is for customer-facing (B2C / B2B) identity in apps. IAM Identity Center is for workforce (B2E).",
+    },
+    {
+      id: "ai-q16",
+      question:
+        "Which is the BEST description of Web Identity Federation?",
+      options: [
+        "Allowing users authenticated by web identity providers (Google, Facebook, Amazon, Apple) to access AWS via temporary credentials.",
+        "Federating between two AWS accounts.",
+        "Replicating users across regions.",
+        "A type of VPN.",
+      ],
+      correct: 0,
+      explanation:
+        "Web Identity Federation lets users authenticate with an external web IdP (Google, Facebook, Amazon, Apple, etc.) and exchange the token via STS / Cognito Identity Pools for temporary AWS credentials.",
+    },
+    {
+      id: "ai-q17",
+      question:
+        "Which AWS feature lets you grant access to AWS resources to users from external identity providers using OpenID Connect (OIDC)?",
+      options: [
+        "OIDC Identity Provider in IAM (with sts:AssumeRoleWithWebIdentity)",
+        "VPC Endpoint",
+        "Direct Connect",
+        "AWS Macie",
+      ],
+      correct: 0,
+      explanation:
+        "IAM supports OpenID Connect identity providers — users authenticated by an OIDC IdP (e.g., GitHub Actions, Auth0) can call AssumeRoleWithWebIdentity to get AWS temporary credentials.",
+    },
+    {
+      id: "ai-q18",
+      question:
+        "Which is true about IAM roles for AWS services (e.g., EC2 instance role)?",
+      options: [
+        "The service must be given long-term access keys.",
+        "Trusted AWS services assume the role and receive temporary credentials via the instance metadata service or STS.",
+        "Roles for services are deprecated.",
+        "Only humans can assume roles.",
+      ],
+      correct: 1,
+      explanation:
+        "AWS service roles allow services like EC2, Lambda, ECS to assume an IAM role, getting temporary credentials (no long-term keys). For EC2, credentials are auto-rotated and accessible via the instance metadata service.",
+    },
+    {
+      id: "ai-q19",
+      question:
+        "What is IAM Roles Anywhere?",
+      options: [
+        "Lets workloads outside AWS (on-prem servers, other clouds) obtain temporary AWS credentials by using X.509 certificates as their identity.",
+        "Roles that work in all AWS regions.",
+        "A free trial of IAM.",
+        "A backup service for IAM users.",
+      ],
+      correct: 0,
+      explanation:
+        "IAM Roles Anywhere allows workloads outside AWS (on-prem, other clouds) to use X.509 certificates issued by your CA to obtain temporary AWS credentials — no need for long-lived access keys.",
+    },
+    {
+      id: "ai-q20",
+      question:
+        "Which AWS service is BEST for managing app secrets like database passwords, with automatic rotation?",
+      options: [
+        "AWS Secrets Manager",
+        "AWS Systems Manager Parameter Store",
+        "AWS KMS",
+        "AWS IAM",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Secrets Manager stores secrets and supports automatic rotation (via Lambda). Parameter Store is also for config/secrets but lacks built-in auto-rotation.",
+    },
+    {
+      id: "ai-q21",
+      question:
+        "Which is true about IAM policies and STS in cross-account access?",
+      options: [
+        "Each account is independent and has no interaction.",
+        "The trusting account creates a role with a trust policy allowing the other account; the other account's user calls AssumeRole and gets temporary credentials.",
+        "Users share access keys directly.",
+        "Cross-account access is impossible.",
+      ],
+      correct: 1,
+      explanation:
+        "Cross-account: account A creates a role whose trust policy allows account B's principals to assume it. Account B's user/role calls sts:AssumeRole, gets temporary creds, and acts in account A.",
+    },
+    {
+      id: "ai-q22",
+      question:
+        "Which Cognito feature provides social identity provider integration?",
+      options: [
+        "Cognito Identity Pool federated identities (Facebook, Google, Apple, Twitter, Amazon, OIDC, SAML).",
+        "Cognito User Pool only.",
+        "AWS STS only.",
+        "AWS IAM only.",
+      ],
+      correct: 0,
+      explanation:
+        "Cognito Identity Pools support federated identities from many IdPs (social: Facebook, Google, Apple, Twitter, Amazon; enterprise: SAML / OIDC).",
+    },
+    {
+      id: "ai-q23",
+      question:
+        "Which AWS feature is recommended for granting temporary AWS access to GitHub Actions / GitLab CI workflows without using long-term keys?",
+      options: [
+        "OIDC Identity Provider + IAM role with AssumeRoleWithWebIdentity",
+        "Hard-coded access keys in repository secrets",
+        "Sharing the root credentials",
+        "Email-based authentication",
+      ],
+      correct: 0,
+      explanation:
+        "Configure GitHub Actions (or GitLab CI) as an OIDC IdP in IAM, create a role with a trust policy allowing the OIDC provider, and the CI assumes the role for temporary credentials. No long-term keys.",
+    },
+    {
+      id: "ai-q24",
+      question:
+        "Which AWS feature allows authenticated users (via AD or social) to access an EC2 instance with their identity, without an SSH key?",
+      options: [
+        "EC2 Instance Connect",
+        "AWS Systems Manager Session Manager",
+        "Both A and B can avoid SSH keys",
+        "Manually distributing keys",
       ],
       correct: 2,
       explanation:
-        "Cognito ออกแบบมาสำหรับ <strong>web/mobile app users</strong> โดยเฉพาะ รองรับ sign up, sign in, MFA, password reset และคืน JWT (User Pools) หรือ AWS credentials (Identity Pools) ให้กับผู้ใช้ที่อาจมีหลักล้านคน \u2014 พนักงานในองค์กรใช้ IAM, service/EC2 ใช้ IAM Role + STS, และ multi-account SSO ใช้ IAM Identity Center",
+        "EC2 Instance Connect (browser-based SSH using IAM) and SSM Session Manager (browser/CLI shell using IAM, no inbound port) both let authenticated AWS users connect without managing SSH keys.",
     },
     {
-      id: "advanced-identity-q3",
+      id: "ai-q25",
       question:
-        "ความแตกต่างหลักระหว่าง AWS Managed Microsoft AD และ AD Connector คืออะไร?",
+        "Which is true about AWS STS GetSessionToken?",
       options: [
-        "Managed Microsoft AD ใช้ฟรี ส่วน AD Connector ต้องเสียเงิน",
-        "Managed Microsoft AD เป็น AD ของจริงที่รันใน AWS (จัดการ users ใน cloud ได้, ตั้ง trust กับ on-prem AD ได้) ส่วน AD Connector เป็นเพียง proxy ที่ redirect ไปยัง on-prem AD (users และ data ยังอยู่ on-prem)",
-        "Managed Microsoft AD ใช้กับ Linux เท่านั้น ส่วน AD Connector ใช้กับ Windows เท่านั้น",
-        "ทั้งสองเหมือนกัน ต่างแค่ชื่อ \u2014 เลือกตัวไหนก็ได้",
+        "Returns a permanent access key.",
+        "Returns temporary credentials (typically including MFA-validated credentials) — used for users needing temporary elevated access.",
+        "Returns an IAM role ARN.",
+        "Deletes the user.",
       ],
       correct: 1,
       explanation:
-        "<strong>AWS Managed Microsoft AD</strong> = AD ของจริงที่รันใน AWS — สามารถจัดการ users ใน cloud, รองรับ MFA และตั้ง trust relationship กับ on-prem AD ได้ ส่วน <strong>AD Connector</strong> = directory gateway/proxy ที่ redirect คำขอกลับไปยัง on-prem AD — users และ data ทั้งหมดยังคงอยู่ on-prem นอกจากนี้ยังมี Simple AD ซึ่งเป็น AD-compatible เล็กๆ ที่ไม่สามารถ join กับ on-prem AD ได้",
-    },
-    {
-      id: "advanced-identity-q4",
-      question:
-        "บริษัทมี AWS account 5 ตัว (dev, staging, prod, data, security) และต้องการให้พนักงาน login ครั้งเดียวเข้าได้ทุก account พร้อมเข้า business apps เช่น Salesforce และ Microsoft 365 ด้วย ควรใช้บริการใด?",
-      options: [
-        "AWS STS เพื่อออก temporary credentials ให้แต่ละ account",
-        "Amazon Cognito เพื่อจัดการ user pool ของพนักงาน",
-        "AWS IAM Identity Center (AWS Single Sign-On)",
-        "AWS Directory Service \u2014 Simple AD",
-      ],
-      correct: 2,
-      explanation:
-        "<strong>AWS IAM Identity Center</strong> (เดิมชื่อ AWS SSO) คือคำตอบ \u2014 ออกแบบมาเพื่อ <em>one login portal</em> ที่เข้าถึงหลาย AWS account (integrate กับ AWS Organizations) พร้อม business apps (Salesforce, Box, Microsoft 365) STS ออก temp credentials แต่ไม่ใช่ portal SSO, Cognito สำหรับ app users ภายนอก, Simple AD เป็น managed directory ไม่ใช่ SSO solution",
-    },
-    {
-      id: "advanced-identity-q5",
-      question:
-        "บริษัทกำลังพัฒนา mobile app ที่คาดว่าจะมีลูกค้าใช้งานเป็นล้านคน ต้องการระบบ sign-up / sign-in / password reset และให้ผู้ใช้เข้าถึง S3 bucket ของตนเองได้ตรงๆ จาก app ควรใช้บริการใด?",
-      options: [
-        "สร้าง IAM user ให้ลูกค้าทุกคน คนละ 1 บัญชี",
-        "ใช้ Amazon Cognito \u2014 User Pools สำหรับ sign-in (คืน JWT) และ Identity Pools สำหรับออก AWS credentials เข้าถึง S3",
-        "ใช้ AWS Directory Service \u2014 AWS Managed Microsoft AD",
-        "ใช้ root account credentials ใน mobile app",
-      ],
-      correct: 1,
-      explanation:
-        "<strong>Amazon Cognito</strong> ถูกออกแบบมาเพื่อ use case นี้โดยตรง \u2014 <strong>User Pools</strong> จัดการ sign-up/sign-in/MFA/password reset และคืน JWT, <strong>Identity Pools</strong> ออก AWS credentials ให้ user เข้าถึง S3/DynamoDB ตรงๆ การสร้าง IAM user ให้ลูกค้าหลักล้านคนเป็นไปไม่ได้ในทางปฏิบัติ (และ IAM ออกแบบมาสำหรับ users ใน account ของคุณ ไม่ใช่ end-customer), Directory Services สำหรับ AD integration, และห้าม embed root credentials ใน app เด็ดขาด",
+        "GetSessionToken returns temporary credentials for an IAM user, often used to validate MFA before allowing sensitive operations. Different from AssumeRole (used to switch identities).",
     },
   ],
 };

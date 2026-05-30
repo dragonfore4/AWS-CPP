@@ -519,114 +519,342 @@ Use case            | Migrate on-prem    | Cloud-native apps`,
     {
       id: "ci-q1",
       question:
-        "ข้อใดอธิบายความแตกต่างระหว่าง SQS กับ SNS ได้ถูกต้อง?",
+        "Which statement BEST describes the difference between Amazon SQS and Amazon SNS?",
       options: [
-        "SQS เป็น pub/sub model ส่วน SNS เป็น queue model",
-        "SQS เป็น queue (consumers แย่ง message) ส่วน SNS เป็น pub/sub (subscribers ทุกตัวได้รับ)",
-        "ทั้งสอง service ทำงานเหมือนกันทุกประการ",
-        "SQS push ไปหา consumer ส่วน SNS ให้ consumer มา pull เอง",
+        "SQS is pub/sub, SNS is queue.",
+        "SQS is a message queue (one consumer per message); SNS is pub/sub (one message broadcast to many subscribers).",
+        "Both are identical.",
+        "SQS is for video streaming.",
       ],
       correct: 1,
       explanation:
-        "SQS = message queue, pull-based, consumers แย่งกันดึง message (one-to-one) — ส่วน SNS = pub/sub, push-based, ทุก subscriber ได้รับ message (one-to-many) เป็นคนละ model กันโดยสิ้นเชิง",
+        "SQS = poll-based queue, one consumer per message (decouples producers/consumers). SNS = pub/sub topic, message fan-out to many subscribers (Lambda, SQS, HTTP endpoints, email, SMS).",
     },
     {
       id: "ci-q2",
       question:
-        "Default retention ของ message ใน SQS คือกี่วัน และสูงสุดได้กี่วัน?",
-      options: [
-        "Default 1 วัน, max 7 วัน",
-        "Default 4 วัน, max 14 วัน",
-        "Default 7 วัน, max 30 วัน",
-        "Default ไม่จำกัด — message อยู่ตลอดไป",
-      ],
-      correct: 1,
+        "What is the maximum message retention period for an Amazon SQS queue?",
+      options: ["1 minute", "1 hour", "14 days", "Forever"],
+      correct: 2,
       explanation:
-        "SQS เก็บ message ใน queue ได้ default 4 วัน และตั้งสูงสุดได้ 14 วัน หลังจากนั้น message จะหมดอายุและถูกลบทิ้งโดยอัตโนมัติ — เป็นจุดสำคัญที่ต้องจำเพราะออกข้อสอบบ่อย",
+        "SQS messages can be retained from 1 minute to a maximum of 14 days. Default is 4 days.",
     },
     {
       id: "ci-q3",
       question:
-        "Fan-out pattern ใน SNS + SQS คืออะไร?",
+        "Which SQS queue type guarantees first-in-first-out ordering and exactly-once processing?",
       options: [
-        "การส่ง message ไปหา consumer ตัวเดียวอย่างรวดเร็ว",
-        "Publisher ส่ง message ไป SNS ครั้งเดียว แล้ว SNS กระจายไปหลาย SQS queues พร้อมกัน — แต่ละ queue process อิสระ",
-        "การกรอง message ก่อนส่งไปยัง subscriber",
-        "การเก็บ message ไว้ใน SNS topic แบบถาวร",
+        "Standard Queue",
+        "FIFO Queue",
+        "Dead-Letter Queue",
+        "Delay Queue",
       ],
       correct: 1,
       explanation:
-        "Fan-out pattern = SNS เป็นตัวกระจาย publisher ส่ง message ไป topic ครั้งเดียว แล้ว SNS push ไปหลาย SQS queues subscribers พร้อมกัน แต่ละ queue process อิสระกัน — ตัวหนึ่งล่มไม่กระทบตัวอื่น + เพิ่ม subscriber ใหม่ได้โดยไม่แก้ publisher",
+        "SQS FIFO queues preserve order and provide exactly-once processing. They have lower throughput than Standard queues. FIFO queue names must end with .fifo.",
     },
     {
       id: "ci-q4",
       question:
-        "Visibility Timeout ใน SQS ทำหน้าที่อะไร?",
+        "What is the default behavior of Amazon SQS Standard Queues regarding ordering and delivery?",
       options: [
-        "กำหนดเวลาที่ message อยู่ใน queue ก่อนหมดอายุ",
-        "ทำให้ message invisible ชั่วคราวหลัง consumer ดึงไปแล้ว เพื่อป้องกัน consumer อื่น process ซ้ำ",
-        "กำหนดความถี่ที่ consumer สามารถ poll queue",
-        "เข้ารหัส message ขณะอยู่ใน queue",
+        "Strict ordering and exactly-once.",
+        "Best-effort ordering, at-least-once delivery (occasional duplicates possible), nearly unlimited throughput.",
+        "No ordering and no delivery guarantee.",
+        "Strict ordering, at-most-once.",
       ],
       correct: 1,
       explanation:
-        "Visibility Timeout = ช่วงเวลาที่ message จะ invisible สำหรับ consumer ตัวอื่นหลัง consumer ตัวแรกดึงไปแล้ว (default 30 วินาที) ถ้า consumer ทำเสร็จก็ delete ถ้าไม่เสร็จในเวลา message กลับมา visible ให้ consumer อื่นมาทำต่อ — ป้องกัน double processing",
+        "SQS Standard Queues offer best-effort ordering, at-least-once delivery (occasional duplicates), and nearly unlimited throughput. For strict ordering use FIFO.",
     },
     {
       id: "ci-q5",
       question:
-        "Dead Letter Queue (DLQ) มีไว้เพื่อจุดประสงค์ใด?",
+        "Which AWS service is a managed message broker for industry-standard protocols (MQTT, AMQP, STOMP, OpenWire) — useful for migrating from on-premises message brokers?",
       options: [
-        "เก็บ messages ที่หมดอายุ (expired) จาก queue หลัก",
-        "เก็บ messages ที่ process ไม่สำเร็จซ้ำๆ (เกิน maxReceiveCount) เพื่อให้ developer ตรวจสอบและ debug",
-        "เพิ่มประสิทธิภาพ queue โดยกระจาย load",
-        "เก็บ messages ที่มีขนาดเกิน 256 KB",
+        "Amazon SQS",
+        "Amazon SNS",
+        "Amazon MQ",
+        "Amazon Kinesis",
       ],
-      correct: 1,
+      correct: 2,
       explanation:
-        "DLQ ใช้เก็บ messages ที่ถูกดึงไป process หลายครั้ง (เกิน maxReceiveCount เช่น 3 ครั้ง) แต่ไม่สำเร็จ แทนที่จะ retry ไปเรื่อยๆ ก็ย้ายไป DLQ เพื่อให้ developer ตรวจสอบหาสาเหตุของ error — ป้องกันไม่ให้ poison message block queue หลัก",
+        "Amazon MQ is a managed message broker for ActiveMQ and RabbitMQ. Best when migrating existing on-premises applications that use industry-standard protocols (MQTT, AMQP, STOMP, OpenWire). New apps should consider SQS/SNS.",
     },
     {
       id: "ci-q6",
       question:
-        "บริษัทมี IoT sensors 100,000 ตัวส่งข้อมูลตลอดเวลา ต้องการ process แบบ real-time + เก็บลง S3 ด้วย ควรใช้ service ใด?",
+        "Which AWS service is BEST for real-time streaming of large amounts of data (e.g., clickstreams, IoT, application logs)?",
       options: [
-        "Amazon SQS — เก็บข้อมูลใน queue แล้วให้ Lambda process",
-        "Amazon Kinesis — Data Streams สำหรับ ingest + Firehose สำหรับเก็บลง S3",
-        "Amazon MQ — รองรับ MQTT จาก IoT devices",
-        "Amazon SNS — broadcast ไปยัง subscribers",
+        "Amazon SQS",
+        "Amazon SNS",
+        "Amazon Kinesis",
+        "Amazon MQ",
       ],
-      correct: 1,
+      correct: 2,
       explanation:
-        "Kinesis ออกแบบมาสำหรับ real-time streaming big data scale ได้ระดับหลายแสน sources พร้อมกัน — Kinesis Data Streams ใช้ ingest data, Kinesis Data Firehose load ลง S3 อัตโนมัติ ส่วน SQS ไม่เหมาะกับ streaming volume สูงระดับนี้",
+        "Amazon Kinesis is designed for real-time streaming data ingestion and processing. SQS is for traditional task queues; Kinesis Data Streams is for real-time event streams (records can be replayed).",
     },
     {
       id: "ci-q7",
       question:
-        "บริษัทมี Java application รันบน on-premises ใช้ AMQP protocol ต้องการ migrate มา AWS โดยไม่ต้องเขียน code ใหม่ ควรใช้ service ใด?",
+        "Which AWS event bus delivers events from many AWS services and SaaS partners to subscribers (Lambda, SQS, etc.)?",
       options: [
-        "Amazon SQS — เปลี่ยน application ให้ใช้ AWS SDK",
-        "Amazon SNS — broadcast messages ไปหา subscribers",
-        "Amazon MQ — managed broker ที่รองรับ AMQP, MQTT, STOMP โดยไม่ต้องแก้ code",
-        "Amazon Kinesis — streaming data",
+        "Amazon EventBridge",
+        "Amazon SNS",
+        "Amazon SQS",
+        "Amazon MQ",
       ],
-      correct: 2,
+      correct: 0,
       explanation:
-        "Amazon MQ เป็น managed broker (ActiveMQ/RabbitMQ) ที่รองรับ traditional protocols เช่น AMQP, MQTT, STOMP, Openwire, WSS เหมาะกับการ migrate on-premises applications ที่ใช้ protocol เหล่านี้มา cloud โดยไม่ต้อง re-engineer code ส่วน SQS/SNS ใช้ AWS proprietary API ต้องเปลี่ยน code",
+        "Amazon EventBridge (formerly CloudWatch Events) is a serverless event bus that ingests events from AWS services, custom apps, or SaaS partners. Filters and routes events to many targets.",
     },
     {
       id: "ci-q8",
       question:
-        "ข้อใดถูกต้องเกี่ยวกับ SQS message size และการ scale consumers?",
+        "Which is true about an SQS Dead-Letter Queue (DLQ)?",
       options: [
-        "Message size สูงสุด 64 KB และมี consumer ได้แค่ตัวเดียวต่อ queue",
-        "Message size สูงสุด 256 KB และเพิ่ม consumers หลายตัวเพื่อแย่งกันดึง message ได้ (horizontal scaling)",
-        "Message size ไม่จำกัด และมี consumer แบบ exclusive ได้ตัวเดียว",
-        "Message size สูงสุด 1 MB และทุก consumer ได้รับ message ครบทุก message",
+        "It deletes messages after expiry.",
+        "It receives messages that failed to be processed successfully after a configurable number of retries — for debugging or manual reprocessing.",
+        "It encrypts messages.",
+        "It speeds up the main queue.",
       ],
       correct: 1,
       explanation:
-        "SQS message size สูงสุด 256 KB ต่อ message (ถ้าใหญ่กว่านี้ใช้ Extended Client Library เก็บ payload ใน S3) และสามารถเพิ่ม consumers หลายตัวเพื่อแย่งกันดึง message ได้ — เป็น horizontal scaling ที่ทำให้ throughput เพิ่มตามจำนวน consumers (แต่ละ message ไปหา consumer แค่ตัวเดียว ไม่ broadcast)",
+        "DLQ is a separate queue that captures messages a consumer fails to process after maxReceiveCount attempts. Lets you debug, alert, and re-drive messages without blocking the main queue.",
+    },
+    {
+      id: "ci-q9",
+      question:
+        "What is the maximum size of a single SQS message?",
+      options: ["64 KB", "256 KB", "1 MB", "10 MB"],
+      correct: 1,
+      explanation:
+        "SQS messages can be up to 256 KB. For larger payloads, store the message body in S3 and put a reference in SQS (Extended Client Library handles this).",
+    },
+    {
+      id: "ci-q10",
+      question:
+        "Which SNS subscriber types are supported?",
+      options: [
+        "Only email and SMS.",
+        "HTTP/HTTPS, Email/Email-JSON, SQS, SMS, AWS Lambda, Mobile Push, Kinesis Data Firehose.",
+        "Only SQS.",
+        "Only Lambda.",
+      ],
+      correct: 1,
+      explanation:
+        "SNS supports many subscriber types: HTTP/HTTPS, Email, SMS, SQS queues, Lambda functions, mobile push notifications (APNS, FCM, ADM, etc.), and Kinesis Data Firehose.",
+    },
+    {
+      id: "ci-q11",
+      question:
+        "What is fan-out in messaging?",
+      options: [
+        "Reducing message volume.",
+        "Sending one message to a single subscriber.",
+        "Publishing one message to a topic with multiple subscribers (SNS), each receiving its own copy.",
+        "Encrypting messages.",
+      ],
+      correct: 2,
+      explanation:
+        "Fan-out is the SNS pattern where a single published message is delivered to many subscribers (e.g., multiple SQS queues + Lambda + email) — a powerful decoupling pattern.",
+    },
+    {
+      id: "ci-q12",
+      question:
+        "Which Kinesis service is BEST for ingesting and storing streaming records for processing by custom consumers?",
+      options: [
+        "Kinesis Data Streams",
+        "Kinesis Data Firehose",
+        "Kinesis Video Streams",
+        "Kinesis Data Analytics",
+      ],
+      correct: 0,
+      explanation:
+        "Kinesis Data Streams is the low-level ingestion / storage layer for streaming data (1-365 day retention). Custom consumers (Lambda, KCL apps, Firehose, Analytics) read from it.",
+    },
+    {
+      id: "ci-q13",
+      question:
+        "Which Kinesis service is BEST for streaming data DIRECTLY to S3, Redshift, OpenSearch without code?",
+      options: [
+        "Kinesis Data Streams",
+        "Kinesis Data Firehose",
+        "Kinesis Video Streams",
+        "Kinesis Data Analytics",
+      ],
+      correct: 1,
+      explanation:
+        "Kinesis Data Firehose is a fully managed delivery service to S3, Redshift, OpenSearch, Splunk, and HTTP endpoints — no code needed, with optional buffering, transformation, and compression.",
+    },
+    {
+      id: "ci-q14",
+      question:
+        "Which Kinesis service runs SQL or Apache Flink on streaming data?",
+      options: [
+        "Kinesis Data Streams",
+        "Kinesis Data Firehose",
+        "Amazon Managed Service for Apache Flink (Kinesis Data Analytics)",
+        "Kinesis Video Streams",
+      ],
+      correct: 2,
+      explanation:
+        "Amazon Managed Service for Apache Flink (formerly Kinesis Data Analytics) runs SQL or Flink applications on streaming data — real-time analytics, anomaly detection, etc.",
+    },
+    {
+      id: "ci-q15",
+      question:
+        "Which Kinesis service is for streaming video from cameras, AR/VR, and other sources to AWS for analytics or ML?",
+      options: [
+        "Kinesis Data Streams",
+        "Kinesis Data Firehose",
+        "Kinesis Video Streams",
+        "Kinesis Data Analytics",
+      ],
+      correct: 2,
+      explanation:
+        "Kinesis Video Streams is built for ingesting video, audio, and time-series data from millions of devices — used for analytics, ML, and AR/VR workloads.",
+    },
+    {
+      id: "ci-q16",
+      question:
+        "Which AWS service is a managed fully serverless API endpoint service that fronts Lambda, EC2, or any HTTP backend?",
+      options: [
+        "Amazon API Gateway",
+        "AWS App Mesh",
+        "AWS AppSync",
+        "Amazon CloudFront",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon API Gateway is a fully managed REST/HTTP/WebSocket API service. Fronts Lambda, EC2, ECS, or any HTTP endpoint. Provides authentication, throttling, caching, monitoring.",
+    },
+    {
+      id: "ci-q17",
+      question:
+        "Which AWS service is a managed GraphQL backend, ideal for mobile/web apps with real-time data sync?",
+      options: [
+        "AWS AppSync",
+        "Amazon API Gateway",
+        "AWS Lambda",
+        "Amazon Cognito",
+      ],
+      correct: 0,
+      explanation:
+        "AWS AppSync provides a managed GraphQL service with real-time subscriptions, offline data sync, and integration with DynamoDB, RDS, OpenSearch, Lambda.",
+    },
+    {
+      id: "ci-q18",
+      question:
+        "Which AWS service is an IoT message broker that supports MQTT, HTTP, and WebSocket for IoT device communication?",
+      options: [
+        "AWS IoT Core",
+        "Amazon SQS",
+        "Amazon MQ",
+        "Amazon EventBridge",
+      ],
+      correct: 0,
+      explanation:
+        "AWS IoT Core is a managed service to connect IoT devices to the AWS cloud. Supports MQTT, HTTPS, WebSocket. Routes messages to Lambda, DynamoDB, Kinesis, S3, etc.",
+    },
+    {
+      id: "ci-q19",
+      question:
+        "Which AWS service is a workflow orchestration tool with state machines, retries, and parallel branches?",
+      options: [
+        "AWS Step Functions",
+        "Amazon SWF",
+        "Amazon EventBridge",
+        "AWS Lambda",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Step Functions orchestrates serverless workflows (Standard or Express). Visual designer, automatic retries, error handling, parallel and choice states. Integrates with 200+ AWS services.",
+    },
+    {
+      id: "ci-q20",
+      question:
+        "What is SQS visibility timeout?",
+      options: [
+        "How long messages remain in the queue.",
+        "The time during which a received message is hidden from other consumers, allowing the receiving consumer to process it.",
+        "How long the queue is visible.",
+        "The retention period.",
+      ],
+      correct: 1,
+      explanation:
+        "Visibility timeout (default 30 sec, max 12 hours) is the period after a consumer receives a message during which the message is hidden from other consumers. The consumer must delete the message before the timeout, or it becomes visible again for re-processing.",
+    },
+    {
+      id: "ci-q21",
+      question:
+        "Which is the BEST way to decouple a tightly-coupled multi-tier application?",
+      options: [
+        "Use SQS to queue work between tiers, allowing each tier to scale and fail independently.",
+        "Tightly couple all tiers with shared database access.",
+        "Run everything as a single monolith.",
+        "Use synchronous REST calls between every tier.",
+      ],
+      correct: 0,
+      explanation:
+        "Decoupling with SQS (or SNS) allows tiers to scale independently, fail without taking the whole app down, and absorb traffic spikes. Classic asynchronous decoupling pattern.",
+    },
+    {
+      id: "ci-q22",
+      question:
+        "Which AWS service is a managed Apache Kafka offering?",
+      options: [
+        "Amazon MSK (Managed Streaming for Apache Kafka)",
+        "Amazon SQS",
+        "Amazon Kinesis",
+        "Amazon MQ",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon MSK is a fully managed Apache Kafka service — runs upstream Kafka, manages brokers, ZooKeeper/KRaft, patching, and scaling.",
+    },
+    {
+      id: "ci-q23",
+      question:
+        "Which is true about the SNS message delivery model?",
+      options: [
+        "SNS is poll-based; consumers must poll the topic.",
+        "SNS is push-based; messages are pushed to subscribers as soon as published.",
+        "SNS is FIFO only.",
+        "SNS is exclusively for email.",
+      ],
+      correct: 1,
+      explanation:
+        "SNS is push-based: when a message is published to a topic, SNS immediately pushes it to all confirmed subscribers (Lambda, SQS, HTTP, email, SMS, mobile).",
+    },
+    {
+      id: "ci-q24",
+      question:
+        "Which is true about the SQS message consumption model?",
+      options: [
+        "SQS is push-based; messages are pushed to consumers.",
+        "SQS is pull/poll-based; consumers poll the queue and process messages, then delete them.",
+        "SQS automatically deletes messages after delivery.",
+        "SQS uses webhooks only.",
+      ],
+      correct: 1,
+      explanation:
+        "SQS is poll-based — consumers call ReceiveMessage, process the message, then call DeleteMessage. If not deleted within the visibility timeout, the message reappears.",
+    },
+    {
+      id: "ci-q25",
+      question:
+        "Which use case is BEST for Amazon EventBridge over SNS?",
+      options: [
+        "When you need a simple pub/sub email notification.",
+        "When you need rich event filtering, integration with many AWS services and SaaS partners, and an event archive/replay capability.",
+        "When you need TCP/UDP load balancing.",
+        "When you need video streaming.",
+      ],
+      correct: 1,
+      explanation:
+        "EventBridge is event-driven with rich content-based filtering, schema registry, event archive, replay, partner integrations (Zendesk, Datadog, MongoDB Atlas, etc.). SNS is simpler pub/sub.",
     },
   ],
 };

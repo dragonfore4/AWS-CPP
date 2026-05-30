@@ -423,72 +423,352 @@ export const machineLearning: TopicData = {
     {
       id: "ml-q1",
       question:
-        "\u0e1a\u0e23\u0e34\u0e29\u0e31\u0e17\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23\u0e27\u0e34\u0e40\u0e04\u0e23\u0e32\u0e30\u0e2b\u0e4c\u0e23\u0e39\u0e1b\u0e20\u0e32\u0e1e\u0e41\u0e25\u0e30\u0e27\u0e34\u0e14\u0e35\u0e42\u0e2d\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e15\u0e23\u0e27\u0e08\u0e08\u0e31\u0e1a\u0e27\u0e31\u0e15\u0e16\u0e38, \u0e43\u0e1a\u0e2b\u0e19\u0e49\u0e32, \u0e41\u0e25\u0e30\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e43\u0e19\u0e20\u0e32\u0e1e \u0e23\u0e27\u0e21\u0e16\u0e36\u0e07 content moderation \u2014 \u0e04\u0e27\u0e23\u0e43\u0e0a\u0e49 AWS service \u0e43\u0e14?",
+        "A company wants to analyze images and videos to detect objects, faces, text, and perform content moderation. Which AWS service is BEST?",
       options: [
-        "Amazon Comprehend",
-        "Amazon Textract",
         "Amazon Rekognition",
-        "Amazon SageMaker",
+        "Amazon Textract",
+        "Amazon Comprehend",
+        "Amazon Polly",
       ],
-      correct: 2,
+      correct: 0,
       explanation:
-        "Amazon Rekognition \u0e43\u0e0a\u0e49 ML \u0e43\u0e19\u0e01\u0e32\u0e23\u0e04\u0e49\u0e19\u0e2b\u0e32\u0e27\u0e31\u0e15\u0e16\u0e38, \u0e04\u0e19, \u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21, \u0e09\u0e32\u0e01 \u0e43\u0e19 image + video \u2014 \u0e23\u0e27\u0e21\u0e16\u0e36\u0e07 face detection, content moderation, celebrity recognition Comprehend = NLP (\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21) Textract = OCR \u0e40\u0e2d\u0e01\u0e2a\u0e32\u0e23 scan SageMaker = build ML model \u0e40\u0e2d\u0e07",
+        "Amazon Rekognition is a managed image and video analysis service using deep learning — face detection, object detection, content moderation, celebrity recognition, text-in-image detection.",
     },
     {
       id: "ml-q2",
       question:
-        "\u0e04\u0e38\u0e13\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23\u0e41\u0e1b\u0e25\u0e07\u0e44\u0e1f\u0e25\u0e4c\u0e40\u0e2a\u0e35\u0e22\u0e07\u0e1a\u0e31\u0e19\u0e17\u0e36\u0e01 customer service call \u0e43\u0e2b\u0e49\u0e40\u0e1b\u0e47\u0e19\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e27\u0e34\u0e40\u0e04\u0e23\u0e32\u0e30\u0e2b\u0e4c\u0e15\u0e48\u0e2d \u2014 \u0e04\u0e27\u0e23\u0e43\u0e0a\u0e49 service \u0e43\u0e14?",
+        "Which AWS service converts text to lifelike speech (text-to-speech)?",
       options: [
         "Amazon Polly",
         "Amazon Transcribe",
         "Amazon Translate",
         "Amazon Lex",
       ],
-      correct: 1,
+      correct: 0,
       explanation:
-        "Amazon Transcribe = Speech to Text (\u0e40\u0e2a\u0e35\u0e22\u0e07 \u2192 \u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21) \u0e14\u0e49\u0e27\u0e22 ASR \u2014 \u0e40\u0e2b\u0e21\u0e32\u0e30\u0e01\u0e31\u0e1a\u0e16\u0e2d\u0e14\u0e40\u0e17\u0e1b customer service Polly \u0e15\u0e23\u0e07\u0e02\u0e49\u0e32\u0e21 \u2014 Text to Speech (\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21 \u2192 \u0e40\u0e2a\u0e35\u0e22\u0e07) Translate = \u0e41\u0e1b\u0e25\u0e20\u0e32\u0e29\u0e32 Lex = \u0e2a\u0e23\u0e49\u0e32\u0e07 chatbot \u2014 \u0e08\u0e33\u0e07\u0e48\u0e32\u0e22\u0e46: Transcribe = \u0e16\u0e2d\u0e14\u0e40\u0e17\u0e1b",
+        "Amazon Polly is a text-to-speech service. Provides natural-sounding voices in many languages — used for IVR, narrating content, accessibility.",
     },
     {
       id: "ml-q3",
       question:
-        "\u0e1a\u0e23\u0e34\u0e29\u0e31\u0e17\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23\u0e2a\u0e23\u0e49\u0e32\u0e07 chatbot \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e25\u0e39\u0e01\u0e04\u0e49\u0e32 \u0e42\u0e14\u0e22\u0e43\u0e0a\u0e49\u0e40\u0e17\u0e04\u0e42\u0e19\u0e42\u0e25\u0e22\u0e35\u0e40\u0e14\u0e35\u0e22\u0e27\u0e01\u0e31\u0e1a\u0e17\u0e35\u0e48\u0e02\u0e31\u0e1a\u0e40\u0e04\u0e25\u0e37\u0e48\u0e2d\u0e19 Alexa (ASR + NLU) \u2014 \u0e04\u0e27\u0e23\u0e43\u0e0a\u0e49 service \u0e43\u0e14?",
+        "Which AWS service converts speech (audio) to text (speech-to-text)?",
       options: [
+        "Amazon Transcribe",
         "Amazon Polly",
         "Amazon Comprehend",
-        "Amazon Lex",
-        "Amazon Personalize",
+        "Amazon Translate",
       ],
-      correct: 2,
+      correct: 0,
       explanation:
-        "Amazon Lex \u0e43\u0e0a\u0e49\u0e40\u0e17\u0e04\u0e42\u0e19\u0e42\u0e25\u0e22\u0e35\u0e40\u0e14\u0e35\u0e22\u0e27\u0e01\u0e31\u0e1a Alexa \u2014 \u0e23\u0e27\u0e21 ASR (\u0e40\u0e2a\u0e35\u0e22\u0e07\u2192\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21) + NLU (\u0e40\u0e02\u0e49\u0e32\u0e43\u0e08 intent) \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e2a\u0e23\u0e49\u0e32\u0e07 chatbot, call center bot \u0e21\u0e31\u0e01\u0e08\u0e30\u0e43\u0e0a\u0e49\u0e23\u0e48\u0e27\u0e21\u0e01\u0e31\u0e1a Amazon Connect \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a contact center Polly = TTS, Comprehend = NLP analysis, Personalize = recommendation",
+        "Amazon Transcribe is the AWS automatic speech recognition (ASR) service. Converts audio to text — supports streaming, custom vocabularies, speaker diarization, automatic language detection.",
     },
     {
       id: "ml-q4",
       question:
-        "\u0e1a\u0e23\u0e34\u0e29\u0e31\u0e17\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23\u0e27\u0e34\u0e40\u0e04\u0e23\u0e32\u0e30\u0e2b\u0e4c email \u0e02\u0e2d\u0e07\u0e25\u0e39\u0e01\u0e04\u0e49\u0e32\u0e40\u0e1e\u0e37\u0e48\u0e2d\u0e2b\u0e32 sentiment, key phrases \u0e41\u0e25\u0e30 entity (\u0e1a\u0e38\u0e04\u0e04\u0e25/\u0e2a\u0e16\u0e32\u0e19\u0e17\u0e35\u0e48/\u0e41\u0e1a\u0e23\u0e19\u0e14\u0e4c) \u2014 \u0e04\u0e27\u0e23\u0e43\u0e0a\u0e49 service \u0e43\u0e14?",
+        "Which AWS service translates text between languages?",
       options: [
-        "Amazon Comprehend",
         "Amazon Translate",
-        "Amazon Kendra",
-        "Amazon Forecast",
+        "Amazon Comprehend",
+        "Amazon Polly",
+        "Amazon Transcribe",
       ],
       correct: 0,
       explanation:
-        "Amazon Comprehend \u0e04\u0e37\u0e2d NLP service \u2014 \u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a sentiment analysis (\u0e1a\u0e27\u0e01/\u0e25\u0e1a), key phrase extraction, entity recognition (people/places/brands), language detection, topic modeling \u2014 \u0e40\u0e2b\u0e21\u0e32\u0e30\u0e01\u0e31\u0e1a\u0e27\u0e34\u0e40\u0e04\u0e23\u0e32\u0e30\u0e2b\u0e4c email/\u0e02\u0e49\u0e2d\u0e04\u0e27\u0e32\u0e21\u0e25\u0e39\u0e01\u0e04\u0e49\u0e32 Translate = \u0e41\u0e1b\u0e25\u0e20\u0e32\u0e29\u0e32 Kendra = document search Forecast = \u0e1e\u0e22\u0e32\u0e01\u0e23\u0e13\u0e4c time-series",
+        "Amazon Translate provides neural machine translation between many languages. Real-time and batch translation; custom terminology.",
     },
     {
       id: "ml-q5",
       question:
-        "\u0e02\u0e49\u0e2d\u0e43\u0e14\u0e2d\u0e18\u0e34\u0e1a\u0e32\u0e22 Amazon SageMaker \u0e44\u0e14\u0e49\u0e16\u0e39\u0e01\u0e15\u0e49\u0e2d\u0e07\u0e17\u0e35\u0e48\u0e2a\u0e38\u0e14?",
+        "Which AWS service uses NLP to extract insights (sentiment, entities, key phrases) from text?",
       options: [
-        "AI service \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e43\u0e0a\u0e49\u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e1c\u0e39\u0e49\u0e43\u0e0a\u0e49\u0e17\u0e31\u0e48\u0e27\u0e44\u0e1b\u0e17\u0e35\u0e48\u0e44\u0e21\u0e48\u0e15\u0e49\u0e2d\u0e07 train model \u0e40\u0e2d\u0e07",
-        "Fully managed service \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a developers + data scientists \u0e2a\u0e23\u0e49\u0e32\u0e07/train/deploy ML model \u0e40\u0e2d\u0e07 \u0e04\u0e23\u0e2d\u0e1a\u0e04\u0e25\u0e38\u0e21 ML lifecycle",
-        "Database service \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e40\u0e01\u0e47\u0e1a training data \u0e02\u0e2d\u0e07 ML",
-        "Storage service \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a\u0e23\u0e2d\u0e07\u0e23\u0e31\u0e1a image/video dataset",
+        "Amazon Comprehend",
+        "Amazon Translate",
+        "Amazon Polly",
+        "Amazon Lex",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Comprehend is a natural language processing (NLP) service. Detects entities, key phrases, sentiment, topics, syntax, and PII in text. Comprehend Medical for medical text.",
+    },
+    {
+      id: "ml-q6",
+      question:
+        "Which AWS service is BEST for building, training, and deploying ML models at scale?",
+      options: [
+        "Amazon SageMaker",
+        "Amazon Comprehend",
+        "Amazon Rekognition",
+        "AWS Glue",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon SageMaker is a fully managed ML platform — covers the entire ML lifecycle: data labeling, notebooks, training, hyperparameter tuning, model deployment, monitoring.",
+    },
+    {
+      id: "ml-q7",
+      question:
+        "Which AWS service is a chatbot service for building conversational interfaces (text and voice)?",
+      options: [
+        "Amazon Lex",
+        "Amazon Polly",
+        "Amazon Connect",
+        "Amazon Comprehend",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Lex is the service powering Alexa — builds chatbots with automatic speech recognition (ASR) and natural language understanding (NLU). Integrates with Connect for IVR.",
+    },
+    {
+      id: "ml-q8",
+      question:
+        "Which AWS service is a managed cloud-based contact center?",
+      options: [
+        "Amazon Connect",
+        "Amazon Lex",
+        "Amazon Polly",
+        "Amazon Comprehend",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Connect is a fully managed cloud contact center — replaces traditional call centers. Integrates with Lex for chatbots, Polly for TTS, and many other AWS services.",
+    },
+    {
+      id: "ml-q9",
+      question:
+        "Which AWS service uses ML to extract text, handwriting, forms, and tables from scanned documents?",
+      options: [
+        "Amazon Textract",
+        "Amazon Rekognition",
+        "Amazon Comprehend",
+        "Amazon Transcribe",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Textract uses ML to automatically extract printed text, handwriting, forms, and tables from scanned documents — far beyond basic OCR.",
+    },
+    {
+      id: "ml-q10",
+      question:
+        "Which AWS service is a personalization engine for recommendation systems?",
+      options: [
+        "Amazon Personalize",
+        "Amazon Forecast",
+        "Amazon Comprehend",
+        "Amazon Rekognition",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Personalize provides real-time personalized recommendations (similar to those used at Amazon.com) — same ML technology as Amazon's own recommendation engine.",
+    },
+    {
+      id: "ml-q11",
+      question:
+        "Which AWS service provides time-series forecasting (e.g., demand forecasting, stock predictions)?",
+      options: [
+        "Amazon Forecast",
+        "Amazon Personalize",
+        "Amazon SageMaker only",
+        "Amazon Comprehend",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Forecast is a managed time-series forecasting service — uses the same technology Amazon uses for retail demand forecasting. (Note: Amazon Forecast is being deprecated; for new workloads, use SageMaker Canvas.)",
+    },
+    {
+      id: "ml-q12",
+      question:
+        "Which AWS service is a generative AI service that lets you build apps using foundation models (Anthropic Claude, Amazon Titan, Meta Llama, etc.) via a single API?",
+      options: [
+        "Amazon Bedrock",
+        "Amazon SageMaker",
+        "Amazon Comprehend",
+        "Amazon Q",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Bedrock provides serverless access to multiple foundation models from leading AI companies (Anthropic, AI21, Cohere, Meta, Stability AI, Amazon) through a single API for generative AI apps.",
+    },
+    {
+      id: "ml-q13",
+      question:
+        "Which AWS service is a generative AI assistant for business / developer / contact center use cases?",
+      options: [
+        "Amazon Q",
+        "Amazon Bedrock",
+        "Amazon SageMaker",
+        "Amazon Lex",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Q is AWS's generative AI assistant — Amazon Q Developer (formerly CodeWhisperer) for code, Amazon Q Business (knowledge worker assistant connecting to enterprise data), and Amazon Q in QuickSight for BI.",
+    },
+    {
+      id: "ml-q14",
+      question:
+        "Which AWS ML service is BEST for fraud detection?",
+      options: [
+        "Amazon Fraud Detector",
+        "Amazon GuardDuty",
+        "Amazon Comprehend",
+        "AWS Shield",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Fraud Detector is a managed service that uses ML to detect online fraud — fake accounts, payment fraud, identity fraud — based on Amazon's 20+ years of fraud-detection experience.",
+    },
+    {
+      id: "ml-q15",
+      question:
+        "Which AWS service is BEST for detecting anomalies in business metrics using ML?",
+      options: [
+        "Amazon Lookout for Metrics",
+        "Amazon Forecast",
+        "Amazon Personalize",
+        "Amazon Macie",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Lookout for Metrics automatically detects anomalies in business metrics (revenue, conversions, traffic) and helps identify root causes. Lookout for Equipment / Vision are similar for industrial.",
+    },
+    {
+      id: "ml-q16",
+      question:
+        "Which AWS service provides a healthcare-specific NLP for unstructured medical text?",
+      options: [
+        "Amazon Comprehend Medical",
+        "Amazon HealthLake",
+        "Amazon Transcribe Medical",
+        "All of the above are healthcare-specific",
+      ],
+      correct: 3,
+      explanation:
+        "AWS has multiple healthcare/medical AI services: Comprehend Medical (NLP for medical text), Transcribe Medical (medical speech-to-text), HealthLake (clinical data store), and HealthOmics (genomics).",
+    },
+    {
+      id: "ml-q17",
+      question:
+        "Which AWS feature provides no-code visual ML model building for business analysts?",
+      options: [
+        "Amazon SageMaker Canvas",
+        "Amazon SageMaker Studio",
+        "Amazon SageMaker JumpStart",
+        "Amazon SageMaker Autopilot",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon SageMaker Canvas provides a visual, no-code interface for building ML models — designed for business analysts without coding experience. Connects to many data sources.",
+    },
+    {
+      id: "ml-q18",
+      question:
+        "Which AWS feature in SageMaker automatically builds, trains, and tunes the best ML model?",
+      options: [
+        "Amazon SageMaker Autopilot",
+        "Amazon SageMaker Studio",
+        "Amazon SageMaker Notebooks",
+        "Amazon SageMaker Pipelines",
+      ],
+      correct: 0,
+      explanation:
+        "SageMaker Autopilot is automated ML (AutoML) — automatically explores and tunes models, lets you see the steps it took (transparent AutoML).",
+    },
+    {
+      id: "ml-q19",
+      question:
+        "Which AWS service is the unified ML IDE for data scientists?",
+      options: [
+        "Amazon SageMaker Studio",
+        "AWS Cloud9",
+        "Amazon Athena",
+        "AWS Glue Studio",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon SageMaker Studio is a web-based ML IDE — provides notebooks, debugging, model training, deployment, and monitoring in a single interface.",
+    },
+    {
+      id: "ml-q20",
+      question:
+        "Which AWS service uses ML to extract insights from your call center conversations (sentiment, key issues)?",
+      options: [
+        "Amazon Connect Contact Lens",
+        "Amazon Comprehend",
+        "Amazon Transcribe alone",
+        "Amazon Lex",
+      ],
+      correct: 0,
+      explanation:
+        "Contact Lens for Amazon Connect uses ML to analyze call center conversations — sentiment, talk speed, interruptions, themes — helping improve customer experience and agent performance.",
+    },
+    {
+      id: "ml-q21",
+      question:
+        "Which is true about Amazon Bedrock?",
+      options: [
+        "It only supports a single AI model.",
+        "It is serverless, supports multiple foundation models, and includes guardrails for safe generative AI.",
+        "It requires customers to manage GPU instances.",
+        "It only works with Amazon-built models.",
       ],
       correct: 1,
       explanation:
-        "SageMaker \u0e40\u0e1b\u0e47\u0e19 fully managed ML service \u0e2a\u0e33\u0e2b\u0e23\u0e31\u0e1a <strong>developers + data scientists</strong> \u0e17\u0e35\u0e48\u0e15\u0e49\u0e2d\u0e07\u0e01\u0e32\u0e23\u0e2a\u0e23\u0e49\u0e32\u0e07 ML model \u0e40\u0e2d\u0e07 \u2014 \u0e04\u0e23\u0e2d\u0e1a\u0e04\u0e25\u0e38\u0e21 data prep \u2192 training \u2192 tuning \u2192 deployment \u0e44\u0e21\u0e48\u0e44\u0e14\u0e49\u0e40\u0e1b\u0e47\u0e19 AI service \u0e1e\u0e23\u0e49\u0e2d\u0e21\u0e43\u0e0a\u0e49\u0e41\u0e1a\u0e1a Rekognition/Polly \u2014 \u0e16\u0e49\u0e32\u0e44\u0e21\u0e48\u0e23\u0e39\u0e49 ML \u0e04\u0e27\u0e23\u0e43\u0e0a\u0e49 AI services \u0e08\u0e30\u0e07\u0e48\u0e32\u0e22\u0e01\u0e27\u0e48\u0e32 SageMaker \u0e44\u0e21\u0e48\u0e43\u0e0a\u0e48 database \u0e2b\u0e23\u0e37\u0e2d storage",
+        "Amazon Bedrock is serverless, offers multiple foundation models (Anthropic, AI21, Cohere, Meta, Stability AI, Amazon Titan), supports knowledge bases, agents, and guardrails for responsible AI.",
+    },
+    {
+      id: "ml-q22",
+      question:
+        "Which AWS GPU/accelerated EC2 family is BEST for ML training?",
+      options: [
+        "P (P3, P4, P5) and Trn1 (Trainium)",
+        "T2",
+        "M5",
+        "C5",
+      ],
+      correct: 0,
+      explanation:
+        "P-family (P3 with V100, P4 with A100, P5 with H100) and Trainium (Trn1) instances are optimized for ML training. For inference: G-family and Inferentia (Inf1, Inf2).",
+    },
+    {
+      id: "ml-q23",
+      question:
+        "Which AWS service is BEST for industrial computer vision (e.g., defect detection on assembly lines)?",
+      options: [
+        "Amazon Lookout for Vision",
+        "Amazon Rekognition",
+        "Amazon Comprehend",
+        "Amazon Polly",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Lookout for Vision is purpose-built for industrial computer vision — automated defect detection in manufacturing, with minimal training images needed.",
+    },
+    {
+      id: "ml-q24",
+      question:
+        "Which AWS service is BEST for predictive maintenance (detecting equipment anomalies from sensor data)?",
+      options: [
+        "Amazon Lookout for Equipment",
+        "Amazon Lookout for Metrics",
+        "Amazon Forecast",
+        "Amazon Comprehend",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Lookout for Equipment uses sensor data (vibration, temperature, etc.) to detect abnormal equipment behavior and predict maintenance needs.",
+    },
+    {
+      id: "ml-q25",
+      question:
+        "Which AWS service is BEST for searching and analyzing structured/unstructured data (full-text search, log analytics, observability)?",
+      options: [
+        "Amazon OpenSearch Service",
+        "Amazon SageMaker",
+        "Amazon Comprehend",
+        "Amazon Athena",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon OpenSearch Service (formerly Elasticsearch Service) is a managed search and analytics service — used for log analytics, full-text search, observability dashboards.",
     },
   ],
 };
