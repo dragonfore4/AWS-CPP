@@ -558,30 +558,30 @@ export const accountManagement: TopicData = {
           type: "grid",
           items: [
             {
-              title: "TCO Calculator",
-              description:
-                "เปรียบเทียบ on-premises vs AWS (Server, Storage, Network, IT Labor) — https://awstcocalculator.com",
-            },
-            {
               title: "AWS Pricing Calculator",
               description:
-                "ประมาณค่าใช้จ่ายของ solution ที่จะ deploy บน AWS — https://calculator.aws/ (แทน Simple Monthly Calculator ที่เลิกใช้แล้ว)",
+                "ประมาณค่าใช้จ่ายของ solution ที่จะ deploy บน AWS รวมถึงเปรียบเทียบ on-premises vs AWS (TCO) ในตัวเดียว — https://calculator.aws/",
+            },
+            {
+              title: "Retired calculators",
+              description:
+                "<strong>TCO Calculator</strong> (awstcocalculator.com) และ <strong>Simple Monthly Calculator</strong> ถูก retire แล้ว — ฟังก์ชันทั้งสองถูกรวมเข้ามาใน AWS Pricing Calculator ปัจจุบัน",
             },
           ],
         },
         {
           type: "list",
           items: [
-            "TCO Calculator: focus ที่การเปรียบเทียบ on-prem vs cloud — รวม cost ของ server, storage, network, IT labor",
-            "AWS Pricing Calculator: focus ที่การประมาณค่าใช้จ่าย solution บน AWS",
-            "Simple Monthly Calculator (เก่า) ถูก deprecate แล้ว — ใช้ AWS Pricing Calculator แทน",
+            "<strong>AWS Pricing Calculator</strong>: ใช้ประมาณค่าใช้จ่าย solution บน AWS ก่อน deploy + รองรับการเปรียบเทียบ on-prem vs AWS (TCO scenario)",
+            "Simple Monthly Calculator และ TCO Calculator แยกตัว <strong>ถูก retire</strong> — ใช้ Pricing Calculator แทนทั้งคู่",
+            "ใช้ <strong>Pricing Calculator</strong> ตอน <em>plan</em> ก่อน deploy → ใช้ <strong>Cost Explorer</strong> ตอน <em>วิเคราะห์ค่าใช้จ่ายจริง</em> หลัง deploy แล้ว",
           ],
         },
         {
           type: "callout",
           variant: "warning",
           title: "ข้อสอบชอบถาม",
-          text: "\"เปรียบเทียบค่าใช้จ่าย on-prem vs AWS\" → <strong>TCO Calculator</strong> — \"ประมาณค่าใช้จ่าย solution บน AWS\" → <strong>AWS Pricing Calculator</strong>",
+          text: "ทั้ง <em>\"เปรียบเทียบ on-prem vs AWS\"</em> และ <em>\"ประมาณค่าใช้จ่าย solution บน AWS\"</em> → ตอบ <strong>AWS Pricing Calculator</strong> (ตัวเก่า TCO Calculator / Simple Monthly Calculator ถูก retire ไปแล้ว ฟังก์ชันรวมอยู่ใน Pricing Calculator ตัวเดียว)",
         },
       ],
     },
@@ -721,14 +721,14 @@ export const accountManagement: TopicData = {
           items: [
             "<strong>Core Checks</strong> (ทุก customer): MFA on root, security groups, S3 buckets, IAM key rotation ฯลฯ",
             "<strong>Full Trusted Advisor</strong> (Business + Enterprise plans): all checks + CloudWatch alarms + Programmatic Access",
-            "<strong>5 Categories</strong>: Cost Optimization, Performance, Security, Fault Tolerance, Service Limits",
+            "<strong>6 Categories</strong>: Cost Optimization, Performance, Security, Fault Tolerance, Service Limits, Operational Excellence (เพิ่มในปี 2022)",
           ],
         },
         {
           type: "callout",
           variant: "tip",
           title: "จำให้ได้",
-          text: "<strong>5 Categories</strong>: Cost Optimization, Performance, Security, Fault Tolerance, Service Limits — <strong>Core checks</strong> ฟรีทุก plan — <strong>Full Trusted Advisor</strong> ต้อง Business plan ขึ้นไป",
+          text: "<strong>6 Categories</strong>: Cost Optimization, Performance, Security, Fault Tolerance, Service Limits, Operational Excellence — <strong>Core checks</strong> ฟรีทุก plan — <strong>Full Trusted Advisor</strong> ต้อง Business plan ขึ้นไป",
         },
       ],
     },
@@ -821,6 +821,76 @@ export const accountManagement: TopicData = {
       ],
     },
     {
+      id: "technical-resources-partners",
+      title: "Technical Resources, Partners & Trust",
+      content: [
+        {
+          type: "paragraph",
+          text: "นอกจาก Support plans แล้ว AWS ยังมี <strong>technical resources</strong>, <strong>partner ecosystem</strong> และทีมเฉพาะทางที่ช่วยลูกค้า — Domain 4.3 ของข้อสอบ CLF-C02 ทดสอบให้รู้จัก resource เหล่านี้และเลือกใช้ได้ถูกที่",
+        },
+        {
+          type: "grid",
+          items: [
+            {
+              title: "AWS re:Post",
+              description:
+                "Community Q&amp;A platform แบบ Stack Overflow โดย AWS — ถามตอบโดย AWS experts + community ฟรี (มาแทน AWS Forums เดิม)",
+            },
+            {
+              title: "AWS Knowledge Center",
+              description:
+                "ชุด FAQ และ how-to articles สำหรับปัญหา/คำถามที่พบบ่อย — รวมข้อมูลที่ AWS Support พบจาก customer cases",
+            },
+            {
+              title: "AWS Prescriptive Guidance",
+              description:
+                "Library ของ patterns, playbooks และ migration strategies ที่ AWS Professional Services + partner สรุปมาให้นำไปใช้ได้ทันที",
+            },
+            {
+              title: "AWS Whitepapers & Documentation",
+              description:
+                "เอกสารทางการของ AWS — best practices, reference architectures, security/compliance whitepapers ทั้งหมดเข้าฟรี",
+            },
+            {
+              title: "AWS Solutions Architects",
+              description:
+                "วิศวกรของ AWS ที่ช่วยออกแบบ architecture ให้ลูกค้า — เข้าถึงได้ผ่าน Enterprise / Enterprise On-Ramp Support หรือผ่านทีมขาย",
+            },
+            {
+              title: "AWS Professional Services",
+              description:
+                "ทีม consulting ของ AWS รับงาน engagement-based ช่วย design + implement ระบบสำคัญ — มีค่าใช้จ่ายแยกต่างหาก",
+            },
+          ],
+        },
+        {
+          type: "paragraph",
+          text: "<strong>AWS Partner Network (APN)</strong> = ระบบ partner ของ AWS ที่ครอบคลุม consulting partners และ technology partners ทั่วโลก — ลูกค้าใช้ partner ช่วย implement, ผู้ขายใช้ APN ขยายธุรกิจ",
+        },
+        {
+          type: "list",
+          items: [
+            "<strong>Independent Software Vendors (ISVs)</strong>: บริษัทที่สร้าง software รันบน AWS — เผยแพร่ผ่าน <strong>AWS Marketplace</strong> ลูกค้าซื้อจ่ายผ่านบิล AWS",
+            "<strong>System Integrators (SIs)</strong>: บริษัทที่ช่วยลูกค้า design, migrate, manage workload บน AWS",
+            "<strong>Partner benefits</strong>: training + certification, partner events (re:Invent, Summits), partner volume discounts, co-sell programs, technical resources",
+            "<strong>AWS Marketplace</strong> = digital catalog ของ ISV products (AMI, container, SaaS, ML model) — ใช้ governance, cost management, entitlement ผ่าน AWS billing",
+          ],
+        },
+        {
+          type: "callout",
+          variant: "info",
+          title: "AWS Trust &amp; Safety Team",
+          text: "ถ้าพบ <strong>การใช้งาน AWS resources ในทางที่ผิด</strong> เช่น spam จาก EC2, port scanning, malware hosting, DDoS originating from AWS → รายงานที่ <strong>AWS Trust &amp; Safety team</strong> ผ่าน abuse report form (https://aws.amazon.com/premiumsupport/knowledge-center/report-aws-abuse/) — ไม่จำเป็นต้องมี support plan ก็รายงานได้",
+        },
+        {
+          type: "callout",
+          variant: "tip",
+          title: "ข้อสอบชอบถาม",
+          text: "<strong>Community Q&amp;A</strong> → re:Post · <strong>FAQ articles จาก support cases</strong> → Knowledge Center · <strong>Patterns/playbooks</strong> → Prescriptive Guidance · <strong>Architecture help</strong> → Solutions Architects · <strong>Engagement-based consulting</strong> → Professional Services · <strong>Report AWS abuse</strong> → Trust &amp; Safety · <strong>3rd-party software via AWS bill</strong> → AWS Marketplace",
+        },
+      ],
+    },
+    {
       id: "account-best-practices",
       title: "Account Best Practices Summary",
       content: [
@@ -854,12 +924,8 @@ export const accountManagement: TopicData = {
               description: "แนะนำ resources ที่เหมาะสม (EC2, ASG, EBS, Lambda)",
             },
             {
-              title: "TCO Calculator",
-              description: "เปรียบเทียบ on-premises กับ AWS",
-            },
-            {
               title: "Pricing Calculator",
-              description: "ประมาณค่าใช้จ่าย solution ที่จะ deploy",
+              description: "ประมาณค่าใช้จ่าย solution + TCO comparison (on-prem vs AWS) ในตัวเดียว",
             },
             {
               title: "Billing Dashboard",
@@ -894,7 +960,7 @@ export const accountManagement: TopicData = {
         {
           type: "list",
           items: [
-            "<strong>วางแผน</strong>: Pricing Calculator, TCO Calculator",
+            "<strong>วางแผน</strong>: Pricing Calculator (ประมาณ solution cost + TCO comparison)",
             "<strong>วิเคราะห์</strong>: Cost Explorer, Cost & Usage Reports, Compute Optimizer",
             "<strong>Alert</strong>: Billing Alarms, Budgets",
             "<strong>ประหยัด</strong>: Savings Plans, Reserved Instances",
@@ -1076,7 +1142,7 @@ export const accountManagement: TopicData = {
       ],
       correct: 0,
       explanation:
-        "AWS Trusted Advisor checks against best practices in 5 pillars: Cost Optimization, Performance, Security, Fault Tolerance, and Service Limits. Full set of checks requires Business or Enterprise Support.",
+        "AWS Trusted Advisor checks against best practices in 6 categories: Cost Optimization, Performance, Security, Fault Tolerance, Service Limits, and Operational Excellence (added in 2022). Full set of checks requires Business or Enterprise Support.",
     },
     {
       id: "am-q13",
@@ -1259,6 +1325,62 @@ export const accountManagement: TopicData = {
       correct: 0,
       explanation:
         "AWS Resource Access Manager (RAM) lets you share AWS resources across accounts within or outside Organizations — e.g., subnets, Transit Gateway, License Manager configs, Aurora DB clusters.",
+    },
+    {
+      id: "am-q26",
+      question:
+        "A developer wants to ask the AWS community a technical question and search past answered questions. Which AWS resource is BEST?",
+      options: [
+        "AWS re:Post",
+        "AWS Trusted Advisor",
+        "AWS Health Dashboard",
+        "AWS Knowledge Center",
+      ],
+      correct: 0,
+      explanation:
+        "AWS re:Post is the AWS community Q&A platform (Stack Overflow style) — replaced AWS Forums. Knowledge Center is curated FAQ articles from common support cases (also useful, but re:Post is the community-driven Q&A service).",
+    },
+    {
+      id: "am-q27",
+      question:
+        "Which AWS resource provides ready-to-use migration patterns, playbooks, and reference architectures from AWS Professional Services and partners?",
+      options: [
+        "AWS Prescriptive Guidance",
+        "AWS Trusted Advisor",
+        "AWS Well-Architected Tool",
+        "AWS re:Post",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Prescriptive Guidance is a library of patterns, guides, and playbooks contributed by AWS experts and partners — used to accelerate migration and modernization projects.",
+    },
+    {
+      id: "am-q28",
+      question:
+        "A customer notices that an EC2 instance from a different AWS account is conducting port scans against their on-prem servers. Where should they report this abuse?",
+      options: [
+        "AWS Trust & Safety team (via the AWS abuse report form)",
+        "Amazon GuardDuty findings",
+        "AWS Trusted Advisor",
+        "AWS Support — Basic plan only",
+      ],
+      correct: 0,
+      explanation:
+        "Suspected misuse of AWS resources (spam, port scanning, malware, DDoS originating from AWS) is reported to the AWS Trust & Safety team via the abuse report form. No support plan is required.",
+    },
+    {
+      id: "am-q29",
+      question:
+        "Which AWS Partner Network role describes a company that builds software which runs on AWS and sells it through AWS Marketplace?",
+      options: [
+        "Independent Software Vendor (ISV)",
+        "System Integrator (SI)",
+        "Managed Service Provider (MSP)",
+        "AWS Solutions Architect",
+      ],
+      correct: 0,
+      explanation:
+        "ISVs build software that runs on or with AWS and commonly distribute it via AWS Marketplace, where customers pay through their AWS bill. System Integrators help customers design/migrate/operate workloads on AWS.",
     },
   ],
 };

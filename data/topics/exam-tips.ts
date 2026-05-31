@@ -681,7 +681,7 @@ export const examTips: TopicData = {
       ],
       correct: 0,
       explanation:
-        "Trusted Advisor = best practice checks across 5 pillars (cost, performance, security, fault tolerance, service limits).",
+        "Trusted Advisor = best practice checks across 6 categories (cost, performance, security, fault tolerance, service limits, operational excellence).",
     },
     {
       id: "et-q19",

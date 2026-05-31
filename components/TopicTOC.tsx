@@ -21,7 +21,7 @@ export default function TopicTOC({
   accent: CategoryAccent;
 }) {
   const [activeId, setActiveId] = useState<string | null>(
-    sections[0]?.id ?? null
+    sections[0]?.id ?? null,
   );
 
   useEffect(() => {
@@ -52,7 +52,7 @@ export default function TopicTOC({
       {
         rootMargin: "-80px 0px -60% 0px",
         threshold: [0, 0.1, 0.5],
-      }
+      },
     );
 
     for (const el of elements) observer.observe(el);
@@ -70,7 +70,7 @@ export default function TopicTOC({
       <div className="text-[10px] uppercase tracking-[0.16em] text-[var(--ink-faint)]">
         ในหน้านี้
       </div>
-      <ol className="mt-3 space-y-1.5">
+      <ol className="mt-3 space-y-0.5">
         {sections.map((s, i) => {
           const isActive = s.id === activeId;
           return (
@@ -78,13 +78,26 @@ export default function TopicTOC({
               <a
                 href={`#${s.id}`}
                 className={
-                  "flex items-baseline gap-2 rounded py-0.5 text-sm transition-colors " +
+                  "group relative flex items-baseline gap-2 overflow-hidden rounded-md py-1 pl-3 pr-2 text-sm transition-colors " +
+                  // Left indicator strip rendered via ::before so it stays a
+                  // perfect rectangle inside the rounded row (no visible
+                  // colour break at the rounded top-left / bottom-left
+                  // corners that border-left would produce).
+                  "before:absolute before:left-0 before:top-0 before:h-full before:w-[2px] before:transition-colors " +
                   (isActive
-                    ? `${accent.text} font-medium`
-                    : "text-[var(--ink-muted)] hover:text-[var(--ink)]")
+                    ? `${accent.text} ${accent.tint} ${accent.markerFill} font-medium`
+                    : "text-[var(--ink-muted)] before:bg-transparent " +
+                      "hover:bg-[var(--bg-soft)] hover:text-[var(--ink)] hover:before:bg-[var(--rule-strong)]")
                 }
               >
-                <span className="font-mono text-[10px] tabular-nums text-[var(--ink-faint)]">
+                <span
+                  className={
+                    "font-mono text-[10px] tabular-nums transition-colors " +
+                    (isActive
+                      ? accent.bullet
+                      : "text-[var(--ink-faint)] group-hover:text-[var(--ink-muted)]")
+                  }
+                >
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <span className="leading-snug">{s.title}</span>

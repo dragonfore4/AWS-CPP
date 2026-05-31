@@ -108,14 +108,14 @@ export default async function TopicPage({
                 </span>
                 <span className="text-xs">{topic.sections.length} sections</span>
               </summary>
-              <ol className="mt-3 space-y-1.5 text-sm">
+              <ol className="mt-3 space-y-0.5 text-sm">
                 {topic.sections.map((s, i) => (
                   <li key={s.id}>
                     <a
                       href={`#${s.id}`}
-                      className="flex items-baseline gap-2 py-0.5 text-[var(--ink-muted)] hover:text-[var(--ink)]"
+                      className="group flex items-baseline gap-2 rounded-md border-l-2 border-transparent py-1 pl-3 pr-2 -ml-[2px] text-[var(--ink-muted)] transition-colors hover:border-[var(--rule-strong)] hover:bg-[var(--bg-soft)] hover:text-[var(--ink)]"
                     >
-                      <span className="font-mono text-[10px] tabular-nums text-[var(--ink-faint)]">
+                      <span className="font-mono text-[10px] tabular-nums text-[var(--ink-faint)] transition-colors group-hover:text-[var(--ink-muted)]">
                         {String(i + 1).padStart(2, "0")}
                       </span>
                       <span>{s.title}</span>

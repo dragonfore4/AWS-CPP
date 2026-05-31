@@ -31,6 +31,12 @@ export interface CategoryAccent {
   tint: string;
   /** Solid fill — used for tiny dots, progress bars. */
   fill: string;
+  /**
+   * Solid fill scoped to ::before pseudo-element — used for the left
+   * indicator strip in the section TOC. Written as literals so Tailwind's
+   * JIT scanner picks them up.
+   */
+  markerFill: string;
   /** Border colour, full strength, for accent rules. */
   border: string;
   /** Border colour, soft, for hover. */
@@ -70,6 +76,7 @@ const accents: Record<CategoryKey, CategoryAccent> = {
     textHover: "hover:text-indigo-800 dark:hover:text-indigo-200",
     tint: "bg-indigo-50 dark:bg-indigo-950/40",
     fill: "bg-indigo-600 dark:bg-indigo-400",
+    markerFill: "before:bg-indigo-600 dark:before:bg-indigo-400",
     border: "border-indigo-600 dark:border-indigo-400",
     borderHover: "hover:border-indigo-500 dark:hover:border-indigo-400",
     buttonBg: "bg-indigo-700 dark:bg-indigo-500",
@@ -88,6 +95,7 @@ const accents: Record<CategoryKey, CategoryAccent> = {
     textHover: "hover:text-amber-800 dark:hover:text-amber-200",
     tint: "bg-amber-50 dark:bg-amber-950/40",
     fill: "bg-amber-600 dark:bg-amber-400",
+    markerFill: "before:bg-amber-600 dark:before:bg-amber-400",
     border: "border-amber-600 dark:border-amber-400",
     borderHover: "hover:border-amber-500 dark:hover:border-amber-400",
     buttonBg: "bg-amber-700 dark:bg-amber-500",
@@ -106,6 +114,7 @@ const accents: Record<CategoryKey, CategoryAccent> = {
     textHover: "hover:text-violet-800 dark:hover:text-violet-200",
     tint: "bg-violet-50 dark:bg-violet-950/40",
     fill: "bg-violet-600 dark:bg-violet-400",
+    markerFill: "before:bg-violet-600 dark:before:bg-violet-400",
     border: "border-violet-600 dark:border-violet-400",
     borderHover: "hover:border-violet-500 dark:hover:border-violet-400",
     buttonBg: "bg-violet-700 dark:bg-violet-500",
@@ -124,6 +133,7 @@ const accents: Record<CategoryKey, CategoryAccent> = {
     textHover: "hover:text-emerald-800 dark:hover:text-emerald-200",
     tint: "bg-emerald-50 dark:bg-emerald-950/40",
     fill: "bg-emerald-600 dark:bg-emerald-400",
+    markerFill: "before:bg-emerald-600 dark:before:bg-emerald-400",
     border: "border-emerald-600 dark:border-emerald-400",
     borderHover: "hover:border-emerald-500 dark:hover:border-emerald-400",
     buttonBg: "bg-emerald-700 dark:bg-emerald-500",
@@ -142,6 +152,7 @@ const accents: Record<CategoryKey, CategoryAccent> = {
     textHover: "hover:text-rose-800 dark:hover:text-rose-200",
     tint: "bg-rose-50 dark:bg-rose-950/40",
     fill: "bg-rose-600 dark:bg-rose-400",
+    markerFill: "before:bg-rose-600 dark:before:bg-rose-400",
     border: "border-rose-600 dark:border-rose-400",
     borderHover: "hover:border-rose-500 dark:hover:border-rose-400",
     buttonBg: "bg-rose-700 dark:bg-rose-500",
@@ -160,6 +171,7 @@ const accents: Record<CategoryKey, CategoryAccent> = {
     textHover: "hover:text-sky-800 dark:hover:text-sky-200",
     tint: "bg-sky-50 dark:bg-sky-950/40",
     fill: "bg-sky-600 dark:bg-sky-400",
+    markerFill: "before:bg-sky-600 dark:before:bg-sky-400",
     border: "border-sky-600 dark:border-sky-400",
     borderHover: "hover:border-sky-500 dark:hover:border-sky-400",
     buttonBg: "bg-sky-700 dark:bg-sky-500",
