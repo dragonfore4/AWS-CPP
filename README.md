@@ -1,36 +1,76 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# AWS CLF-C02 บันทึกย่อ
 
-## Getting Started
+Bilingual (Thai + English) study notes site for the **AWS Certified Cloud Practitioner (CLF-C02)** exam, structured one-to-one with [Stephane Maarek's *Ultimate AWS Certified Cloud Practitioner* course](https://www.udemy.com/course/aws-certified-cloud-practitioner-new/) on Udemy.
 
-First, run the development server:
+- **20 topics** organised in Stephane's section order and grouped into 6 AWS service categories (Compute, Storage, Networking, Database & Analytics, Security & Identity, Management & Foundations).
+- **~500 quiz questions** total (≈25 per topic, 10 sampled at random per session).
+- **Editorial / publication style** — long-form Thai notes with English exam terms inline, marker-pen highlights on key terms, 6 low-saturation category accents.
+- **Static site** — pure HTML/CSS/JS output, no backend, no API routes.
+
+---
+
+## Stack
+
+- [Next.js 16](https://nextjs.org) with App Router + TypeScript
+- [Tailwind CSS v4](https://tailwindcss.com) via the postcss plugin
+- Static export (`output: "export"`) — deployable as plain HTML
+- Fonts: Inter + Noto Sans Thai (body), IBM Plex Serif + Noto Serif Thai (headings), Geist Mono (code)
+- Icons: [`lucide-react`](https://lucide.dev) (no emoji)
+
+---
+
+## Quick start
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <this-repo>
+cd AWS-CPP
+npm install
+npm run dev          # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Build for production
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+npm run build        # TypeScript compile + static export → out/
+npm run lint         # ESLint
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+A green build emits **24 static pages**: 1 homepage + 20 topic pages + 3 system pages (`_not-found`, etc.). Deploy `out/` to any static host (S3 + CloudFront, Netlify, GitHub Pages, Vercel static).
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Project structure
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- `app/` — App Router pages (`/`, `/topics/[slug]`) and `globals.css`
+- `components/` — server + client React components (Navbar, TopicSection, QuizSection, …)
+- `data/topics/*.ts` — one `TopicData` per topic; the **single source of truth** for content
+- `data/index.ts` — topic registry consumed by `generateStaticParams`
+- `lib/` — shared helpers (theme scripts, category accents, progress, search)
+- `types/topic.ts` — TypeScript interfaces (`TopicData`, `Section`, `QuizQuestion`)
+- `public/` — static assets
+- `docs/` — contributor documentation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+For the full annotated tree, see [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md).
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## For contributors and AI agents
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Pick the file that matches your task:
+
+| Task | Read |
+|---|---|
+| Add or modify topic content (article body or quiz) | [`AGENTS.md`](./AGENTS.md) → [`AUDIT.md`](./AUDIT.md) → [`docs/SERVICES.md`](./docs/SERVICES.md) → [`docs/AUTHORING.md`](./docs/AUTHORING.md) |
+| Change UI / typography / colour | [`UI-style.md`](./UI-style.md) |
+| Change site internals (components, hooks, build) | [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md) |
+| Anything else | start at [`AGENTS.md`](./AGENTS.md) |
+
+`AGENTS.md` is the master rulebook for AI coding agents (Claude Code, Copilot CLI, Codex, Gemini CLI). It is short on purpose — it points at the right detail file for each task and contains the authoritative CLF-C02 reference URL table.
+
+---
+
+## Credits
+
+- Course structure and topic order: [Stephane Maarek's *Ultimate AWS Certified Cloud Practitioner CLF-C02*](https://www.udemy.com/course/aws-certified-cloud-practitioner-new/) on Udemy.
+- Exam scope: [AWS Certified Cloud Practitioner (CLF-C02) Exam Guide](https://docs.aws.amazon.com/aws-certification/latest/cloud-practitioner-02/cloud-practitioner-02.html).
+- Visual design language: see [`UI-style.md`](./UI-style.md) for a reusable description of the editorial-restraint style used across the site.

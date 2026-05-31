@@ -7,13 +7,14 @@ export const s3: TopicData = {
   accent: "yellow",
   category: "Storage",
   description:
-    "Amazon S3 คือ Object Storage ระดับ infinitely scalable เก็บไฟล์ได้ไม่จำกัด มี durability 99.999999999% (11 nines) ใช้สำหรับ backup, DR, archive, hybrid cloud, hosting, media, data lakes, software delivery และ static website นอกจากนี้ AWS ยังมี Snow Family สำหรับ migrate ข้อมูลขนาดใหญ่เข้าสู่ S3",
+    "Amazon S3 คือ Object Storage ระดับ infinitely scalable เก็บไฟล์ได้ไม่จำกัด มี durability 99.999999999% (11 nines) ใช้สำหรับ backup, DR, archive, hybrid cloud, hosting, media, data lakes, software delivery และ static website นอกจากนี้ AWS ยังมี Snow Family สำหรับ migrate ข้อมูลขนาดใหญ่และ Storage Gateway สำหรับ hybrid cloud เชื่อม on-prem app เข้ากับ S3",
   keyPoints: [
     "Object storage แบบ unlimited — แต่ละไฟล์สูงสุด 5TB, key คือ full path ของ object",
-    "Storage Classes 6 แบบ — เลือกตามความถี่ในการเข้าถึงเพื่อประหยัดค่าใช้จ่าย",
+    "Storage Classes 8 แบบ — เลือกตามความถี่ในการเข้าถึงเพื่อประหยัดค่าใช้จ่าย",
     "Durability 99.999999999% (11 nines) ทุก class — ข้อมูลแทบไม่มีทางหาย",
     "รองรับ Versioning, Replication (CRR/SRR), Object Lock (WORM) และ Static Website Hosting",
     "Snow Family — ขนข้อมูลทางกายภาพเข้าสู่ S3 (Snowcone, Snowball Edge)",
+    "Storage Gateway — bridge ระหว่าง on-prem (NFS, SMB, iSCSI, VTL) กับ S3 / Glacier มี local cache",
   ],
   sections: [
     {
@@ -52,7 +53,7 @@ export const s3: TopicData = {
             },
             {
               title: "Hybrid Cloud Storage",
-              description: "ใช้คู่กับ on-prem ผ่าน Storage Gateway",
+              description: "เชื่อม on-prem app เข้ากับ S3 / Glacier ผ่าน Storage Gateway โดยใช้ NFS, SMB, iSCSI, VTL — มี local cache",
             },
             {
               title: "Application Hosting",
@@ -288,7 +289,7 @@ export const s3: TopicData = {
       content: [
         {
           type: "paragraph",
-          text: "S3 มี Storage Classes 6 แบบหลัก (Glacier มี 3 sub-tiers) — เลือกตาม <em>ความถี่ในการเข้าถึง</em> และ <em>ค่าใช้จ่าย</em> ที่ยอมรับได้ — ทุก class มี <strong>durability 99.999999999% (11 nines)</strong> เหมือนกัน",
+          text: "S3 มี Storage Classes 8 แบบ (Glacier มี 3 sub-tiers) — เลือกตาม <em>ความถี่ในการเข้าถึง</em>, <em>latency</em> และ <em>ค่าใช้จ่าย</em> ที่ยอมรับได้ — ทุก class มี <strong>durability 99.999999999% (11 nines)</strong> เหมือนกัน",
         },
         {
           type: "grid",
@@ -299,9 +300,19 @@ export const s3: TopicData = {
                 "เข้าถึงบ่อย — <strong>availability 99.99%</strong>, low latency, high throughput, ใช้กับ big data, mobile/gaming apps, content distribution",
             },
             {
+              title: "S3 Intelligent-Tiering",
+              description:
+                "ย้าย object ระหว่าง tiers <strong>อัตโนมัติ</strong> ตามการใช้งาน — มี monitoring fee เล็กน้อยแต่ <em>ไม่มี retrieval fee</em> ไม่ต้องคิด lifecycle เอง · เหมาะเมื่อไม่รู้ pattern การเข้าถึง",
+            },
+            {
+              title: "S3 Express One Zone",
+              description:
+                "<strong>High performance</strong> — single-AZ, <strong>single-digit ms latency</strong>, เร็วกว่า Standard ~10x, request cost ถูกกว่า Standard ~80% · เก็บใน <em>directory bucket</em> · เหมาะกับ ML training, analytics ที่ต้องการ latency ต่ำสุด · availability 99.95%",
+            },
+            {
               title: "S3 Standard-IA (Infrequent Access)",
               description:
-                "เข้าถึงไม่บ่อยแต่ต้องการเร็วเมื่อเข้าถึง — <strong>availability 99.9%</strong>, ค่าเก็บถูกกว่า Standard แต่มี <em>retrieval fee</em> ต่อ GB · ใช้กับ DR, backup",
+                "เข้าถึงไม่บ่อยแต่ต้องการเร็วเมื่อเข้าถึง — <strong>availability 99.9%</strong>, ค่าเก็บถูกกว่า Standard แต่มี <em>retrieval fee</em> ต่อ GB · ขั้นต่ำ 30 วัน · ใช้กับ DR, backup",
             },
             {
               title: "S3 One Zone-IA",
@@ -309,19 +320,19 @@ export const s3: TopicData = {
                 "Infrequent Access แต่เก็บใน <strong>AZ เดียว</strong> — <strong>availability 99.5%</strong>, ถูกกว่า Standard-IA ~20% ข้อมูลหายถ้า AZ พัง · เหมาะกับข้อมูลที่สร้างใหม่ได้, secondary backup",
             },
             {
-              title: "S3 Intelligent-Tiering",
+              title: "S3 Glacier Instant Retrieval",
               description:
-                "ย้าย object ระหว่าง tiers <strong>อัตโนมัติ</strong> ตามการใช้งาน — มี monitoring fee เล็กน้อยแต่ <em>ไม่มี retrieval fee</em> ไม่ต้องคิด lifecycle เอง · เหมาะเมื่อไม่รู้ pattern การเข้าถึง",
+                "Archive ที่ต้องการ <strong>millisecond retrieval</strong> — ถูกกว่า Standard-IA ~68% เมื่อเข้าถึงประมาณ <em>ครั้ง/ไตรมาส</em> · ขั้นต่ำ 90 วัน · เหมาะกับ medical images, news media archives, user-generated content",
             },
             {
-              title: "S3 Glacier — Archive",
+              title: "S3 Glacier Flexible Retrieval (formerly S3 Glacier)",
               description:
-                "ราคาถูกสำหรับ archive · retrieval มี 3 ระดับ: <strong>Expedited 1-5 นาที</strong>, <strong>Standard 3-5 ชม.</strong>, <strong>Bulk 5-12 ชม.</strong> · ขั้นต่ำ 90 วัน",
+                "Archive ราคาถูก — retrieval มี 3 ระดับ: <strong>Expedited 1-5 นาที</strong>, <strong>Standard 3-5 ชม.</strong>, <strong>Bulk 5-12 ชม.</strong> (Bulk ฟรี) · ขั้นต่ำ 90 วัน · เหมาะกับ backup และ DR ที่บางครั้งต้องดึงเร็ว",
             },
             {
               title: "S3 Glacier Deep Archive",
               description:
-                "<strong>ถูกที่สุด</strong> — สำหรับข้อมูลที่แทบไม่เข้าถึง (long-term archive) · retrieval: <strong>Standard 12 ชม.</strong>, <strong>Bulk 48 ชม.</strong> · ขั้นต่ำ 180 วัน",
+                "<strong>ถูกที่สุด</strong> — สำหรับข้อมูลที่แทบไม่เข้าถึง (long-term archive 7-10 ปี) · retrieval: <strong>Standard 12 ชม.</strong>, <strong>Bulk 48 ชม.</strong> · ขั้นต่ำ 180 วัน · ทดแทน on-prem tape libraries",
             },
           ],
         },
@@ -329,7 +340,8 @@ export const s3: TopicData = {
           type: "list",
           items: [
             "<strong>Durability:</strong> ทุก class = 99.999999999% (11 nines) — เก็บ 10 ล้าน objects โดยเฉลี่ยจะหาย 1 object ทุกๆ 10,000 ปี",
-            "<strong>Availability:</strong> ต่างกันตาม class · Standard 99.99% > Standard-IA 99.9% > One Zone-IA 99.5%",
+            "<strong>Availability:</strong> ต่างกันตาม class · Standard 99.99% > Standard-IA 99.9% > One Zone-IA 99.5% · Express One Zone 99.95%",
+            "<strong>Storage in 3+ AZs by default</strong> ยกเว้น One Zone-IA และ Express One Zone ที่เก็บใน AZ เดียว",
             "ย้าย class ได้ด้วยตนเอง หรือใช้ <strong>S3 Lifecycle Rules</strong> ย้ายอัตโนมัติตามอายุ object",
           ],
         },
@@ -337,7 +349,66 @@ export const s3: TopicData = {
           type: "callout",
           variant: "tip",
           title: "เทคนิคจำ",
-          text: "<strong>Standard</strong> = ใช้บ่อย · <strong>IA</strong> = ไม่บ่อยแต่ต้องเร็ว · <strong>One Zone-IA</strong> = IA แต่ AZ เดียว ถูกกว่า · <strong>Intelligent-Tiering</strong> = ให้ AWS จัดการให้ · <strong>Glacier</strong> = archive ยิ่ง Deep ยิ่งถูกแต่ช้า",
+          text: "<strong>Standard</strong> = ใช้บ่อย · <strong>Intelligent-Tiering</strong> = ให้ AWS จัดการให้ · <strong>Express One Zone</strong> = เร็วสุด ms ต่ำ AZ เดียว · <strong>IA</strong> = ไม่บ่อยแต่ต้องเร็ว · <strong>One Zone-IA</strong> = IA แต่ AZ เดียว ถูกกว่า · <strong>Glacier Instant</strong> = archive ms · <strong>Glacier Flexible</strong> = archive นาที-ชม. · <strong>Deep Archive</strong> = ถูกสุด ช้าสุด",
+        },
+      ],
+    },
+    {
+      id: "advanced-features",
+      title: "S3 Advanced Features",
+      content: [
+        {
+          type: "paragraph",
+          text: "นอกเหนือจากเก็บไฟล์เฉยๆ S3 มี features สำคัญสำหรับ <strong>cost optimization</strong>, <strong>security</strong>, <strong>performance</strong> และ <strong>event-driven workflows</strong> ที่ CLF-C02 มักทดสอบ",
+        },
+        {
+          type: "grid",
+          items: [
+            {
+              title: "Encryption (Server-Side & Client-Side)",
+              description:
+                "<strong>SSE-S3</strong> AWS managed key (default ตั้งแต่ ม.ค. 2023) · <strong>SSE-KMS</strong> ใช้ KMS key ของลูกค้า มี audit log ใน CloudTrail · <strong>SSE-C</strong> ลูกค้าให้ key เอง AWS ไม่เก็บ · <strong>Client-Side Encryption</strong> เข้ารหัสก่อน upload key ไม่ถึง AWS",
+            },
+            {
+              title: "Lifecycle Policies",
+              description:
+                "<strong>Transition actions</strong> ย้าย object ระหว่าง storage classes ตามอายุ (Standard → IA → Glacier) · <strong>Expiration actions</strong> ลบ object เก่า / version เก่า / incomplete multipart uploads · ฟรี ไม่มีค่า config",
+            },
+            {
+              title: "S3 Transfer Acceleration",
+              description:
+                "Upload / download เร็วขึ้นจากที่ห่างไกล โดยใช้ <strong>CloudFront edge locations</strong> เป็นจุดรับและส่งผ่าน <em>AWS backbone</em> ไป bucket · เหมาะกับการรับไฟล์จาก users ทั่วโลกเข้า bucket ใน region เดียว",
+            },
+            {
+              title: "S3 Select",
+              description:
+                "ใช้ <strong>SQL</strong> ดึงเฉพาะ subset ของ object (CSV, JSON, Parquet) — ไม่ต้อง download ทั้งไฟล์ · ลด egress cost และ processing time · เหมาะกับ object ไฟล์เดียว (ใช้ Athena สำหรับหลายไฟล์)",
+            },
+            {
+              title: "Presigned URLs",
+              description:
+                "URL ที่มี <strong>signature</strong> + วันหมดอายุ ใช้แชร์ object แบบ private ชั่วคราวโดยไม่ต้องเปิด bucket public · default 1 ชม., max 7 วัน (SigV4) · ใช้กับ download หรือ upload ก็ได้",
+            },
+            {
+              title: "Event Notifications",
+              description:
+                "Trigger <strong>Lambda / SNS / SQS / EventBridge</strong> เมื่อ object ถูก create / delete / restore / replicate · เป็น foundation ของ event-driven workflow บน S3 (เช่น auto-resize ภาพ, virus scan)",
+            },
+          ],
+        },
+        {
+          type: "list",
+          items: [
+            "<strong>VPC Gateway Endpoint for S3</strong> — เข้า S3 จาก VPC ผ่าน AWS backbone โดยไม่ต้องผ่าน internet · ใช้ bucket policy condition <code>aws:SourceVpc</code> บังคับให้เข้าจาก VPC ที่กำหนดเท่านั้น",
+            "<strong>MFA Delete</strong> — ต้องใส่ MFA token ก่อนลบ object version (ใช้ได้เมื่อเปิด Versioning) · เพิ่มชั้นป้องกัน accidental หรือ malicious delete",
+            "<strong>Multi-Part Upload</strong> — แนะนำเมื่อไฟล์ ≥ 100 MB, บังคับเมื่อไฟล์ ≥ 5 GB · upload เป็น parts แบบ parallel เร็วกว่าและ retry ส่วนที่ fail ได้",
+          ],
+        },
+        {
+          type: "callout",
+          variant: "info",
+          title: "Encryption by Default",
+          text: "ตั้งแต่ <strong>มกราคม 2023</strong> S3 bucket ใหม่ทุกตัวเปิด <strong>SSE-S3</strong> เป็น default encryption โดยอัตโนมัติ · ไม่ต้อง config เอง · ถ้าต้องการ KMS key ให้เปลี่ยนเป็น SSE-KMS ใน bucket settings",
         },
       ],
     },
@@ -485,6 +556,62 @@ export const s3: TopicData = {
       ],
     },
     {
+      id: "storage-gateway",
+      title: "AWS Storage Gateway",
+      content: [
+        {
+          type: "paragraph",
+          text: "<strong>AWS Storage Gateway</strong> คือ <em>hybrid cloud storage service</em> ที่เชื่อม on-prem application เข้ากับ AWS storage ผ่าน protocol มาตรฐาน — <strong>NFS, SMB, iSCSI, iSCSI VTL</strong> — โดยมี <em>local cache</em> เพื่อ low-latency reads ในขณะที่ข้อมูลส่วนใหญ่อยู่บน cloud · ติดตั้งเป็น VM (VMware, Hyper-V, Linux KVM) หรือ EC2 instance ก็ได้",
+        },
+        {
+          type: "callout",
+          variant: "info",
+          title: "ทำไมต้องใช้ Storage Gateway",
+          text: "On-prem app ส่วนใหญ่ใช้ <strong>NFS / SMB / iSCSI</strong> โดยไม่รู้จัก S3 API · Storage Gateway แปลง protocol ให้ apps เห็นเป็น file share / block volume / tape library ตามปกติ แต่ข้อมูลจริงเก็บใน <strong>S3 / S3 Glacier</strong> · ได้ durability + cost ของ cloud โดยไม่ต้องเขียน app ใหม่",
+        },
+        {
+          type: "paragraph",
+          text: "<strong>Storage Gateway มี 3 ประเภท:</strong>",
+        },
+        {
+          type: "grid",
+          items: [
+            {
+              title: "Amazon S3 File Gateway",
+              description:
+                "<strong>NFS / SMB</strong> file share — ไฟล์ถูกเก็บเป็น object ใน S3 · มี local cache สำหรับ hot data · รองรับ Lifecycle ไป Glacier · ใช้ AWS IAM และ bucket policy · เหมาะกับ user file shares, application data, ML training data, database backup (SQL, Oracle, SAP)",
+            },
+            {
+              title: "Volume Gateway",
+              description:
+                "<strong>iSCSI block volumes</strong> — ใช้กับ Windows/Linux servers on-prem · เก็บใน S3 + EBS snapshots สำหรับ recovery · มี <em>Cached mode</em> (primary ใน cloud, hot data cache on-prem) และ <em>Stored mode</em> (primary on-prem, async backup เข้า S3)",
+            },
+            {
+              title: "Tape Gateway",
+              description:
+                "<strong>iSCSI Virtual Tape Library (VTL)</strong> — ทดแทน physical tape backup ด้วย virtual tapes ที่เก็บใน S3 / S3 Glacier / Deep Archive · ใช้ได้กับ backup software เดิม (Veeam, NetBackup, Backup Exec) · ไม่ต้องเปลี่ยน workflow",
+            },
+          ],
+        },
+        {
+          type: "list",
+          items: [
+            "<strong>Local cache</strong> ทำให้ on-prem app อ่าน hot data ได้เร็วเหมือน local storage",
+            "ข้อมูลถูก <strong>เข้ารหัสทั้ง in transit (TLS) และ at rest</strong> (S3 SSE)",
+            "Integrate กับ <strong>AWS Backup</strong>, CloudWatch metrics, CloudTrail audit logs",
+            "รองรับ <strong>WORM</strong> (write-once read-many) สำหรับ compliance",
+            "Charged ตาม storage ที่ใช้ + request + data transfer out — ไม่มีค่า ingest เข้า S3",
+          ],
+        },
+        {
+          type: "callout",
+          variant: "tip",
+          title: "Storage Gateway vs DataSync vs Snow Family",
+          text: "<strong>Storage Gateway:</strong> ongoing hybrid access — on-prem app ใช้ NFS/SMB/iSCSI ทุกวัน, data caching<br><strong>DataSync:</strong> one-off / scheduled bulk online sync — NFS/SMB/HDFS/S3 ↔ AWS, ไม่ใช่ caching<br><strong>Snow Family:</strong> offline physical migration — เมื่อ bandwidth ไม่พอสำหรับ migration ขนาดใหญ่",
+        },
+      ],
+    },
+    {
       id: "opshub",
       title: "AWS OpsHub",
       content: [
@@ -524,9 +651,11 @@ export const s3: TopicData = {
             "<strong>S3 Versioning</strong> — multiple versions for files, prevent accidental deletes",
             "<strong>S3 Access Logs</strong> — log requests made within your S3 bucket",
             "<strong>S3 Replication</strong> — same-region or cross-region, must enable versioning",
-            "<strong>S3 Storage Classes</strong> — Standard, IA, 1Z-IA, Intelligent, Glacier, Glacier Deep Archive",
+            "<strong>S3 Storage Classes</strong> — Standard, Intelligent-Tiering, Express One Zone, Standard-IA, One Zone-IA, Glacier Instant Retrieval, Glacier Flexible Retrieval, Glacier Deep Archive",
+            "<strong>S3 Advanced Features</strong> — Encryption (SSE-S3/KMS/C, Client-Side), Lifecycle, Transfer Acceleration, S3 Select, Presigned URLs, Event Notifications, VPC Gateway Endpoint, MFA Delete",
             "<strong>S3 Object Lock</strong> — WORM model, prevent deletes for a defined time",
             "<strong>Snow Family</strong> — physical devices to transfer data into AWS or run edge computing",
+            "<strong>Storage Gateway</strong> — hybrid bridge: S3 File Gateway (NFS/SMB), Volume Gateway (iSCSI), Tape Gateway (VTL)",
             "<strong>OpsHub</strong> — desktop application to manage Snow Family devices",
             "<strong>Shared Responsibility</strong> — AWS handles infra; you handle config, policy, encryption",
           ],
@@ -872,6 +1001,34 @@ export const s3: TopicData = {
       correct: 0,
       explanation:
         "S3 Lifecycle policies are free to configure and automatically transition or expire objects based on age — typically the first and biggest S3 cost optimization win.",
+    },
+    {
+      id: "s3-q26",
+      question:
+        "A company wants to replace its on-premises physical tape backup library while keeping its existing backup software (e.g., Veeam, NetBackup) and workflows. Which AWS service is BEST?",
+      options: [
+        "AWS Storage Gateway — Tape Gateway",
+        "AWS Storage Gateway — S3 File Gateway",
+        "AWS DataSync",
+        "AWS Snowball Edge",
+      ],
+      correct: 0,
+      explanation:
+        "Tape Gateway presents an iSCSI Virtual Tape Library (VTL) interface that existing backup software recognizes as physical tape. Virtual tapes are stored in S3 / S3 Glacier / Deep Archive, replacing on-premises tape libraries without requiring workflow changes.",
+    },
+    {
+      id: "s3-q27",
+      question:
+        "An on-premises application uses an NFS file share for daily reads and writes. The company wants the data to live in Amazon S3 with low-latency local reads, without re-architecting the application. Which AWS service is BEST?",
+      options: [
+        "AWS DataSync",
+        "AWS Snowball Edge",
+        "AWS Storage Gateway — S3 File Gateway",
+        "S3 Transfer Acceleration",
+      ],
+      correct: 2,
+      explanation:
+        "S3 File Gateway presents NFS (or SMB) file shares to on-premises applications while storing the underlying objects in Amazon S3, with a local cache for low-latency reads. DataSync is for one-off / scheduled bulk online sync (not ongoing file-share access). Snowball is offline migration. Transfer Acceleration speeds up uploads but doesn't expose a file-share interface.",
     },
   ],
 };
