@@ -637,13 +637,13 @@ Use case            | Migrate on-prem    | Cloud-native apps`,
         "Which SNS subscriber types are supported?",
       options: [
         "Only email and SMS.",
-        "HTTP/HTTPS, Email/Email-JSON, SQS, SMS, AWS Lambda, Mobile Push, Kinesis Data Firehose.",
+        "HTTP/HTTPS, Email/Email-JSON, SQS, SMS, AWS Lambda, Mobile Push, Amazon Data Firehose (formerly Kinesis Data Firehose).",
         "Only SQS.",
         "Only Lambda.",
       ],
       correct: 1,
       explanation:
-        "SNS supports many subscriber types: HTTP/HTTPS, Email, SMS, SQS queues, Lambda functions, mobile push notifications (APNS, FCM, ADM, etc.), and Kinesis Data Firehose.",
+        "SNS supports many subscriber types: HTTP/HTTPS, Email, SMS, SQS queues, Lambda functions, mobile push notifications (APNS, FCM, ADM, etc.), and Amazon Data Firehose (formerly Kinesis Data Firehose).",
     },
     {
       id: "ci-q11",

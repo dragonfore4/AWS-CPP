@@ -445,6 +445,7 @@ export const cloudMonitoring: TopicData = {
             "ให้ <strong>remediation steps</strong> — บอกว่าควรทำอะไรเพื่อแก้ปัญหา",
             "<strong>Proactive notifications:</strong> แจ้งล่วงหน้าเรื่อง scheduled changes เช่น EC2 ที่ underlying hardware กำลังจะถูก retire, RDS maintenance window",
             "Integration กับ EventBridge — automate การตอบสนองเมื่อมี health event",
+            "<strong>AWS Health API</strong> — programmatic access ดึง health events ไป integrate กับระบบ ITSM/monitoring เอง (ต้องใช้ Business / Enterprise On-Ramp / Enterprise Support plan)",
             "ดูข้อมูล Open issues, Scheduled changes, Other notifications",
           ],
         },
@@ -655,7 +656,7 @@ export const cloudMonitoring: TopicData = {
       ],
       correct: 0,
       explanation:
-        "AWS Trusted Advisor analyzes your account and recommends improvements across 5 pillars: cost optimization, performance, security, fault tolerance, and service limits.",
+        "AWS Trusted Advisor analyzes your account and recommends improvements across 6 categories: cost optimization, performance, security, fault tolerance, service limits, and operational excellence (added in 2022).",
     },
     {
       id: "cm-q5",
@@ -851,7 +852,7 @@ export const cloudMonitoring: TopicData = {
     {
       id: "cm-q19",
       question:
-        "Which Trusted Advisor pillar checks for over-provisioned EC2 instances and idle ELBs to save cost?",
+        "Which Trusted Advisor category checks for over-provisioned EC2 instances and idle ELBs to save cost?",
       options: [
         "Cost Optimization",
         "Performance",

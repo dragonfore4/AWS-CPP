@@ -232,3 +232,42 @@ $ npm run build
 - **Build verification** ผ่าน 24 หน้าตามที่ AGENTS.md กำหนด
 
 ผู้เรียนที่ใช้ notes นี้สำหรับ CLF-C02 จะไม่พบเนื้อหาที่ทำให้สับสนหรือชี้ไปบริการที่ปิดไปแล้ว
+
+---
+
+## Follow-up Audit Pass — 2026-05-31
+
+ตรวจซ้ำหลังการอัปเดตหลัก พบประเด็นเพิ่มเติม 3 หมวด:
+
+### A. Outdated information
+
+| File | Issue | Fix |
+|---|---|---|
+| `account-management.ts` (×4 จุด: lines 724, 731, 1079) + `cloud-monitoring.ts` (line 658) + `exam-tips.ts` (line 684) | Trusted Advisor บอก **5 pillars/categories** | อัปเดตเป็น **6 categories** (เพิ่ม Operational Excellence ปี 2022) |
+| `account-management.ts` lines 555–585, 855–897 | **TCO Calculator** ที่ awstcocalculator.com ถูก retire และรวมเข้า Pricing Calculator แล้ว | ลบ TCO Calculator เป็น tool แยก, อัปเดตเป็น "Pricing Calculator (รวม TCO comparison ในตัวเดียว)" |
+| `cloud-integration.ts` ci-q10 (lines 640, 646) | คำตอบที่ถูกต้องและ explanation ใช้ชื่อเดิม "Kinesis Data Firehose" | เปลี่ยนเป็น "Amazon Data Firehose (formerly Kinesis Data Firehose)" |
+| `cloud-monitoring.ts` line 854 | คำว่า "pillar" ใน quiz cm-q19 | เปลี่ยนเป็น "category" |
+
+### B. Missing in-scope / testable concepts (per CLF-C02 Domain 4.3 task statement)
+
+เพิ่มเนื้อหาใหม่ที่ exam guide ระบุชัดเจนว่าเป็น testable resources แต่ไม่เคยถูก cover:
+
+| File | Addition |
+|---|---|
+| `cloud-monitoring.ts` (AWS Health Dashboard section) | เพิ่ม bullet เรื่อง **AWS Health API** (programmatic access, ต้องใช้ Business+ support plan) |
+| `account-management.ts` | เพิ่ม **section ใหม่ `technical-resources-partners`** ครอบคลุม: AWS re:Post, Knowledge Center, Prescriptive Guidance, Whitepapers/Documentation, Solutions Architects, Professional Services, AWS Partner Network (ISV / SI / partner benefits / Marketplace as partner channel), Trust &amp; Safety abuse reporting |
+| `account-management.ts` quiz | เพิ่ม **4 quiz ข้อ** (am-q26 ถึง am-q29): re:Post, Prescriptive Guidance, Trust &amp; Safety, ISV/APN |
+
+### C. Build verification
+
+```
+$ npm run lint   ✓ 0 errors
+$ npm run build  ✓ 24/24 pages emitted (1 home + 20 topics + 3 system)
+```
+
+### Notes / out of scope
+
+- **CodeArtifact + CodeDeploy** ยังคงเก็บไว้ตามคำสั่งของ author (out-of-scope ในรายการอย่างเป็นทางการของ CLF-C02 แต่เป็น context CI/CD ที่มีประโยชน์ต่อผู้เรียน) — ไม่แก้ไข
+- **Trusted Advisor "5 pillars" ใน well-architected.ts:29** หมายถึง pillars เริ่มต้นของ **Well-Architected Framework** (ก่อนเพิ่ม Sustainability ปี 2021) ไม่ใช่ Trusted Advisor — คำในบริบทถูกต้องแล้ว ไม่แก้
+- **AWS Support plans restructure** (Business+/Unified Operations/Enterprise On-Ramp sunset Jan 2027) — ยังไม่อัปเดตในเอกสารเพราะ exam guide ปัจจุบันยังทดสอบ tier เดิม (Basic/Developer/Business/Enterprise On-Ramp/Enterprise) เก็บสอดคล้องกับ exam scope
+- **Distractors ที่ใช้ชื่อ Kinesis Data Firehose / Kinesis Data Analytics** ใน ci-q12, q14, q15 ยังคงไว้ — เป็น distractor ที่ defensible เพราะข้อสอบยังอาจทดสอบชื่อเก่า (รีแบรนด์ปี 2024)
