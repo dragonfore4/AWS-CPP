@@ -433,3 +433,17 @@ dialog.search-palette[open] .search-palette__panel {
     display: block !important;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Memo passphrase gate — wrong-input shake animation.
+   --------------------------------------------------------------------------- */
+@keyframes memo-shake {
+  0%, 100% { transform: translateX(0); }
+  20%      { transform: translateX(-6px); }
+  40%      { transform: translateX(6px); }
+  60%      { transform: translateX(-4px); }
+  80%      { transform: translateX(4px); }
+}
+.memo-shake {
+  animation: memo-shake 0.4s ease-in-out;
+}

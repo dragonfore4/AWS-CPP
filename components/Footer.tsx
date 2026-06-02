@@ -73,6 +73,22 @@ export default function Footer() {
               </a>{" "}
               บน Udemy
             </p>
+
+            <div className="mt-6">
+              <div className="text-[10px] uppercase tracking-[0.16em] text-[var(--ink-faint)]">
+                อื่น ๆ
+              </div>
+              <ul className="mt-2 text-sm">
+                <li>
+                  <Link
+                    href="/memos"
+                    className="text-[var(--ink-muted)] hover:text-[var(--ink)] transition-colors"
+                  >
+                    บันทึก
+                  </Link>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
 
