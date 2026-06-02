@@ -9,22 +9,14 @@ import {
   isUnlocked as readUnlocked,
   lock as lockSession,
 } from "@/lib/passphrase";
-import {
-  listMemos,
-  createMemo,
-  updateMemo,
-  deleteMemo,
-} from "@/lib/memos";
+import { listMemos, createMemo, updateMemo, deleteMemo } from "@/lib/memos";
 import MemoList from "./MemoList";
 import MemoEditor from "./MemoEditor";
 import PassphraseGate from "./PassphraseGate";
 import EmptyState from "./EmptyState";
 import DisabledNotice from "./DisabledNotice";
 
-type EditTarget =
-  | { kind: "create" }
-  | { kind: "edit"; memo: Memo }
-  | null;
+type EditTarget = { kind: "create" } | { kind: "edit"; memo: Memo } | null;
 
 type PendingAction =
   | { kind: "create" }
@@ -61,6 +53,8 @@ function getUnlockServerSnapshot(): boolean {
 
 export default function MemosPageClient() {
   const configured = isSupabaseConfigured() && isPassphraseConfigured();
+
+  console.log(configured);
 
   const unlocked = useSyncExternalStore(
     subscribeUnlock,
