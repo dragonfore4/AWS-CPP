@@ -62,6 +62,19 @@ export function normalize(s: string): string {
   return s.normalize("NFKC").toLowerCase();
 }
 
+/**
+ * Build a "punctuation-collapsed" copy of an already-normalised haystack
+ * by removing colons. Lets a query like `repost` substring-match an
+ * indexed phrase like `re:post`, since the original phrase is preserved
+ * separately for queries that DO include the colon.
+ *
+ * Returns the input unchanged if there is nothing to collapse, so callers
+ * can cheaply skip appending a duplicate string.
+ */
+function collapsePunctuation(normalised: string): string {
+  return normalised.replace(/:/g, "");
+}
+
 /** Flatten a section's content array into a single plain-text string. */
 function sectionText(content: SectionContent[]): string {
   const parts: string[] = [];
@@ -115,7 +128,7 @@ function buildIndex(): SearchEntry[] {
     const description = stripHtml(topic.description);
     const keyPointsText = topic.keyPoints.map(stripHtml).join(" ");
     const tagsText = (topic.tags ?? []).join(" ");
-    const topicHaystack = normalize(
+    const topicBaseHaystack = normalize(
       [
         topic.title,
         topic.subtitle,
@@ -125,6 +138,11 @@ function buildIndex(): SearchEntry[] {
         tagsText,
       ].join(" "),
     );
+    const topicCollapsed = collapsePunctuation(topicBaseHaystack);
+    const topicHaystack =
+      topicCollapsed === topicBaseHaystack
+        ? topicBaseHaystack
+        : `${topicBaseHaystack} ${topicCollapsed}`;
 
     out.push({
       kind: "topic",
@@ -141,9 +159,14 @@ function buildIndex(): SearchEntry[] {
     // Section-level entries
     for (const section of topic.sections) {
       const flatText = sectionText(section.content);
-      const haystack = normalize(
+      const baseHaystack = normalize(
         [section.title, flatText].join(" "),
       );
+      const collapsed = collapsePunctuation(baseHaystack);
+      const haystack =
+        collapsed === baseHaystack
+          ? baseHaystack
+          : `${baseHaystack} ${collapsed}`;
 
       out.push({
         kind: "section",
