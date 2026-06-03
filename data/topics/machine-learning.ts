@@ -775,5 +775,47 @@ export const machineLearning: TopicData = {
       explanation:
         "Amazon OpenSearch Service (formerly Elasticsearch Service) is a managed search and analytics service — used for log analytics, full-text search, observability dashboards.",
     },
+    {
+      id: "ml-q26",
+      question:
+        "Your enterprise has thousands of internal documents (PDFs, wikis, ServiceNow tickets) and you want users to ask natural-language questions and get precise answers — not just keyword matches. Which AWS service is BEST?",
+      options: [
+        "Amazon Kendra",
+        "Amazon OpenSearch Service",
+        "Amazon Comprehend",
+        "Amazon Translate",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Kendra is an ML-powered enterprise intelligent search service designed to answer natural-language questions and return precise answers from unstructured documents (PDFs, HTML, SharePoint, ServiceNow, etc.). OpenSearch is a search/log-analytics engine but does not provide natural-language Q&A out of the box. Comprehend extracts entities/sentiment, and Translate is for language translation.",
+    },
+    {
+      id: "ml-q27",
+      question:
+        "Amazon OpenSearch Service was previously known by what name?",
+      options: [
+        "Amazon CloudSearch",
+        "Amazon Elasticsearch Service",
+        "Amazon Kendra",
+        "Amazon QuickSight",
+      ],
+      correct: 1,
+      explanation:
+        "AWS forked Elasticsearch and Kibana in 2021 and rebranded the managed service from Amazon Elasticsearch Service to Amazon OpenSearch Service (with OpenSearch Dashboards replacing Kibana). Older study materials may still reference the old name — they are the same service.",
+    },
+    {
+      id: "ml-q28",
+      question:
+        "Which AWS service is a generative-AI-powered assistant that can answer business questions about your company data, help developers write code in their IDE, and generate dashboards inside Amazon QuickSight?",
+      options: [
+        "Amazon Q",
+        "Amazon Lex",
+        "Amazon SageMaker",
+        "Amazon Bedrock",
+      ],
+      correct: 0,
+      explanation:
+        "Amazon Q is AWS's generative-AI assistant family. Q Business answers questions over your enterprise data sources; Q Developer (formerly CodeWhisperer) helps write and review code in IDEs; Q in QuickSight generates dashboards and natural-language answers from your data. Lex builds chatbots, SageMaker is for building/training ML models, and Bedrock provides foundation-model APIs but is not the assistant itself.",
+    },
   ],
 };

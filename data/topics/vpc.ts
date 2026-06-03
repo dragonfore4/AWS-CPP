@@ -12,7 +12,7 @@ export const vpc: TopicData = {
     "VPC = private network (Regional)<br>Subnets = partition VPC (ผูกกับ AZ)",
     "Public subnet เข้าถึงจาก internet ได้ผ่าน IGW<br>Private subnet ไม่ได้ (ใช้ NAT Gateway ออกได้)",
     "Security Groups (stateful, ENI level) vs NACLs (stateless, subnet level, มี DENY)",
-    "VPC Peering / Endpoints / Site-to-Site VPN / Direct Connect / Transit Gateway",
+    "VPC Peering / Endpoints / PrivateLink<br>Site-to-Site VPN / Client VPN / Direct Connect / Transit Gateway",
   ],
   sections: [
     {
@@ -186,11 +186,15 @@ export const vpc: TopicData = {
     },
     {
       id: "endpoints",
-      title: "VPC Endpoints",
+      title: "VPC Endpoints & PrivateLink",
       content: [
         {
           type: "paragraph",
           text: "<strong>VPC Endpoints</strong> ให้คุณเชื่อมต่อกับ AWS services ผ่าน <em>private network</em> แทนที่จะต้องผ่าน public internet — ผลลัพธ์คือ <strong>enhanced security</strong> และ <strong>lower latency</strong>",
+        },
+        {
+          type: "paragraph",
+          text: "<strong>AWS PrivateLink</strong> คือเทคโนโลยีเบื้องหลังของ <strong>Interface Endpoint</strong> — ทำให้คุณ <em>expose service</em> จาก VPC หนึ่งไปยัง VPC อื่น (หรือ account อื่น) แบบ private โดย <strong>ไม่ผ่าน internet, ไม่ใช้ VPC Peering, ไม่ใช้ NAT, ไม่ใช้ IGW</strong> — ใช้ทั้งสำหรับ AWS services และ <em>3rd-party SaaS / customer-published services</em>",
         },
         {
           type: "grid",
@@ -205,21 +209,33 @@ export const vpc: TopicData = {
               description:
                 "สำหรับ <strong>AWS services อื่นๆ ทั้งหมด</strong> — สร้าง ENI (Elastic Network Interface) ใน subnet ของคุณ, มีค่าใช้จ่ายรายชั่วโมง + data processing (ใช้ AWS PrivateLink)",
             },
+            {
+              title: "PrivateLink สำหรับ 3rd-party / customer services",
+              description:
+                "Service provider สร้าง <strong>VPC Endpoint Service</strong> ที่ฝั่งหน้า <strong>Network Load Balancer (NLB)</strong> — ลูกค้าสร้าง Interface Endpoint ใน VPC ตัวเองเพื่อเรียกใช้แบบ private (ใช้กับ SaaS เช่น Datadog, Snowflake และ services ภายในองค์กรข้าม account)",
+            },
           ],
         },
         {
           type: "list",
           items: [
             "<strong>Gateway Endpoint</strong> → S3, DynamoDB (จำคู่นี้)",
-            "<strong>Interface Endpoint</strong> → AWS services อื่นๆ ทั้งหมด",
+            "<strong>Interface Endpoint</strong> = PrivateLink สำหรับ AWS services อื่นๆ ทั้งหมด",
+            "<strong>PrivateLink</strong> ยังใช้ expose <em>partner / customer-published services</em> ผ่าน NLB ได้ — traffic ไม่ออก internet",
             "Benefit: enhanced security (traffic ไม่ออก internet) + lower latency (อยู่ใน AWS network)",
           ],
         },
         {
           type: "callout",
+          variant: "info",
+          title: "ข้อสอบชอบถามเรื่อง PrivateLink",
+          text: "ถ้าโจทย์ถามว่า <strong>SaaS vendor</strong> จะ expose API ของตัวเองให้ลูกค้าเข้าถึงจาก VPC แบบ private โดยไม่ผ่าน internet — คำตอบคือ <strong>AWS PrivateLink</strong> (ผ่าน NLB-fronted endpoint service)",
+        },
+        {
+          type: "callout",
           variant: "tip",
           title: "ข้อสอบ",
-          text: "ถ้าถามเรื่องเข้าถึง S3 หรือ DynamoDB จาก private subnet โดยไม่ผ่าน internet → คำตอบคือ VPC Endpoint Gateway<br>services อื่นๆ → Interface Endpoint",
+          text: "เข้าถึง S3 หรือ DynamoDB จาก private subnet โดยไม่ผ่าน internet → <strong>Gateway Endpoint</strong><br>services อื่นๆ → <strong>Interface Endpoint</strong> (PrivateLink)<br>3rd-party SaaS → <strong>PrivateLink</strong> + NLB",
         },
       ],
     },
@@ -261,6 +277,47 @@ export const vpc: TopicData = {
           variant: "info",
           title: "เลือกอะไรดี?",
           text: "ต้องการ <strong>setup เร็ว ราคาถูก</strong> → Site-to-Site VPN<br>ต้องการ <strong>private, secure, fast</strong> (bandwidth สูง latency ต่ำ) → Direct Connect<br>ต้องการ <strong>resilience</strong> → Direct Connect + VPN backup",
+        },
+      ],
+    },
+    {
+      id: "client-vpn",
+      title: "AWS Client VPN",
+      content: [
+        {
+          type: "paragraph",
+          text: "<strong>AWS Client VPN</strong> เป็น <em>fully managed VPN service</em> ที่ให้ <strong>ผู้ใช้รายบุคคล (laptop / desktop / mobile)</strong> เชื่อมต่อเข้ามายัง AWS VPC (และเครือข่าย on-premises ที่เชื่อมกับ VPC) ผ่าน encrypted tunnel — ใช้โปรโตคอล <strong>OpenVPN</strong> ผู้ใช้ติดตั้ง OpenVPN client บนเครื่องตัวเอง",
+        },
+        {
+          type: "grid",
+          items: [
+            {
+              title: "Site-to-Site VPN",
+              description:
+                "เชื่อม <strong>network ↔ network</strong> — เช่น on-premises data center / สำนักงาน เชื่อมเข้า AWS VPC ทั้ง network, ใช้ <strong>Customer Gateway (CGW) + Virtual Private Gateway (VGW)</strong>",
+            },
+            {
+              title: "Client VPN",
+              description:
+                "เชื่อม <strong>user device ↔ AWS VPC</strong> — เช่น พนักงาน remote ใช้ laptop เชื่อมเข้า AWS เพื่อเข้าถึง private resources, ผู้ใช้ติดตั้ง <strong>OpenVPN client</strong> บนเครื่องตัวเอง",
+            },
+          ],
+        },
+        {
+          type: "list",
+          items: [
+            "ใช้โปรโตคอล <strong>OpenVPN</strong> — ผู้ใช้เชื่อมด้วย AWS-provided OpenVPN client หรือ OpenVPN-compatible client",
+            "Authentication รองรับ 3 แบบ: <strong>Active Directory</strong>, <strong>Mutual TLS (certificates)</strong>, หรือ <strong>federated SSO (SAML)</strong> ผ่าน IAM Identity Center",
+            "เมื่อเชื่อมแล้ว ผู้ใช้เข้าถึงได้ทั้ง <strong>resources ใน VPC, peered VPCs, และ on-premises networks</strong> (ผ่าน VPN/Direct Connect)",
+            "<strong>Fully managed</strong> โดย AWS — scale อัตโนมัติ ไม่ต้องดูแล server",
+            "Use case ที่พบบ่อย: <strong>remote workforce</strong> เข้าถึง private AWS resources โดยไม่ต้อง expose ออก public internet",
+          ],
+        },
+        {
+          type: "callout",
+          variant: "tip",
+          title: "จำให้ขึ้นใจ",
+          text: "<strong>Site-to-Site VPN = office ↔ AWS</strong> (network ทั้งวง)<br><strong>Client VPN = laptop ↔ AWS</strong> (ผู้ใช้รายคน)",
         },
       ],
     },
@@ -343,12 +400,22 @@ export const vpc: TopicData = {
             {
               title: "VPC Endpoints",
               description:
-                "เชื่อม AWS service แบบ private — Gateway สำหรับ S3/DynamoDB, Interface สำหรับที่เหลือ",
+                "เชื่อม AWS service แบบ private — Gateway สำหรับ S3/DynamoDB, Interface (PrivateLink) สำหรับที่เหลือ",
+            },
+            {
+              title: "AWS PrivateLink",
+              description:
+                "เทคโนโลยีเบื้องหลัง Interface Endpoint — expose service ข้าม VPC/account แบบ private (ใช้ NLB-fronted endpoint service สำหรับ 3rd-party SaaS)",
             },
             {
               title: "Site-to-Site VPN",
               description:
                 "On-prem ↔ AWS ผ่าน internet (encrypted) — setup เร็ว ราคาถูก ใช้ CGW + VGW",
+            },
+            {
+              title: "Client VPN",
+              description:
+                "User device ↔ AWS VPC ผ่าน OpenVPN — สำหรับ remote workforce เข้าถึง private resources โดยไม่ผ่าน public internet",
             },
             {
               title: "Direct Connect",
@@ -727,6 +794,48 @@ export const vpc: TopicData = {
       correct: 1,
       explanation:
         "Every AWS account comes with a default VPC per region (default CIDR 172.31.0.0/16) — including default subnets in each AZ, an Internet Gateway, and routes — so users can launch EC2 instances immediately. Custom VPCs that you create yourself, by contrast, start empty.",
+    },
+    {
+      id: "vpc-q26",
+      question:
+        "Your remote employees need to connect from their personal laptops to private resources inside your AWS VPC over an encrypted tunnel. Which AWS service should you use?",
+      options: [
+        "AWS Site-to-Site VPN",
+        "AWS Client VPN",
+        "AWS Direct Connect",
+        "AWS PrivateLink",
+      ],
+      correct: 1,
+      explanation:
+        "AWS Client VPN is a managed OpenVPN-based service that lets individual user devices (laptops, phones) connect to a VPC over an encrypted tunnel. Site-to-Site VPN connects whole networks (e.g. an office) to AWS, not individual users. Direct Connect is a physical link, not for end-user devices. PrivateLink exposes services privately but is not a remote-access VPN.",
+    },
+    {
+      id: "vpc-q27",
+      question:
+        "What is the main difference between AWS Site-to-Site VPN and AWS Client VPN?",
+      options: [
+        "Site-to-Site VPN connects networks (e.g. on-premises ↔ AWS); Client VPN connects individual user devices (e.g. laptop ↔ AWS).",
+        "Site-to-Site VPN is faster than Client VPN.",
+        "Client VPN does not encrypt traffic; Site-to-Site VPN does.",
+        "Client VPN replaces Direct Connect.",
+      ],
+      correct: 0,
+      explanation:
+        "Site-to-Site VPN is a network-to-network IPsec VPN (uses Customer Gateway + Virtual Private Gateway) — it connects an entire on-premises network to a VPC. Client VPN is a managed OpenVPN service that connects individual end-user devices to a VPC, typically used for remote workforce access.",
+    },
+    {
+      id: "vpc-q28",
+      question:
+        "A SaaS vendor wants to expose its API to customer VPCs without traffic ever traversing the public internet. Which AWS service should they use?",
+      options: [
+        "VPC Peering",
+        "AWS Transit Gateway",
+        "AWS PrivateLink (with an NLB-fronted endpoint service)",
+        "AWS Direct Connect",
+      ],
+      correct: 2,
+      explanation:
+        "AWS PrivateLink lets a service provider expose a service from their VPC (fronted by a Network Load Balancer) as an Endpoint Service. Customers create an Interface Endpoint in their own VPC to consume it privately — traffic never leaves the AWS network. This is the standard pattern for SaaS vendors (e.g. Datadog, Snowflake) and for sharing services across accounts.",
     },
   ],
 };

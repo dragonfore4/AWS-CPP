@@ -448,6 +448,31 @@ export const databases: TopicData = {
       ],
     },
     {
+      id: "opensearch",
+      title: "Amazon OpenSearch Service",
+      content: [
+        {
+          type: "paragraph",
+          text: "<strong>Amazon OpenSearch Service</strong> (เดิมชื่อ <em>Amazon Elasticsearch Service</em>) คือ managed <strong>search & analytics engine</strong> สำหรับ <em>full-text search, log analytics, observability dashboards</em> — เป็น AWS-supported fork ของ <strong>Elasticsearch + Kibana</strong>",
+        },
+        {
+          type: "list",
+          items: [
+            "Managed <strong>Elasticsearch + Kibana</strong> (รีแบรนด์เป็น OpenSearch + OpenSearch Dashboards เมื่อ AWS fork ในปี 2021)",
+            "Use cases หลัก: <strong>log analytics</strong> (รับ logs จาก CloudWatch / Firehose), <strong>full-text search</strong> ในแอป, <strong>observability / SIEM</strong> dashboards",
+            "Ingestion sources: <strong>Amazon Data Firehose, CloudWatch Logs subscription, AWS IoT, Lambda</strong> ฯลฯ",
+            "<strong>OpenSearch Serverless</strong> option — ไม่ต้อง provision cluster เอง, scale อัตโนมัติ",
+          ],
+        },
+        {
+          type: "callout",
+          variant: "info",
+          title: "ระวังกับดักข้อสอบ",
+          text: "Amazon <strong>OpenSearch Service</strong> = <em>Elasticsearch Service เดิม</em> (rename 2021) — ถ้าโจทย์เก่าหรือเอกสารบอกว่า \"Amazon Elasticsearch Service\" ให้ตอบเหมือนกันคือ OpenSearch",
+        },
+      ],
+    },
+    {
       id: "summary",
       title: "Summary — เลือก service ให้ถูก",
       content: [
@@ -517,6 +542,11 @@ export const databases: TopicData = {
             {
               title: "Glue",
               description: "Serverless ETL + Data Catalog (ใช้กับ Athena/Redshift/EMR)",
+            },
+            {
+              title: "OpenSearch Service",
+              description:
+                "Managed search & analytics (เดิม Elasticsearch Service) — log analytics, full-text search, observability dashboards (Kibana → OpenSearch Dashboards)",
             },
           ],
         },
@@ -877,6 +907,34 @@ export const databases: TopicData = {
       correct: 1,
       explanation:
         "Aurora provides up to 5x MySQL / 3x PostgreSQL performance, storage auto-scaling to 128 TiB, 6 copies across 3 AZs, sub-second failover, and Aurora Serverless for variable workloads.",
+    },
+    {
+      id: "db-q26",
+      question:
+        "Which AWS service is a fully managed serverless ETL (extract, transform, load) service that also provides a central Data Catalog used by Athena, Redshift Spectrum, and EMR?",
+      options: [
+        "AWS Glue",
+        "Amazon Athena",
+        "Amazon EMR",
+        "AWS Database Migration Service (DMS)",
+      ],
+      correct: 0,
+      explanation:
+        "AWS Glue is the managed serverless ETL service — it discovers, transforms, and prepares data for analytics, and its Glue Data Catalog stores metadata and schemas that Athena, Redshift Spectrum, and EMR all use. Athena queries S3 with SQL but does not perform ETL; EMR is Hadoop/Spark; DMS migrates databases.",
+    },
+    {
+      id: "db-q27",
+      question:
+        "Which AWS service is a serverless business intelligence (BI) tool used to build interactive dashboards and visualizations from data stored in S3, RDS, Redshift, Athena, and other sources?",
+      options: [
+        "Amazon Athena",
+        "Amazon QuickSight",
+        "Amazon Kendra",
+        "Amazon OpenSearch Service",
+      ],
+      correct: 1,
+      explanation:
+        "Amazon QuickSight is the AWS serverless BI service — it connects to many data sources (S3, RDS, Redshift, Athena, Aurora, on-prem databases) and lets you build interactive dashboards and ML-powered insights. Athena is for SQL queries on S3, Kendra is enterprise search, OpenSearch is search/log analytics — none of those build BI dashboards.",
     },
   ],
 };

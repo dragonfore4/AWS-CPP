@@ -198,6 +198,63 @@ export const accountManagement: TopicData = {
       ],
     },
     {
+      id: "service-quotas",
+      title: "Service Quotas",
+      content: [
+        {
+          type: "paragraph",
+          text: "<strong>Service Quotas</strong> คือศูนย์กลางในการ <em>ดู</em> และ <em>ขอเพิ่ม</em> ขีดจำกัดของ AWS service (เดิมเรียก <strong>service limits</strong>) — เช่น จำนวน VPC ต่อ region, จำนวน EC2 instances, จำนวน Lambda concurrent executions",
+        },
+        {
+          type: "list",
+          items: [
+            "ดู <strong>quota ปัจจุบัน + utilization</strong> ของ service ต่าง ๆ ใน account / region",
+            "<strong>ขอเพิ่ม quota</strong> ผ่าน console / CLI / API โดยไม่ต้องเปิด support ticket แยก",
+            "ตั้ง <strong>CloudWatch alarm</strong> เมื่อ utilization ใกล้ชน quota — เตือนก่อนระบบล่ม",
+            "Integrates กับ <strong>Trusted Advisor</strong> (Service Limits check)",
+          ],
+        },
+        {
+          type: "callout",
+          variant: "tip",
+          title: "เลือกใช้เมื่อไหร่",
+          text: "เห็นว่าใกล้ชน limit (เช่น VPC, EIP, EC2 instance) — เปิด <strong>Service Quotas</strong> เพื่อขอเพิ่ม + ใช้ <strong>Trusted Advisor</strong> ดูภาพรวม Service Limits",
+        },
+      ],
+    },
+    {
+      id: "ram-license-manager",
+      title: "AWS RAM & License Manager",
+      content: [
+        {
+          type: "paragraph",
+          text: "บริการเสริมสำหรับ multi-account environment — <strong>AWS RAM</strong> ช่วย <em>share resources</em> ระหว่าง accounts โดยไม่ต้อง duplicate, ส่วน <strong>AWS License Manager</strong> ช่วย <em>track และ enforce</em> software licenses ทั้งบน AWS และ on-prem",
+        },
+        {
+          type: "grid",
+          items: [
+            {
+              title: "AWS Resource Access Manager (RAM)",
+              description:
+                "Share AWS resources ข้าม account ใน <strong>AWS Organization</strong> โดยไม่ต้อง duplicate — รองรับ <strong>VPC subnets, Transit Gateway, Route 53 Resolver rules, License Manager configurations, Aurora clusters</strong> ฯลฯ",
+            },
+            {
+              title: "AWS License Manager",
+              description:
+                "Track และ enforce <strong>software licenses (BYOL)</strong> เช่น <strong>Microsoft, SAP, Oracle, IBM</strong> — กำหนด rules (เช่น vCPU limit) ทั้งบน AWS และ on-prem เพื่อ <em>หลีกเลี่ยง license violations</em>",
+            },
+          ],
+        },
+        {
+          type: "list",
+          items: [
+            "<strong>RAM</strong> ใช้บ่อยที่สุดเพื่อ <em>share VPC subnets</em> ให้หลาย accounts ใช้ network เดียวกัน + share <em>Transit Gateway</em>",
+            "<strong>License Manager</strong> เหมาะกับองค์กรที่ใช้ BYOL software ที่ผูกกับ vCPU / socket count",
+          ],
+        },
+      ],
+    },
+    {
       id: "pricing-models",
       title: "AWS Pricing Models (4 แบบ)",
       content: [
@@ -1381,6 +1438,48 @@ export const accountManagement: TopicData = {
       correct: 0,
       explanation:
         "ISVs build software that runs on or with AWS and commonly distribute it via AWS Marketplace, where customers pay through their AWS bill. System Integrators help customers design/migrate/operate workloads on AWS.",
+    },
+    {
+      id: "am-q30",
+      question:
+        "Where in AWS do you go to view the current limits (quotas) for AWS services in your account and request a limit increase?",
+      options: [
+        "AWS Trusted Advisor only",
+        "AWS Service Quotas",
+        "AWS Cost Explorer",
+        "AWS Budgets",
+      ],
+      correct: 1,
+      explanation:
+        "AWS Service Quotas is the central place to view current quotas (formerly called service limits), see your utilization, request increases, and set CloudWatch alarms when you are nearing a quota. Trusted Advisor's Service Limits check displays a high-level summary, but you raise the actual increase via Service Quotas.",
+    },
+    {
+      id: "am-q31",
+      question:
+        "You want to share VPC subnets and a Transit Gateway across multiple accounts in your AWS Organization without duplicating them in each account. Which AWS service should you use?",
+      options: [
+        "AWS Organizations Service Control Policies",
+        "AWS Resource Access Manager (RAM)",
+        "AWS Identity and Access Management (IAM)",
+        "AWS Control Tower",
+      ],
+      correct: 1,
+      explanation:
+        "AWS Resource Access Manager (RAM) lets you share supported AWS resources — including VPC subnets, Transit Gateways, Route 53 Resolver rules, and License Manager configurations — across accounts in your Organization without duplicating them. SCPs control permissions, IAM controls identity, and Control Tower governs landing zones — none of those share resources.",
+    },
+    {
+      id: "am-q32",
+      question:
+        "Your company brings its own Microsoft and Oracle licenses to AWS (BYOL) and needs to track usage to avoid license violations. Which service should you use?",
+      options: [
+        "AWS License Manager",
+        "AWS Marketplace",
+        "AWS Config",
+        "AWS Trusted Advisor",
+      ],
+      correct: 0,
+      explanation:
+        "AWS License Manager helps you track and enforce software licenses (BYOL) for vendors like Microsoft, SAP, Oracle, and IBM — both on AWS and on-premises. You define rules (e.g. vCPU or core-based limits) and License Manager prevents launches that would violate your agreements.",
     },
   ],
 };

@@ -49,6 +49,27 @@ export const otherServices: TopicData = {
             "เหมาะกับองค์กรที่ต้องการ desktop กลางให้พนักงาน remote work",
           ],
         },
+        {
+          type: "grid",
+          items: [
+            {
+              title: "Amazon WorkSpaces (full desktop)",
+              description:
+                "<strong>Full virtual desktop</strong> (Windows / Linux) — มี applications, file system, persistent state ให้ผู้ใช้ใช้แทนเครื่องส่วนตัว",
+            },
+            {
+              title: "Amazon WorkSpaces Secure Browser",
+              description:
+                "<strong>Managed remote browser</strong> เท่านั้น (เดิม WorkSpaces Web) — ผู้ใช้เปิด web app ในเซสชัน browser ที่แยกจากเครื่องตัวเอง ไม่มี desktop เต็ม เหมาะกับ access เว็บภายในแบบ secure",
+            },
+          ],
+        },
+        {
+          type: "callout",
+          variant: "tip",
+          title: "เลือกอันไหน",
+          text: "ต้องการ <strong>desktop เต็ม</strong> (มี Office, file, app installer) → <strong>WorkSpaces</strong><br>ต้องการแค่ <strong>เปิด web app ภายใน</strong> ผ่าน browser แบบปลอดภัย → <strong>WorkSpaces Secure Browser</strong>",
+        },
       ],
     },
     {
@@ -389,6 +410,32 @@ export const otherServices: TopicData = {
       ],
     },
     {
+      id: "appsync",
+      title: "AWS AppSync",
+      content: [
+        {
+          type: "paragraph",
+          text: "<strong>AWS AppSync</strong> เป็น <em>managed GraphQL service</em> สำหรับ mobile / web apps — ทำหน้าที่เป็น <strong>API layer</strong> ที่ดึงข้อมูลจากหลาย data source (DynamoDB, RDS / Aurora, Lambda, OpenSearch) แล้วส่งกลับเป็น GraphQL response เดียวให้ client",
+        },
+        {
+          type: "list",
+          items: [
+            "Managed <strong>GraphQL</strong> API (มี REST endpoint option ด้วย)",
+            "<strong>Real-time subscriptions</strong> + <strong>offline data sync</strong> สำหรับ mobile apps",
+            "Integrates กับ <strong>DynamoDB, RDS / Aurora, Lambda, OpenSearch, HTTP endpoints</strong>",
+            "Authentication ผ่าน <strong>Cognito User Pools, IAM, OIDC, API Key</strong>",
+            "Protect ด้วย <strong>AWS WAF</strong> ได้ (ป้องกัน SQL injection, XSS, rate-limit)",
+          ],
+        },
+        {
+          type: "callout",
+          variant: "info",
+          title: "เปรียบเทียบ",
+          text: "<strong>API Gateway</strong> = REST / WebSocket APIs (front door แบบทั่วไป)<br><strong>AppSync</strong> = GraphQL APIs (เหมาะสำหรับ mobile / web apps ที่ต้อง query ข้อมูลซับซ้อนหรือ real-time)",
+        },
+      ],
+    },
+    {
       id: "data-exchange",
       title: "AWS Data Exchange",
       content: [
@@ -403,6 +450,47 @@ export const otherServices: TopicData = {
             "Subscribe แล้วได้ <strong>automatic updates</strong> เมื่อ provider อัปเดตข้อมูล",
             "ข้อมูลส่งมาที่ S3 — ใช้ต่อกับ Athena, Redshift, SageMaker ได้ทันที",
           ],
+        },
+      ],
+    },
+    {
+      id: "ses",
+      title: "Amazon SES (Simple Email Service)",
+      content: [
+        {
+          type: "paragraph",
+          text: "<strong>Amazon SES</strong> = บริการ <em>email</em> แบบ scalable + cost-effective สำหรับส่ง email <strong>transactional</strong> (เช่น order confirmation, password reset), <strong>marketing</strong>, หรือ <strong>bulk email</strong> และยังรองรับการ <strong>รับ email</strong> ขาเข้าได้ด้วย",
+        },
+        {
+          type: "grid",
+          items: [
+            {
+              title: "Outbound Email",
+              description:
+                "ส่ง email ผ่าน <strong>SMTP</strong> หรือ <strong>SES API</strong> — รองรับ transactional + marketing campaigns + bulk send (อัตราสูง)",
+            },
+            {
+              title: "Inbound Email",
+              description:
+                "รับ email ขาเข้า — route ไปเก็บที่ <strong>S3</strong>, ส่งต่อให้ <strong>Lambda</strong> ประมวลผล หรือ publish ไป <strong>SNS</strong>",
+            },
+          ],
+        },
+        {
+          type: "list",
+          items: [
+            "<strong>Pay-per-email</strong> pricing — ราคาถูกและ scale ตามการใช้งาน",
+            "มี <strong>reputation dashboard</strong> ติดตาม bounce rate / complaint rate / deliverability",
+            "Integrates กับ <strong>SNS</strong> เพื่อรับ notification เมื่อ bounce / complaint",
+            "รองรับ <strong>DKIM, SPF, DMARC</strong> เพื่อ authenticity / anti-spoofing",
+            "Use cases: order receipts, password reset, newsletter, account notifications",
+          ],
+        },
+        {
+          type: "callout",
+          variant: "tip",
+          title: "เปรียบเทียบ messaging services",
+          text: "<strong>SES</strong> = email (ส่งหา inbox ของผู้ใช้)<br><strong>SNS</strong> = pub/sub topic-based notifications (email, SMS, push, HTTP, Lambda)<br><strong>SQS</strong> = queue (decouple producers/consumers)",
         },
       ],
     },
@@ -452,6 +540,21 @@ export const otherServices: TopicData = {
             {
               title: "Amplify",
               description: "Full-stack web/mobile dev platform + Studio (visual development)",
+            },
+            {
+              title: "AppSync",
+              description:
+                "Managed GraphQL API สำหรับ mobile/web apps — real-time subscriptions, offline sync, integrate กับ DynamoDB / RDS / Lambda / OpenSearch",
+            },
+            {
+              title: "WorkSpaces Secure Browser",
+              description:
+                "Managed remote browser (เดิม WorkSpaces Web) — เปิด web app ภายในแบบ secure โดยไม่ต้องส่ง full desktop",
+            },
+            {
+              title: "Amazon SES",
+              description:
+                "Managed email service — transactional / marketing / bulk send + รับ email ขาเข้า, integrate กับ S3/Lambda/SNS",
             },
             {
               title: "Data Exchange",
@@ -829,6 +932,48 @@ export const otherServices: TopicData = {
       correct: 0,
       explanation:
         "Amazon Chime SDK lets developers add real-time audio, video, and messaging to web/mobile applications. (The Chime end-user app ended support in Feb 2026, but the Chime SDK remains an active service. Amazon Connect is a managed contact center, WorkMail is email.)",
+    },
+    {
+      id: "os-q26",
+      question:
+        "Which AWS service is a managed, scalable, cost-effective email service used to send transactional, marketing, or bulk email — and can also receive inbound email and route it to S3 or Lambda?",
+      options: [
+        "Amazon Connect",
+        "Amazon SES",
+        "Amazon SNS",
+        "Amazon WorkMail",
+      ],
+      correct: 1,
+      explanation:
+        "Amazon SES (Simple Email Service) is the AWS service for sending and receiving email at scale. SNS sends notifications via topic-based pub/sub (email is one of many channels), Connect is a contact center, and WorkMail is a business email/calendar product — none of those match the SES use case.",
+    },
+    {
+      id: "os-q27",
+      question:
+        "Which AWS service provides a managed GraphQL API with real-time data subscriptions and offline data sync, designed for mobile and web applications?",
+      options: [
+        "Amazon API Gateway",
+        "AWS AppSync",
+        "AWS Amplify",
+        "Amazon EventBridge",
+      ],
+      correct: 1,
+      explanation:
+        "AWS AppSync is a managed GraphQL API service with real-time subscriptions and offline sync, integrating with DynamoDB, Lambda, RDS, and OpenSearch. API Gateway provides REST and WebSocket APIs, not GraphQL. Amplify is a developer toolkit for building front-ends (and uses AppSync under the hood for GraphQL).",
+    },
+    {
+      id: "os-q28",
+      question:
+        "What is the difference between Amazon WorkSpaces and Amazon WorkSpaces Secure Browser?",
+      options: [
+        "They are the same product.",
+        "WorkSpaces delivers a full virtual desktop (Windows/Linux); WorkSpaces Secure Browser (formerly WorkSpaces Web) only delivers a managed remote browser session for accessing internal web apps.",
+        "WorkSpaces Secure Browser provides a full Windows desktop, while WorkSpaces only streams individual applications.",
+        "Secure Browser is on-premises only.",
+      ],
+      correct: 1,
+      explanation:
+        "Amazon WorkSpaces is full Desktop-as-a-Service — users get a complete Windows or Linux desktop. WorkSpaces Secure Browser (formerly WorkSpaces Web) is a lighter service that delivers only a managed, isolated browser session — used to give users secure access to internal web apps without provisioning a full desktop.",
     },
   ],
 };

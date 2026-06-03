@@ -271,3 +271,97 @@ $ npm run build  ✓ 24/24 pages emitted (1 home + 20 topics + 3 system)
 - **Trusted Advisor "5 pillars" ใน well-architected.ts:29** หมายถึง pillars เริ่มต้นของ **Well-Architected Framework** (ก่อนเพิ่ม Sustainability ปี 2021) ไม่ใช่ Trusted Advisor — คำในบริบทถูกต้องแล้ว ไม่แก้
 - **AWS Support plans restructure** (Business+/Unified Operations/Enterprise On-Ramp sunset Jan 2027) — ยังไม่อัปเดตในเอกสารเพราะ exam guide ปัจจุบันยังทดสอบ tier เดิม (Basic/Developer/Business/Enterprise On-Ramp/Enterprise) เก็บสอดคล้องกับ exam scope
 - **Distractors ที่ใช้ชื่อ Kinesis Data Firehose / Kinesis Data Analytics** ใน ci-q12, q14, q15 ยังคงไว้ — เป็น distractor ที่ defensible เพราะข้อสอบยังอาจทดสอบชื่อเก่า (รีแบรนด์ปี 2024)
+
+---
+
+## Coverage Expansion Pass — 2026-06-03
+
+ตรวจซ้ำ **CLF-C02 in-scope service coverage** เทียบกับ official exam guide [In-Scope Services page](https://docs.aws.amazon.com/aws-certification/latest/cloud-practitioner-02/clf-02-in-scope-services.html) — ตรวจ **74 บริการในรายการ in-scope** + cross-cutting concepts ของ Domain 4.3
+
+### Methodology
+
+ตรวจทุก service ในรายการ in-scope ว่าอยู่ใน 1 ใน 3 หมวด:
+
+- **A. Well covered** — มี dedicated section / grid item / multiple list bullets อธิบาย
+- **B. Mentioned only** — ปรากฏชื่อแบบผ่านๆ (1 bullet, 1 quiz distractor) ไม่มีคำอธิบายจริง
+- **C. Missing entirely** — ไม่ปรากฏชื่อเลย
+
+### Findings
+
+- **Category C (Missing):** 0 บริการ — ทุก service ในรายการ in-scope อย่างน้อยปรากฏชื่อในที่ใดที่หนึ่ง
+- **Category B (Mentioned only) — Tier 1:** 11 บริการที่ไม่มี article body จริง (มีเฉพาะใน quiz distractor หรือ explanation 1-2 บรรทัด)
+- **Category B — Tier 2:** 5 บริการที่มี article body แต่ quiz coverage = 0–1 ข้อ
+- **Tier 3 (cross-cutting):** SDKs, Knowledge Center, Prescriptive Guidance — มี mention แล้วแต่บาง
+
+### A. Tier 1 fixes (in-scope service ที่ไม่มี article body)
+
+เพิ่ม dedicated section หรือ grid item + quiz item อย่างน้อย 1 ข้อ ให้บริการต่อไปนี้:
+
+| Service | File | What was added |
+|---|---|---|
+| **AWS Client VPN** | `vpc.ts` | New `client-vpn` section + summary grid item + 2 quiz |
+| **AWS PrivateLink** (separate from Interface Endpoint mention) | `vpc.ts` | Renamed `endpoints` → "VPC Endpoints & PrivateLink"; expanded grid with 3rd-party PrivateLink + summary grid item + 1 quiz |
+| **AWS Firewall Manager** | `security.ts` | New `firewall-manager` section + summary grid item + 1 quiz |
+| **AWS Audit Manager** | `security.ts` | New `audit-manager` section (with Artifact-vs-Audit-Manager grid) + summary grid item + 1 quiz |
+| **Amazon EventBridge** (as standalone integration service, not just CloudWatch Events 2.0) | `cloud-integration.ts` | New `eventbridge` section + 1 quiz |
+| **AWS Step Functions** | `cloud-integration.ts` | New `step-functions` section + 1 quiz |
+| **AWS X-Ray** | `cloud-monitoring.ts` | New `x-ray` section + comparison grid + decision-tree entry + 1 quiz |
+| **Amazon SES** | `other-services.ts` | New `ses` section + summary grid item + 1 quiz |
+| **AWS AppSync** | `other-services.ts` | New `appsync` section + summary grid item + 1 quiz |
+| **Amazon WorkSpaces Secure Browser** | `other-services.ts` | New grid in `workspaces` section comparing full WorkSpaces vs Secure Browser + summary grid item + 1 quiz |
+| **Service Quotas** | `account-management.ts` | New `service-quotas` section + 1 quiz |
+| **AWS Resource Access Manager (RAM)** + **AWS License Manager** | `account-management.ts` | New combined `ram-license-manager` section + 2 quiz |
+
+### B. Tier 2 fixes (article exists, quiz coverage thin)
+
+| Service | File | What was added |
+|---|---|---|
+| **AWS Glue** | `databases.ts` | 1 new quiz directly testing Glue (was 0 dedicated quiz) |
+| **Amazon QuickSight** | `databases.ts` | 1 new quiz directly testing QuickSight (was 1 quiz) |
+| **Amazon OpenSearch Service** | `databases.ts` | **Promoted to Tier 1** — found there was no article section, only a single quiz at `machine-learning.ts:769`; added dedicated `opensearch` section + summary grid item |
+| **Amazon Kendra** | `machine-learning.ts` | 1 new quiz testing enterprise NLP search (was 1 quiz) |
+| **Amazon Q** | `machine-learning.ts` | 1 new quiz testing Q Business / Q Developer / Q in QuickSight (was 1 quiz) |
+| **Amazon OpenSearch (rename)** | `machine-learning.ts` | 1 new quiz testing the Elasticsearch → OpenSearch rename trap (distinct from existing `ml-q25` use-case quiz) |
+
+### C. Service-status check
+
+ตรวจรายการ AWS services ที่เปลี่ยนแปลง (discontinued / renamed / partial-EoL) ตั้งแต่ audit ครั้งก่อน (2026-05-31) — **ไม่พบการเปลี่ยนแปลงใหม่**. ตารางใน `docs/SERVICES.md` ยังถูกต้อง — bump เฉพาะวันที่ refresh
+
+### D. Out of scope ของรอบนี้
+
+- **Tier 3 cross-cutting** (AWS SDKs, AWS Knowledge Center, AWS Prescriptive Guidance) — ผู้ใช้เลือก scope = Tier 1 + Tier 2; Tier 3 มี diminishing returns (concept ทดสอบไม่บ่อย, มี mention อยู่บ้างแล้ว)
+- **Section reordering / rewrites / structural refactors** — ไม่ใช่ exam-coverage gap
+- **Page count discrepancy** — เอกสารเก่าระบุ "24 pages" แต่ build จริงตอนนี้ emits 25 pages (มี `memos` page) — เป็น inconsistency ที่มีอยู่ก่อนรอบนี้ ไม่ใช่ที่รอบนี้ทำ
+
+### E. Verification
+
+```
+$ npm run lint    ✓ 0 errors
+$ npm run build   ✓ Compiled successfully
+                  ✓ Generating static pages (25/25)
+```
+
+AGENTS.md hard rules check (ทุกบรรทัดที่เพิ่มใหม่):
+- ✓ No pipe-separator violations ใน `description` / `text`
+- ✓ No emoji
+- ✓ Current service names (Amazon Data Firehose, IAM Identity Center, OpenSearch Service, ฯลฯ)
+- ✓ ไม่มี agent-comment leakage
+- ✓ บริการที่เพิ่มทุกตัวยืนยันว่าอยู่ใน CLF-C02 in-scope list
+
+### F. Files touched
+
+| File | Change |
+|---|---|
+| `data/topics/vpc.ts` | +119 / -8 lines — Client VPN section + endpoints rename + 3 quiz |
+| `data/topics/security.ts` | +146 / -2 — Firewall Manager + Audit Manager sections + Shield/WAF integration lists + 3 quiz |
+| `data/topics/cloud-integration.ts` | +114 — EventBridge + Step Functions sections + 2 quiz |
+| `data/topics/cloud-monitoring.ts` | +69 — X-Ray section + grid updates + 1 quiz |
+| `data/topics/other-services.ts` | +145 — SES + AppSync sections + Secure Browser comparison + 3 quiz |
+| `data/topics/account-management.ts` | +99 — Service Quotas + RAM + License Manager sections + 3 quiz |
+| `data/topics/databases.ts` | +58 — OpenSearch section + summary grid item + 2 quiz |
+| `data/topics/machine-learning.ts` | +42 — 3 quiz (Kendra / OpenSearch rename / Q) |
+| `AUDIT.md` | this section |
+| `docs/SERVICES.md` | bump **Last refreshed** → 2026-06-03 |
+| `UPDATE.md` | snapshot ใหม่ของรอบนี้ |
+
+**รวม content:** +784 / -8 บรรทัด, **+20 quiz items** ใน 8 ไฟล์

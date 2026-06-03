@@ -100,6 +100,20 @@ export const security: TopicData = {
           ],
         },
         {
+          type: "list",
+          items: [
+            "<strong>Resources ที่ Shield Advanced ปกป้อง:</strong> Amazon CloudFront distributions, Amazon Route 53 hosted zones, AWS Global Accelerator accelerators, Elastic Load Balancing (ALB / NLB / CLB), Amazon EC2 Elastic IP addresses",
+            "<strong>Shield Standard</strong> เปิดอัตโนมัติบน edge services (CloudFront, Route 53, Global Accelerator) สำหรับลูกค้าทุกคน",
+            "<strong>Shield Advanced</strong> เพิ่ม L7 DDoS protection (ผ่าน WAF integration), DRT 24/7, และ DDoS cost protection ให้ resources ข้างต้น",
+          ],
+        },
+        {
+          type: "callout",
+          variant: "info",
+          title: "Shield ปกป้องที่ไหน",
+          text: "Shield ปกป้อง <strong>edge / load balancer / DNS</strong> — ไม่ได้ผูกกับ EC2 ENI โดยตรง ถ้าจะป้องกัน EC2 ต้องผ่าน <strong>Elastic IP</strong> ที่ผูกกับ instance",
+        },
+        {
           type: "callout",
           variant: "tip",
           title: "Best practice",
@@ -121,6 +135,14 @@ export const security: TopicData = {
             "Deploy บน <strong>Application Load Balancer (ALB)</strong>, <strong>API Gateway</strong>, หรือ <strong>CloudFront</strong>",
             "กำหนด <strong>Web ACL (Access Control List)</strong> ที่มี rules ตามต้องการ",
             "ปกป้องเฉพาะ Layer 7 (HTTP) — ไม่ใช่ Layer 3/4 (DDoS ใช้ Shield)",
+          ],
+        },
+        {
+          type: "list",
+          items: [
+            "<strong>Services ที่ WAF ผูกได้ (attach points):</strong> Amazon CloudFront distributions, Application Load Balancer (ALB), Amazon API Gateway (REST APIs), AWS AppSync (GraphQL APIs), Amazon Cognito user pools",
+            "WAF ผูกที่ <strong>front door / load balancer</strong> เสมอ — <em>ไม่</em> ผูกกับ EC2 instance โดยตรง (ไม่มี agent บน OS)",
+            "WAF ใช้ไม่ได้กับ <strong>Network Load Balancer (NLB)</strong> เพราะ NLB ทำงานที่ Layer 4 (TCP/UDP) ส่วน WAF เป็น Layer 7",
           ],
         },
         {
@@ -150,6 +172,31 @@ export const security: TopicData = {
                 "จำกัดจำนวน request ต่อ IP ในช่วงเวลา — ป้องกัน brute force, scraping",
             },
           ],
+        },
+      ],
+    },
+    {
+      id: "firewall-manager",
+      title: "AWS Firewall Manager",
+      content: [
+        {
+          type: "paragraph",
+          text: "<strong>AWS Firewall Manager</strong> คือบริการ <em>centralized policy management</em> สำหรับจัดการกฎความปลอดภัยข้ามหลาย account ใน <strong>AWS Organizations</strong> — ใช้กำหนด WAF rules, Shield Advanced, Security Groups, และ Network Firewall จากที่เดียว",
+        },
+        {
+          type: "list",
+          items: [
+            "ใช้คู่กับ <strong>AWS Organizations</strong> — apply policy ครอบคลุมทุก account ในองค์กร",
+            "Manages: <strong>WAF Web ACLs, Shield Advanced protections, VPC Security Groups, AWS Network Firewall, Route 53 Resolver DNS Firewall</strong>",
+            "<strong>Auto-applies</strong> policy ให้ <em>account ใหม่</em> ที่เพิ่งเพิ่มเข้า Organization โดยอัตโนมัติ",
+            "ช่วยรวมศูนย์ <strong>compliance</strong> — เห็นภาพรวมว่ามี resource ไหนยังไม่เป็นไปตาม policy",
+          ],
+        },
+        {
+          type: "callout",
+          variant: "tip",
+          title: "เลือกใช้เมื่อไหร่",
+          text: "<strong>หลาย account</strong> (Organization) ต้องการ rule เดียวกันทุกที่ → <strong>Firewall Manager</strong><br><strong>Account เดียว</strong> → ตั้ง WAF / Shield / Security Groups ตรง ๆ ก็พอ",
         },
       ],
     },
@@ -369,6 +416,45 @@ export const security: TopicData = {
       ],
     },
     {
+      id: "audit-manager",
+      title: "AWS Audit Manager",
+      content: [
+        {
+          type: "paragraph",
+          text: "<strong>AWS Audit Manager</strong> เก็บหลักฐาน (evidence) เกี่ยวกับการใช้งาน AWS ของคุณ <em>อัตโนมัติและต่อเนื่อง</em> เพื่อ map กับ frameworks ต่าง ๆ เช่น <strong>SOC 2, PCI DSS, GDPR, HIPAA, ISO 27001</strong> — ลดงาน manual ในการเตรียมข้อมูลสำหรับ audit",
+        },
+        {
+          type: "grid",
+          items: [
+            {
+              title: "AWS Artifact",
+              description:
+                "ดาวน์โหลด <strong>compliance reports ของ AWS</strong> (ISO, PCI, SOC) — เป็นหลักฐานว่า <em>AWS</em> ผ่านมาตรฐาน",
+            },
+            {
+              title: "AWS Audit Manager",
+              description:
+                "สร้าง <strong>evidence ของคุณเอง</strong> — ตรวจสอบว่า <em>workload ของคุณ</em> เป็นไปตาม framework ที่เลือก โดยรวบรวม config + logs + activity ให้อัตโนมัติ",
+            },
+          ],
+        },
+        {
+          type: "list",
+          items: [
+            "Pre-built frameworks: <strong>SOC 2, PCI DSS, GDPR, HIPAA, ISO 27001, CIS, AWS Foundational Security Best Practices</strong> ฯลฯ",
+            "เก็บ evidence จาก <strong>CloudTrail, Config, Security Hub</strong> ฯลฯ",
+            "สร้าง <strong>assessment report</strong> ที่พร้อมส่งให้ auditor",
+          ],
+        },
+        {
+          type: "callout",
+          variant: "info",
+          title: "Artifact vs Audit Manager",
+          text: "<strong>Artifact</strong> = ดาวน์โหลดเอกสารของ <em>AWS</em> ที่ผ่านมาตรฐานแล้ว<br><strong>Audit Manager</strong> = สร้างหลักฐานของ <em>คุณเอง</em> ว่า workload เป็นไปตาม framework",
+        },
+      ],
+    },
+    {
       id: "guardduty",
       title: "Amazon GuardDuty",
       content: [
@@ -569,11 +655,18 @@ export const security: TopicData = {
           items: [
             {
               title: "Shield Standard / Advanced",
-              description: "ป้องกัน DDoS — Standard ฟรี, Advanced $3,000/เดือน + DRT 24/7",
+              description:
+                "ป้องกัน DDoS — Standard ฟรี (อัตโนมัติบน CloudFront / Route 53 / Global Accelerator), Advanced $3,000/เดือน + DRT 24/7 (ปกป้อง CloudFront, Route 53, Global Accelerator, ELB, EC2 EIP)",
             },
             {
               title: "WAF",
-              description: "Layer 7 firewall — ป้องกัน SQL injection, XSS, geo-block",
+              description:
+                "Layer 7 firewall — ป้องกัน SQL injection, XSS, geo-block ผูกได้กับ CloudFront, ALB, API Gateway, AppSync, Cognito user pools (ไม่ผูกกับ EC2 / NLB)",
+            },
+            {
+              title: "Firewall Manager",
+              description:
+                "Centralized policy ข้ามหลาย account ใน AWS Organizations — manage WAF, Shield Advanced, Security Groups, Network Firewall จากที่เดียว",
             },
             {
               title: "KMS",
@@ -593,7 +686,12 @@ export const security: TopicData = {
             },
             {
               title: "Artifact",
-              description: "Portal โหลดเอกสาร compliance (ISO, PCI, SOC, BAA)",
+              description: "Portal โหลดเอกสาร compliance ของ AWS (ISO, PCI, SOC, BAA)",
+            },
+            {
+              title: "Audit Manager",
+              description:
+                "เก็บ evidence อัตโนมัติเพื่อ map กับ frameworks (SOC 2, PCI DSS, HIPAA, GDPR, ISO) — สร้าง assessment report ของ workload คุณเอง",
             },
             {
               title: "GuardDuty",
@@ -978,6 +1076,48 @@ export const security: TopicData = {
       correct: 0,
       explanation:
         "IAM Access Analyzer continuously analyzes resource policies (S3, IAM roles, KMS, Lambda, SQS, Secrets Manager) and flags resources accessible from outside your account or organization.",
+    },
+    {
+      id: "sec-q26",
+      question:
+        "Which of the following is NOT a resource that AWS WAF can be attached to?",
+      options: [
+        "Amazon CloudFront distribution",
+        "Application Load Balancer (ALB)",
+        "Amazon API Gateway",
+        "An EC2 instance directly (via its ENI)",
+      ],
+      correct: 3,
+      explanation:
+        "AWS WAF attaches to the front door / load balancer in front of your application — supported targets are CloudFront, ALB, API Gateway, AWS AppSync, and Amazon Cognito user pools. WAF is NOT attached directly to an EC2 instance, and it does NOT work with Network Load Balancers (NLB operates at Layer 4, while WAF is Layer 7).",
+    },
+    {
+      id: "sec-q27",
+      question:
+        "You have 50 AWS accounts in an AWS Organization and want to deploy and enforce a single set of WAF rules across all of them — including new accounts that join later. Which AWS service is BEST suited to do this?",
+      options: [
+        "AWS WAF (configured manually in each account)",
+        "AWS Firewall Manager",
+        "AWS Shield Advanced",
+        "AWS Config",
+      ],
+      correct: 1,
+      explanation:
+        "AWS Firewall Manager provides centralized policy management for WAF Web ACLs, Shield Advanced protections, Security Groups, AWS Network Firewall, and Route 53 Resolver DNS Firewall across multiple accounts in an AWS Organization. It auto-applies policies to new accounts that join the Organization.",
+    },
+    {
+      id: "sec-q28",
+      question:
+        "Your auditor needs continuous evidence that your AWS workload meets SOC 2 controls. Which AWS service should you use to automate evidence collection and produce an assessment report?",
+      options: [
+        "AWS Artifact",
+        "AWS Audit Manager",
+        "AWS Trusted Advisor",
+        "AWS Security Hub",
+      ],
+      correct: 1,
+      explanation:
+        "AWS Audit Manager automates evidence collection from your AWS environment (CloudTrail, Config, Security Hub, etc.) and maps it to pre-built frameworks like SOC 2, PCI DSS, GDPR, HIPAA, and ISO 27001 — producing an assessment report ready for auditors. AWS Artifact is different: it lets you download AWS's own compliance reports (proof that AWS itself is compliant), not evidence about your workload.",
     },
   ],
 };

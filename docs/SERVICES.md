@@ -2,7 +2,7 @@
 
 Living tables of AWS services that are **discontinued**, **renamed**, or **partial-EoL** as they affect this project's content. Authors editing `data/topics/*.ts` must consult this file before adding service mentions.
 
-**Last refreshed:** 2026-05-31 (follow-up audit; previous full pass 2026-05-30)
+**Last refreshed:** 2026-06-03 (coverage-expansion pass — re-validated against current CLF-C02 In-Scope Services list; no new service-status changes found. Previous full pass 2026-05-30, follow-up audit 2026-05-31.)
 
 For the methodology used to compile and refresh these tables, see [`AUDIT.md`](../AUDIT.md). For the URL list used to verify each service's current status, see the *Reference URL table* in [`AGENTS.md`](../AGENTS.md).
 

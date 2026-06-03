@@ -458,6 +458,46 @@ export const cloudMonitoring: TopicData = {
       ],
     },
     {
+      id: "x-ray",
+      title: "AWS X-Ray (Distributed Tracing)",
+      content: [
+        {
+          type: "paragraph",
+          text: "<strong>AWS X-Ray</strong> เป็นบริการ <em>distributed tracing</em> ที่แสดงเส้นทางของ request ที่ไหลผ่าน <strong>microservices</strong> ในแอปของคุณ — ช่วยหา <strong>latency bottlenecks</strong> และ <strong>error</strong> ได้ทีละ request",
+        },
+        {
+          type: "grid",
+          items: [
+            {
+              title: "Service Map",
+              description:
+                "<strong>Visual graph</strong> แสดง services ทั้งหมดในแอปและ latency / error rate ระหว่างกัน — เห็นภาพรวมว่า service ไหนช้าหรือพัง",
+            },
+            {
+              title: "Trace Analysis",
+              description:
+                "ดู <strong>per-request breakdown</strong> — เวลาที่ใช้ในแต่ละ service / database / external API call ของ request นั้น ๆ",
+            },
+          ],
+        },
+        {
+          type: "list",
+          items: [
+            "รองรับ workloads บน <strong>Lambda, EC2, ECS, Elastic Beanstalk, API Gateway</strong>",
+            "ต้องการ <strong>X-Ray SDK</strong> ใน application code หรือ <strong>X-Ray daemon</strong> บน EC2/ECS เพื่อส่ง trace data",
+            "ใช้หา <strong>bottlenecks</strong> และ <strong>errors</strong> ใน distributed / microservices architectures",
+            "Integrates กับ <strong>CloudWatch ServiceLens</strong> เพื่อรวม metrics + traces + logs",
+          ],
+        },
+        {
+          type: "callout",
+          variant: "tip",
+          title: "เปรียบเทียบ 3 บริการ observability",
+          text: "<strong>CloudWatch</strong> = metrics & logs (ระบบทำงานอย่างไร)<br><strong>CloudTrail</strong> = API audit (ใครทำอะไร)<br><strong>X-Ray</strong> = request tracing (request นี้ช้าตรงไหน)",
+        },
+      ],
+    },
+    {
       id: "comparison-summary",
       title: "Comparison Summary",
       content: [
@@ -508,6 +548,11 @@ export const cloudMonitoring: TopicData = {
               description:
                 "<strong>Use case:</strong> ดูสถานะ resource ของคุณเอง + remediation — ตอบคำถาม \"resource ของฉันได้รับผลกระทบไหม?\"",
             },
+            {
+              title: "AWS X-Ray",
+              description:
+                "<strong>Use case:</strong> distributed tracing สำหรับ microservices — ตอบคำถาม \"request นี้ช้าตรงไหน / call ไหนพัง?\"",
+            },
           ],
         },
         {
@@ -541,6 +586,11 @@ export const cloudMonitoring: TopicData = {
               title: '"resource ของฉัน healthy ไหม?"',
               description:
                 "ดูสถานะ resource ใน account ของคุณเอง พร้อม remediation → <strong>AWS Health Dashboard</strong> (เดิม Personal Health Dashboard)",
+            },
+            {
+              title: '"request ช้าตรงไหน?"',
+              description:
+                "หา bottleneck ของ request ที่ผ่าน microservices หลายตัว → <strong>AWS X-Ray</strong>",
             },
           ],
         },
@@ -576,6 +626,11 @@ export const cloudMonitoring: TopicData = {
               title: "Health Dashboards",
               description:
                 "<strong>Service Health</strong> = สถานะ AWS แบบ public ส่วน <strong>Personal Health</strong> = สถานะ resource ใน account คุณเอง",
+            },
+            {
+              title: "AWS X-Ray",
+              description:
+                "Distributed <strong>tracing</strong> สำหรับ microservices — เห็น service map และ latency ของแต่ละ request",
             },
           ],
         },
@@ -946,6 +1001,20 @@ export const cloudMonitoring: TopicData = {
       correct: 0,
       explanation:
         "Amazon CloudWatch — combined with X-Ray, ServiceLens, Container Insights, Lambda Insights — provides unified observability (metrics + logs + traces) for AWS workloads.",
+    },
+    {
+      id: "cm-q26",
+      question:
+        "Your microservices application is deployed on Lambda and API Gateway. Some user requests are intermittently slow and you want to see exactly which downstream call is taking the most time per request. Which AWS service is BEST suited?",
+      options: [
+        "Amazon CloudWatch Metrics",
+        "AWS CloudTrail",
+        "AWS X-Ray",
+        "AWS Config",
+      ],
+      correct: 2,
+      explanation:
+        "AWS X-Ray is a distributed tracing service. It captures each request as a trace, breaks it into segments per service / database / external call, and produces a service map showing latency at each hop — exactly the right tool for diagnosing slow microservice requests. CloudWatch Metrics aggregates numbers; CloudTrail audits API calls; Config tracks configuration drift — none of those provide per-request tracing.",
     },
   ],
 };

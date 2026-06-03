@@ -400,6 +400,92 @@ Use case            | Migrate on-prem    | Cloud-native apps`,
       ],
     },
     {
+      id: "eventbridge",
+      title: "Amazon EventBridge",
+      content: [
+        {
+          type: "paragraph",
+          text: "<strong>Amazon EventBridge</strong> เป็น <em>serverless event bus</em> ที่ทำหน้าที่ <strong>routing events</strong> ระหว่าง AWS services, SaaS partners, และ custom applications — ใช้กฎ (rules) ในการ filter / transform / route event ไปยัง target ที่กำหนด — เป็นรุ่นที่พัฒนาต่อจาก <strong>CloudWatch Events</strong>",
+        },
+        {
+          type: "grid",
+          items: [
+            {
+              title: "Default Event Bus",
+              description:
+                "รับ events จาก <strong>AWS services</strong> โดยอัตโนมัติ เช่น EC2 state change, S3 object created, CloudTrail API calls",
+            },
+            {
+              title: "Custom Event Bus",
+              description:
+                "รับ events จาก <strong>application ของคุณเอง</strong> — ส่ง event ผ่าน PutEvents API เพื่อ decouple microservices",
+            },
+            {
+              title: "Partner Event Bus",
+              description:
+                "รับ events จาก <strong>3rd-party SaaS</strong> เช่น Datadog, Zendesk, Stripe, Auth0 — โดยไม่ต้อง poll API เอง",
+            },
+          ],
+        },
+        {
+          type: "list",
+          items: [
+            "<strong>Rule-based routing</strong> — กำหนด pattern (event source / detail) แล้วส่งไปยัง target ที่เลือก",
+            "Targets ที่รองรับ: <strong>Lambda, SQS, SNS, Step Functions, Kinesis, ECS task, API destination</strong> และอีกกว่า 30 services",
+            "<strong>Schema Registry</strong> — เก็บโครงสร้างของ event เพื่อสร้าง code bindings ได้อัตโนมัติ",
+            "<strong>Replaces CloudWatch Events</strong> — ความสามารถเดิมยังใช้ได้ + เพิ่ม partner events และ schema registry",
+            "Decouple producers จาก consumers — producer ส่ง event โดยไม่รู้ว่าใครรับ",
+          ],
+        },
+        {
+          type: "callout",
+          variant: "tip",
+          title: "เปรียบเทียบ",
+          text: "<strong>EventBridge</strong> = events router (rule-based, many sources/targets)<br><strong>SNS</strong> = pub/sub topic-based notifications<br><strong>SQS</strong> = queue (decouple, async processing)",
+        },
+      ],
+    },
+    {
+      id: "step-functions",
+      title: "AWS Step Functions",
+      content: [
+        {
+          type: "paragraph",
+          text: "<strong>AWS Step Functions</strong> เป็น <em>serverless workflow orchestrator</em> ที่ใช้ <strong>state machines</strong> (JSON definition) ประสานการทำงานของ Lambda functions และ AWS services อื่น ๆ ให้เป็น workflow เดียวที่มี <strong>error handling, retry, และ visual flow</strong> ในตัว",
+        },
+        {
+          type: "grid",
+          items: [
+            {
+              title: "Standard Workflows",
+              description:
+                "Workflow แบบยาว — ทำงานได้สูงสุด <strong>1 ปี</strong>, exactly-once execution, เหมาะกับ business process / approval flow",
+            },
+            {
+              title: "Express Workflows",
+              description:
+                "Workflow แบบสั้น <strong>≤5 นาที</strong> — รองรับ event volume สูงมาก (100,000+ events/sec), at-least-once execution, เหมาะกับ streaming data / IoT / mobile backends",
+            },
+          ],
+        },
+        {
+          type: "list",
+          items: [
+            "<strong>Visual Workflow Studio</strong> — drag-and-drop ออกแบบ workflow แบบเห็น flow",
+            "Built-in <strong>error handling, retry, and parallel execution</strong> — ไม่ต้อง code logic เอง",
+            "Integrates กับ <strong>200+ AWS services</strong> — Lambda, ECS, SNS, SQS, DynamoDB, SageMaker ฯลฯ",
+            "Use cases: <strong>order processing, data pipelines (ETL), ML training workflows, approval workflows</strong>",
+          ],
+        },
+        {
+          type: "callout",
+          variant: "info",
+          title: "Step Functions vs EventBridge vs SQS/SNS",
+          text: "<strong>Step Functions</strong> = orchestrate (sequential/parallel steps + state)<br><strong>EventBridge</strong> = route events (rule-based, no state)<br><strong>SQS/SNS</strong> = decouple (queue / pub-sub, no orchestration)",
+        },
+      ],
+    },
+    {
       id: "when-to-use",
       title: "When to Use Which?",
       content: [
@@ -854,6 +940,34 @@ Use case            | Migrate on-prem    | Cloud-native apps`,
       correct: 1,
       explanation:
         "EventBridge is event-driven with rich content-based filtering, schema registry, event archive, replay, partner integrations (Zendesk, Datadog, MongoDB Atlas, etc.). SNS is simpler pub/sub.",
+    },
+    {
+      id: "ci-q26",
+      question:
+        "Which AWS service coordinates multiple Lambda functions and other AWS services into a serverless workflow with built-in error handling, retry, and visual flow?",
+      options: [
+        "Amazon SQS",
+        "Amazon EventBridge",
+        "AWS Step Functions",
+        "Amazon SNS",
+      ],
+      correct: 2,
+      explanation:
+        "AWS Step Functions is a serverless workflow orchestrator. You define a state machine in JSON (or use the visual Workflow Studio) and Step Functions handles the sequencing, parallelism, error handling, and retry logic — coordinating Lambda and 200+ other AWS services.",
+    },
+    {
+      id: "ci-q27",
+      question:
+        "You need to route events from 12 different AWS services and a 3rd-party SaaS provider to several Lambda function targets, with rules that filter events by content. Which AWS service is BEST?",
+      options: [
+        "Amazon SQS",
+        "Amazon EventBridge",
+        "AWS Step Functions",
+        "Amazon Kinesis Data Streams",
+      ],
+      correct: 1,
+      explanation:
+        "Amazon EventBridge is a serverless event bus that routes events from AWS services, SaaS partners (via Partner Event Buses), and your own apps to many target types (Lambda, SQS, SNS, Step Functions, etc.) — based on content-matching rules. Step Functions orchestrates workflows but does not provide event routing from external sources.",
     },
   ],
 };
