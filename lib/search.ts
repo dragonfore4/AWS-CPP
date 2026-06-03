@@ -23,7 +23,7 @@ export interface ScoredEntry {
 export function tokenize(query: string): string[] {
   const norm = normalize(query.trim());
   if (!norm) return [];
-  const parts = norm.split(/[\s,;:.?!()[\]{}/\\]+/u).filter(Boolean);
+  const parts = norm.split(/[\s,;.?!()[\]{}/\\]+/u).filter(Boolean);
   return Array.from(new Set(parts));
 }
 
@@ -52,7 +52,7 @@ function primaryTitle(entry: SearchEntry): string {
 function primaryTitleTokens(entry: SearchEntry): Set<string> {
   return new Set(
     primaryTitle(entry)
-      .split(/[\s,;:.?!()[\]{}/\\]+/u)
+      .split(/[\s,;.?!()[\]{}/\\]+/u)
       .filter(Boolean),
   );
 }
@@ -92,8 +92,8 @@ function scoreEntry(
       hit = true;
     }
     // Exact word match in the primary title — robust against punctuation
-    // such as a trailing period or colon, which a substring check would
-    // miss (e.g. title "IAM:" with `t === "iam"`).
+    // such as a trailing period, which a substring check would miss
+    // (e.g. title "IAM." with `t === "iam"`).
     if (primaryTokenSet.has(t)) {
       score += 2;
       hit = true;
