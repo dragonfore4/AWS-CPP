@@ -100,11 +100,12 @@ function scoreEntry(
     }
     // Grid-card title hit: services like "AWS Knowledge Center" or "AWS
     // re:Post" often live only inside a section's grid items, not its
-    // own title. Boost weight (+3) sits between the section title boost
-    // (+5) and the primary-title prefix nudge (+2) — grid-card titles
-    // are slightly less authoritative than the section title itself.
+    // own title. Boost weight (+5) matches the section-title boost — a
+    // grid-card title is an author-curated label inside a curated
+    // content unit, near-equivalent in authority to the section title
+    // for queries whose tokens match it exactly.
     if (entry.kind === "section" && entry.cardTitleTokens?.has(t)) {
-      score += 3;
+      score += 5;
       hit = true;
     }
     if (hit) matched.push(t);
