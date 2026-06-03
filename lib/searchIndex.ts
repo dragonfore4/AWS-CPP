@@ -40,6 +40,7 @@ export type SearchEntry =
       stephaneIndex: number;
       snippet: string;
       haystack: string;
+      cardTitleTokens?: Set<string>;
     };
 
 /** Strip HTML tags and decode a few common entities. */
@@ -105,6 +106,40 @@ function sectionText(content: SectionContent[]): string {
   return parts.join(" ");
 }
 
+/**
+ * Walk a section's content and collect tokens taken from every grid
+ * item's title. Used by the search scorer to award a small boost when a
+ * query token hits a grid-card title — services like AWS Knowledge
+ * Center and AWS Prescriptive Guidance live only inside grid cards, not
+ * in the section's own title, so without this they ranked too low.
+ *
+ * Returns `undefined` for sections with no grid cards, so we can leave
+ * the optional `cardTitleTokens` field unset on those entries.
+ */
+function gridCardTokens(content: SectionContent[]): Set<string> | undefined {
+  const titles: string[] = [];
+  for (const c of content) {
+    if (c.type === "grid") {
+      for (const item of c.items) {
+        const stripped = stripHtml(item.title);
+        if (stripped) titles.push(stripped);
+      }
+    }
+  }
+  if (titles.length === 0) return undefined;
+
+  const tokens = new Set<string>();
+  for (const title of titles) {
+    const normalised = normalize(title);
+    // Same split character class as `tokenize` and `primaryTitleTokens`
+    // in lib/search.ts (without ':') so behaviour stays symmetric.
+    for (const part of normalised.split(/[\s,;.?!()[\]{}/\\]+/u)) {
+      if (part) tokens.add(part);
+    }
+  }
+  return tokens;
+}
+
 /** Truncate a snippet to roughly N characters, breaking on whitespace. */
 function truncate(s: string, max: number): string {
   if (s.length <= max) return s;
@@ -167,6 +202,7 @@ function buildIndex(): SearchEntry[] {
         collapsed === baseHaystack
           ? baseHaystack
           : `${baseHaystack} ${collapsed}`;
+      const cardTitleTokens = gridCardTokens(section.content);
 
       out.push({
         kind: "section",
@@ -179,6 +215,7 @@ function buildIndex(): SearchEntry[] {
         stephaneIndex: idx,
         snippet: truncate(flatText, 140),
         haystack,
+        cardTitleTokens,
       });
     }
   });
